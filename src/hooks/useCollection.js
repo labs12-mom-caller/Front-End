@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { db } from '../firebase';
 
-export default function suseCollection(path, orderBy, where = []) {
+export default function useCollection(path, orderBy, where = []) {
   const [docs, setDocs] = useState([]);
   const [queryField, queryOperator, queryValue] = where;
   useEffect(() => {
     let collection = db.collection(path);
+
     if (orderBy) {
       collection = collection.orderBy(orderBy);
     }
@@ -18,7 +19,7 @@ export default function suseCollection(path, orderBy, where = []) {
     return collection.onSnapshot(snapshot => {
       const documents = [];
       snapshot.forEach(doc => {
-        docs.push({
+        documents.push({
           ...doc.data(),
           id: doc.id,
         });
