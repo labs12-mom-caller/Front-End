@@ -3,10 +3,11 @@
 	"parserOptions": {
 		"ecmaVersion": 2018
 	},
-	"extends": ["eslint:recommended", "eslint-config-prettier"],
+	"extends": ["eslint:recommended", "airbnb", "eslint-config-prettier"],
 	"rules": {
 		"no-console": "off",
-		"no-unused-vars": "off"
+		"no-unused-vars": "off",
+		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
 	},
 	"env": {
 		"browser": true
