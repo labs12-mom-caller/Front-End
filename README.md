@@ -1,8 +1,4 @@
-# ![logo]
-
-()
-
----
+# ![logo](https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico)
 
 # ReCaller
 

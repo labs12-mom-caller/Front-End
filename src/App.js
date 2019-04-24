@@ -1,4 +1,5 @@
 import React from 'react';
+import LandingPage from './LandingPage';
 
 import CSSReset from './styles/CSSReset';
 import Global from './styles/Global';
@@ -7,7 +8,7 @@ const App = () => (
   <>
     <CSSReset />
     <Global />
-    <h1>Recaller</h1>
+    <LandingPage />
     <p> Test</p>
   </>
 );
