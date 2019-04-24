@@ -1,4 +1,5 @@
 # ![logo]
+
 ()
 
 ---
@@ -8,9 +9,10 @@
 Recaller is an app that automatically schedules and makes calls between adult children and their parents. At a preset time, both parties receive a call on their phone. It uses the Deepgram API to make a transcription of the call and send it to parent and child.
 
 Deployment: https://recaller-14a1f.firebaseapp.com/<br>
-
+Trello: https://trello.com/b/TjTMyqlH
 
 ## Table of Contents
+
 - [Team](#team)
 - [Motivation](#Motivation)
 - [Features](#Features)
@@ -19,11 +21,10 @@ Deployment: https://recaller-14a1f.firebaseapp.com/<br>
 - [API](#API)
 - [Contributing](#Contributing)
 
-
 ### Team
 
 | Members         | Github                            |
-|-----------------|-----------------------------------|
+| --------------- | --------------------------------- |
 | Dylan Dislers   | https://github.com/dislersd       |
 | Jon Palacio     | https://github.com/bangarangler   |
 | Kevin Smith     | https://github.com/keveightysev   |
@@ -31,6 +32,7 @@ Deployment: https://recaller-14a1f.firebaseapp.com/<br>
 | Shawn Antonucci | https://github.com/shawnantonucci |
 
 ### Motivation
+
 Quentin’s Mom always bugs him saying, “How come you never call me?” Well, he’s had enough. A couple of his friends have told him he should sign up for Mom Caller so that’s what he did. Now, his monthly Mom caller subscription calls both him AND his mom at random times every week — no way for him to forget (and no way to bail since both people are being called at the same time)! His mom is thrilled. Even better, the subscription is free for short and randomly timed calls and paid for pre-schedule and long calls (and moms can get the subscription for their children). His mom loves it because after every call she gets sent a recording and a transcript of the call through her email. She’s always up to date now and Quentin feels like an awesome son.
 
 # Front-End
@@ -41,7 +43,6 @@ Recaller is an app that allows users to schedule calls between themselves and th
 
 We believe in connecting families and friends. In order to facilitate this, we will build an app that allows you to schedule phone calls and have a transcript of your conversations to remember details from your calls. By offering calls, automation, and flexible configuration we work to ensure families stay in touch.
 
-
 ### Features
 
 - Deepgram voice recognition
@@ -50,28 +51,30 @@ We believe in connecting families and friends. In order to facilitate this, we w
 - Call recording
 
 ### Installation
+
 Install the app in a local dev environment by running `yarn` from the root of
 the folder. This installs all dependencies.
 You will need a `.env` file in the `./` directory.
 
-
 ##### Server:
+
 To be filled in
 
 ### Using ReCaller
+
 To be filled in
 
 ### API
-to be filled in
 
+to be filled in
 
 ### Testing
-to be filled in
 
+to be filled in
 
 ### Contributing
-to be filled in
 
+to be filled in
 
 ## License
 
@@ -79,7 +82,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Lambda School
-* Dev Team Members working on ReCaller
-
+- Hat tip to anyone whose code was used
+- Lambda School
+- Dev Team Members working on ReCaller
