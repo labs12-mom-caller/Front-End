@@ -6,6 +6,7 @@ export default function useCollection(path, orderBy, where = []) {
   const [queryField, queryOperator, queryValue] = where;
   useEffect(() => {
     let collection = db.collection(path);
+
     if (orderBy) {
       collection = collection.orderBy(orderBy);
     }
@@ -18,7 +19,7 @@ export default function useCollection(path, orderBy, where = []) {
     return collection.onSnapshot(snapshot => {
       const documents = [];
       snapshot.forEach(doc => {
-        docs.push({
+        documents.push({
           ...doc.data(),
           id: doc.id,
         });
