@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { db } from '../firebase';
 
-export default function suseCollection(path, orderBy, where = []) {
+export default function useCollection(path, orderBy, where = []) {
   const [docs, setDocs] = useState([]);
   const [queryField, queryOperator, queryValue] = where;
   useEffect(() => {
