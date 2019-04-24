@@ -9,7 +9,7 @@ const App = () => (
     <CSSReset />
     <Global />
     <LandingPage />
-    <p> Test</p>
+    <p> Testing</p>
   </>
 );
 
