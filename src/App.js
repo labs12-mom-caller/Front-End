@@ -1,8 +1,9 @@
 import React from 'react';
+import LandingPage from './LandingPage';
 
 const App = () => (
   <>
-    <h1>Recaller</h1>
+    <LandingPage />
     <p> Test</p>
   </>
 );
