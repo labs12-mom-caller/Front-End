@@ -1,43 +1,11 @@
 import React from 'react';
+import { navigate } from '@reach/router';
 import { Formik } from 'formik';
 import { firebase, db } from '../firebase';
 
-function useAuth() {
-  const [user, setUser] = React.useState(null);
-
-  React.useEffect(() => {
-    // this effect allows us to persist login
-    return firebase.auth().onAuthStateChanged(firebaseUser => {
-      if (firebaseUser) {
-        const currentUser = {
-          email: firebaseUser.email,
-          uid: firebaseUser.uid,
-        };
-        setUser(currentUser);
-        db.collection('users')
-          .doc(currentUser.uid)
-          .set(currentUser, { merge: true }); // merge adds safety
-      } else {
-        setUser(null);
-      }
-    });
-  }, []);
-  return user;
-}
-
-const SignupForm = () => {
+const LoginForm = () => {
   const [authError, setAuthError] = React.useState(null);
-
-  const user = useAuth();
   const handleSignUp = async (email, password) => {
-    const provider = await firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .catch(error => {
-        // Handle Errors here.
-        console.log(error, 'failed to signup');
-        // ...
-      });
     const result = await firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -46,13 +14,9 @@ const SignupForm = () => {
       });
   };
 
-  return user ? (
+  return (
     <div>
-      <h2>You Are Logged In</h2>
-    </div>
-  ) : (
-    <div>
-      <h1>Signup or Login with Email</h1>
+      <h1>Login with Email</h1>
       <Formik
         initialValues={{ email: '', password: '' }}
         validate={values => {
@@ -73,9 +37,11 @@ const SignupForm = () => {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             // alert(JSON.stringify(values, null, 2));
+            console.log(values);
             handleSignUp(values.email, values.password);
             setSubmitting(false);
-          }, 400);
+            navigate(`/home`);
+          }, 500);
         }}
       >
         {({
@@ -117,4 +83,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default LoginForm;

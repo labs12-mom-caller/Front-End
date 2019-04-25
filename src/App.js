@@ -1,17 +1,20 @@
 import React from 'react';
-import SignUpPage from './SignUpPage';
+import { Router } from '@reach/router';
 import CSSReset from './styles/CSSReset';
 import Global from './styles/Global';
-import SigninForm from './pages/SigninForm';
+import SignUp from './pages/SignUp';
+import Home from './pages/Home';
 
 const App = () => {
   return (
-    <>
+    <React.Fragment>
       <CSSReset />
       <Global />
-      <SignUpPage />
-      <SigninForm />
-    </>
+      <Router>
+        <SignUp path='/' />
+        <Home path='/home' />
+      </Router>
+    </React.Fragment>
   );
 };
 
