@@ -2,6 +2,7 @@ import React from 'react';
 import LandingPage from './LandingPage';
 import CSSReset from './styles/CSSReset';
 import Global from './styles/Global';
+import SigninForm from './screens/SigninForm';
 
 const App = () => {
   return (
@@ -9,6 +10,7 @@ const App = () => {
       <CSSReset />
       <Global />
       <LandingPage />
+      <SigninForm />
     </>
   );
 };
