@@ -28,14 +28,10 @@ const LandingPage = () => {
   const [authError, setAuthError] = React.useState(null);
 
   const user = useAuth();
-
   const handleSignIn = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-
     try {
       await firebase.auth().signInWithPopup(provider);
-      const currUser = firebase.auth().currentUser;
-      await currUser.sendEmailVerification();
     } catch (error) {
       setAuthError(error);
     }
