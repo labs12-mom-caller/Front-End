@@ -1,5 +1,6 @@
 import React from 'react';
 import { firebase, db } from './firebase';
+import ChooseYourContact from './pages/ChooseYourContact';
 
 function useAuth() {
   const [user, setUser] = React.useState(null);
@@ -24,7 +25,7 @@ function useAuth() {
   }, []);
   return user;
 }
-const LandingPage = () => {
+const SignUpPage = () => {
   const [authError, setAuthError] = React.useState(null);
 
   const user = useAuth();
@@ -37,18 +38,7 @@ const LandingPage = () => {
     }
   };
   return user ? (
-    <div>
-      <h2>Welcome {user.displayName} You Are Logged In</h2>
-      <p>Recaller</p>
-      <button
-        type='button'
-        onClick={() => {
-          firebase.auth().signOut();
-        }}
-      >
-        log out
-      </button>
-    </div>
+    <ChooseYourContact user={user} />
   ) : (
     <div>
       <h2>You Are NOT Logged In</h2>
@@ -69,4 +59,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+export default SignUpPage;
