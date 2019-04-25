@@ -7,7 +7,7 @@ function useAuth(values) {
   React.useEffect(() => {
     // this effect allows us to persist login
     return firebase.auth().onAuthStateChanged(firebaseUser => {
-      if (firebaseUser && values.phoneNumber !== null) {
+      if (firebaseUser && firebaseUser.phone !== null) {
         const currentUser = {
           email: firebaseUser.email,
           phone: values,

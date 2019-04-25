@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { firebase, db } from '../firebase';
+import useDoc from '../hooks/useDoc';
 
 export const DisplayFormikState = props => (
   <div style={{ margin: '1rem 0' }}>
@@ -18,21 +19,49 @@ export const DisplayFormikState = props => (
     </pre>
   </div>
 );
-
 const ChooseYourContact = ({ user }) => {
+  const [newUser, setNewUser] = React.useState(null);
+  console.log(newUser, 'NEW');
+  React.useEffect(() => {
+    if (newUser) {
+      db.doc(`users/${user.uid}`).update({
+        contact: {
+          email: newUser.email,
+          name: newUser.displayName,
+          phoneNumber: newUser.phoneNumber,
+        },
+        // [`channels.${channelId}`]: newUser, // <-- deep update using a firebase api
+        // channels: {
+        // 	[channelId]: true, // computed property <-- would override same value
+        // },
+      });
+    }
+  }, [newUser, user.uid]);
+  const currentUserData = useDoc(`users/${user.uid}`);
   const updateUser = values => {
     const formattedPhone = String('+1').concat(
       String(values.phoneNumber).replace(/[^\d]/g, ''),
     );
-    const newUser = {
+    const contactProp = [{ ...values, phoneNumber: formattedPhone }];
+    const newContact = contactProp.map(obj => {
+      return Object.assign({}, obj);
+    });
+
+    const userWithContact = {
       ...user,
-      contact: [{ ...values, phoneNumber: formattedPhone }],
+      contact: newContact,
     };
-    db.collection(`users`)
-      .doc(user.uid)
-      .set(newUser, { merge: true });
+    console.log(userWithContact, '$$$$$$$$$$$$');
+    setNewUser({ ...user, contact: newContact });
   };
 
+  // console.log(currentUserData, 'CURRENT');
+
+  if (currentUserData) {
+    if (currentUserData.contact) {
+      return <div>Hello</div>;
+    }
+  }
   return (
     <>
       <div>Hello {user.displayName} </div>
