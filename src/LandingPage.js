@@ -20,10 +20,16 @@ function useAuth() {
   return user;
 }
 const LandingPage = () => {
+  const [authError, setAuthError] = React.useState(null);
+
   const user = useAuth();
   const handleSignIn = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    await firebase.auth().signInWithPopup(provider);
+    try {
+      await firebase.auth().signInWithPopup(provider);
+    } catch (error) {
+      setAuthError(error);
+    }
   };
   return user ? (
     <div>
@@ -45,6 +51,15 @@ const LandingPage = () => {
       <button type='button' onClick={handleSignIn}>
         Sign In With Google
       </button>
+      {authError && (
+        <div>
+          <p>Sorry, there was a problem</p>
+          <p>
+            <i>{authError.message}</i>
+          </p>
+          <p>Please try again</p>
+        </div>
+      )}
     </div>
   );
 };
