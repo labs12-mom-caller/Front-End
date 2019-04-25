@@ -24,6 +24,14 @@ const LandingPage = () => {
     <div>
       <h2>Welcome {user.displayName} You Are Logged In</h2>
       <p>Recaller</p>
+      <button
+        type='button'
+        onClick={() => {
+          firebase.auth().signOut();
+        }}
+      >
+        log out
+      </button>
     </div>
   ) : (
     <div>
