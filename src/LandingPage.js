@@ -5,6 +5,7 @@ function useAuth() {
   const [user, setUser] = React.useState(null);
 
   React.useEffect(() => {
+    // this effect allows us to persist login
     return firebase.auth().onAuthStateChanged(firebaseUser => {
       if (firebaseUser) {
         const currentUser = {
@@ -15,7 +16,7 @@ function useAuth() {
         setUser(currentUser);
         db.collection('users')
           .doc(currentUser.uid)
-          .set(currentUser, { merge: true });
+          .set(currentUser, { merge: true }); // merge adds safety
       } else {
         setUser(null);
       }
