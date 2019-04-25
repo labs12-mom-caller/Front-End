@@ -8,7 +8,8 @@
     "no-console": "off",
     "no-unused-vars": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/jsx-one-expression-per-line": "off"
+    "react/jsx-one-expression-per-line": "off", 
+    "react/require-default-props": "off"
   },
   "env": {
     "browser": true
