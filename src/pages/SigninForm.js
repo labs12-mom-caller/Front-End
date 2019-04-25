@@ -7,18 +7,20 @@ function useAuth(values) {
   React.useEffect(() => {
     // this effect allows us to persist login
     return firebase.auth().onAuthStateChanged(firebaseUser => {
-      if (firebaseUser) {
+      if (firebaseUser && values.phoneNumber !== null) {
         const currentUser = {
           email: firebaseUser.email,
           phone: values,
           uid: firebaseUser.uid,
         };
-        setUser(currentUser);
-        db.collection('users')
-          .doc(currentUser.uid)
-          .set(currentUser, { merge: true }); // merge adds safety
-      } else {
-        setUser(null);
+        if (currentUser) {
+          setUser(currentUser);
+          db.collection('users')
+            .doc(currentUser.uid)
+            .set(currentUser, { merge: true }); // merge adds safety
+        } else {
+          setUser(null);
+        }
       }
     });
   }, [values]);
@@ -76,7 +78,10 @@ const SignupForm = () => {
         }}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            setPhone(values.phoneNumber);
+            const formatedPhone = String('+1').concat(
+              String(values.phoneNumber).replace(/[^\d]/g, ''),
+            );
+            setPhone(formatedPhone);
             // alert(JSON.stringify(values, null, 2));
             console.log(values);
             handleSignUp(values.email, values.password);

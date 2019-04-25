@@ -10,7 +10,9 @@ const App = () => {
       <CSSReset />
       <Global />
       <SignUpPage />
-      <SigninForm />
+      <div>
+        <SigninForm />
+      </div>
     </>
   );
 };
