@@ -21,9 +21,12 @@ export const DisplayFormikState = props => (
 
 const ChooseYourContact = ({ user }) => {
   const updateUser = values => {
+    const formattedPhone = String('+1').concat(
+      String(values.phoneNumber).replace(/[^\d]/g, ''),
+    );
     const newUser = {
       ...user,
-      contact: [values],
+      contact: [{ ...values, phoneNumber: formattedPhone }],
     };
     db.collection(`users`)
       .doc(user.uid)
