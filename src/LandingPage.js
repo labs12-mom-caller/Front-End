@@ -1,5 +1,5 @@
 import React from 'react';
-import { firebase } from './firebase';
+import { firebase, db } from './firebase';
 
 function useAuth() {
   const [user, setUser] = React.useState(null);
@@ -7,11 +7,15 @@ function useAuth() {
   React.useEffect(() => {
     return firebase.auth().onAuthStateChanged(firebaseUser => {
       if (firebaseUser) {
-        setUser({
+        const currentUser = {
           displayName: firebaseUser.displayName,
           photoUrl: firebaseUser.photoURL,
           uid: firebaseUser.uid,
-        });
+        };
+        setUser(currentUser);
+        db.collection('users')
+          .doc(currentUser.uid)
+          .set(currentUser, { merge: true });
       } else {
         setUser(null);
       }
