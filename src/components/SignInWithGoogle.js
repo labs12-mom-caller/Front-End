@@ -1,6 +1,7 @@
 import React from 'react';
-import { firebase, db } from './firebase';
-import ChooseYourContact from './pages/ChooseYourContact';
+import { firebase, db } from '../firebase';
+import ChooseYourContact from '../pages/ChooseYourContact';
+import SigninForm from './SigninForm';
 
 function useAuth() {
   const [user, setUser] = React.useState(null);
@@ -23,9 +24,10 @@ function useAuth() {
       }
     });
   }, []);
+  console.log(user);
   return user;
 }
-const SignUpPage = () => {
+const SignInWithGoogle = () => {
   const [authError, setAuthError] = React.useState(null);
 
   const user = useAuth();
@@ -38,7 +40,10 @@ const SignUpPage = () => {
     }
   };
   return user ? (
-    <ChooseYourContact user={user} />
+    <>
+      <ChooseYourContact user={user} />
+      <SigninForm />
+    </>
   ) : (
     <div>
       <h2>You Are NOT Logged In</h2>
@@ -59,4 +64,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default SignInWithGoogle;
