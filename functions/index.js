@@ -26,10 +26,21 @@ exports.callService = functions.pubsub.topic('recaller').onPublish(async () => {
       return;
     }
     snapshot.forEach(async doc => {
-      const user1id = doc.data().user1.id;
+      const user1id = doc.data().user.id;
       const user1 = await users.doc(user1id).get();
       const user1phone = user1.data().phone;
-      console.log(doc.id, user1phone);
+
+      client.calls.create(
+        {
+          url:
+            'https://handler.twilio.com/twiml/EHef6fe8c09005a4e4fa44c3142c2b2592',
+          to: user1phone,
+          from: '+18727048254',
+        },
+        (err, call) => {
+          console.log(call);
+        },
+      );
     });
   } catch (err) {
     console.log('Error getting docs', err);
