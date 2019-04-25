@@ -29,11 +29,11 @@ exports.callService = functions.pubsub.topic('recaller').onPublish(async () => {
       const user1id = doc.data().user.id;
       const user1 = await users.doc(user1id).get();
       const user1phone = user1.data().phone;
+      const { phone2 } = doc.data();
 
       client.calls.create(
         {
-          url:
-            'https://handler.twilio.com/twiml/EHef6fe8c09005a4e4fa44c3142c2b2592',
+          url: `https://handler.twilio.com/twiml/EHef6fe8c09005a4e4fa44c3142c2b2592?BuddyPhone=${phone2}`,
           to: user1phone,
           from: '+18727048254',
         },
