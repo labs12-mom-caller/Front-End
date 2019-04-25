@@ -2,10 +2,11 @@
 
 # ReCaller
 
-Recaller is an app that automatically schedules and makes calls between adult children and their parents. At a preset time, both parties receive a call on their phone. It uses the Deepgram API to make a transcription of the call and send it to parent and child.
+Recaller is an app that allows users to schedule calls between themselves and their loved ones. The app programmatically calls both the user and their loved one and records their call. It uses the Deepgram API to make a transcription of the call and then sends it to both parties by email. Previous recordings and transcripts are accessible online.
 
 Deployment: https://recaller-14a1f.firebaseapp.com/<br>
 Trello: https://trello.com/b/TjTMyqlH
+Wireframe: https://balsamiq.cloud/snv27r3/pj8mhnh/r2278
 
 ## Table of Contents
 
@@ -31,6 +32,13 @@ Trello: https://trello.com/b/TjTMyqlH
 
 Quentin’s Mom always bugs him saying, “How come you never call me?” Well, he’s had enough. A couple of his friends have told him he should sign up for Mom Caller so that’s what he did. Now, his monthly Mom caller subscription calls both him AND his mom at random times every week — no way for him to forget (and no way to bail since both people are being called at the same time)! His mom is thrilled. Even better, the subscription is free for short and randomly timed calls and paid for pre-schedule and long calls (and moms can get the subscription for their children). His mom loves it because after every call she gets sent a recording and a transcript of the call through her email. She’s always up to date now and Quentin feels like an awesome son.
 
+### Features
+
+- Deepgram voice recognition
+- Transcription
+- Automated calling
+- Call recording
+
 # Front-End
 
 Recaller is an app that allows users to schedule calls between themselves and their loved ones. The app programmatically calls both the user and their loved one and records their call. It uses the Deepgram API to make a transcription of the call and then sends it to both parties by email. Previous recordings and transcripts are accessible online.
@@ -38,13 +46,6 @@ Recaller is an app that allows users to schedule calls between themselves and th
 ## Mission statement:
 
 We believe in connecting families and friends. In order to facilitate this, we will build an app that allows you to schedule phone calls and have a transcript of your conversations to remember details from your calls. By offering calls, automation, and flexible configuration we work to ensure families stay in touch.
-
-### Features
-
-- Deepgram voice recognition
-- Transcription
-- Automated calling
-- Call recording
 
 ### Installation
 
@@ -66,7 +67,9 @@ to be filled in
 
 ### Testing
 
-to be filled in
+This library uses Jest for testing. For the client side, we make use of the React-Testing-Library.
+
+Tests can be run in the client by moving into /client and running yarn test.
 
 ### Contributing
 
