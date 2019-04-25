@@ -131,3 +131,6 @@ yarn-error.log*
 
 #NPM
 package-lock.json
+
+#Firebase Private Key
+serviceAccountKey.json
