@@ -5,7 +5,7 @@
 Recaller is an app that allows users to schedule calls between themselves and their loved ones. The app programmatically calls both the user and their loved one and records their call. It uses the Deepgram API to make a transcription of the call and then sends it to both parties by email. Previous recordings and transcripts are accessible online.
 
 Deployment: https://recaller-14a1f.firebaseapp.com/<br>
-Trello: https://trello.com/b/TjTMyqlH
+Trello: https://trello.com/b/TjTMyqlH <br>
 Wireframe: https://balsamiq.cloud/snv27r3/pj8mhnh/r2278
 
 ## Table of Contents
