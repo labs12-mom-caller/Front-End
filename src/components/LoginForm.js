@@ -1,4 +1,5 @@
 import React from 'react';
+import { navigate } from '@reach/router';
 import { Formik } from 'formik';
 import { firebase, db } from '../firebase';
 
@@ -39,6 +40,7 @@ const LoginForm = () => {
             console.log(values);
             handleSignUp(values.email, values.password);
             setSubmitting(false);
+            navigate(`/home`);
           }, 500);
         }}
       >
