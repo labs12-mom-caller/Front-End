@@ -1,8 +1,9 @@
 import React from 'react';
 import { firebase } from './firebase';
 
-const LandingPage = () => {
+function useAuth() {
   const [user, setUser] = React.useState(null);
+
   React.useEffect(() => {
     return firebase.auth().onAuthStateChanged(firebaseUser => {
       if (firebaseUser) {
@@ -16,6 +17,10 @@ const LandingPage = () => {
       }
     });
   }, []);
+  return user;
+}
+const LandingPage = () => {
+  const user = useAuth();
   const handleSignIn = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     await firebase.auth().signInWithPopup(provider);
