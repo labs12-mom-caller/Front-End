@@ -3,14 +3,26 @@ import { firebase } from './firebase';
 
 const LandingPage = () => {
   const [user, setUser] = React.useState(null);
+  React.useEffect(() => {
+    return firebase.auth().onAuthStateChanged(firebaseUser => {
+      if (firebaseUser) {
+        setUser({
+          displayName: firebaseUser.displayName,
+          photoUrl: firebaseUser.photoURL,
+          uid: firebaseUser.uid,
+        });
+      } else {
+        setUser(null);
+      }
+    });
+  }, []);
   const handleSignIn = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    const result = await firebase.auth().signInWithPopup(provider);
-    setUser(result.user);
+    await firebase.auth().signInWithPopup(provider);
   };
   return user ? (
     <div>
-      <h2>You Are Logged In</h2>
+      <h2>Welcome {user.displayName} You Are Logged In</h2>
       <p>Recaller</p>
     </div>
   ) : (
