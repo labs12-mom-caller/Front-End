@@ -1,18 +1,14 @@
 import React from 'react';
-import SignUpPage from './SignUpPage';
 import CSSReset from './styles/CSSReset';
 import Global from './styles/Global';
-import SigninForm from './pages/SigninForm';
+import SignUp from './pages/SignUp';
 
 const App = () => {
   return (
     <>
       <CSSReset />
       <Global />
-      <SignUpPage />
-      <div>
-        <SigninForm />
-      </div>
+      <SignUp />
     </>
   );
 };
