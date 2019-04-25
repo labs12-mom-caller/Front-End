@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik } from 'formik';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
-import { firebase } from '../firebase';
+import { firebase, db } from '../firebase';
 
 export const DisplayFormikState = props => (
   <div style={{ margin: '1rem 0' }}>
@@ -21,7 +21,13 @@ export const DisplayFormikState = props => (
 
 const ChooseYourContact = ({ user }) => {
   const updateUser = values => {
-    console.log(values);
+    const newUser = {
+      ...user,
+      contact: [values],
+    };
+    db.collection(`users`)
+      .doc(user.uid)
+      .set(newUser, { merge: true });
   };
 
   return (
@@ -42,7 +48,7 @@ const ChooseYourContact = ({ user }) => {
           initialValues={{ email: '', name: '', phoneNumber: null }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
-              updateUser(...values);
+              updateUser(values);
               setSubmitting(false);
             }, 500);
           }}
