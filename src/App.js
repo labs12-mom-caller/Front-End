@@ -3,6 +3,7 @@ import { Router, Redirect } from '@reach/router';
 import styled from 'styled-components';
 import { firebase, db } from './firebase';
 import Choose from './components/Choose';
+import NavBar from './components/NavBar';
 
 function useAuth() {
   const [user, setUser] = React.useState(null);
@@ -32,6 +33,7 @@ function App() {
 
   return user ? (
     <>
+      <NavBar />
       <Router>
         <Choose user={user} path='/user/:userId' />
         <Redirect from='/' to={`user/${user.uid}`} noThrow />
