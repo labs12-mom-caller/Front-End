@@ -2,9 +2,31 @@ import React from 'react';
 import { Router, Redirect } from '@reach/router';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import styled from 'styled-components';
 import { firebase, db } from './firebase';
 import useDoc from './hooks/useDoc';
 import HomePage from './components/HomePage';
+
+const Wrapper = styled.div`
+  border: 3px dashed black;
+  display: flex;
+  flex-direction: column;
+  button {
+    margin: 10px;
+    width: 145px;
+    height: 45px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 2px solid black;
+    padding: 5px;
+  }
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin: 5px;
+  width: 400px;
+  height: 400px;
+`;
 // import CSSReset from './styles/CSSReset';
 // import Global from './styles/Global';
 // import SignUp from './pages/SignUp';
@@ -52,19 +74,88 @@ function App() {
 }
 function Login() {
   const [authError, setAuthError] = React.useState(null);
-
+  const [hasAccount, setHasAccount] = React.useState(null);
+  console.log(hasAccount);
   const handleSignIn = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
       await firebase.auth().signInWithPopup(provider);
+      const credential = firebase.auth.EmailAuthProvider.credential(
+        'checomichael2@gmail.com',
+        'MikeCheco45',
+      );
+      firebase
+        .auth()
+        .currentUser.linkAndRetrieveDataWithCredential(credential)
+        .then(
+          function(usercred) {
+            const { user } = usercred;
+            console.log('Account linking success', user);
+          },
+          function(error) {
+            console.log('Account linking error', error);
+          },
+        );
     } catch (error) {
       setAuthError(error);
     }
   };
+
   return (
-    <div className='Login'>
+    <Wrapper>
       <h1>ReCaller!</h1>
-      <button onClick={handleSignIn}>Sign in with Google</button>
+      {!hasAccount && (
+        <h2 onClick={() => setHasAccount(true)}>
+          Already have an account? Sign in! {'🌋'}
+        </h2>
+      )}
+      {hasAccount && (
+        <h2 onClick={() => setHasAccount(null)}>{'🔙'} to sign up page !</h2>
+      )}
+      {hasAccount && (
+        <>
+          <button onClick={handleSignIn}>Sign in with Google</button>
+          <button
+            onClick={() =>
+              firebase
+                .auth()
+                .signInWithEmailAndPassword(
+                  'checomichael2@gmail.com',
+                  'MikeCheco45',
+                )
+                .catch(function(error) {
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  console.log(errorMessage, 'Error');
+                })
+            }
+          >
+            Sign in {'🎈'}
+          </button>
+        </>
+      )}
+      {!hasAccount && (
+        <>
+          <button onClick={handleSignIn}>Sign up with Google</button>
+          <button
+            onClick={() =>
+              firebase
+                .auth()
+                .signInWithEmailAndPassword(
+                  'checomichael2@gmail.com',
+                  'MikeCheco45',
+                )
+                .catch(function(error) {
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  console.log(errorMessage, 'Error');
+                })
+            }
+          >
+            Sign up {'🐠'}
+          </button>
+        </>
+      )}
       {authError && (
         <div>
           <p>Sorry, there was a problem</p>
@@ -74,7 +165,7 @@ function Login() {
           <p>Please try again</p>
         </div>
       )}
-    </div>
+    </Wrapper>
   );
 }
 function Choose({ user }) {
