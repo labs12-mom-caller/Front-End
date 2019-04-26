@@ -101,10 +101,10 @@ function Choose({ user }) {
   const currentUserData = useDoc(`users/${user.uid}`);
   if (newUser || currentUserData) {
     if (currentUserData && currentUserData.contact) {
-      return <p>hey {currentUserData.contact.email} is my loved one</p>;
+      return <HomePage user={currentUserData} />;
     }
     if (newUser && newUser.contact) {
-      return <p>hey {newUser.contact.name} is my loved one</p>;
+      return <HomePage user={newUser} />;
     }
   }
   return (
@@ -222,8 +222,6 @@ function Choose({ user }) {
                 <button type='submit' disabled={isSubmitting}>
                   Submit
                 </button>
-
-                <DisplayFormikState {...props} />
               </form>
             );
           }}
@@ -232,18 +230,25 @@ function Choose({ user }) {
     </>
   );
 }
-const DisplayFormikState = props => (
-  <div style={{ margin: '1rem 0' }}>
-    <h3 style={{ fontFamily: 'monospace' }} />
-    <pre
-      style={{
-        background: '#f6f8fa',
-        fontSize: '.65rem',
-        padding: '.5rem',
-      }}
-    >
-      <strong>props</strong> = {JSON.stringify(props, null, 2)}
-    </pre>
-  </div>
-);
+
+function HomePage({ user }) {
+  return (
+    <>
+      <h1>💁‍♂️ {user.displayName}</h1>
+      <h3>Data:</h3>
+      <ul>
+        <li>{user.email}</li>
+        <li> uid {user.uid}</li>
+        <li> id {user.id}</li>
+        <img src={user.photoUrl} alt='user' />
+      </ul>
+      <h3>Contact:</h3>
+      <ul>
+        <li>{user.contact.email}</li>
+        <li>{user.contact.name}</li>
+        <li>{user.contact.phoneNumber}</li>
+      </ul>
+    </>
+  );
+}
 export default App;
