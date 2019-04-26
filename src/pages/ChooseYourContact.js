@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { firebase, db } from '../firebase';
+import useDoc from '../hooks/useDoc';
 
 export const DisplayFormikState = props => (
   <div style={{ margin: '1rem 0' }}>
@@ -18,18 +19,40 @@ export const DisplayFormikState = props => (
     </pre>
   </div>
 );
-
 const ChooseYourContact = ({ user }) => {
+  const [newUser, setNewUser] = React.useState(null);
+  console.log(newUser, 'NEW');
+  React.useEffect(() => {
+    if (newUser) {
+      console.log(newUser.contact.email, 'PLEASE WORK');
+      db.doc(`users/${user.uid}`).update({
+        contact: {
+          email: newUser.contact.email,
+          name: newUser.contact.name,
+          phoneNumber: newUser.contact.phoneNumber,
+        },
+        // [`channels.${channelId}`]: newUser, // <-- deep update using a firebase api
+        // channels: {
+        // 	[channelId]: true, // computed property <-- would override same value
+        // },
+      });
+    }
+  }, [newUser, user.uid]);
+  // const currentUserData = useDoc(`users/${user.uid}`);
   const updateUser = values => {
-    const newUser = {
-      ...user,
-      contact: [values],
-    };
-    db.collection(`users`)
-      .doc(user.uid)
-      .set(newUser, { merge: true });
+    const formattedPhone = String('+1').concat(
+      String(values.phoneNumber).replace(/[^\d]/g, ''),
+    );
+    setNewUser({ ...user, contact: values });
   };
 
+  // console.log(currentUserData, 'CURRENT');
+
+  if (newUser) {
+    if (newUser.contact) {
+      return <div>Hello CONDTIONAL WORKED</div>;
+    }
+  }
   return (
     <>
       <div>Hello {user.displayName} </div>
@@ -166,3 +189,8 @@ ChooseYourContact.propTypes = {
     uid: PropTypes.string,
   }),
 };
+
+// const contactProp = [{ ...values, phoneNumber: formattedPhone }];
+// const newContact = contactProp.map(obj => {
+//   return Object.assign({}, obj);
+// });
