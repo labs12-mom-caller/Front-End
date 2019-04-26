@@ -24,11 +24,12 @@ const ChooseYourContact = ({ user }) => {
   console.log(newUser, 'NEW');
   React.useEffect(() => {
     if (newUser) {
+      console.log(newUser.contact.email, 'PLEASE WORK');
       db.doc(`users/${user.uid}`).update({
         contact: {
-          email: newUser.email,
-          name: newUser.displayName,
-          phoneNumber: newUser.phoneNumber,
+          email: newUser.contact.email,
+          name: newUser.contact.name,
+          phoneNumber: newUser.contact.phoneNumber,
         },
         // [`channels.${channelId}`]: newUser, // <-- deep update using a firebase api
         // channels: {
@@ -37,29 +38,19 @@ const ChooseYourContact = ({ user }) => {
       });
     }
   }, [newUser, user.uid]);
-  const currentUserData = useDoc(`users/${user.uid}`);
+  // const currentUserData = useDoc(`users/${user.uid}`);
   const updateUser = values => {
     const formattedPhone = String('+1').concat(
       String(values.phoneNumber).replace(/[^\d]/g, ''),
     );
-    const contactProp = [{ ...values, phoneNumber: formattedPhone }];
-    const newContact = contactProp.map(obj => {
-      return Object.assign({}, obj);
-    });
-
-    const userWithContact = {
-      ...user,
-      contact: newContact,
-    };
-    console.log(userWithContact, '$$$$$$$$$$$$');
-    setNewUser({ ...user, contact: newContact });
+    setNewUser({ ...user, contact: values });
   };
 
   // console.log(currentUserData, 'CURRENT');
 
-  if (currentUserData) {
-    if (currentUserData.contact) {
-      return <div>Hello</div>;
+  if (newUser) {
+    if (newUser.contact) {
+      return <div>Hello CONDTIONAL WORKED</div>;
     }
   }
   return (
@@ -198,3 +189,8 @@ ChooseYourContact.propTypes = {
     uid: PropTypes.string,
   }),
 };
+
+// const contactProp = [{ ...values, phoneNumber: formattedPhone }];
+// const newContact = contactProp.map(obj => {
+//   return Object.assign({}, obj);
+// });

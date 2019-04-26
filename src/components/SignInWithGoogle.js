@@ -1,7 +1,7 @@
 import React from 'react';
-import { firebase, db } from './firebase';
-import ChooseYourContact from './pages/ChooseYourContact';
-import SignupForm from './pages/SigninForm';
+import { firebase, db } from '../firebase';
+import ChooseYourContact from '../pages/ChooseYourContact';
+import SigninForm from './SigninForm';
 
 function useAuth() {
   const [user, setUser] = React.useState(null);
@@ -21,13 +21,14 @@ function useAuth() {
       }
     });
   }, []);
+  console.log(user);
   return user;
 }
-const SignUpPage = () => {
+const SignInWithGoogle = () => {
   const [authError, setAuthError] = React.useState(null);
 
   const user = useAuth();
-  console.log(user, 'USERRRRRRRR');
+  // console.log(user, 'USERRRRRRRR');
   const handleSignIn = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
@@ -38,7 +39,10 @@ const SignUpPage = () => {
   };
 
   return user ? (
-    <ChooseYourContact user={user} />
+    <>
+      <ChooseYourContact user={user} />
+      <SigninForm />
+    </>
   ) : (
     <div>
       <h2>You Are NOT Logged In</h2>
@@ -46,7 +50,7 @@ const SignUpPage = () => {
       <button type='button' onClick={handleSignIn}>
         Sign In With Google
       </button>
-      <SignupForm />
+      {/* <SignupForm /> */}
       {authError && (
         <div>
           <p>Sorry, there was a problem</p>
@@ -60,4 +64,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default SignInWithGoogle;
