@@ -2,7 +2,7 @@ import React from 'react';
 import { navigate } from '@reach/router';
 import { Formik } from 'formik';
 import { firebase, db } from '../firebase';
-
+import ChooseYourContact from '../pages/ChooseYourContact';
 // const checkUser = firebase.auth().currentUser;
 
 function useAuth(values) {
@@ -10,7 +10,7 @@ function useAuth(values) {
   React.useEffect(() => {
     // this effect allows us to persist login
     return firebase.auth().onAuthStateChanged(firebaseUser => {
-      if (firebaseUser && firebaseUser.phoneNumber !== null) {
+      if (firebaseUser && firebaseUser.phone !== null) {
         const currentUser = {
           email: firebaseUser.email,
           phone: values,
@@ -53,7 +53,7 @@ const SignupForm = () => {
 
   return user ? (
     <div>
-      <h2>You Are Logged In</h2>
+      <ChooseYourContact user={user} />
     </div>
   ) : (
     <div>
