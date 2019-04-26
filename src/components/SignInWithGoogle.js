@@ -1,4 +1,5 @@
 import React from 'react';
+import { navigate } from '@reach/router';
 import { firebase, db } from '../firebase';
 import ChooseYourContact from '../pages/ChooseYourContact';
 import SigninForm from './SigninForm';
@@ -33,6 +34,7 @@ const SignInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
       await firebase.auth().signInWithPopup(provider);
+      navigate(`/home`);
     } catch (error) {
       setAuthError(error);
     }
