@@ -1,38 +1,8 @@
 import React from 'react';
 import { Router, Redirect } from '@reach/router';
-import * as Yup from 'yup';
-import { Formik } from 'formik';
 import styled from 'styled-components';
 import { firebase, db } from './firebase';
-import useDoc from './hooks/useDoc';
-import HomePage from './components/HomePage';
 import Choose from './components/Choose';
-
-const Wrapper = styled.div`
-  border: 3px dashed black;
-  display: flex;
-  flex-direction: column;
-  button {
-    margin: 10px;
-    width: 145px;
-    height: 45px;
-    font-size: 14px;
-    border-radius: 5px;
-    border: 2px solid black;
-    padding: 5px;
-  }
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  margin: 5px;
-  width: 400px;
-  height: 400px;
-`;
-// import CSSReset from './styles/CSSReset';
-// import Global from './styles/Global';
-// import SignUp from './pages/SignUp';
-// import Home from './pages/Home';
-// import ChooseYourContact from './pages/ChooseYourContact';
 
 function useAuth() {
   const [user, setUser] = React.useState(null);
@@ -117,6 +87,7 @@ function Login() {
         <>
           <button onClick={handleSignIn}>Sign in with Google</button>
           <button
+            type='button'
             onClick={() =>
               firebase
                 .auth()
@@ -137,8 +108,12 @@ function Login() {
       )}
       {!hasAccount && (
         <>
-          <button onClick={handleSignIn}>Sign up with Google</button>
-          <button onClick={handleSubmit}>Sign up {'🐠'}</button>
+          <button type='button' onClick={handleSignIn}>
+            Sign up with Google
+          </button>
+          <button type='button' onClick={handleSubmit}>
+            Sign up {'🐠'}
+          </button>
         </>
       )}
       {authError && (
@@ -170,3 +145,24 @@ const handleSubmit = async event => {
 };
 
 export default App;
+
+const Wrapper = styled.div`
+  border: 3px dashed black;
+  display: flex;
+  flex-direction: column;
+  button {
+    margin: 10px;
+    width: 145px;
+    height: 45px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 2px solid black;
+    padding: 5px;
+  }
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin: 5px;
+  width: 400px;
+  height: 400px;
+`;
