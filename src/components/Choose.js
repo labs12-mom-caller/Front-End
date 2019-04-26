@@ -28,6 +28,7 @@ function Choose({ user }) {
     });
   };
   const currentUserData = useDoc(`users/${user.uid}`);
+
   if (newUser || currentUserData) {
     if (currentUserData && currentUserData.contact) {
       return <HomePage user={currentUserData} />;
@@ -36,7 +37,9 @@ function Choose({ user }) {
       return <HomePage user={newUser} />;
     }
   }
-  console.log(user, 'user');
+  console.log(newUser, 'NEWUSER');
+  console.log(currentUserData, 'CURRENT');
+  console.log(user, 'USER');
   return (
     <>
       <div>Hello {user.displayName} </div>
