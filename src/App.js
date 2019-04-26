@@ -137,23 +137,7 @@ function Login() {
       {!hasAccount && (
         <>
           <button onClick={handleSignIn}>Sign up with Google</button>
-          <button
-            onClick={() =>
-              firebase
-                .auth()
-                .signInWithEmailAndPassword(
-                  'checomichael2@gmail.com',
-                  'MikeCheco45',
-                )
-                .catch(function(error) {
-                  const errorCode = error.code;
-                  const errorMessage = error.message;
-                  console.log(errorMessage, 'Error');
-                })
-            }
-          >
-            Sign up {'🐠'}
-          </button>
+          <button onClick={handleSubmit}>Sign up {'🐠'}</button>
         </>
       )}
       {authError && (
@@ -199,6 +183,7 @@ function Choose({ user }) {
       return <HomePage user={newUser} />;
     }
   }
+  console.log(user, 'user');
   return (
     <>
       <div>Hello {user.displayName} </div>
@@ -323,4 +308,17 @@ function Choose({ user }) {
   );
 }
 
+const handleSubmit = async event => {
+  event.preventDefault();
+
+  try {
+    const { user } = await firebase
+      .auth()
+      .createUserWithEmailAndPassword('bobross@bob.com', '123456');
+
+    user.updateProfile({ displayName: 'Bob Ross' });
+  } catch (error) {
+    alert(error);
+  }
+};
 export default App;
