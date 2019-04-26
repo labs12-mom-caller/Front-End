@@ -1,58 +1,42 @@
 import React from 'react';
-import { Formik } from 'formik';
-import PropTypes from 'prop-types';
 import * as Yup from 'yup';
-import { firebase, db } from '../firebase';
+import { Formik } from 'formik';
+import HomePage from './HomePage';
 import useDoc from '../hooks/useDoc';
+import { firebase, db } from '../firebase';
 
-export const DisplayFormikState = props => (
-  <div style={{ margin: '1rem 0' }}>
-    <h3 style={{ fontFamily: 'monospace' }} />
-    <pre
-      style={{
-        background: '#f6f8fa',
-        fontSize: '.65rem',
-        padding: '.5rem',
-      }}
-    >
-      <strong>props</strong> = {JSON.stringify(props, null, 2)}
-    </pre>
-  </div>
-);
-const ChooseYourContact = ({ user }) => {
+function Choose({ user }) {
   const [newUser, setNewUser] = React.useState(null);
-  console.log(newUser, 'NEW');
   React.useEffect(() => {
     if (newUser) {
-      console.log(newUser.contact.email, 'PLEASE WORK');
       db.doc(`users/${user.uid}`).update({
         contact: {
           email: newUser.contact.email,
           name: newUser.contact.name,
           phoneNumber: newUser.contact.phoneNumber,
         },
-        // [`channels.${channelId}`]: newUser, // <-- deep update using a firebase api
-        // channels: {
-        // 	[channelId]: true, // computed property <-- would override same value
-        // },
       });
     }
   }, [newUser, user.uid]);
-  // const currentUserData = useDoc(`users/${user.uid}`);
   const updateUser = values => {
     const formattedPhone = String('+1').concat(
       String(values.phoneNumber).replace(/[^\d]/g, ''),
     );
-    setNewUser({ ...user, contact: values });
+    setNewUser({
+      ...user,
+      contact: { ...values, phoneNumber: formattedPhone },
+    });
   };
-
-  // console.log(currentUserData, 'CURRENT');
-
-  if (newUser) {
-    if (newUser.contact) {
-      return <div>Hello CONDTIONAL WORKED</div>;
+  const currentUserData = useDoc(`users/${user.uid}`);
+  if (newUser || currentUserData) {
+    if (currentUserData && currentUserData.contact) {
+      return <HomePage user={currentUserData} />;
+    }
+    if (newUser && newUser.contact) {
+      return <HomePage user={newUser} />;
     }
   }
+  console.log(user, 'user');
   return (
     <>
       <div>Hello {user.displayName} </div>
@@ -68,7 +52,11 @@ const ChooseYourContact = ({ user }) => {
         </button>
 
         <Formik
-          initialValues={{ email: '', name: '', phoneNumber: null }}
+          initialValues={{
+            email: 'test1@test.com',
+            name: 'Testing',
+            phoneNumber: '1234567890',
+          }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
               updateUser(values);
@@ -168,8 +156,6 @@ const ChooseYourContact = ({ user }) => {
                 <button type='submit' disabled={isSubmitting}>
                   Submit
                 </button>
-
-                <DisplayFormikState {...props} />
               </form>
             );
           }}
@@ -177,20 +163,5 @@ const ChooseYourContact = ({ user }) => {
       </div>
     </>
   );
-};
-
-export default ChooseYourContact;
-
-ChooseYourContact.propTypes = {
-  user: PropTypes.shape({
-    displayName: PropTypes.string,
-    email: PropTypes.string,
-    photoUrl: PropTypes.string,
-    uid: PropTypes.string,
-  }),
-};
-
-// const contactProp = [{ ...values, phoneNumber: formattedPhone }];
-// const newContact = contactProp.map(obj => {
-//   return Object.assign({}, obj);
-// });
+}
+export default Choose;

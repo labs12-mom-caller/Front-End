@@ -6,15 +6,12 @@ import SigninForm from './SigninForm';
 
 function useAuth() {
   const [user, setUser] = React.useState(null);
-
   React.useEffect(() => {
     // this effect allows us to persist login
     return firebase.auth().onAuthStateChanged(firebaseUser => {
       if (firebaseUser) {
         const currentUser = {
-          displayName: firebaseUser.displayName,
-          photoUrl: firebaseUser.photoURL,
-          uid: firebaseUser.uid,
+          ...firebaseUser,
         };
         setUser(currentUser);
         db.collection('users')
@@ -32,6 +29,7 @@ const SignInWithGoogle = () => {
   const [authError, setAuthError] = React.useState(null);
 
   const user = useAuth();
+  // console.log(user, 'USERRRRRRRR');
   const handleSignIn = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
@@ -41,6 +39,7 @@ const SignInWithGoogle = () => {
       setAuthError(error);
     }
   };
+
   return user ? (
     <>
       <ChooseYourContact user={user} />
@@ -53,6 +52,7 @@ const SignInWithGoogle = () => {
       <button type='button' onClick={handleSignIn}>
         Sign In With Google
       </button>
+      {/* <SignupForm /> */}
       {authError && (
         <div>
           <p>Sorry, there was a problem</p>
