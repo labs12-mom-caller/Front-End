@@ -12,10 +12,10 @@ const NavBar = () => {
       >
         log out
       </button>
-      <button>Add New Call</button>
-      <button>Review Calls</button>
-      <button>Previous Calls</button>
-      <button>Update Account</button>
+      <button type='button'>Add New Call</button>
+      <button type='button'>Review Calls</button>
+      <button type='button'>Previous Calls</button>
+      <button type='button'>Update Account</button>
     </>
   );
 };
