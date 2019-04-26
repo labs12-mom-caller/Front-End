@@ -46,7 +46,6 @@ function App() {
 function Login() {
   const [authError, setAuthError] = React.useState(null);
   const [hasAccount, setHasAccount] = React.useState(null);
-  console.log(hasAccount);
   const handleSignIn = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
@@ -80,6 +79,16 @@ function Login() {
           Already have an account? Sign in! {'🌋'}
         </h2>
       )}
+      {!hasAccount && (
+        <>
+          <button type='button' onClick={handleSignIn}>
+            Sign up with Google
+          </button>
+          <button type='button' onClick={handleSubmit}>
+            Sign up {'🐠'}
+          </button>
+        </>
+      )}
       {hasAccount && (
         <h2 onClick={() => setHasAccount(null)}>{'🔙'} to sign up page !</h2>
       )}
@@ -106,16 +115,7 @@ function Login() {
           </button>
         </>
       )}
-      {!hasAccount && (
-        <>
-          <button type='button' onClick={handleSignIn}>
-            Sign up with Google
-          </button>
-          <button type='button' onClick={handleSubmit}>
-            Sign up {'🐠'}
-          </button>
-        </>
-      )}
+
       {authError && (
         <div>
           <p>Sorry, there was a problem</p>
@@ -131,7 +131,7 @@ function Login() {
 
 const handleSubmit = async event => {
   event.preventDefault();
-  const userEmail = 'bobros134@bob.com';
+  const userEmail = 'bobros1364@bob.com';
   const password = '123456';
   try {
     const { user } = await firebase
