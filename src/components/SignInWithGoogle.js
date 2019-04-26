@@ -43,7 +43,6 @@ const SignInWithGoogle = () => {
   return user ? (
     <>
       <ChooseYourContact user={user} />
-      <SigninForm />
     </>
   ) : (
     <div>
