@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { firebase, db } from './firebase';
 import useDoc from './hooks/useDoc';
+import HomePage from './components/HomePage';
 // import CSSReset from './styles/CSSReset';
 // import Global from './styles/Global';
 // import SignUp from './pages/SignUp';
@@ -231,24 +232,4 @@ function Choose({ user }) {
   );
 }
 
-function HomePage({ user }) {
-  return (
-    <>
-      <h1>💁‍♂️ {user.displayName}</h1>
-      <h3>Data:</h3>
-      <ul>
-        <li>{user.email}</li>
-        <li> uid {user.uid}</li>
-        <li> id {user.id}</li>
-        <img src={user.photoUrl} alt='user' />
-      </ul>
-      <h3>Contact:</h3>
-      <ul>
-        <li>{user.contact.email}</li>
-        <li>{user.contact.name}</li>
-        <li>{user.contact.phoneNumber}</li>
-      </ul>
-    </>
-  );
-}
 export default App;
