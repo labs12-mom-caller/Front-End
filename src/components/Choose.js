@@ -1,9 +1,12 @@
+// libraries
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+//
 import HomePage from './HomePage';
 import useDoc from '../hooks/useDoc';
-import { firebase, db } from '../firebase';
+import { db } from '../firebase';
 
 function Choose({ user }) {
   const [newUser, setNewUser] = React.useState(null);
@@ -45,14 +48,6 @@ function Choose({ user }) {
       <div>Hello {user.displayName} </div>
       <div className='app'>
         <h1>Choose Your Loved One</h1>
-        <button
-          type='button'
-          onClick={() => {
-            firebase.auth().signOut();
-          }}
-        >
-          log out
-        </button>
 
         <Formik
           initialValues={{
@@ -168,3 +163,34 @@ function Choose({ user }) {
   );
 }
 export default Choose;
+
+Choose.propTypes = {
+  user: PropTypes.shape({
+    displayName: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    photoUrl: PropTypes.string.isRequired,
+    uid: PropTypes.string.isRequired,
+    phoneNumber: PropTypes.string.isRequired,
+  }),
+  values: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    phoneNumber: PropTypes.number.isRequired,
+  }),
+  touched: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    phoneNumber: PropTypes.number.isRequired,
+  }),
+  errors: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    phoneNumber: PropTypes.number.isRequired,
+  }),
+  dirty: PropTypes.bool.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleBlur: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  handleReset: PropTypes.func.isRequired,
+};
