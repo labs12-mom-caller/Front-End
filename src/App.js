@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { firebase, db } from './firebase';
 import Choose from './components/Choose';
 import NavBar from './components/NavBar';
+import useDoc from './hooks/useDoc';
 
 function useAuth() {
   const [user, setUser] = React.useState(null);
@@ -32,7 +33,6 @@ function useAuth() {
 
 function App() {
   const user = useAuth();
-
   return user ? (
     <>
       <NavBar />
@@ -50,7 +50,6 @@ function App() {
 function Login() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  console.log(email, password, 'state');
   const [authError, setAuthError] = React.useState(null);
   const [hasAccount, setHasAccount] = React.useState(null);
   const handleSignIn = async () => {
