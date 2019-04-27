@@ -117,7 +117,6 @@ function Login() {
               handleBlur,
               handleSubmit,
               isSubmitting,
-              /* and other goodies */
             }) => (
               <form onSubmit={handleSubmit}>
                 <input
@@ -221,8 +220,6 @@ const handleSubmit = async values => {
   const formattedPhone = String('+1').concat(
     String(values.phoneNumber).replace(/[^\d]/g, ''),
   );
-  // const userEmail = 'bobrssss@bob.com';
-  // const password = '123456';
   try {
     const { user } = await firebase
       .auth()

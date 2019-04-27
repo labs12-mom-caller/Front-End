@@ -37,9 +37,7 @@ function Choose({ user }) {
       return <HomePage user={newUser} />;
     }
   }
-  console.log(newUser, 'NEWUSER');
-  console.log(currentUserData, 'CURRENT');
-  console.log(user, 'USER');
+
   return (
     <>
       <div>Hello {user.displayName} </div>
