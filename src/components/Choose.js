@@ -10,11 +10,8 @@ function Choose({ user }) {
   React.useEffect(() => {
     if (newUser) {
       db.doc(`users/${user.uid}`).update({
-        contact: {
-          email: newUser.contact.email,
-          name: newUser.contact.name,
-          phoneNumber: newUser.contact.phoneNumber,
-        },
+        hasContact: true,
+        contactEmail: newUser.contact.email,
       });
     }
   }, [newUser, user.uid]);
@@ -54,7 +51,7 @@ function Choose({ user }) {
 
         <Formik
           initialValues={{
-            email: 'test1@test.com',
+            email: 'checomichael25@yahoo.com',
             name: 'Testing',
             phoneNumber: '1234567890',
           }}
