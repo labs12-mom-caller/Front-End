@@ -9,9 +9,10 @@ function Choose({ user }) {
   const [newUser, setNewUser] = React.useState(null);
   React.useEffect(() => {
     if (newUser) {
-      db.doc(`users/${user.uid}`).update({
-        hasContact: true,
-        contactEmail: newUser.contact.email,
+      db.collection('users').add({
+        displayName: newUser.contact.name,
+        email: newUser.contact.email,
+        phoneNumber: newUser.contact.phoneNumber,
       });
     }
   }, [newUser, user.uid]);
