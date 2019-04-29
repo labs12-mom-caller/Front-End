@@ -38,10 +38,10 @@ exports.callService = functions.pubsub.topic('recaller').onPublish(async () => {
       if (now === time) {
         const user1id = doc.data().user1.id;
         const user1 = await users.doc(user1id).get();
-        const user1phone = user1.data().phone;
+        const user1phone = user1.data().phoneNumber;
         const user2id = doc.data().user2.id;
         const user2 = await users.doc(user2id).get();
-        const user2phone = user2.data().phone;
+        const user2phone = user2.data().phoneNumber;
 
         client.calls.create(
           {
