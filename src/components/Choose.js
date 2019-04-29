@@ -9,12 +9,10 @@ function Choose({ user }) {
   const [newUser, setNewUser] = React.useState(null);
   React.useEffect(() => {
     if (newUser) {
-      db.doc(`users/${user.uid}`).update({
-        contact: {
-          email: newUser.contact.email,
-          name: newUser.contact.name,
-          phoneNumber: newUser.contact.phoneNumber,
-        },
+      db.collection('users').add({
+        displayName: newUser.contact.name,
+        email: newUser.contact.email,
+        phoneNumber: newUser.contact.phoneNumber,
       });
     }
   }, [newUser, user.uid]);
@@ -28,6 +26,7 @@ function Choose({ user }) {
     });
   };
   const currentUserData = useDoc(`users/${user.uid}`);
+
   if (newUser || currentUserData) {
     if (currentUserData && currentUserData.contact) {
       return <HomePage user={currentUserData} />;
@@ -36,7 +35,7 @@ function Choose({ user }) {
       return <HomePage user={newUser} />;
     }
   }
-  console.log(user, 'user');
+
   return (
     <>
       <div>Hello {user.displayName} </div>
@@ -53,7 +52,7 @@ function Choose({ user }) {
 
         <Formik
           initialValues={{
-            email: 'test1@test.com',
+            email: 'checomichael25@yahoo.com',
             name: 'Testing',
             phoneNumber: '1234567890',
           }}
