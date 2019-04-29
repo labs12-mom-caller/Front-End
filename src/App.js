@@ -5,6 +5,8 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { firebase, db } from './firebase';
 import Choose from './components/Choose';
+import NavBar from './components/NavBar';
+import { signup } from './app/utils';
 
 function useAuth() {
   const [user, setUser] = React.useState(null);
@@ -31,9 +33,9 @@ function useAuth() {
 
 function App() {
   const user = useAuth();
-
   return user ? (
     <>
+      <NavBar />
       <Router>
         <Choose user={user} path='/user/:userId' />
         <Redirect from='/' to={`user/${user.uid}`} noThrow />
@@ -48,7 +50,6 @@ function App() {
 function Login() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  console.log(email, password, 'state');
   const [authError, setAuthError] = React.useState(null);
   const [hasAccount, setHasAccount] = React.useState(null);
   const handleSignIn = async () => {
@@ -102,7 +103,7 @@ function Login() {
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(() => {
                 console.log(values);
-                handleSubmit(values);
+                signup(values);
                 setSubmitting(false);
               }, 400);
             }}
@@ -115,7 +116,6 @@ function Login() {
               handleBlur,
               handleSubmit,
               isSubmitting,
-              /* and other goodies */
             }) => (
               <form onSubmit={handleSubmit}>
                 <input
@@ -162,9 +162,6 @@ function Login() {
               </form>
             )}
           </Formik>
-          <button type='button' onClick={handleSubmit}>
-            Sign up {'🐠'}
-          </button>
         </>
       )}
       {hasAccount && (
@@ -213,32 +210,6 @@ function Login() {
     </Wrapper>
   );
 }
-
-const handleSubmit = async values => {
-  console.log(values);
-  const formattedPhone = String('+1').concat(
-    String(values.phoneNumber).replace(/[^\d]/g, ''),
-  );
-  // const userEmail = 'bobrssss@bob.com';
-  // const password = '123456';
-  try {
-    const { user } = await firebase
-      .auth()
-      .createUserWithEmailAndPassword(values.email, values.password);
-    const ref = db.doc(`users/${user.uid}`);
-    const { email, photoURL } = user;
-    ref.set({
-      displayName: values.displayName,
-      photoURL,
-      email: values.email,
-      phoneNumber: formattedPhone,
-    });
-    console.log(user, '$$$$$$');
-    user.updateProfile({ displayName: values.displayName });
-  } catch (error) {
-    alert(error);
-  }
-};
 
 export default App;
 
