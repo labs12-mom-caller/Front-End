@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   border: 3px solid black;
   display: flex;
   flex-direction: column;
@@ -32,5 +32,3 @@ const Wrapper = styled.div`
   width: 400px;
   height: 400px;
 `;
-
-export default Wrapper;

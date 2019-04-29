@@ -3,17 +3,14 @@
 import React from 'react';
 import { Formik } from 'formik';
 import firebase from 'firebase';
-import Wrapper from '../styles/Login';
-import { db } from '../firebase';
+import { Wrapper } from '../styles/Login';
+import { signup } from '../app/utils';
 
 function Login() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  console.log(email, password, 'state');
-
   const [authError, setAuthError] = React.useState(null);
   const [hasAccount, setHasAccount] = React.useState(null);
-
   const handleSignIn = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
@@ -27,11 +24,7 @@ function Login() {
     <Wrapper>
       <h1>ReCaller!</h1>
       {!hasAccount && (
-        <button
-          className='login-toggle-btn'
-          onClick={() => setHasAccount(true)}
-          onKeyDown={() => setHasAccount(true)}
-        >
+        <button type='button' onClick={() => setHasAccount(true)}>
           Already have an account? Sign in! {'🌋'}
         </button>
       )}
@@ -41,7 +34,6 @@ function Login() {
             Sign up with Google
           </button>
           <Formik
-            className='formik'
             initialValues={{
               email: 'G@g.com',
               phoneNumber: '1234567890',
@@ -70,7 +62,7 @@ function Login() {
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(() => {
                 console.log(values);
-                handleSubmit(values);
+                signup(values);
                 setSubmitting(false);
               }, 400);
             }}
@@ -83,7 +75,6 @@ function Login() {
               handleBlur,
               handleSubmit,
               isSubmitting,
-              /* and other goodies */
             }) => (
               <form onSubmit={handleSubmit}>
                 <input
@@ -124,60 +115,49 @@ function Login() {
                   value={values.password}
                 />
                 {errors.password && touched.password && errors.password}
-                <button
-                  className='signup-submit-btn'
-                  type='submit'
-                  disabled={isSubmitting}
-                >
-                  Sign Up
+                <button type='submit' disabled={isSubmitting}>
+                  Submit
                 </button>
               </form>
             )}
           </Formik>
         </>
       )}
-
       {hasAccount && (
-        <button
-          className='login-toggle-btn'
-          onKeyDown={() => setHasAccount(true)}
-          onClick={() => setHasAccount(null)}
-        >
+        <button type='button' onClick={() => setHasAccount(null)}>
           {'🔙'} to sign up page !
         </button>
       )}
       {hasAccount && (
         <>
-          <button onClick={handleSignIn}>Sign in with Google</button>
-          <form>
-            <input
-              className='signin-input'
-              type='text'
-              onChange={e => setEmail(e.target.value)}
-              value={email}
-              placeholder='email'
-            />
-            <input
-              className='signin-input'
-              type='text'
-              onChange={e => setPassword(e.target.value)}
-              value={password}
-              placeholder='password'
-            />
-          </form>
+          <button type='button' onClick={handleSignIn}>
+            Sign in with Google
+          </button>
           <button
             type='button'
             onClick={() =>
               firebase
                 .auth()
                 .signInWithEmailAndPassword(email, password)
-                .catch(function(error) {
+                .catch(function catchError(error) {
                   console.log(`Error ${error.message}`);
                 })
             }
           >
             Sign in {'🎈'}
           </button>
+          <input
+            type='text'
+            onChange={e => setEmail(e.target.value)}
+            value={email}
+            placeholder='email'
+          />
+          <input
+            type='text'
+            onChange={e => setPassword(e.target.value)}
+            value={password}
+            placeholder='password'
+          />
         </>
       )}
 
@@ -193,31 +173,5 @@ function Login() {
     </Wrapper>
   );
 }
-
-const handleSubmit = async values => {
-  console.log(values);
-  const formattedPhone = String('+1').concat(
-    String(values.phoneNumber).replace(/[^\d]/g, ''),
-  );
-  // const userEmail = 'bobrssss@bob.com';
-  // const password = '123456';
-  try {
-    const { user } = await firebase
-      .auth()
-      .createUserWithEmailAndPassword(values.email, values.password);
-    const ref = db.doc(`users/${user.uid}`);
-    const { email, photoURL } = user;
-    ref.set({
-      displayName: values.displayName,
-      photoURL,
-      email: values.email,
-      phoneNumber: formattedPhone,
-    });
-    console.log(user, '$$$$$$');
-    user.updateProfile({ displayName: values.displayName });
-  } catch (error) {
-    alert(error);
-  }
-};
 
 export default Login;

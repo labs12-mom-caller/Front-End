@@ -1,9 +1,7 @@
-// libraries
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-//
 import HomePage from './HomePage';
 import useDoc from '../hooks/useDoc';
 import { db } from '../firebase';
@@ -12,12 +10,10 @@ function Choose({ user }) {
   const [newUser, setNewUser] = React.useState(null);
   React.useEffect(() => {
     if (newUser) {
-      db.doc(`users/${user.uid}`).update({
-        contact: {
-          email: newUser.contact.email,
-          name: newUser.contact.name,
-          phoneNumber: newUser.contact.phoneNumber,
-        },
+      db.collection('users').add({
+        displayName: newUser.contact.name,
+        email: newUser.contact.email,
+        phoneNumber: newUser.contact.phoneNumber,
       });
     }
   }, [newUser, user.uid]);
@@ -40,9 +36,7 @@ function Choose({ user }) {
       return <HomePage user={newUser} />;
     }
   }
-  console.log(newUser, 'NEWUSER');
-  console.log(currentUserData, 'CURRENT');
-  console.log(user, 'USER');
+
   return (
     <>
       <div>Hello {user.displayName} </div>
@@ -51,7 +45,7 @@ function Choose({ user }) {
 
         <Formik
           initialValues={{
-            email: 'test1@test.com',
+            email: 'checomichael25@yahoo.com',
             name: 'Testing',
             phoneNumber: '1234567890',
           }}
@@ -166,31 +160,31 @@ export default Choose;
 
 Choose.propTypes = {
   user: PropTypes.shape({
-    displayName: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    photoUrl: PropTypes.string.isRequired,
-    uid: PropTypes.string.isRequired,
-    phoneNumber: PropTypes.string.isRequired,
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+    photoUrl: PropTypes.string,
+    uid: PropTypes.string,
+    phoneNumber: PropTypes.string,
   }),
   values: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    phoneNumber: PropTypes.number.isRequired,
+    email: PropTypes.string,
+    name: PropTypes.string,
+    phoneNumber: PropTypes.number,
   }),
   touched: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    phoneNumber: PropTypes.number.isRequired,
+    email: PropTypes.string,
+    name: PropTypes.string,
+    phoneNumber: PropTypes.number,
   }),
   errors: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    phoneNumber: PropTypes.number.isRequired,
+    email: PropTypes.string,
+    name: PropTypes.string,
+    phoneNumber: PropTypes.number,
   }),
-  dirty: PropTypes.bool.isRequired,
-  isSubmitting: PropTypes.bool.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleBlur: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  handleReset: PropTypes.func.isRequired,
+  dirty: PropTypes.bool,
+  isSubmitting: PropTypes.bool,
+  handleChange: PropTypes.func,
+  handleBlur: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  handleReset: PropTypes.func,
 };
