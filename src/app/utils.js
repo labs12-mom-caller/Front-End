@@ -32,7 +32,16 @@ export async function signup({
     throw e;
   }
 }
+export function fetchDoc(path) {
+  return db
+    .doc(path)
+    .get()
+    .then(doc => doc.data());
+}
 
+export function fetchUser(uid) {
+  return fetchDoc(`users/${uid}`);
+}
 export function deleteUser(id) {
   return db.doc(`users/${id}`).delete();
 }
