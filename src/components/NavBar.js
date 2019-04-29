@@ -1,15 +1,10 @@
 import React from 'react';
-import firebase from 'firebase';
+import { logout } from '../app/utils';
 
 const NavBar = () => {
   return (
     <>
-      <button
-        type='button'
-        onClick={() => {
-          firebase.auth().signOut();
-        }}
-      >
+      <button type='button' onClick={logout}>
         log out
       </button>
       <button type='button'>Add New Call</button>
