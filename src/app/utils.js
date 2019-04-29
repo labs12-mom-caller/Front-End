@@ -32,3 +32,7 @@ export async function signup({
     throw e;
   }
 }
+
+export function deleteUser(id) {
+  return db.doc(`users/${id}`).delete();
+}
