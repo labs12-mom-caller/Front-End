@@ -1,9 +1,11 @@
 import React from 'react';
 import * as Yup from 'yup';
+import { navigate } from '@reach/router';
 import { Formik } from 'formik';
 import HomePage from './HomePage';
 import useDoc from '../hooks/useDoc';
 import { firebase, db } from '../firebase';
+import DashBoard from './../pages/DashBoard';
 
 function Choose({ user }) {
   const [newUser, setNewUser] = React.useState(null);
@@ -29,10 +31,10 @@ function Choose({ user }) {
 
   if (newUser || currentUserData) {
     if (currentUserData && currentUserData.contact) {
-      return <HomePage user={currentUserData} />;
+      return <DashBoard user={currentUserData} />;
     }
     if (newUser && newUser.contact) {
-      return <HomePage user={newUser} />;
+      return <DashBoard user={newUser} />;
     }
   }
 
@@ -45,6 +47,7 @@ function Choose({ user }) {
           type='button'
           onClick={() => {
             firebase.auth().signOut();
+            navigate('/');
           }}
         >
           log out
@@ -60,6 +63,7 @@ function Choose({ user }) {
             setTimeout(() => {
               updateUser(values);
               setSubmitting(false);
+              navigate('/');
             }, 500);
           }}
           validationSchema={Yup.object().shape({

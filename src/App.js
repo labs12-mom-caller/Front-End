@@ -7,6 +7,7 @@ import { firebase, db } from './firebase';
 import Choose from './components/Choose';
 import NavBar from './components/NavBar';
 import { signup } from './app/utils';
+import DashBoard from './pages/DashBoard';
 
 function useAuth() {
   const [user, setUser] = React.useState(null);
@@ -35,9 +36,10 @@ function App() {
   const user = useAuth();
   return user ? (
     <>
-      <NavBar />
+      {/* <NavBar /> */}
       <Router>
-        <Choose user={user} path='/user/:userId' />
+        <DashBoard user={user} path='/user/:userId' />
+        <Choose user={user} path='/choose/:userId' />
         <Redirect from='/' to={`user/${user.uid}`} noThrow />
       </Router>
     </>
