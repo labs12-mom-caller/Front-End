@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import HomePage from './HomePage';
 import useDoc from '../hooks/useDoc';
-import { firebase, db } from '../firebase';
+import { db } from '../firebase';
 
 function Choose({ user }) {
   const [newUser, setNewUser] = React.useState(null);
@@ -41,14 +42,6 @@ function Choose({ user }) {
       <div>Hello {user.displayName} </div>
       <div className='app'>
         <h1>Choose Your Loved One</h1>
-        <button
-          type='button'
-          onClick={() => {
-            firebase.auth().signOut();
-          }}
-        >
-          log out
-        </button>
 
         <Formik
           initialValues={{
@@ -164,3 +157,34 @@ function Choose({ user }) {
   );
 }
 export default Choose;
+
+Choose.propTypes = {
+  user: PropTypes.shape({
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+    photoUrl: PropTypes.string,
+    uid: PropTypes.string,
+    phoneNumber: PropTypes.string,
+  }),
+  values: PropTypes.shape({
+    email: PropTypes.string,
+    name: PropTypes.string,
+    phoneNumber: PropTypes.number,
+  }),
+  touched: PropTypes.shape({
+    email: PropTypes.string,
+    name: PropTypes.string,
+    phoneNumber: PropTypes.number,
+  }),
+  errors: PropTypes.shape({
+    email: PropTypes.string,
+    name: PropTypes.string,
+    phoneNumber: PropTypes.number,
+  }),
+  dirty: PropTypes.bool,
+  isSubmitting: PropTypes.bool,
+  handleChange: PropTypes.func,
+  handleBlur: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  handleReset: PropTypes.func,
+};
