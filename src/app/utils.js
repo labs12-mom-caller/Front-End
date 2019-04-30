@@ -52,6 +52,10 @@ export async function signupUserTwo({
       email,
       password,
     );
+    auth()
+      .sendPasswordResetEmail(email)
+      .then(res => console.log(res))
+      .catch(e => console.log(e.message));
     await user.updateProfile({ displayName, photoURL });
     await db.doc(`users/${user.uid}`).set({
       displayName,
