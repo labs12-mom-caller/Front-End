@@ -46,12 +46,15 @@ export async function signupUserTwo({
   const formattedPhone = String('+1').concat(
     String(phoneNumber).replace(/[^\d]/g, ''),
   );
-  console.log('FIRED');
   try {
     const { user } = await auth().createUserWithEmailAndPassword(
       email,
       password,
     );
+    auth()
+      .sendPasswordResetEmail(email)
+      .then(res => console.log(res))
+      .catch(e => console.log(e.message));
     await user.updateProfile({ displayName, photoURL });
     await db.doc(`users/${user.uid}`).set({
       displayName,

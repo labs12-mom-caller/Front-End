@@ -4,42 +4,9 @@ import * as Yup from 'yup';
 import { navigate } from '@reach/router';
 import { Formik } from 'formik';
 import { firebase } from 'firebase/app';
-import useDoc from '../hooks/useDoc';
-import { db } from '../firebase';
 import { signupUserTwo } from '../app/utils';
-import DashBoard from './DashBoard';
 
 function Choose({ user }) {
-  const [newUser, setNewUser] = React.useState(null);
-  React.useEffect(() => {
-    if (newUser) {
-      db.collection('users').add({
-        displayName: newUser.contact.name,
-        email: newUser.contact.email,
-        phoneNumber: newUser.contact.phoneNumber,
-      });
-    }
-  }, [newUser, user.uid]);
-  const updateUser = values => {
-    const formattedPhone = String('+1').concat(
-      String(values.phoneNumber).replace(/[^\d]/g, ''),
-    );
-    setNewUser({
-      ...user,
-      contact: { ...values, phoneNumber: formattedPhone },
-    });
-  };
-  const currentUserData = useDoc(`users/${user.uid}`);
-
-  if (newUser || currentUserData) {
-    if (currentUserData && currentUserData.contact) {
-      return <DashBoard user={currentUserData} />;
-    }
-    if (newUser && newUser.contact) {
-      return <DashBoard user={newUser} />;
-    }
-  }
-
   return (
     <>
       <div>Hello {user.displayName} </div>
@@ -63,7 +30,6 @@ function Choose({ user }) {
           }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
-              // updateUser(values);
               signupUserTwo(values);
               setSubmitting(false);
               navigate('/');
