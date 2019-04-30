@@ -10,7 +10,7 @@ import {
   DefaultButtonBlue,
   DefaultInput,
   FormikWrapper,
-} from '../styles/styledDefaulComponents/index';
+} from '../styles/styledDefaultComponents';
 
 function Login() {
   // state
