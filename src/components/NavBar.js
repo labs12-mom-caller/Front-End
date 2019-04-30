@@ -12,7 +12,7 @@ import {
   MDBContainer,
   MDBHamburgerToggler,
 } from 'mdbreact';
-import { logout } from '../app/utils'
+import { logout } from '../app/utils';
 
 class NavbarPage extends Component {
   constructor(props) {
@@ -54,7 +54,7 @@ class NavbarPage extends Component {
                   <MDBNavItem>
                     <MDBNavLink
                       active
-                      onClick={logout}
+                      onClick={() => navigate("/")}
                       className='black-text'
                       to='/'
                     >
@@ -87,10 +87,7 @@ class NavbarPage extends Component {
                   </MDBNavItem>
                   <MDBNavItem>
                     <MDBNavLink
-                      onClick={() => {
-                        firebase.auth().signOut();
-                        navigate('/', { replace: true });
-                      }}
+                      onClick={logout}
                       className='red-text'
                       to='/'
                     >
