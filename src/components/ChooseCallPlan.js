@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 
 import { CallPlanView } from '../styles/CallPlanView';
-import Choose from './ChooseYourContact';
 
 const ChooseCallPlan = ({ contactId, userId }) => {
   const [free, setFree] = useState(null);
