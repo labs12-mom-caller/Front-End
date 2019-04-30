@@ -18,11 +18,11 @@ const bucket = admin.storage().bucket();
 exports.callService = functions.pubsub
   .topic('recaller')
   .onPublish((req, res) => {
-    caller.handler(req, res, firestore);
+    return caller.handler(req, res, firestore);
   });
 
 exports.twilioFetch = functions.pubsub
   .topic('twilioFetch')
   .onPublish((req, res) => {
-    fetch.handler(req, res, firestore, bucket);
+    return fetch.handler(req, res, firestore, bucket);
   });

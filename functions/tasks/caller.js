@@ -51,6 +51,8 @@ exports.handler = async (req, res, firestore) => {
               });
           },
         );
+      } else {
+        console.log('No contacts scheduled');
       }
     });
   } catch (err) {
