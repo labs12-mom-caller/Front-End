@@ -1,7 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { firebase, db, auth } from '../firebase';
-import { navigate } from '@reach/router';
-
+import { db, auth } from '../firebase';
 export function logout() {
   return auth().signOut();
   // navigate('/');

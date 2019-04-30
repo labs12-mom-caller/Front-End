@@ -5,19 +5,18 @@ import { navigate } from '@reach/router';
 import { Formik } from 'formik';
 import { firebase } from 'firebase/app';
 import { signupUserTwo } from '../app/utils';
-import { logout } from '../app/utils';
+import NavBar from './NavBar';
+import { Wrapper } from '../styles/Login';
 
 function Choose({ user }) {
   const [userTwoEmail, setUserTwoEmail] = React.useState();
   console.log(userTwoEmail);
   return (
-    <>
+    <Wrapper>
+      <NavBar />
       <div>Hello {user.displayName} </div>
       <div className='app'>
         <h1>Choose Your Loved One</h1>
-        <button type='button' onClick={logout}>
-          log out
-        </button>
 
         <Formik
           initialValues={{
@@ -131,7 +130,7 @@ function Choose({ user }) {
           }}
         </Formik>
       </div>
-    </>
+    </Wrapper>
   );
 }
 export default Choose;
