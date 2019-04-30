@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import { db, auth } from '../firebase';
+
 export function logout() {
   return auth().signOut();
   // navigate('/');

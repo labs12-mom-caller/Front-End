@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { navigate } from '@reach/router';
 
 import Day from './scheduler/Day';
 import randomTime from './scheduler/randomTime';
@@ -7,12 +9,7 @@ import { Scheduler } from '../styles/Scheduler';
 
 import { db } from '../firebase';
 
-// Need these passed to component
-const user1 = 'F0skukqYhJdV6d62Hp2XePxig7y1';
-const user2 = 'Eui65bgyDPTX7gWfITDzVVlvIn53';
-const callFrequency = 'biweekly';
-
-const ScheduleFreeCall = props => {
+const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
   const initialState = {
     timezone: '',
     selectedTimes: {
@@ -61,15 +58,15 @@ const ScheduleFreeCall = props => {
     const thisTime = randomTime(time.selectedTimes);
     try {
       const docRef = await db.collection('contacts').add({
-        call_frequency: callFrequency,
+        call_frequency: frequency.toLowerCase(),
         call_type: 'free',
         next_call: thisTime,
         timezone: time.timezone,
         selected_times: time.selectedTimes,
-        user1: db.collection('users').doc(user1),
-        user2: db.collection('users').doc(user2),
+        user1: db.collection('users').doc(userId),
+        user2: db.collection('users').doc(contactId),
       });
-      console.log(docRef.id);
+      navigate(`/confirmation/${docRef.id}`);
     } catch (err) {
       console.log(err);
     }
@@ -117,6 +114,12 @@ const ScheduleFreeCall = props => {
       </form>
     </Scheduler>
   );
+};
+
+ScheduleFreeCall.propTypes = {
+  contactId: PropTypes.string,
+  userId: PropTypes.string,
+  frequency: PropTypes.string,
 };
 
 export default ScheduleFreeCall;
