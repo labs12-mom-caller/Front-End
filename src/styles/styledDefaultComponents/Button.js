@@ -8,7 +8,7 @@ export const DefaultButtonRed = styled.button`
   display: block;
   margin: 1rem auto;
   border: 2px solid ${styles.colors.redOrange};
-  width: 20%;
+  width: 70%;
   color: ${styles.colors.redOrange};
   background: 2px solid ${styles.colors.mainWhite};
   font-size: 1rem;
