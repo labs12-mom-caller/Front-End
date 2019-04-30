@@ -1,17 +1,35 @@
 import React from 'react';
 import NavBar from './NavBar';
+import ModalPhoneNumber from './ModalPhoneNumber';
+import {
+  Wrapper,
+  ProfileImage,
+  UpdateAccount,
+  DashboardButtons,
+  WelcomeUser,
+} from '../styles/Dashboard';
+import { DefaultButtonBlueBG } from '../styles/styledDefaultComponents';
 
 const DashBoard = ({ user }) => {
   return (
-    <>
+    <div>
       <NavBar user={user} />
-      <div>Hello {user.displayName} </div>
-      <img
-        src={`${user.photoUrl}`}
-        style={{ width: 250, height: 250 }}
-        alt='ProfilePic'
-      />
-    </>
+      <Wrapper>
+        <WelcomeUser>Hello {user.displayName} </WelcomeUser>
+        <ProfileImage src={`${user.photoUrl}`} alt='ProfilePic' />
+        <UpdateAccount>Update Account</UpdateAccount>
+        <DashboardButtons>
+          <DefaultButtonBlueBG type='button'>New Call </DefaultButtonBlueBG>
+          <DefaultButtonBlueBG type='button'>
+            Scheduled Calls
+          </DefaultButtonBlueBG>
+          <DefaultButtonBlueBG type='button'>
+            Previous Calls{' '}
+          </DefaultButtonBlueBG>
+        </DashboardButtons>
+        <ModalPhoneNumber user={user} />
+      </Wrapper>
+    </div>
   );
 };
 
