@@ -1,17 +1,30 @@
 import React from 'react';
-import { logout } from '../app/utils';
+import { navigate } from '@reach/router';
+import firebase from 'firebase';
 
-const NavBar = () => {
+const NavBar = props => {
   return (
-    <>
-      <button type='button' onClick={logout}>
+    <nav>
+      <button
+        type='button'
+        onClick={() => {
+          firebase.auth().signOut();
+          navigate('/', { replace: true });
+        }}
+      >
         log out
       </button>
       <button type='button'>Add New Call</button>
       <button type='button'>Review Calls</button>
       <button type='button'>Previous Calls</button>
       <button type='button'>Update Account</button>
-    </>
+      <button
+        onClick={() => navigate(`/choose/${props.user.uid}`)}
+        type='button'
+      >
+        Choose Contact
+      </button>
+    </nav>
   );
 };
 

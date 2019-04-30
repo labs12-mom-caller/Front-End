@@ -1,47 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
+import { navigate } from '@reach/router';
 import { Formik } from 'formik';
-import HomePage from './HomePage';
-import useDoc from '../hooks/useDoc';
-import { db } from '../firebase';
+import { firebase } from 'firebase/app';
+import { signupUserTwo } from '../app/utils';
 
 function Choose({ user }) {
-  const [newUser, setNewUser] = React.useState(null);
-  React.useEffect(() => {
-    if (newUser) {
-      db.collection('users').add({
-        displayName: newUser.contact.name,
-        email: newUser.contact.email,
-        phoneNumber: newUser.contact.phoneNumber,
-      });
-    }
-  }, [newUser, user.uid]);
-  const updateUser = values => {
-    const formattedPhone = String('+1').concat(
-      String(values.phoneNumber).replace(/[^\d]/g, ''),
-    );
-    setNewUser({
-      ...user,
-      contact: { ...values, phoneNumber: formattedPhone },
-    });
-  };
-  const currentUserData = useDoc(`users/${user.uid}`);
-
-  if (newUser || currentUserData) {
-    if (currentUserData && currentUserData.contact) {
-      return <HomePage user={currentUserData} />;
-    }
-    if (newUser && newUser.contact) {
-      return <HomePage user={newUser} />;
-    }
-  }
-
   return (
     <>
       <div>Hello {user.displayName} </div>
       <div className='app'>
         <h1>Choose Your Loved One</h1>
+        <button
+          type='button'
+          onClick={() => {
+            firebase.auth().signOut();
+            navigate('/');
+          }}
+        >
+          log out
+        </button>
 
         <Formik
           initialValues={{
@@ -51,8 +30,9 @@ function Choose({ user }) {
           }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
-              updateUser(values);
+              signupUserTwo(values);
               setSubmitting(false);
+              navigate('/');
             }, 500);
           }}
           validationSchema={Yup.object().shape({

@@ -4,4 +4,14 @@ import {
   DefaultButtonBlue,
   DefaultButtonRedBG,
 } from './Button';
-export { styles, DefaultButtonRed, DefaultButtonBlue, DefaultButtonRedBG };
+import { DefaultInput } from './Input';
+import { FormikWrapper } from './FormikWrapper';
+
+export {
+  styles,
+  DefaultInput,
+  DefaultButtonRed,
+  DefaultButtonBlue,
+  DefaultButtonRedBG,
+  FormikWrapper,
+};

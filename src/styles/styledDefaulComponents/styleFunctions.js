@@ -8,11 +8,11 @@ export const colors = {
 
 export const logoText = `font-family: 'Pacifico', cursive;`;
 
-export const transitionDefault = 'transition: all .5s ease-in-out';
+export const transitionDefault = 'transition: all .1s ease-in-out';
 
 export const transitionFunction = (
   property = 'all',
-  time = '.5s',
+  time = '0.4s',
   type = 'linear',
 ) => {
   return `transition: ${property} ${time} ${type}`;
