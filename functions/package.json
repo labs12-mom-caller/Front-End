@@ -13,8 +13,8 @@
     "axios": "^0.18.0",
     "firebase-admin": "~7.0.0",
     "firebase-functions": "^2.2.0",
-    "fs": "^0.0.1-security",
     "moment-timezone": "^0.5.25",
+    "request": "^2.88.0",
     "twilio": "^3.30.2"
   },
   "private": true,

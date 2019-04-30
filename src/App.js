@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Redirect } from '@reach/router';
-import Choose from './components/Choose';
+import ChooseYourContact from './components/ChooseYourContact';
 import { firebase, db } from './firebase';
 import Login from './components/Login';
 import DashBoard from './components/DashBoard';
@@ -34,7 +34,7 @@ function App() {
     <>
       <Router>
         <DashBoard user={user} path='/user/:userId' />
-        <Choose user={user} path='/choose/:userId' />
+        <ChooseYourContact user={user} path='/choose/:userId' />
         <Redirect from='/' to={`user/${user.uid}`} noThrow />
       </Router>
     </>

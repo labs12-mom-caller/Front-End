@@ -6,16 +6,16 @@ export const DefaultButtonRed = styled.button`
   justify-content: center;
   align-items: center; */
   display: block;
-  margin: 0 auto;
+  margin: 1rem auto;
   border: 2px solid ${styles.colors.redOrange};
-  width: 150px;
+  width: 70%;
   color: ${styles.colors.redOrange};
   background: 2px solid ${styles.colors.mainWhite};
-  font-size: 1.5rem;
+  font-size: 1rem;
   padding: 0.5rem;
   text-transform: capitalize;
   font-weight: 700;
-  border-radius: 5%;
+  border-radius: 20px;
   ${styles.letterSpacing(`.2rem`)};
   ${styles.transitionDefault};
   cursor: pointer;

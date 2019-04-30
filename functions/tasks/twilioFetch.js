@@ -1,6 +1,6 @@
 const functions = require('firebase-functions');
 const axios = require('axios');
-const fs = require('fs');
+const request = require('request');
 
 const accountSid = functions.config().twilio.sid;
 const authToken = functions.config().twilio.token;
@@ -17,15 +17,53 @@ exports.handler = async (req, res, firestore, storage) => {
     snapshot.forEach(async doc => {
       const { twilio } = doc.data();
       const [recording] = await client.recordings.list({ sourceSid: twilio });
-      const { sid } = recording;
-      const { id } = doc;
-      const file = storage.file(`${id}.wav`);
-      fs.createReadStream(
-        `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Recordings/${sid}`,
-      )
-        .pipe(file.createWriteStream())
-        .on('error', err => console.log(err))
-        .on('finish', () => {});
+      const { sid, status } = recording;
+      if (status === 'completed') {
+        const { id } = doc;
+        const file = storage.file(`${id}`);
+        request(
+          `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Recordings/${sid}.wav`,
+        )
+          .pipe(
+            file.createWriteStream({
+              metadata: { contentType: 'audio/wav' },
+            }),
+          )
+          .on('error', err => console.log(err))
+          .on('finish', async () => {
+            const [url] = await file.getSignedUrl({
+              action: 'read',
+              expires: '01-01-3000',
+            });
+            const response = await axios({
+              method: 'post',
+              url: 'https://brain.deepgram.com/v2/listen',
+              auth: {
+                username: functions.config().deepgram.username,
+                password: functions.config().deepgram.password,
+              },
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              params: {
+                model: 'phonecall',
+              },
+              data: {
+                url,
+              },
+            });
+            console.log(response.data);
+            calls.doc(id).update({
+              audio: url,
+              fetched: true,
+              call_duration: recording.duration,
+              call_time: recording.dateCreated,
+              deepgram: response.data,
+            });
+          });
+      } else {
+        console.log('Call has not finished recording');
+      }
     });
   } catch (err) {
     console.log(err);
