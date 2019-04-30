@@ -7,7 +7,7 @@ import {
   DashboardButtons,
   WelcomeUser,
 } from '../styles/Dashboard';
-import { DefaultButtonRedBG } from '../styles/styledDefaulComponents';
+import { DefaultButtonBlueBG } from '../styles/styledDefaultComponents';
 
 const DashBoard = ({ user }) => {
   return (
@@ -18,9 +18,9 @@ const DashBoard = ({ user }) => {
         <ProfileImage src={`${user.photoUrl}`} alt='ProfilePic' />
         <UpdateAccount>Update Account</UpdateAccount>
         <DashboardButtons>
-          <DefaultButtonRedBG type='button'>New Call </DefaultButtonRedBG>
-          <DefaultButtonRedBG type='button'>Scheduled Calls</DefaultButtonRedBG>
-          <DefaultButtonRedBG type='button'>Previous Calls </DefaultButtonRedBG>
+          <DefaultButtonBlueBG type='button'>New Call </DefaultButtonBlueBG>
+          <DefaultButtonBlueBG type='button'>Scheduled Calls</DefaultButtonBlueBG>
+          <DefaultButtonBlueBG type='button'>Previous Calls </DefaultButtonBlueBG>
         </DashboardButtons>
       </Wrapper>
     </div>
