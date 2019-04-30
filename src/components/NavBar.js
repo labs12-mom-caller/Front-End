@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { navigate } from '@reach/router';
 import firebase from 'firebase';
+import { logout } from '../app/utils'
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -53,7 +54,7 @@ class NavbarPage extends Component {
                   <MDBNavItem>
                     <MDBNavLink
                       active
-                      onClick={() => navigate(`/`)}
+                      onClick={logout}
                       className='black-text'
                       to='/'
                     >
