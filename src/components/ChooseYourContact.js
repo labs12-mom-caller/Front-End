@@ -6,7 +6,6 @@ import { Formik } from 'formik';
 import { signupUserTwo } from '../app/utils';
 import NavBar from './NavBar';
 import { Wrapper } from '../styles/Login';
-
 function Choose({ user, userId }) {
   return (
     <Wrapper>
@@ -14,7 +13,6 @@ function Choose({ user, userId }) {
       <div>Hello {user.displayName} </div>
       <div className='app'>
         <h1>Choose Your Loved One</h1>
-
         <Formik
           initialValues={{
             email: 'checomichael25@yahoo.com',
@@ -130,7 +128,6 @@ function Choose({ user, userId }) {
   );
 }
 export default Choose;
-
 Choose.propTypes = {
   user: PropTypes.shape({
     displayName: PropTypes.string,
