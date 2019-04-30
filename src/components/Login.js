@@ -1,16 +1,19 @@
 // This is our main login component
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik } from 'formik';
 import firebase from 'firebase';
 import { Wrapper } from '../styles/Login';
 import { signup } from '../app/utils';
 
 function Login() {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [authError, setAuthError] = React.useState(null);
-  const [hasAccount, setHasAccount] = React.useState(null);
+  // state
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [authError, setAuthError] = useState(null);
+  const [hasAccount, setHasAccount] = useState(null);
+
+  //
   const handleSignIn = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {
