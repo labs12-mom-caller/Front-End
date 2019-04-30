@@ -32,6 +32,39 @@ export async function signup({
     throw e;
   }
 }
+
+export async function signupUserTwo({
+  email,
+  name,
+  password = Math.random()
+    .toString(36)
+    .slice(-8),
+  phoneNumber,
+  displayName = name,
+  photoURL = 'https://placekitten.com/200/200',
+}) {
+  const formattedPhone = String('+1').concat(
+    String(phoneNumber).replace(/[^\d]/g, ''),
+  );
+  console.log('FIRED');
+  try {
+    const { user } = await auth().createUserWithEmailAndPassword(
+      email,
+      password,
+    );
+    await user.updateProfile({ displayName, photoURL });
+    await db.doc(`users/${user.uid}`).set({
+      displayName,
+      uid: user.uid,
+      email,
+      photoURL,
+      phoneNumber: formattedPhone,
+    });
+  } catch (e) {
+    throw e;
+  }
+}
+
 export function fetchDoc(path) {
   return db
     .doc(path)

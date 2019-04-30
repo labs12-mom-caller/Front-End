@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { navigate } from '@reach/router';
 import { Formik } from 'formik';
-import HomePage from './HomePage';
 import useDoc from '../hooks/useDoc';
-import { firebase, db } from '../firebase';
+import { db } from '../firebase';
+import { signupUserTwo } from '../app/utils';
 import DashBoard from './DashBoard';
+import { firebase } from 'firebase/app';
 
 function Choose({ user }) {
   const [newUser, setNewUser] = React.useState(null);
@@ -62,7 +63,8 @@ function Choose({ user }) {
           }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
-              updateUser(values);
+              // updateUser(values);
+              signupUserTwo(values);
               setSubmitting(false);
               navigate('/');
             }, 500);
