@@ -3,9 +3,12 @@ import {
   DefaultButtonRed,
   DefaultButtonBlue,
   DefaultButtonRedBG,
+  DefaultButtonBlueBG,
 } from './Button';
 import { DefaultInput } from './Input';
 import { FormikWrapper } from './FormikWrapper';
+import { Section } from './Section';
+import { Title } from './Title';
 
 export {
   styles,
@@ -14,4 +17,7 @@ export {
   DefaultButtonBlue,
   DefaultButtonRedBG,
   FormikWrapper,
+  DefaultButtonBlueBG,
+  Section,
+  Title,
 };
