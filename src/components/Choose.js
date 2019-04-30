@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
+import { navigate } from '@reach/router';
 import { Formik } from 'formik';
-import HomePage from './HomePage';
+import { firebase } from 'firebase/app';
 import useDoc from '../hooks/useDoc';
 import { db } from '../firebase';
 import { signupUserTwo } from '../app/utils';
+import DashBoard from './DashBoard';
 
 function Choose({ user }) {
   const [newUser, setNewUser] = React.useState(null);
@@ -31,10 +33,10 @@ function Choose({ user }) {
 
   if (newUser || currentUserData) {
     if (currentUserData && currentUserData.contact) {
-      return <HomePage user={currentUserData} />;
+      return <DashBoard user={currentUserData} />;
     }
     if (newUser && newUser.contact) {
-      return <HomePage user={newUser} />;
+      return <DashBoard user={newUser} />;
     }
   }
 
@@ -43,6 +45,15 @@ function Choose({ user }) {
       <div>Hello {user.displayName} </div>
       <div className='app'>
         <h1>Choose Your Loved One</h1>
+        <button
+          type='button'
+          onClick={() => {
+            firebase.auth().signOut();
+            navigate('/');
+          }}
+        >
+          log out
+        </button>
 
         <Formik
           initialValues={{
@@ -55,6 +66,7 @@ function Choose({ user }) {
               // updateUser(values);
               signupUserTwo(values);
               setSubmitting(false);
+              navigate('/');
             }, 500);
           }}
           validationSchema={Yup.object().shape({
