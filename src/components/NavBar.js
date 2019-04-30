@@ -54,7 +54,7 @@ class NavbarPage extends Component {
                   <MDBNavItem>
                     <MDBNavLink
                       active
-                      onClick={() => navigate("/")}
+                      onClick={() => navigate('/')}
                       className='black-text'
                       to='/'
                     >
@@ -86,11 +86,7 @@ class NavbarPage extends Component {
                     </MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
-                    <MDBNavLink
-                      onClick={logout}
-                      className='red-text'
-                      to='/'
-                    >
+                    <MDBNavLink onClick={logout} className='red-text' to='/'>
                       Sign Out
                     </MDBNavLink>
                   </MDBNavItem>
