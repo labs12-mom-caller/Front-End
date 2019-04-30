@@ -1,9 +1,12 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-
+const stripe = require('stripe')(functions.config().stripe.token);
+const express = require('express');
+const cors = require('cors')({ origin: true });
 const caller = require('./tasks/caller.js');
 const fetch = require('./tasks/twilioFetch.js');
 
+const app = express();
 const serviceAccount = require('./serviceAccountKey.json');
 
 admin.initializeApp({
@@ -26,3 +29,52 @@ exports.twilioFetch = functions.pubsub
   .onPublish((req, res) => {
     return fetch.handler(req, res, firestore, bucket);
   });
+function charge(req, res) {
+  const body = JSON.parse(req.body);
+  const token = body.token.id;
+  const { amount } = body.charge;
+  const { currency } = body.charge;
+
+  // Charge card
+  stripe.charges
+    .create({
+      amount,
+      currency,
+      description: 'Firebase Example',
+      source: token,
+    })
+    .then(charge => {
+      send(res, 200, {
+        message: 'Success',
+        charge,
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      send(res, 500, {
+        error: err.message,
+      });
+    });
+}
+function send(res, code, body) {
+  res.send({
+    statusCode: code,
+    headers: { 'Access-Control-Allow-Origin': '*' },
+    body: JSON.stringify(body),
+  });
+}
+
+app.use(cors);
+app.post('/', (req, res) => {
+  // Catch any unexpected errors to prevent crashing
+  try {
+    charge(req, res);
+  } catch (e) {
+    console.log(e);
+    send(res, 500, {
+      error: `The server received an unexpected error. Please try again and contact the site admin if the error persists.`,
+    });
+  }
+});
+
+exports.charge = functions.https.onRequest(app);
