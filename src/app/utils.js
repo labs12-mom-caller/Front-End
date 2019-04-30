@@ -46,7 +46,6 @@ export async function signupUserTwo({
   const formattedPhone = String('+1').concat(
     String(phoneNumber).replace(/[^\d]/g, ''),
   );
-  console.log('FIRED');
   try {
     const { user } = await auth().createUserWithEmailAndPassword(
       email,
