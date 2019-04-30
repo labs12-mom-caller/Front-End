@@ -1,17 +1,11 @@
 import React from 'react';
 import { navigate } from '@reach/router';
-import firebase from 'firebase';
+import { logout } from '../app/utils';
 
 const NavBar = props => {
   return (
     <nav>
-      <button
-        type='button'
-        onClick={() => {
-          firebase.auth().signOut();
-          navigate('/', { replace: true });
-        }}
-      >
+      <button type='button' onClick={logout}>
         log out
       </button>
       <button type='button'>Add New Call</button>

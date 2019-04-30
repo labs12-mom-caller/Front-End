@@ -1,5 +1,6 @@
 import React from 'react';
 import NavBar from './NavBar';
+import ModalPhoneNumber from './ModalPhoneNumber';
 
 const DashBoard = ({ user }) => {
   return (
@@ -11,6 +12,7 @@ const DashBoard = ({ user }) => {
         style={{ width: 250, height: 250 }}
         alt='ProfilePic'
       />
+      <ModalPhoneNumber user={user} />
     </>
   );
 };

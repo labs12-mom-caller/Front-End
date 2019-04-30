@@ -5,20 +5,17 @@ import { navigate } from '@reach/router';
 import { Formik } from 'formik';
 import { firebase } from 'firebase/app';
 import { signupUserTwo } from '../app/utils';
+import { logout } from '../app/utils';
 
 function Choose({ user }) {
+  const [userTwoEmail, setUserTwoEmail] = React.useState();
+  console.log(userTwoEmail);
   return (
     <>
       <div>Hello {user.displayName} </div>
       <div className='app'>
         <h1>Choose Your Loved One</h1>
-        <button
-          type='button'
-          onClick={() => {
-            firebase.auth().signOut();
-            navigate('/');
-          }}
-        >
+        <button type='button' onClick={logout}>
           log out
         </button>
 
@@ -31,6 +28,7 @@ function Choose({ user }) {
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
               signupUserTwo(values);
+              setUserTwoEmail(values.email);
               setSubmitting(false);
               navigate('/');
             }, 500);
