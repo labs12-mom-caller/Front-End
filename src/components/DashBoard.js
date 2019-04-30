@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { MDBBtn } from 'mdbreact';
 import NavBar from './NavBar';
+import TakeMoney from './testingStripe';
 import ModalPhoneNumber from './ModalPhoneNumber';
 import {
   Wrapper,
@@ -28,9 +31,20 @@ const DashBoard = ({ user }) => {
           </DefaultButtonBlueBG>
         </DashboardButtons>
         <ModalPhoneNumber user={user} />
+        <TakeMoney>
+          <button type='submit'>Submit</button>
+        </TakeMoney>
       </Wrapper>
     </div>
   );
 };
-
+DashBoard.propTypes = {
+  user: PropTypes.shape({
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+    photoUrl: PropTypes.string,
+    uid: PropTypes.string,
+    phoneNumber: PropTypes.string,
+  }),
+};
 export default DashBoard;
