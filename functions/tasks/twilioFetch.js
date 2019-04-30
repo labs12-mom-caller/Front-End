@@ -52,14 +52,14 @@ exports.handler = async (req, res, firestore, storage) => {
                 url,
               },
             });
-            console.log(response.data);
-            calls.doc(id).update({
+            await calls.doc(id).update({
               audio: url,
               fetched: true,
               call_duration: recording.duration,
               call_time: recording.dateCreated,
               deepgram: response.data,
             });
+            await client.recordings(sid).remove();
           });
       } else {
         console.log('Call has not finished recording');
