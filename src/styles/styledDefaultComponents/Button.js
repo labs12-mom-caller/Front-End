@@ -8,7 +8,7 @@ export const DefaultButtonRed = styled.button`
   display: block;
   margin: 1rem auto;
   border: 2px solid ${styles.colors.redOrange};
-  width: 70%;
+  width: 20%;
   color: ${styles.colors.redOrange};
   background: 2px solid ${styles.colors.mainWhite};
   font-size: 1rem;
@@ -43,5 +43,16 @@ export const DefaultButtonBlue = styled(DefaultButtonRed)`
     color: ${styles.colors.mainWhite};
     background: ${styles.colors.mainBlue};
     border: ${styles.colors.mainWhite};
+  }
+`;
+
+export const DefaultButtonBlueBG = styled(DefaultButtonRed)`
+  color: ${styles.colors.mainWhite};
+  background: ${styles.colors.mainBlue};
+  border: 2px solid ${styles.colors.mainWhite};
+  &:hover {
+    color: ${styles.colors.mainBlue};
+    background: ${styles.colors.mainWhite};
+    border: 2px solid ${styles.colors.mainBlue};
   }
 `;
