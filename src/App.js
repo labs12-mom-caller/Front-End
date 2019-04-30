@@ -35,11 +35,11 @@ function App() {
   return user ? (
     <>
       <Router>
+        <Redirect from='/' to={`user/${user.uid}`} noThrow />
         <DashBoard user={user} path='/user/:userId' />
         <ChooseYourContact user={user} path='/choose/:userId' />
-        <Redirect from='/' to={`user/${user.uid}`} noThrow />
-        <ScheduleFreeCall path='/schedule-free' />
-        <ChooseCallPlan path='/choose-call-plan' />
+        <ChooseCallPlan path='/choose/:userId/:contactId/call-plan' />
+        <ScheduleFreeCall path='/choose/:userId/:contactId/:frequency/schedule-free' />
       </Router>
     </>
   ) : (

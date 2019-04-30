@@ -3,14 +3,11 @@ import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { navigate } from '@reach/router';
 import { Formik } from 'formik';
-import { firebase } from 'firebase/app';
 import { signupUserTwo } from '../app/utils';
 import NavBar from './NavBar';
 import { Wrapper } from '../styles/Login';
 
-function Choose({ user }) {
-  const [userTwoEmail, setUserTwoEmail] = React.useState();
-  console.log(userTwoEmail);
+function Choose({ user, userId }) {
   return (
     <Wrapper>
       <NavBar />
@@ -27,9 +24,8 @@ function Choose({ user }) {
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
               signupUserTwo(values);
-              setUserTwoEmail(values.email);
               setSubmitting(false);
-              navigate('/');
+              navigate(`/choose/${userId}/${user.uid}/call-plan`);
             }, 500);
           }}
           validationSchema={Yup.object().shape({
@@ -164,4 +160,5 @@ Choose.propTypes = {
   handleBlur: PropTypes.func,
   handleSubmit: PropTypes.func,
   handleReset: PropTypes.func,
+  userId: PropTypes.string,
 };
