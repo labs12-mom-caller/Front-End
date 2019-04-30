@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import moment from 'moment-timezone';
+import React, { useState } from 'react';
 
 import Day from './scheduler/Day';
+import randomTime from './scheduler/randomTime';
 
 import { Scheduler } from '../styles/Scheduler';
+
+import { db } from '../firebase';
+
+// Need these passed to component
+const user1 = 'F0skukqYhJdV6d62Hp2XePxig7y1';
+const user2 = 'Eui65bgyDPTX7gWfITDzVVlvIn53';
+const callFrequency = 'biweekly';
 
 const ScheduleFreeCall = props => {
   const initialState = {
@@ -49,13 +56,24 @@ const ScheduleFreeCall = props => {
     }
   };
 
-  useEffect(() => {
-    const tz = moment.tz.guess(true);
-    setTime({
-      ...time,
-      timezone: tz,
-    });
-  }, [time]);
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const thisTime = randomTime(time.selectedTimes);
+    try {
+      const docRef = await db.collection('contacts').add({
+        call_frequency: callFrequency,
+        call_type: 'free',
+        next_call: thisTime,
+        timezone: time.timezone,
+        selected_times: time.selectedTimes,
+        user1: db.collection('users').doc(user1),
+        user2: db.collection('users').doc(user2),
+      });
+      console.log(docRef.id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Scheduler>
@@ -64,7 +82,7 @@ const ScheduleFreeCall = props => {
         Please select the block of hours that you have availability. A call will
         be randomly scheduled in one of the time blocks selected
       </p>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label htmlFor='timezone'>Please select your time zone</label>
         <select
           id='timezone'
@@ -95,7 +113,7 @@ const ScheduleFreeCall = props => {
             />
           ))}
         </div>
-        <button type='button'>Complete Sign Up</button>
+        <button type='submit'>Complete Sign Up</button>
       </form>
     </Scheduler>
   );
