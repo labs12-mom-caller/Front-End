@@ -31,13 +31,34 @@ exports.handler = async (req, res, firestore, storage) => {
           )
           .on('error', err => console.log(err))
           .on('finish', async () => {
-            const url = await file.getSignedUrl({
+            const [url] = await file.getSignedUrl({
               action: 'read',
               expires: '01-01-3000',
             });
-            doc.set({
+            const response = await axios({
+              method: 'post',
+              url: 'https://brain.deepgram.com/v2/listen',
+              auth: {
+                username: functions.config().deepgram.username,
+                password: functions.config().deepgram.password,
+              },
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              params: {
+                model: 'phonecall',
+              },
+              data: {
+                url,
+              },
+            });
+            console.log(response.data);
+            calls.doc(id).update({
               audio: url,
               fetched: true,
+              call_duration: recording.duration,
+              call_time: recording.dateCreated,
+              deepgram: response.data,
             });
           });
       } else {
