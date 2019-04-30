@@ -1,6 +1,7 @@
 import React from 'react';
 import { MDBBtn } from 'mdbreact';
 import NavBar from './NavBar';
+import ModalPhoneNumber from './ModalPhoneNumber';
 import {
   Wrapper,
   ProfileImage,
@@ -32,6 +33,16 @@ const DashBoard = ({ user }) => {
             </DefaultButtonBlueBG>
           </DashboardButtons>
         ) : null}
+        <DashboardButtons>
+          <DefaultButtonBlueBG type='button'>New Call </DefaultButtonBlueBG>
+          <DefaultButtonBlueBG type='button'>
+            Scheduled Calls
+          </DefaultButtonBlueBG>
+          <DefaultButtonBlueBG type='button'>
+            Previous Calls{' '}
+          </DefaultButtonBlueBG>
+        </DashboardButtons>
+        <ModalPhoneNumber user={user} />
       </Wrapper>
     </div>
   );

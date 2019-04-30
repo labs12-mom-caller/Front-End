@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment-timezone';
 
-const Slot = ({ slot }) => {
+const Slot = ({ slot, timezone, day, selectTime }) => {
   const [click, setClick] = useState(false);
 
   const handleClick = e => {
     e.preventDefault();
     setClick(prev => !prev);
+    const formatted = moment
+      .tz(`${day} ${slot}`, 'dddd hh:mm A', timezone)
+      .tz('UTC')
+      .format();
+    selectTime(day, formatted, click);
   };
 
   return (
@@ -32,6 +38,9 @@ const Slot = ({ slot }) => {
 
 Slot.propTypes = {
   slot: PropTypes.string,
+  timezone: PropTypes.string,
+  day: PropTypes.string,
+  selectTime: PropTypes.func,
 };
 
 export default Slot;
