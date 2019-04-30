@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom'; // why is this woring
 import { navigate } from '@reach/router';
-import firebase from 'firebase';
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -51,7 +50,12 @@ class NavbarPage extends Component {
               <MDBCollapse isOpen={this.state.collapse1} navbar>
                 <MDBNavbarNav left>
                   <MDBNavItem>
-                    <MDBNavLink active className='black-text' to='/'>
+                    <MDBNavLink
+                      active
+                      onClick={() => navigate('/')}
+                      className='black-text'
+                      to='/'
+                    >
                       Dashboard
                     </MDBNavLink>
                   </MDBNavItem>
@@ -80,13 +84,7 @@ class NavbarPage extends Component {
                     </MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
-                    <MDBNavLink
-                      onClick={() => {
-                        logout;
-                      }}
-                      className='red-text'
-                      to='/'
-                    >
+                    <MDBNavLink onClick={logout} className='red-text' to='/'>
                       Sign Out
                     </MDBNavLink>
                   </MDBNavItem>

@@ -6,7 +6,7 @@ import { fetchUser } from '../app/utils';
 
 const ModalPhoneNumber = props => {
   const [modal, setModal] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState('');
 
   const toggle = () => {
     setModal(!modal);
