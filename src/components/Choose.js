@@ -5,6 +5,7 @@ import { Formik } from 'formik';
 import HomePage from './HomePage';
 import useDoc from '../hooks/useDoc';
 import { db } from '../firebase';
+import { signupUserTwo } from '../app/utils';
 
 function Choose({ user }) {
   const [newUser, setNewUser] = React.useState(null);
@@ -51,7 +52,8 @@ function Choose({ user }) {
           }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
-              updateUser(values);
+              // updateUser(values);
+              signupUserTwo(values);
               setSubmitting(false);
             }, 500);
           }}
