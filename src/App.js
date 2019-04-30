@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Redirect } from '@reach/router';
-import { firebase, db } from './firebase';
 import Choose from './components/Choose';
+import { firebase, db } from './firebase';
 import Login from './components/Login';
 import DashBoard from './components/DashBoard';
 
