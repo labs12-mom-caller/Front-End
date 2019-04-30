@@ -1,6 +1,7 @@
 // This is our main login component
 import React, { useState } from 'react';
 import { Formik } from 'formik';
+import { MDBIcon, MDBContainer, MDBBtn } from 'mdbreact';
 import firebase from 'firebase';
 import { signup } from '../app/utils';
 // style imports
@@ -38,9 +39,17 @@ function Login() {
       )}
       {!hasAccount && (
         <>
-          <DefaultButtonRed type='button' onClick={handleSignIn}>
+          {/* <DefaultButtonRed type='button' onClick={handleSignIn}>
             Sign up with Google
-          </DefaultButtonRed>
+          </DefaultButtonRed> */}
+          <MDBBtn
+            color='red'
+            social='g'
+            style={{ textTransform: 'capitalize' }}
+            onClick={handleSignIn}
+          >
+            <MDBIcon fab icon='google' className='pr-1' /> Google Signin
+          </MDBBtn>
 
           <FormikWrapper>
             <Formik
@@ -141,9 +150,15 @@ function Login() {
       )}
       {hasAccount && (
         <>
-          <DefaultButtonRed type='button' onClick={handleSignIn}>
-            Sign in with Google
-          </DefaultButtonRed>
+          <MDBBtn
+            color='red'
+            social='g'
+            style={{ textTransform: 'capitalize' }}
+            onClick={handleSignIn}
+          >
+            <MDBIcon fab icon='google' className='pr-1' /> Google Login
+          </MDBBtn>
+
           <form>
             <DefaultInput
               type='text'

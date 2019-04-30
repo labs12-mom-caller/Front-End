@@ -1,4 +1,5 @@
 import React from 'react';
+import { MDBBtn } from 'mdbreact';
 import NavBar from './NavBar';
 import {
   Wrapper,
@@ -19,8 +20,12 @@ const DashBoard = ({ user }) => {
         <UpdateAccount>Update Account</UpdateAccount>
         <DashboardButtons>
           <DefaultButtonBlueBG type='button'>New Call </DefaultButtonBlueBG>
-          <DefaultButtonBlueBG type='button'>Scheduled Calls</DefaultButtonBlueBG>
-          <DefaultButtonBlueBG type='button'>Previous Calls </DefaultButtonBlueBG>
+          <DefaultButtonBlueBG type='button'>
+            Scheduled Calls
+          </DefaultButtonBlueBG>
+          <DefaultButtonBlueBG type='button'>
+            Previous Calls{' '}
+          </DefaultButtonBlueBG>
         </DashboardButtons>
       </Wrapper>
     </div>
