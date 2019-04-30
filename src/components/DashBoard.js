@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { MDBBtn } from 'mdbreact';
 import NavBar from './NavBar';
 import TakeMoney from './testingStripe';
 import ModalPhoneNumber from './ModalPhoneNumber';
