@@ -29,6 +29,13 @@ exports.twilioFetch = functions.pubsub
   .onPublish((req, res) => {
     return fetch.handler(req, res, firestore, bucket);
   });
+function send(res, code, body) {
+  res.send({
+    statusCode: code,
+    headers: { 'Access-Control-Allow-Origin': '*' },
+    body: JSON.stringify(body),
+  });
+}
 function charge(req, res) {
   const body = JSON.parse(req.body);
   const token = body.token.id;
@@ -55,13 +62,6 @@ function charge(req, res) {
         error: err.message,
       });
     });
-}
-function send(res, code, body) {
-  res.send({
-    statusCode: code,
-    headers: { 'Access-Control-Allow-Origin': '*' },
-    body: JSON.stringify(body),
-  });
 }
 
 app.use(cors);
