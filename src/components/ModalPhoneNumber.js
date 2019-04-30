@@ -34,7 +34,7 @@ const ModalPhoneNumber = props => {
       }
     }
     fetchData();
-  }, []);
+  }, [modal]);
 
   return (
     <div>
