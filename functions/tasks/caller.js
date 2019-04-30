@@ -45,6 +45,7 @@ exports.handler = async (req, res, firestore) => {
             calls
               .add({
                 twilio: call.sid,
+                fetched: false,
               })
               .then(ref => {
                 console.log(`Added call document with ID: ${ref.id}`);
