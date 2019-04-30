@@ -1,9 +1,9 @@
 import React from 'react';
 import { Router, Redirect } from '@reach/router';
+import ChooseYourContact from './components/ChooseYourContact';
 import { firebase, db } from './firebase';
-import Choose from './components/ChooseYourContact';
-import NavBar from './components/NavBar';
 import Login from './components/Login';
+import DashBoard from './components/DashBoard';
 
 function useAuth() {
   const [user, setUser] = React.useState(null);
@@ -32,9 +32,9 @@ function App() {
   const user = useAuth();
   return user ? (
     <>
-      <NavBar />
       <Router>
-        <Choose user={user} path='/user/:userId' />
+        <DashBoard user={user} path='/user/:userId' />
+        <ChooseYourContact user={user} path='/choose/:userId' />
         <Redirect from='/' to={`user/${user.uid}`} noThrow />
       </Router>
     </>
