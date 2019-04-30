@@ -139,7 +139,7 @@ class NavbarPage extends Component {
                   <MDBNavLink
                     onClick={() => navigate(`/choose/${this.props.user.uid}`)}
                     className='black-text'
-                    to='/choose-contact'
+                    to="#"
                   >
                     Choose Contact
                   </MDBNavLink>

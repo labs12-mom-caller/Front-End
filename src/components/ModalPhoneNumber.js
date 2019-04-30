@@ -38,7 +38,8 @@ const ModalPhoneNumber = props => {
 
   return (
     <div>
-      <Modal isOpen={modal} toggle={toggle} className={props.className}>
+      {/* eslint-disable-next-line react/destructuring-assignment */}
+      <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>
           Please enter your phone number.
         </ModalHeader>
@@ -66,7 +67,15 @@ const ModalPhoneNumber = props => {
 };
 
 export default ModalPhoneNumber;
-
+ModalPhoneNumber.propTypes = {
+  user: PropTypes.shape({
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+    photoUrl: PropTypes.string,
+    uid: PropTypes.string,
+    phoneNumber: PropTypes.string,
+  }),
+};
 Modal.propTypes = {
   // boolean to control the state of the popover
   isOpen: PropTypes.bool,

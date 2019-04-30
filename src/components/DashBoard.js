@@ -21,7 +21,7 @@ const DashBoard = ({ user }) => {
         <WelcomeUser>Hello {user.displayName} </WelcomeUser>
         <ProfileImage src={`${user.photoUrl}`} alt='ProfilePic' />
         <UpdateAccount>Update Account</UpdateAccount>
-
+        <ModalPhoneNumber user={user} />
         {isMobile ? (
           <DashboardButtons>
             <DefaultButtonBlueBG type='button'>New Call </DefaultButtonBlueBG>
@@ -33,16 +33,6 @@ const DashBoard = ({ user }) => {
             </DefaultButtonBlueBG>
           </DashboardButtons>
         ) : null}
-        <DashboardButtons>
-          <DefaultButtonBlueBG type='button'>New Call </DefaultButtonBlueBG>
-          <DefaultButtonBlueBG type='button'>
-            Scheduled Calls
-          </DefaultButtonBlueBG>
-          <DefaultButtonBlueBG type='button'>
-            Previous Calls{' '}
-          </DefaultButtonBlueBG>
-        </DashboardButtons>
-        <ModalPhoneNumber user={user} />
       </Wrapper>
     </div>
   );
