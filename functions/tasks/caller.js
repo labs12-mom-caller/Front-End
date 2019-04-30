@@ -44,6 +44,7 @@ exports.handler = async (req, res, firestore) => {
           (err, call) => {
             calls
               .add({
+                contact_ref: contacts.doc(`contacts/${doc.id}`),
                 twilio: call.sid,
                 fetched: false,
               })
