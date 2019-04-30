@@ -3,18 +3,30 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { DefaultInput } from '../styles/styledDefaultComponents/index';
 import { fetchUser } from '../app/utils';
+import { db } from '../firebase';
 
 const ModalPhoneNumber = props => {
+  const {
+    user: { uid },
+  } = props;
   const [modal, setModal] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
 
   const toggle = () => {
     setModal(!modal);
   };
-
+  const addPhoneNumber = async () => {
+    const formattedPhone = String('+1').concat(
+      String(phoneNumber).replace(/[^\d]/g, ''),
+    );
+    await db
+      .doc(`users/${uid}`)
+      .set({ phoneNumber: formattedPhone }, { merge: true });
+    setModal(!modal);
+  };
   useEffect(() => {
     async function fetchData() {
-      const userCheck = await fetchUser(props.user.uid);
+      const userCheck = await fetchUser(uid);
       console.log(userCheck);
       console.log(props.user);
       if (!userCheck.phoneNumber) {
@@ -41,7 +53,7 @@ const ModalPhoneNumber = props => {
           </form>
         </ModalBody>
         <ModalFooter>
-          <Button color='primary' onClick={toggle}>
+          <Button color='primary' onClick={addPhoneNumber}>
             Submit
           </Button>{' '}
           <Button color='secondary' onClick={toggle}>
