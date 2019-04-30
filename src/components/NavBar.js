@@ -53,7 +53,7 @@ class NavbarPage extends Component {
                   <MDBNavItem>
                     <MDBNavLink
                       active
-                      onClick={() => navigate(`/choose/${this.props.user.uid}`)}
+                      onClick={() => navigate(`/`)}
                       className='black-text'
                       to='/'
                     >
