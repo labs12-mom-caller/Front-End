@@ -21,7 +21,6 @@ function Choose({ user }) {
     }
   }, [newUser, user.uid]);
 
-  //
   const updateUser = values => {
     const formattedPhone = String('+1').concat(
       String(values.phoneNumber).replace(/[^\d]/g, ''),
@@ -32,9 +31,8 @@ function Choose({ user }) {
     });
   };
 
-  //
   const currentUserData = useDoc(`users/${user.uid}`);
-  //
+
   if (newUser || currentUserData) {
     if (currentUserData && currentUserData.contact) {
       return <DashBoard user={currentUserData} />;
@@ -43,7 +41,7 @@ function Choose({ user }) {
       return <DashBoard user={newUser} />;
     }
   }
-  //
+
   return (
     <>
       <div>Hello {user.displayName} </div>

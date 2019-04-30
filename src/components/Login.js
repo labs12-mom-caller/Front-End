@@ -1,5 +1,4 @@
 // This is our main login component
-
 import React, { useState } from 'react';
 import { Formik } from 'formik';
 import firebase from 'firebase';
@@ -20,7 +19,6 @@ function Login() {
   const [authError, setAuthError] = useState(null);
   const [hasAccount, setHasAccount] = useState(null);
 
-  //
   const handleSignIn = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     try {

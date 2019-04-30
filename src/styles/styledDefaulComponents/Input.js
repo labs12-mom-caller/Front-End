@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { styles } from '../styledDefaulComponents/index';
+import { styles } from './index';
 
 export const DefaultInput = styled.input`
   width: 70%;
