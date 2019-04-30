@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { navigate } from '@reach/router';
 import firebase from 'firebase';
-import { logout } from '../app/utils'
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -13,6 +12,7 @@ import {
   MDBContainer,
   MDBHamburgerToggler,
 } from 'mdbreact';
+import { logout } from '../app/utils'
 
 class NavbarPage extends Component {
   constructor(props) {
