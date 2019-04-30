@@ -9,6 +9,8 @@ import NavBar from './NavBar';
 import { Wrapper } from '../styles/Login';
 
 function Choose({ user }) {
+  const [userTwoEmail, setUserTwoEmail] = React.useState();
+  console.log(userTwoEmail);
   return (
     <Wrapper>
       <NavBar />
@@ -25,6 +27,7 @@ function Choose({ user }) {
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
               signupUserTwo(values);
+              setUserTwoEmail(values.email);
               setSubmitting(false);
               navigate('/');
             }, 500);

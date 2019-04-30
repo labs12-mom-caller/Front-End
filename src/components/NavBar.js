@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom'; // why is this woring
 import { navigate } from '@reach/router';
-import firebase from 'firebase';
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -17,7 +16,6 @@ import { logout } from '../app/utils';
 class NavbarPage extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       collapse1: false,
       collapseID: '',
@@ -54,7 +52,7 @@ class NavbarPage extends Component {
                   <MDBNavItem>
                     <MDBNavLink
                       active
-                      onClick={() => navigate("/")}
+                      onClick={() => navigate('/')}
                       className='black-text'
                       to='/'
                     >
@@ -86,11 +84,7 @@ class NavbarPage extends Component {
                     </MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
-                    <MDBNavLink
-                      onClick={logout}
-                      className='red-text'
-                      to='/'
-                    >
+                    <MDBNavLink onClick={logout} className='red-text' to='/'>
                       Sign Out
                     </MDBNavLink>
                   </MDBNavItem>

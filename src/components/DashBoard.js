@@ -1,5 +1,6 @@
 import React from 'react';
 import NavBar from './NavBar';
+import ModalPhoneNumber from './ModalPhoneNumber';
 import {
   Wrapper,
   ProfileImage,
@@ -19,9 +20,14 @@ const DashBoard = ({ user }) => {
         <UpdateAccount>Update Account</UpdateAccount>
         <DashboardButtons>
           <DefaultButtonBlueBG type='button'>New Call </DefaultButtonBlueBG>
-          <DefaultButtonBlueBG type='button'>Scheduled Calls</DefaultButtonBlueBG>
-          <DefaultButtonBlueBG type='button'>Previous Calls </DefaultButtonBlueBG>
+          <DefaultButtonBlueBG type='button'>
+            Scheduled Calls
+          </DefaultButtonBlueBG>
+          <DefaultButtonBlueBG type='button'>
+            Previous Calls{' '}
+          </DefaultButtonBlueBG>
         </DashboardButtons>
+        <ModalPhoneNumber user={user} />
       </Wrapper>
     </div>
   );
