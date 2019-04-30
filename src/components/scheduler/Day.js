@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Slot from './Slot';
 import { generateTimeSlots } from './generateTimeSlots';
 
-const Day = ({ day }) => {
+const Day = ({ day, timezone, selectTime }) => {
   //   const [scroll, setScroll] = useState(0);
 
   const timeSlots = generateTimeSlots(60, '00:00', '23:00');
@@ -15,7 +15,13 @@ const Day = ({ day }) => {
         <div>Scroll Up</div>
         <div>
           {timeSlots.map(slot => (
-            <Slot slot={slot} key={slot} />
+            <Slot
+              slot={slot}
+              key={slot}
+              day={day}
+              timezone={timezone}
+              selectTime={selectTime}
+            />
           ))}
         </div>
         <div>ScrollDown</div>
@@ -26,6 +32,8 @@ const Day = ({ day }) => {
 
 Day.propTypes = {
   day: PropTypes.string,
+  timezone: PropTypes.string,
+  selectTime: PropTypes.func,
 };
 
 export default Day;
