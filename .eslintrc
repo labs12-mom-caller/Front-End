@@ -15,7 +15,8 @@
     "import/prefer-default-export": "off",
     "react/forbid-prop-types": "off",
     "no-shadow": "off",
-    "import/no-extraneous-dependencies": "off"
+    "import/no-extraneous-dependencies": "off",
+    "no-param-reassign": "off"
   },
   "env": {
     "browser": true
