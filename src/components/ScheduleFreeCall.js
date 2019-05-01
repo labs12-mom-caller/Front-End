@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
+import moment from 'moment-timezone';
 
 import Day from './scheduler/Day';
 import randomTime from './scheduler/randomTime';
@@ -56,15 +57,23 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     const thisTime = randomTime(time.selectedTimes);
+    let nextCall = moment(thisTime).toDate();
+    if (nextCall < moment().toDate()) {
+      nextCall = moment(nextCall)
+        .add(1, 'w')
+        .toDate();
+    }
     try {
       const docRef = await db.collection('contacts').add({
         call_frequency: frequency.toLowerCase(),
         call_type: 'free',
-        next_call: thisTime,
+        next_call: nextCall,
         timezone: time.timezone,
         selected_times: time.selectedTimes,
         user1: db.collection('users').doc(userId),
         user2: db.collection('users').doc(contactId),
+        created_at: moment().toDate(),
+        updated_at: moment().toDate(),
       });
       navigate(`/confirmation/${docRef.id}`);
     } catch (err) {
