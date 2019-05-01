@@ -46,7 +46,7 @@ class NavbarPage extends Component {
           <MDBContainer>
             <MDBNavbar color='transparent' light>
               <MDBContainer>
-                <MDBNavbarBrand className='black-text'>ReCaller</MDBNavbarBrand>
+                <MDBNavbarBrand style={{fontFamily: 'pacifico'}} className='black-text'>ReCaller</MDBNavbarBrand>
                 <MDBHamburgerToggler
                   color='black'
                   id='hamburger1'
@@ -118,7 +118,7 @@ class NavbarPage extends Component {
               marginTop: '15px',
             }}
           >
-            <h2 style={{ marginLeft: '11%' }}>ReCaller</h2>
+            <h2 style={{ marginLeft: '11%', fontFamily: "pacifico" }}>ReCaller</h2>
             <div style={{ width: '65%' }}>
               <MDBNav className='nav-pills nav-fill'>
                 <MDBNavItem>

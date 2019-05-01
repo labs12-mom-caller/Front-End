@@ -23,14 +23,21 @@ const AboutUs = () => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          backgroundColor: '#3C3744',
+          backgroundColor: "#6B6D76",
           maxWidth: '95%',
           margin: '5% auto',
         }}
       >
-        <MDBJumbotron fluid>
+        <MDBJumbotron style={{ backgroundColor: '#083D77' }} fluid>
           <MDBContainer>
-            <h2 className='display-5' style={{ textAlign: 'center' }}>
+            <h2
+              className='display-5'
+              style={{
+                textAlign: 'center',
+                color: 'white',
+                fontFamily: 'pacifico',
+              }}
+            >
               Our Awesome Team
             </h2>
           </MDBContainer>
@@ -44,6 +51,7 @@ const AboutUs = () => {
               marginTop: '20px',
               padding: '20px',
               alignItems: 'center',
+              backgroundColor: 'white'
             }}
           >
             <MDBCardImage
