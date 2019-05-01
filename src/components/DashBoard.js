@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { navigate } from '@reach/router';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from 'mdbreact';
 import NavBar from './NavBar';
 import ModalPhoneNumber from './ModalPhoneNumber';
@@ -16,6 +17,7 @@ import { DefaultButtonBlueBG } from '../styles/styledDefaultComponents';
 const isMobile = window.innerWidth <= 768;
 
 const DashBoard = ({ user }) => {
+  console.log(user);
   const { displayName, photoUrl } = user;
   return (
     <div>
@@ -24,7 +26,9 @@ const DashBoard = ({ user }) => {
         <ProfileWrapper>
           <WelcomeUser>Hello {displayName} </WelcomeUser>
           <ProfileImage src={`${photoUrl}`} alt='ProfilePic' />
-          <UpdateAccount>Update Account</UpdateAccount>
+          <UpdateAccount onClick={() => navigate(`/account/${user.uid}`)}>
+            Update Account
+          </UpdateAccount>
         </ProfileWrapper>
         <ModalPhoneNumber user={user} />
         {isMobile ? (

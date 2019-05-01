@@ -6,9 +6,11 @@ import { fetchUser } from '../app/utils';
 import { db } from '../firebase';
 
 const ModalPhoneNumber = props => {
+  console.log(props, '$$$');
   const {
     user: { uid },
   } = props;
+
   const [modal, setModal] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
 
