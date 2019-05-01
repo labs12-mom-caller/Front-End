@@ -13,7 +13,6 @@ export const DefaultInput = styled.input`
     color: ${styles.colors.mainBlue};
     text-transform: capitalize;
     letter-spacing: 0.1rem;
-    ${styles.logoText};
   }
   ::-moz-placeholder {
     /* Firefox 19+ */
