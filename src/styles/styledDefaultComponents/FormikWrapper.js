@@ -18,6 +18,10 @@ export const FormikWrapper = styled.div`
     }
     @media (min-width: 992px) {
       width: 50%;
+      margin-right: 48%;
+      /* overflow: hidden; */
+      margin-bottom: 25%;
+      margin-top: 18%;
     }
   }
 `;
