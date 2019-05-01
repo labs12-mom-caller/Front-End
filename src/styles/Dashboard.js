@@ -51,6 +51,10 @@ export const WelcomeUser = styled.h2`
   margin-top: 15px;
   text-align: center;
   font-weight: bold;
+  @media (min-width: 992px) {
+    /* width: 18%; */
+    margin-left: 2%;
+  }
 `;
 
 export const UpdateAccount = styled.p`
@@ -58,7 +62,7 @@ export const UpdateAccount = styled.p`
   color: red;
 
   @media (min-width: 992px) {
-    margin-left: 7%;
+    margin-left: 9%;
   }
 `;
 
