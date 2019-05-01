@@ -46,7 +46,7 @@ const DashBoard = ({ user }) => {
           </DashboardButtons>
         ) : null}
       </Wrapper>
-      <MDBFooter fixed-bottom color='blue' className='fixed-bottom pt-4 mt-4'>
+      <MDBFooter fixed-bottom style={{backgroundColor: "#083D77"}} className='fixed-bottom pt-4 mt-4'>
         <MDBContainer fluid className='text-center text-md-left'>
           <MDBRow>
             <MDBCol md='5'>
