@@ -10,7 +10,8 @@ export const Wrapper = styled.div`
 
   @media (min-width: 992px) {
     align-items: flex-start;
-    margin-left: 5%;
+    margin-left: 2%;
+    margin-top: -20px;
   }
 `;
 
@@ -21,7 +22,10 @@ export const ProfileImage = styled.img`
   border-radius: 50%;
   border: 1.5px solid black;
   align-self: center;
-  @media (min-width: 992px) {
+  transition: 0.3s;
+
+  &:hover {
+    -webkit-filter: brightness(80%);
   }
 `;
 
