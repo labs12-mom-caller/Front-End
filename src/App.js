@@ -9,27 +9,35 @@ import SchedulePaidCall from './components/SchedulePaidCall';
 import ChooseCallPlan from './components/ChooseCallPlan';
 import CallConfirmation from './components/CallConfirmation';
 import AboutUs from './components/AboutUs';
-
+import UpdateAccount from './components/UpdateAccount';
+import { fetchUser } from './app/utils';
+// Updated useAuth
 function useAuth() {
-  const [user, setUser] = React.useState(null);
-
+  const [user, setUser] = React.useState(
+    JSON.parse(window.localStorage.getItem('user') || null),
+  );
   React.useEffect(() => {
-    return firebase.auth().onAuthStateChanged(firebaseUser => {
+    return firebase.auth().onAuthStateChanged(async firebaseUser => {
       if (firebaseUser) {
-        const currentUser = {
-          displayName: firebaseUser.displayName,
-          photoUrl: firebaseUser.photoURL,
-          uid: firebaseUser.uid,
-        };
-        setUser(currentUser);
-        db.collection('users')
-          .doc(currentUser.uid)
-          .set(currentUser, { merge: true });
+        const x = await fetchUser(firebaseUser.uid);
+        if (x) {
+          const currentUser = {
+            ...x,
+          };
+          if (!window.localStorage.getItem('user')) {
+            window.localStorage.setItem('user', JSON.stringify(currentUser));
+            setUser(currentUser);
+          }
+          db.collection('users')
+            .doc(currentUser.uid)
+            .set(currentUser, { merge: true });
+        }
       } else {
         setUser(null);
       }
     });
   }, []);
+  console.log(user);
   return user;
 }
 
@@ -46,6 +54,7 @@ function App() {
         <SchedulePaidCall path='/choose/:userId/:contactId/:frequency/schedule' />
         <CallConfirmation path='/confirmation/:contactId' />
         <AboutUs path='/about-us' />
+        <UpdateAccount user={user} path='/account/:userId' />
       </Router>
     </>
   ) : (
