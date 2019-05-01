@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Formik } from 'formik';
 import firebase from 'firebase';
-import { signup } from '../app/utils';
-import logo from '../assets/images/icons8-google.svg';
+import { MDBCol, MDBContainer, MDBRow, MDBFooter } from 'mdbreact';
 import { TiArrowLeftThick } from 'react-icons/ti';
 import styled from 'styled-components';
+import { signup } from '../app/utils';
+import logo from '../assets/images/icons8-google.svg';
 import {
   DefaultButtonRed,
   DefaultButtonBlue,
@@ -14,6 +15,8 @@ import {
   DefaultButtonBlueBG,
   styles,
 } from '../styles/styledDefaultComponents';
+
+const isMobile = window.innerWidth <= 768;
 
 function Login() {
   // state
@@ -158,6 +161,7 @@ function Login() {
             <p className='backBtnText'>to sign up page !</p>
           </DefaultButtonBlueBG>
         )}
+
         {hasAccount && (
           <>
             <DefaultButtonBlueBG className='googleLogin' onClick={handleSignIn}>
@@ -205,6 +209,49 @@ function Login() {
           <p>Please try again</p>
         </div>
       )}
+      {isMobile ? null : (
+        <MDBFooter
+          fixed-bottom
+          style={{ backgroundColor: '#083D77' }}
+          className='fixed-bottom pt-4 mt-4'
+        >
+          <MDBContainer fluid className='text-center text-md-left'>
+            <MDBRow>
+              <MDBCol md='5'>
+                <p>
+                  We believe in connecting friends and family by offering
+                  scheduled calls and call transcription. Always remember the
+                  things you’ve talked about with your loved ones. We are
+                  ReCaller.
+                </p>
+                &copy; {new Date().getFullYear()} <a href='/'> ReCaller </a>
+              </MDBCol>
+              <MDBCol style={{ marginLeft: '5%' }} md='5'>
+                <span>
+                  <strong style={{ fontSize: '26px' }}>
+                    Already have an account?
+                    <button
+                      type='button'
+                      style={{
+                        color: '#FF6F61',
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                      }}
+                    >
+                      Log In
+                    </button>
+                  </strong>
+                </span>
+              </MDBCol>
+            </MDBRow>
+          </MDBContainer>
+          {/* <div className='footer-copyright text-center py-3'>
+          <MDBContainer fluid>
+            &copy; {new Date().getFullYear()} <a href='/'> ReCaller </a>
+          </MDBContainer>
+        </div> */}
+        </MDBFooter>
+      )}
     </WrapperDiv>
   );
 }
@@ -221,6 +268,10 @@ const WrapperDiv = styled.div`
     ${styles.logoText};
     font-size: 5rem;
     color: ${styles.colors.mainBlue};
+
+    @media (min-width: 992px) {
+      align-self: baseline;
+    }
   }
   .signUpBtnG {
     display: flex;
