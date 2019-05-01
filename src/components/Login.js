@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import { Formik } from 'formik';
-import { MDBIcon, MDBBtn } from 'mdbreact';
+// import { MDBIcon, MDBBtn } from 'mdbreact';
 import firebase from 'firebase';
 import { signup } from '../app/utils';
 // style imports
-import { Wrapper } from '../styles/Login';
+// import { Wrapper } from '../styles/Login';
+import logo from '../assets/images/icons8-google.svg';
+import styled from 'styled-components';
 import {
   DefaultButtonRed,
   DefaultButtonBlue,
   DefaultInput,
   FormikWrapper,
+  DefaultButtonRedBG,
+  DefaultButtonBlueBG,
+  styles,
 } from '../styles/styledDefaultComponents';
 
 function Login() {
@@ -29,33 +34,25 @@ function Login() {
   };
 
   return (
-    <Wrapper>
-      <h1>ReCaller!</h1>
-      {!hasAccount && (
-        <DefaultButtonBlue type='button' onClick={() => setHasAccount(true)}>
-          Already have an account? Sign in! {'🌋'}
-        </DefaultButtonBlue>
-      )}
+    <WrapperDiv>
+      <h1 className='loginHeader'>ReCaller!</h1>
       {!hasAccount && (
         <>
-          {/* <DefaultButtonRed type='button' onClick={handleSignIn}>
-            Sign up with Google
-          </DefaultButtonRed> */}
-          <MDBBtn
+          {/* <MDBBtn
             color='red'
             social='g'
             style={{ textTransform: 'capitalize' }}
             onClick={handleSignIn}
           >
             <MDBIcon fab icon='google' className='pr-1' /> Google Signin
-          </MDBBtn>
+          </MDBBtn> */}
 
           <FormikWrapper>
             <Formik
               initialValues={{
-                email: 'G@g.com',
-                phoneNumber: '1234567890',
-                password: '123456',
+                email: '',
+                phoneNumber: '',
+                password: '',
                 displayName: '',
               }}
               validate={values => {
@@ -106,7 +103,7 @@ function Login() {
                   <DefaultInput
                     type='name'
                     name='displayName'
-                    placeholder='displayName'
+                    placeholder='display Name'
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.displayName}
@@ -133,13 +130,40 @@ function Login() {
                     value={values.password}
                   />
                   {errors.password && touched.password && errors.password}
-                  <DefaultButtonRed type='submit' disabled={isSubmitting}>
+                  <DefaultButtonBlueBG
+                    className='submitCustomBtn'
+                    type='submit'
+                    disabled={isSubmitting}
+                  >
                     Submit
-                  </DefaultButtonRed>
+                  </DefaultButtonBlueBG>
                 </form>
               )}
             </Formik>
           </FormikWrapper>
+          <DefaultButtonBlueBG
+            type='button'
+            onClick={handleSignIn}
+            className='signUpBtnG'
+          >
+            <img src={logo} alt='google logo' className='logo' />
+            <p className='signUpText'>Sign up with Google</p>
+          </DefaultButtonBlueBG>
+          {!hasAccount && (
+            //   <DefaultButtonBlue
+            //     type='button'
+            //     onClick={() => setHasAccount(true)}
+            //   >
+            //     Already have an account? Sign in! {'🌋'}
+            //   </DefaultButtonBlue>
+            // )}
+            <p className='haveAccountText'>
+              already have an account?{' '}
+              <span onClick={() => setHasAccount(true)} className='signInSpan'>
+                sign in!
+              </span>
+            </p>
+          )}
         </>
       )}
       {hasAccount && (
@@ -149,14 +173,17 @@ function Login() {
       )}
       {hasAccount && (
         <>
-          <MDBBtn
+          <DefaultButtonRedBG onClick={handleSignIn}>
+            google login
+          </DefaultButtonRedBG>
+          {/* <MDBBtn
             color='red'
             social='g'
             style={{ textTransform: 'capitalize' }}
             onClick={handleSignIn}
           >
             <MDBIcon fab icon='google' className='pr-1' /> Google Login
-          </MDBBtn>
+          </MDBBtn> */}
 
           <form>
             <DefaultInput
@@ -198,8 +225,56 @@ function Login() {
           <p>Please try again</p>
         </div>
       )}
-    </Wrapper>
+    </WrapperDiv>
   );
 }
 
 export default Login;
+
+const WrapperDiv = styled.div`
+  border: 1px solid green;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  min-height: 100vh;
+  .loginHeader {
+    ${styles.logoText};
+    margin-top: 8%;
+    font-size: 5rem;
+    color: ${styles.colors.mainBlue};
+  }
+  .signUpBtnG {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .logo {
+      max-width: 30px;
+      max-height: 30px;
+      margin-right: 8%;
+    }
+    .signUpText {
+      font-size: 1rem;
+      text-transform: capitalize;
+      margin-bottom: 0;
+      letter-spacing: 0.1rem;
+    }
+  }
+  .submitCustomBtn {
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .haveAccountText {
+    text-transform: capitalize;
+    font-size: 1rem;
+    font-weight: 700;
+    color: ${styles.colors.mainBlue};
+    word-spacing: 0.1rem;
+    .signInSpan {
+      color: ${styles.colors.redOrange};
+      font-size: 1.2rem;
+    }
+  }
+`;
