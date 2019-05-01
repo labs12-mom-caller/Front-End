@@ -10,7 +10,11 @@ before_script:
   - yarn add firebase-tools
 
 script:
+<<<<<<< HEAD
   - CI=false npm run build
+=======
+  - npm run build
+>>>>>>> 4d2ae23630de547074c18b63eff4aa36fa1cb90e
 
 after_success:
   - firebase deploy --token=${FIREBASE_API_TOKEN}
