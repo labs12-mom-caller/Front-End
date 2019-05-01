@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { navigate } from '@reach/router';
 import NavBar from './NavBar';
 import ModalPhoneNumber from './ModalPhoneNumber';
 import {
@@ -22,7 +22,9 @@ const DashBoard = ({ user }) => {
       <Wrapper>
         <WelcomeUser>Hello {displayName} </WelcomeUser>
         <ProfileImage src={`${photoUrl}`} alt='ProfilePic' />
-        <UpdateAccount>Update Account</UpdateAccount>
+        <UpdateAccount onClick={() => navigate(`/account/${user.uid}`)}>
+          Update Account
+        </UpdateAccount>
         <ModalPhoneNumber user={user} />
         {isMobile ? (
           <DashboardButtons>
