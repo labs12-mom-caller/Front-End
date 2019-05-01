@@ -127,7 +127,7 @@ class NavbarPage extends Component {
           >
             <h2
               style={{
-                marginLeft: '11%',
+                marginLeft: '10.4%',
                 fontFamily: 'pacifico',
                 alignItems: 'baseline',
               }}

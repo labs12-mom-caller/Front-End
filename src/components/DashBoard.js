@@ -13,8 +13,35 @@ import {
   ProfileWrapper,
 } from '../styles/Dashboard';
 import { DefaultButtonBlueBG } from '../styles/styledDefaultComponents';
+import UpcomingCalls from './UpcomingCalls';
 
 const isMobile = window.innerWidth <= 768;
+
+const calls = [
+  {
+    id: 1,
+    contactName: 'Shawn',
+    callDate: 'June 6',
+    callTime: '11:00 AM',
+  },
+  {
+    id: 2,
+    contactName: 'Michael',
+    callDate: 'July 10',
+    callTime: '2:30 PM',
+  },
+];
+
+function ContactList() {
+  return (
+    <div>
+      <h2 style={{ textAlign: 'center' }}>Upcoming Calls</h2>
+      {calls.map(call => (
+        <UpcomingCalls key={call.id} call={call} />
+      ))}
+    </div>
+  );
+}
 
 const DashBoard = ({ user }) => {
   console.log(user);
@@ -23,14 +50,19 @@ const DashBoard = ({ user }) => {
     <div>
       <NavBar user={user} />
       <Wrapper>
-        <ProfileWrapper>
-          <WelcomeUser>Hello {displayName} </WelcomeUser>
-          <ProfileImage src={`${photoUrl}`} alt='ProfilePic' />
-          <UpdateAccount onClick={() => navigate(`/account/${user.uid}`)}>
-            Update Account
-          </UpdateAccount>
-        </ProfileWrapper>
+        <div
+          style={{ display: 'flex', flexDirection: 'row', maxWidth: '100%' }}
+        >
+          <ProfileWrapper>
+            <WelcomeUser>Hello {displayName} </WelcomeUser>
+            <ProfileImage src={`${photoUrl}`} alt='ProfilePic' />
+            <UpdateAccount>Update Account</UpdateAccount>
+          </ProfileWrapper>
+          {isMobile ? null : ContactList()}
+        </div>
         <ModalPhoneNumber user={user} />
+
+        {/* Conditional render menu buttons */}
         {isMobile ? (
           <DashboardButtons>
             <DefaultButtonBlueBG type='button'>New Call </DefaultButtonBlueBG>
@@ -43,6 +75,8 @@ const DashBoard = ({ user }) => {
           </DashboardButtons>
         ) : null}
       </Wrapper>
+
+      {/* Condtitional Footer */}
       {isMobile ? (
         <MDBFooter
           fixed-bottom
