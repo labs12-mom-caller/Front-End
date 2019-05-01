@@ -32,7 +32,6 @@ const SchedulePaidCall = ({ userId, contactId, frequency }) => {
     }).then(res => {
       res.json().then(data => {
         data.body = JSON.parse(data.body);
-        console.log(data);
         if (data.statusCode === 200) {
           setPaid(true);
         }
@@ -46,7 +45,6 @@ const SchedulePaidCall = ({ userId, contactId, frequency }) => {
       ...time,
       [e.target.id]: e.target.value,
     });
-    console.log(time);
   };
 
   const handleSubmit = async e => {

@@ -9,7 +9,6 @@ import SchedulePaidCall from './components/SchedulePaidCall';
 import ChooseCallPlan from './components/ChooseCallPlan';
 import CallConfirmation from './components/CallConfirmation';
 import AboutUs from './components/AboutUs';
-import Payment from './components/Payment';
 
 function useAuth() {
   const [user, setUser] = React.useState(null);
@@ -45,7 +44,6 @@ function App() {
         <ChooseCallPlan path='/choose/:userId/:contactId/call-plan' />
         <ScheduleFreeCall path='/choose/:userId/:contactId/:frequency/schedule-free' />
         <SchedulePaidCall path='/choose/:userId/:contactId/:frequency/schedule' />
-        <Payment path='/payment/:contactId' />
         <CallConfirmation path='/confirmation/:contactId' />
         <AboutUs path='/about-us' />
       </Router>
