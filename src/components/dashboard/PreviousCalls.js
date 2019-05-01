@@ -22,8 +22,8 @@ const PreviousCalls = ({ userId }) => {
           .get();
         if (!allCalls.empty) {
           allCalls.forEach(async doc => {
-            console.log(doc.data());
             const callData = {
+              callId: doc.id,
               user2: {},
               contactId: '',
               audio: doc.data().audio,
@@ -34,10 +34,13 @@ const PreviousCalls = ({ userId }) => {
             await db.doc(contactRef).onSnapshot(async doc => {
               callData.contactId = doc.id;
               await db.doc(doc.data().user2.path).onSnapshot(doc => {
-                callData.user2 = doc.data();
+                callData.user2 = {
+                  displayName: doc.data().displayName,
+                  email: doc.data().email,
+                };
+                setCalls(c => [...c, callData]);
               });
             });
-            setCalls(c => [...c, callData]);
           });
         }
       });
@@ -48,7 +51,25 @@ const PreviousCalls = ({ userId }) => {
   return (
     <>
       <h2>List of previously recorded calls</h2>
-      {calls && <p>{console.log(calls)}</p>}
+      {calls &&
+        calls.map(call => (
+          <div key={call.callId}>
+            <h3>Call with {call.user2.displayName}</h3>
+            <p>{moment(call.call_time).format('dddd, MMMM Do [at] h:mm A')}</p>
+            <p>Call duration: {call.call_duration} seconds</p>
+            <p>Listen to call</p>
+            <audio controls>
+              <source src={call.audio} type='audio/wav' />
+              <track
+                src='transcription.vtt'
+                kind='transcription'
+                srcLang='en'
+                label='English'
+              />
+              Your browser does not support the audio element
+            </audio>
+          </div>
+        ))}
     </>
   );
 };
