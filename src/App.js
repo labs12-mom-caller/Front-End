@@ -11,13 +11,14 @@ import AboutUs from './components/AboutUs';
 import UpdateAccount from './components/UpdateAccount';
 import { fetchUser } from './app/utils';
 
+// Updated useAuth
 function useAuth() {
   const [user, setUser] = React.useState(null);
   React.useEffect(() => {
     return firebase.auth().onAuthStateChanged(async firebaseUser => {
       if (firebaseUser) {
         const x = await fetchUser(firebaseUser.uid);
-        if (x) {
+        if (x && x.bool) {
           const currentUser = {
             ...x,
           };
@@ -35,6 +36,7 @@ function useAuth() {
   return user;
 }
 
+// Original UseAuth
 // function useAuth() {
 //   const [user, setUser] = React.useState(null);
 //   React.useEffect(() => {
