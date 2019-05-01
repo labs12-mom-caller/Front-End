@@ -5,31 +5,60 @@ import { firebase, db } from './firebase';
 import Login from './components/Login';
 import DashBoard from './components/DashBoard';
 import ScheduleFreeCall from './components/ScheduleFreeCall';
+import SchedulePaidCall from './components/SchedulePaidCall';
 import ChooseCallPlan from './components/ChooseCallPlan';
 import CallConfirmation from './components/CallConfirmation';
+import AboutUs from './components/AboutUs';
+import UpdateAccount from './components/UpdateAccount';
+import { fetchUser } from './app/utils';
 
+// Updated useAuth
 function useAuth() {
   const [user, setUser] = React.useState(null);
-
   React.useEffect(() => {
-    return firebase.auth().onAuthStateChanged(firebaseUser => {
+    return firebase.auth().onAuthStateChanged(async firebaseUser => {
       if (firebaseUser) {
-        const currentUser = {
-          displayName: firebaseUser.displayName,
-          photoUrl: firebaseUser.photoURL,
-          uid: firebaseUser.uid,
-        };
-        setUser(currentUser);
-        db.collection('users')
-          .doc(currentUser.uid)
-          .set(currentUser, { merge: true });
+        const x = await fetchUser(firebaseUser.uid);
+        if (x && x.bool) {
+          const currentUser = {
+            ...x,
+          };
+          setUser(currentUser);
+          db.collection('users')
+            .doc(currentUser.uid)
+            .set(currentUser, { merge: true });
+        }
       } else {
         setUser(null);
       }
     });
   }, []);
+  console.log(user);
   return user;
 }
+
+// Original UseAuth
+// function useAuth() {
+//   const [user, setUser] = React.useState(null);
+//   React.useEffect(() => {
+//     return firebase.auth().onAuthStateChanged(firebaseUser => {
+//       if (firebaseUser) {
+//         const currentUser = {
+//           displayName: firebaseUser.displayName,
+//           photoUrl: firebaseUser.photoURL,
+//           uid: firebaseUser.uid,
+//         };
+//         setUser(currentUser);
+//         db.collection('users')
+//           .doc(currentUser.uid)
+//           .set(currentUser, { merge: true });
+//       } else {
+//         setUser(null);
+//       }
+//     });
+//   }, []);
+//   return user;
+// }
 
 function App() {
   const user = useAuth();
@@ -41,7 +70,10 @@ function App() {
         <ChooseYourContact user={user} path='/choose/:userId' />
         <ChooseCallPlan path='/choose/:userId/:contactId/call-plan' />
         <ScheduleFreeCall path='/choose/:userId/:contactId/:frequency/schedule-free' />
+        <SchedulePaidCall path='/choose/:userId/:contactId/:frequency/schedule' />
         <CallConfirmation path='/confirmation/:contactId' />
+        <AboutUs path='/about-us' />
+        <UpdateAccount user={user} path='/account/:userId' />
       </Router>
     </>
   ) : (
