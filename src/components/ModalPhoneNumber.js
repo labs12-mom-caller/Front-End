@@ -34,6 +34,7 @@ const ModalPhoneNumber = props => {
       }
     }
     fetchData();
+    // eslint-disable-next-line
   }, [modal]);
 
   return (

@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
+import moment from 'moment-timezone';
+import PropTypes from 'prop-types';
+import { navigate } from '@reach/router';
+
 import { Scheduler } from '../styles/Scheduler';
 
-const SchedulePaidCall = props => {
+import { db } from '../firebase';
+
+const SchedulePaidCall = ({ userId, contactId, frequency }) => {
   const initialState = {
-    timezone: '',
+    timezone: moment.tz.guess(),
     selected_time: '',
     day: '',
   };
@@ -18,13 +24,44 @@ const SchedulePaidCall = props => {
     console.log(time);
   };
 
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const scheduledTime = moment(time.selected_time, 'HH:mm').format('h:mm A');
+    let nextCall = moment
+      .tz(`${time.day} ${scheduledTime}`, 'dddd h:mm A', time.timezone)
+      .utc()
+      .toDate();
+    if (nextCall < moment().toDate()) {
+      nextCall = moment(nextCall)
+        .add(1, 'w')
+        .toDate();
+    }
+    try {
+      const docRef = await db.collection('contacts').add({
+        call_frequency: frequency,
+        call_type: 'paid',
+        next_call: nextCall,
+        timezone: time.timezone,
+        scheduled_day: time.day,
+        scheduled_time: scheduledTime,
+        user1: db.collection('users').doc(userId),
+        user2: db.collection('users').doc(contactId),
+        created_at: moment().toDate(),
+        updated_at: moment().toDate(),
+      });
+      navigate(`/confirmation/${docRef.id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Scheduler>
       <h2>Schedule a call</h2>
       <p>
         ReCaller will only call you and your loved one at your selected time.
       </p>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label htmlFor='day'>Choose a day of the week</label>
         <select id='day' value={time.day} onChange={handleChange}>
           <option>Sunday</option>
@@ -45,7 +82,7 @@ const SchedulePaidCall = props => {
         />
         <label htmlFor='timezone'>Your time zone</label>
         <select id='timezone' value={time.timezone} onChange={handleChange}>
-          <option value='' />
+          <option>{time.timezone}</option>
           <option value='US/Alaska'>Alaska</option>
           <option value='US/Aleutian'>Aleutian</option>
           <option value='US/Arizona'>Arizona</option>
@@ -63,6 +100,12 @@ const SchedulePaidCall = props => {
       </form>
     </Scheduler>
   );
+};
+
+SchedulePaidCall.propTypes = {
+  userId: PropTypes.string,
+  contactId: PropTypes.string,
+  frequency: PropTypes.string,
 };
 
 export default SchedulePaidCall;

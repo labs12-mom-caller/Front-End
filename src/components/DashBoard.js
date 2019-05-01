@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBBtn } from 'mdbreact';
+import PropTypes from 'prop-types';
 import NavBar from './NavBar';
 import ModalPhoneNumber from './ModalPhoneNumber';
 import {
@@ -36,6 +36,10 @@ const DashBoard = ({ user }) => {
       </Wrapper>
     </div>
   );
+};
+
+DashBoard.propTypes = {
+  user: PropTypes.object,
 };
 
 export default DashBoard;
