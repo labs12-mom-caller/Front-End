@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { Formik } from 'formik';
-import { MDBIcon, MDBBtn } from 'mdbreact';
-
 import firebase from 'firebase';
 import { signup } from '../app/utils';
-// style imports
-import { Wrapper } from '../styles/Login';
+import logo from '../assets/images/icons8-google.svg';
+import { TiArrowLeftThick } from 'react-icons/ti';
+import styled from 'styled-components';
 import {
   DefaultButtonRed,
   DefaultButtonBlue,
   DefaultInput,
   FormikWrapper,
+  DefaultButtonRedBG,
+  DefaultButtonBlueBG,
+  styles,
 } from '../styles/styledDefaultComponents';
 
 function Login() {
@@ -29,33 +31,16 @@ function Login() {
     }
   };
   return (
-    <Wrapper>
-      <h1>ReCaller!</h1>
-      {!hasAccount && (
-        <DefaultButtonBlue type='button' onClick={() => setHasAccount(true)}>
-          Already have an account? Sign in! {'🌋'}
-        </DefaultButtonBlue>
-      )}
+    <WrapperDiv>
+      <h1 className='loginHeader'>ReCaller!</h1>
       {!hasAccount && (
         <>
-          {/* <DefaultButtonRed type='button' onClick={handleSignIn}>
-            Sign up with Google
-          </DefaultButtonRed> */}
-          <MDBBtn
-            color='red'
-            social='g'
-            style={{ textTransform: 'capitalize' }}
-            onClick={handleSignIn}
-          >
-            <MDBIcon fab icon='google' className='pr-1' /> Google Signin
-          </MDBBtn>
-
           <FormikWrapper>
             <Formik
               initialValues={{
-                email: 'G@g.com',
-                phoneNumber: '1234567890',
-                password: '123456',
+                email: '',
+                phoneNumber: '',
+                password: '',
                 displayName: '',
               }}
               validate={values => {
@@ -106,7 +91,7 @@ function Login() {
                   <DefaultInput
                     type='name'
                     name='displayName'
-                    placeholder='displayName'
+                    placeholder='display Name'
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.displayName}
@@ -133,61 +118,83 @@ function Login() {
                     value={values.password}
                   />
                   {errors.password && touched.password && errors.password}
-                  <DefaultButtonRed type='submit' disabled={isSubmitting}>
+                  <DefaultButtonBlueBG
+                    className='submitCustomBtn'
+                    type='submit'
+                    disabled={isSubmitting}
+                  >
                     Submit
-                  </DefaultButtonRed>
+                  </DefaultButtonBlueBG>
                 </form>
               )}
             </Formik>
           </FormikWrapper>
-        </>
-      )}
-      {hasAccount && (
-        <DefaultButtonBlue type='button' onClick={() => setHasAccount(null)}>
-          {'🔙'} to sign up page !
-        </DefaultButtonBlue>
-      )}
-      {hasAccount && (
-        <>
-          <MDBBtn
-            color='red'
-            social='g'
-            style={{ textTransform: 'capitalize' }}
+          <DefaultButtonBlueBG
+            type='button'
             onClick={handleSignIn}
+            className='signUpBtnG'
           >
-            <MDBIcon fab icon='google' className='pr-1' /> Google Login
-          </MDBBtn>
-
-          <form>
-            <DefaultInput
-              type='text'
-              onChange={e => setEmail(e.target.value)}
-              value={email}
-              placeholder='email'
-            />
-            <DefaultInput
-              type='text'
-              onChange={e => setPassword(e.target.value)}
-              value={password}
-              placeholder='password'
-            />
-
-            <DefaultButtonRed
-              type='button'
-              onClick={() =>
-                firebase
-                  .auth()
-                  .signInWithEmailAndPassword(email, password)
-                  .catch(function catchError(error) {
-                    console.log(`Error ${error.message}`);
-                  })
-              }
-            >
-              Sign in {'🎈'}
-            </DefaultButtonRed>
-          </form>
+            <img src={logo} alt='google logo' className='logo' />
+            <p className='signUpText'>Sign up with Google</p>
+          </DefaultButtonBlueBG>
+          {!hasAccount && (
+            <p className='haveAccountText'>
+              already have an account?{' '}
+              <span onClick={() => setHasAccount(true)} className='signInSpan'>
+                sign in!
+              </span>
+            </p>
+          )}
         </>
       )}
+      <div className='signInContainer'>
+        {hasAccount && (
+          <DefaultButtonBlueBG
+            className='signUpBtnG backSignUp'
+            type='button'
+            onClick={() => setHasAccount(null)}
+          >
+            <TiArrowLeftThick className='backLogo' />{' '}
+            <p className='backBtnText'>to sign up page !</p>
+          </DefaultButtonBlueBG>
+        )}
+        {hasAccount && (
+          <>
+            <DefaultButtonBlueBG className='googleLogin' onClick={handleSignIn}>
+              google login
+            </DefaultButtonBlueBG>
+            <form className='signInForm'>
+              <DefaultInput
+                type='text'
+                onChange={e => setEmail(e.target.value)}
+                value={email}
+                placeholder='email'
+              />
+              <DefaultInput
+                type='text'
+                onChange={e => setPassword(e.target.value)}
+                value={password}
+                placeholder='password'
+              />
+
+              <DefaultButtonBlueBG
+                type='button'
+                className='signInButton'
+                onClick={() =>
+                  firebase
+                    .auth()
+                    .signInWithEmailAndPassword(email, password)
+                    .catch(function catchError(error) {
+                      console.log(`Error ${error.message}`);
+                    })
+                }
+              >
+                Sign in {'🎈'}
+              </DefaultButtonBlueBG>
+            </form>
+          </>
+        )}
+      </div>
 
       {authError && (
         <div>
@@ -198,8 +205,128 @@ function Login() {
           <p>Please try again</p>
         </div>
       )}
-    </Wrapper>
+    </WrapperDiv>
   );
 }
 
 export default Login;
+
+const WrapperDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  min-height: 100vh;
+  .loginHeader {
+    ${styles.logoText};
+    font-size: 5rem;
+    color: ${styles.colors.mainBlue};
+  }
+  .signUpBtnG {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58%;
+    @media (min-width: 768px) {
+      width: 50%;
+    }
+    @media (min-width: 992px) {
+      width: 35%;
+    }
+    .logo {
+      max-width: 30px;
+      max-height: 30px;
+      margin-right: 2%;
+    }
+    .signUpText {
+      font-size: 1rem;
+      text-transform: capitalize;
+      margin-bottom: 0;
+      letter-spacing: 0.1rem;
+    }
+  }
+  .submitCustomBtn {
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    min-width: 70%;
+  }
+  .haveAccountText {
+    text-transform: capitalize;
+    font-size: 1rem;
+    font-weight: 700;
+    color: ${styles.colors.mainBlue};
+    word-spacing: 0.1rem;
+    margin-bottom: 8%;
+    @media (min-width: 768px) {
+      font-size: 1.5rem;
+    }
+    .signInSpan {
+      color: ${styles.colors.redOrange};
+      font-size: 1.2rem;
+      @media (min-width: 768px) {
+        font-size: 1.5rem;
+      }
+    }
+  }
+  .backSignUp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2% auto;
+    @media (min-width: 768px) {
+      width: 60%;
+    }
+    @media (min-width: 992px) {
+      width: 40%;
+    }
+    .backLogo {
+      max-width: 30px;
+      max-height: 30px;
+      margin-right: 5%;
+      font-size: 1.5rem;
+    }
+    .backBtnText {
+      margin: 0;
+      letter-spacing: 0.1rem;
+      text-transform: capitalize;
+    }
+  }
+  .googleLogin {
+    letter-spacing: 0.1rem;
+    margin: 2% auto;
+    width: 60%;
+    @media (min-width: 992px) {
+      width: 40%;
+    }
+  }
+  .signInForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    input {
+      width: 60%;
+      @media (min-width: 992px) {
+        width: 40%;
+      }
+    }
+  }
+  .signInContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: space-evenly;
+    min-width: 100%;
+    margin-top: -100px;
+  }
+  .signInButton {
+    width: 60%;
+    margin-top: 10%;
+    @media (min-width: 992px) {
+      width: 40%;
+    }
+  }
+`;
