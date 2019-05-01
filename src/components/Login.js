@@ -36,7 +36,7 @@ function Login() {
   };
   return (
     <WrapperDiv>
-      <h1 className='loginHeader'>ReCaller!</h1>
+      <h1 className='loginHeader'>ReCaller</h1>
       {!hasAccount && (
         <>
           <FormikWrapper>
@@ -327,7 +327,7 @@ const WrapperDiv = styled.div`
       font-size: 1rem;
       text-transform: capitalize;
       margin-bottom: 0;
-      letter-spacing: 0.1rem;
+      /* letter-spacing: 0.1rem; */
       @media (min-width: 992px) {
         width: 60%;
       }
@@ -379,6 +379,7 @@ const WrapperDiv = styled.div`
     justify-content: center;
     align-items: center;
     margin: 2% auto;
+    width: 60%;
     @media (min-width: 768px) {
       width: 60%;
     }
