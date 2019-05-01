@@ -30,7 +30,6 @@ function Login() {
       setAuthError(error);
     }
   };
-
   return (
     <WrapperDiv>
       <h1 className='loginHeader'>ReCaller!</h1>
