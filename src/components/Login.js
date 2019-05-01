@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Formik } from 'formik';
 import { MDBIcon, MDBBtn } from 'mdbreact';
+
 import firebase from 'firebase';
 import { signup } from '../app/utils';
 // style imports
@@ -27,7 +28,6 @@ function Login() {
       setAuthError(error);
     }
   };
-
   return (
     <Wrapper>
       <h1>ReCaller!</h1>
