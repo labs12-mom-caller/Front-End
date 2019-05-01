@@ -6,6 +6,7 @@ import { Formik } from 'formik';
 import { signupUserTwo } from '../app/utils';
 import NavBar from './NavBar';
 import { Wrapper } from '../styles/Login';
+
 function Choose({ user, userId }) {
   return (
     <Wrapper>

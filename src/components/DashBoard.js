@@ -87,6 +87,10 @@ const DashBoard = ({ user }) => {
   );
 };
 
+DashBoard.propTypes = {
+  user: PropTypes.object,
+};
+
 export default DashBoard;
 DashBoard.propTypes = {
   user: PropTypes.shape({

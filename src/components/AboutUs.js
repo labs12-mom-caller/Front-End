@@ -23,7 +23,7 @@ const AboutUs = () => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          backgroundColor: "#6B6D76",
+          backgroundColor: '#6B6D76',
           maxWidth: '95%',
           margin: '5% auto',
         }}
@@ -51,7 +51,7 @@ const AboutUs = () => {
               marginTop: '20px',
               padding: '20px',
               alignItems: 'center',
-              backgroundColor: 'white'
+              backgroundColor: 'white',
             }}
           >
             <MDBCardImage
