@@ -1,7 +1,6 @@
 import React from 'react';
 import { MDBBtn } from 'mdbreact';
 import NavBar from './NavBar';
-import MobileLandingPage from '../components/MobileLandingPage';
 import {
   Wrapper,
   ProfileImage,
@@ -31,7 +30,6 @@ const DashBoard = ({ user }) => {
           </DashboardButtons>
         </Wrapper>
       </div>
-      <MobileLandingPage />
     </>
   );
 };
