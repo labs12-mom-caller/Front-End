@@ -6,12 +6,15 @@ import { fetchDoc } from '../app/utils';
 
 const CallConfirmation = ({ contactId, navigate }) => {
   const [contact, setContact] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
       try {
         const fetchedContact = await fetchDoc(`/contacts/${contactId}`);
-        setContact(fetchedContact);
+        const formatted = moment(fetchedContact.next_call).format();
+        setContact(formatted);
+        setUser(fetchedContact.user1.id);
       } catch (err) {
         console.log(err);
       }
@@ -21,7 +24,7 @@ const CallConfirmation = ({ contactId, navigate }) => {
 
   const goToDashboard = e => {
     e.preventDefault();
-    navigate(`/user/${contact.user1.id}`);
+    navigate(`/user/${user}`);
   };
 
   return (
