@@ -5,6 +5,7 @@ import { firebase, db } from './firebase';
 import Login from './components/Login';
 import DashBoard from './components/DashBoard';
 import ScheduleFreeCall from './components/ScheduleFreeCall';
+import SchedulePaidCall from './components/SchedulePaidCall';
 import ChooseCallPlan from './components/ChooseCallPlan';
 import CallConfirmation from './components/CallConfirmation';
 import AboutUs from './components/AboutUs';
@@ -69,6 +70,7 @@ function App() {
         <ChooseYourContact user={user} path='/choose/:userId' />
         <ChooseCallPlan path='/choose/:userId/:contactId/call-plan' />
         <ScheduleFreeCall path='/choose/:userId/:contactId/:frequency/schedule-free' />
+        <SchedulePaidCall path='/choose/:userId/:contactId/:frequency/schedule' />
         <CallConfirmation path='/confirmation/:contactId' />
         <AboutUs path='/about-us' />
         <UpdateAccount user={user} path='/account/:userId' />
