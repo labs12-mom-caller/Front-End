@@ -15,6 +15,7 @@ import { DefaultButtonBlueBG } from '../styles/styledDefaultComponents';
 const isMobile = window.innerWidth <= 768;
 
 const DashBoard = ({ user }) => {
+  console.log(user);
   const { displayName, photoUrl } = user;
   return (
     <div>
