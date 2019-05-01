@@ -13,4 +13,5 @@ script:
   - CI=false npm run build
 
 after_success:
+  - firebase login
   - firebase deploy --token "$FIREBASE_TOKEN"
