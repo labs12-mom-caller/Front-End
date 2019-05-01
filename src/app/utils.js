@@ -3,6 +3,7 @@ import { db, auth } from '../firebase';
 
 export function logout() {
   return auth().signOut();
+  // navigate('/');
 }
 
 export async function signup({
@@ -53,7 +54,6 @@ export async function signupUserTwo({
     );
     auth()
       .sendPasswordResetEmail(email)
-      .then(res => console.log(res))
       .catch(e => console.log(e.message));
     await user.updateProfile({ displayName, photoURL });
     await db.doc(`users/${user.uid}`).set({

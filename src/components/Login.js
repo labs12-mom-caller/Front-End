@@ -1,7 +1,6 @@
-// This is our main login component
 import React, { useState } from 'react';
 import { Formik } from 'formik';
-import { MDBIcon, MDBContainer, MDBBtn } from 'mdbreact';
+import { MDBIcon, MDBBtn } from 'mdbreact';
 import firebase from 'firebase';
 import { signup } from '../app/utils';
 // style imports
@@ -11,7 +10,7 @@ import {
   DefaultButtonBlue,
   DefaultInput,
   FormikWrapper,
-} from '../styles/styledDefaultComponents/index';
+} from '../styles/styledDefaultComponents';
 
 function Login() {
   // state

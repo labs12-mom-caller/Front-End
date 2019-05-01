@@ -5,6 +5,9 @@ import { firebase, db } from './firebase';
 import Login from './components/Login';
 import DashBoard from './components/DashBoard';
 import ScheduleFreeCall from './components/ScheduleFreeCall';
+import ChooseCallPlan from './components/ChooseCallPlan';
+import CallConfirmation from './components/CallConfirmation';
+import AboutUs from './components/AboutUs';
 
 function useAuth() {
   const [user, setUser] = React.useState(null);
@@ -34,10 +37,13 @@ function App() {
   return user ? (
     <>
       <Router>
+        <Redirect from='/' to={`user/${user.uid}`} noThrow />
         <DashBoard user={user} path='/user/:userId' />
         <ChooseYourContact user={user} path='/choose/:userId' />
-        <Redirect from='/' to={`user/${user.uid}`} noThrow />
-        <ScheduleFreeCall path='/schedule-free' />
+        <ChooseCallPlan path='/choose/:userId/:contactId/call-plan' />
+        <ScheduleFreeCall path='/choose/:userId/:contactId/:frequency/schedule-free' />
+        <CallConfirmation path='/confirmation/:contactId' />
+        <AboutUs path='/about-us' />
       </Router>
     </>
   ) : (
