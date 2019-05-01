@@ -14,12 +14,13 @@ import { DefaultButtonBlueBG } from '../styles/styledDefaultComponents';
 const isMobile = window.innerWidth <= 768;
 
 const DashBoard = ({ user }) => {
+  const { displayName, photoUrl } = user;
   return (
     <div>
       <NavBar user={user} />
       <Wrapper>
-        <WelcomeUser>Hello {user.displayName} </WelcomeUser>
-        <ProfileImage src={`${user.photoUrl}`} alt='ProfilePic' />
+        <WelcomeUser>Hello {displayName} </WelcomeUser>
+        <ProfileImage src={`${photoUrl}`} alt='ProfilePic' />
         <UpdateAccount>Update Account</UpdateAccount>
         <ModalPhoneNumber user={user} />
         {isMobile ? (
@@ -43,3 +44,12 @@ DashBoard.propTypes = {
 };
 
 export default DashBoard;
+DashBoard.propTypes = {
+  user: PropTypes.shape({
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+    photoUrl: PropTypes.string,
+    uid: PropTypes.string,
+    phoneNumber: PropTypes.string,
+  }),
+};

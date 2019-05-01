@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom'; // why is this woring
+import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import {
   MDBNavbar,
@@ -44,9 +45,14 @@ class NavbarPage extends Component {
       <BrowserRouter>
         {isMobile ? (
           <MDBContainer>
-            <MDBNavbar color='transparent' style={{ marginTop: '20px' }} light>
+            <MDBNavbar color='transparent' light>
               <MDBContainer>
-                <MDBNavbarBrand className='black-text'>ReCaller</MDBNavbarBrand>
+                <MDBNavbarBrand
+                  style={{ fontFamily: 'pacifico' }}
+                  className='black-text'
+                >
+                  ReCaller
+                </MDBNavbarBrand>
                 <MDBHamburgerToggler
                   color='black'
                   id='hamburger1'
@@ -85,9 +91,18 @@ class NavbarPage extends Component {
                           navigate(`/choose/${this.props.user.uid}`)
                         }
                         className='black-text'
-                        to='/choose-contact'
+                        to='#'
                       >
                         Choose Contact
+                      </MDBNavLink>
+                    </MDBNavItem>
+                    <MDBNavItem>
+                      <MDBNavLink
+                        onClick={() => navigate(`/about-us`)}
+                        className='black-text'
+                        to='/choose'
+                      >
+                        Our Team
                       </MDBNavLink>
                     </MDBNavItem>
                     <MDBNavItem>
@@ -106,9 +121,12 @@ class NavbarPage extends Component {
               width: '100%',
               display: 'flex',
               justifyContent: 'space-between',
+              marginTop: '15px',
             }}
           >
-            <h2 style={{ marginLeft: '11%' }}>ReCaller</h2>
+            <h2 style={{ marginLeft: '11%', fontFamily: 'pacifico' }}>
+              ReCaller
+            </h2>
             <div style={{ width: '65%' }}>
               <MDBNav className='nav-pills nav-fill'>
                 <MDBNavItem>
@@ -139,9 +157,18 @@ class NavbarPage extends Component {
                   <MDBNavLink
                     onClick={() => navigate(`/choose/${this.props.user.uid}`)}
                     className='black-text'
-                    to='/choose-contact'
+                    to='#'
                   >
                     Choose Contact
+                  </MDBNavLink>
+                </MDBNavItem>
+                <MDBNavItem>
+                  <MDBNavLink
+                    onClick={() => navigate(`/about-us`)}
+                    className='black-text'
+                    to='#'
+                  >
+                    Our Team
                   </MDBNavLink>
                 </MDBNavItem>
                 <MDBNavItem>
@@ -159,3 +186,13 @@ class NavbarPage extends Component {
 }
 
 export default NavbarPage;
+
+NavbarPage.propTypes = {
+  user: PropTypes.shape({
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+    photoUrl: PropTypes.string,
+    uid: PropTypes.string,
+    phoneNumber: PropTypes.string,
+  }),
+};

@@ -1,4 +1,3 @@
-// This is our main login component
 import React, { useState } from 'react';
 import { Formik } from 'formik';
 import { MDBIcon, MDBBtn } from 'mdbreact';
