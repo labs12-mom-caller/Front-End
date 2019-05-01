@@ -62,7 +62,6 @@ export async function signupUserTwo({
       email,
       photoURL,
       phoneNumber: formattedPhone,
-      bool: false,
     });
   } catch (e) {
     throw e;
