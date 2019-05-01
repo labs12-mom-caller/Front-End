@@ -27,14 +27,12 @@ const ModalPhoneNumber = props => {
   useEffect(() => {
     async function fetchData() {
       const userCheck = await fetchUser(uid);
-      console.log(userCheck);
-      console.log(props.user);
       if (!userCheck.phoneNumber) {
         setModal(true);
       }
     }
     fetchData();
-  }, [modal]);
+  }, [modal, uid]);
 
   return (
     <div>
