@@ -122,12 +122,19 @@ class NavbarPage extends Component {
               display: 'flex',
               justifyContent: 'space-between',
               marginTop: '15px',
+              paddingBottom: '5px',
             }}
           >
-            <h2 style={{ marginLeft: '11%', fontFamily: 'pacifico' }}>
+            <h2
+              style={{
+                marginLeft: '11%',
+                fontFamily: 'pacifico',
+                alignItems: 'baseline',
+              }}
+            >
               ReCaller
             </h2>
-            <div style={{ width: '65%' }}>
+            <div style={{ width: '65%', paddingRight: '50px' }}>
               <MDBNav className='nav-pills nav-fill'>
                 <MDBNavItem>
                   <MDBNavLink
@@ -177,6 +184,7 @@ class NavbarPage extends Component {
                   </MDBNavLink>
                 </MDBNavItem>
               </MDBNav>
+              <hr style={{ borderColor: 'black', width: '100%' }} />
             </div>
           </div>
         )}
