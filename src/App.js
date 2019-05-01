@@ -19,7 +19,24 @@ function useAuth() {
   React.useEffect(() => {
     return firebase.auth().onAuthStateChanged(async firebaseUser => {
       if (firebaseUser) {
+        console.log(firebaseUser);
+        if (!firebaseUser.phoneNumber && !window.localStorage.getItem('user')) {
+          const googleUser = {
+            displayName: firebaseUser.displayName,
+            email: firebaseUser.email,
+            uid: firebaseUser.uid,
+            photoUrl:
+              firebaseUser.photoUrl || `https://placekitten.com/200/200`,
+          };
+          window.localStorage.setItem('user', JSON.stringify(googleUser));
+          setUser(googleUser);
+          db.collection('users')
+            .doc(googleUser.uid)
+            .set(googleUser, { merge: true });
+          return;
+        }
         const x = await fetchUser(firebaseUser.uid);
+        console.log(x);
         if (x) {
           const currentUser = {
             ...x,
@@ -27,10 +44,10 @@ function useAuth() {
           if (!window.localStorage.getItem('user')) {
             window.localStorage.setItem('user', JSON.stringify(currentUser));
             setUser(currentUser);
+            db.collection('users')
+              .doc(currentUser.uid)
+              .set(currentUser, { merge: true });
           }
-          db.collection('users')
-            .doc(currentUser.uid)
-            .set(currentUser, { merge: true });
         }
       } else {
         setUser(null);
