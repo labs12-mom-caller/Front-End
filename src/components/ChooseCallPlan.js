@@ -31,6 +31,11 @@ const ChooseCallPlan = ({ contactId, userId }) => {
     navigate(`/choose/${userId}/${contactId}/${free}/schedule-free`);
   };
 
+  const selectPaid = e => {
+    e.preventDefault();
+    navigate(`/choose/${userId}/${contactId}/${free}/schedule`);
+  };
+
   return (
     <CallPlanView>
       <h2>Choose your plan</h2>
@@ -88,7 +93,7 @@ const ChooseCallPlan = ({ contactId, userId }) => {
           </div>
           <hr />
           <p>$2.50 per month</p>
-          <button type='button' disabled={!paid}>
+          <button type='button' disabled={!paid} onClick={selectPaid}>
             Select
           </button>
         </div>

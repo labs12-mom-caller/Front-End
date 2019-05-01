@@ -49,7 +49,7 @@ const SchedulePaidCall = ({ userId, contactId, frequency }) => {
         created_at: moment().toDate(),
         updated_at: moment().toDate(),
       });
-      navigate(`/confirmation/${docRef.id}`);
+      navigate(`/payment/${docRef.id}`);
     } catch (err) {
       console.log(err);
     }
