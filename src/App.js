@@ -19,7 +19,7 @@ function useAuth() {
     return firebase.auth().onAuthStateChanged(async firebaseUser => {
       if (firebaseUser) {
         const x = await fetchUser(firebaseUser.uid);
-        if (x && x.bool) {
+        if (x) {
           const currentUser = {
             ...x,
           };

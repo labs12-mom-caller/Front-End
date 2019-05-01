@@ -33,7 +33,7 @@ const DashBoard = ({ user }) => {
         >
           <WelcomeUser>Hello {displayName} </WelcomeUser>
           <ProfileImage src={`${photoUrl}`} alt='ProfilePic' />
-          <UpdateAccount onClick={navigate(`/account/${user.uid}`)}>
+          <UpdateAccount onClick={() => navigate(`/account/${user.uid}`)}>
             Update Account
           </UpdateAccount>
         </div>
