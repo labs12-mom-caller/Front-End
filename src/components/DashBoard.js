@@ -20,9 +20,19 @@ const DashBoard = ({ user }) => {
     <div>
       <NavBar user={user} />
       <Wrapper>
-        <WelcomeUser>Hello {displayName} </WelcomeUser>
-        <ProfileImage src={`${photoUrl}`} alt='ProfilePic' />
-        <UpdateAccount>Update Account</UpdateAccount>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '25%',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <WelcomeUser>Hello {displayName} </WelcomeUser>
+          <ProfileImage src={`${photoUrl}`} alt='ProfilePic' />
+          <UpdateAccount>Update Account</UpdateAccount>
+        </div>
         <ModalPhoneNumber user={user} />
         {isMobile ? (
           <DashboardButtons>

@@ -15,10 +15,14 @@ export const Wrapper = styled.div`
 `;
 
 export const ProfileImage = styled.img`
-  width: 25%;
-  margin-top: 20px;
+  width: 50%;
   height: auto;
+  margin-top: 20px;
   border-radius: 50%;
+  border: 1.5px solid black;
+  align-self: center;
+  @media (min-width: 992px) {
+  }
 `;
 
 export const WelcomeUser = styled.h2`
@@ -29,11 +33,9 @@ export const WelcomeUser = styled.h2`
 
 export const UpdateAccount = styled.p`
   margin-top: 10px;
-  /* margin-left: 2%; */
   color: red;
 
   @media (min-width: 992px) {
-    margin-left: 8%;
   }
 `;
 
