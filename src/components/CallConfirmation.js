@@ -17,7 +17,7 @@ const CallConfirmation = ({ contactId, navigate }) => {
       }
     };
     getData();
-  }, []);
+  }, [contactId]);
 
   const goToDashboard = e => {
     e.preventDefault();

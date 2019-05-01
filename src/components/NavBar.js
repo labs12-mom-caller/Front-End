@@ -1,6 +1,9 @@
+/* eslint-disable react/no-access-state-in-setstate */
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom'; // why is this woring
+import { BrowserRouter } from 'react-router-dom';
 import { navigate } from '@reach/router';
+import PropTypes from 'prop-types';
+
 import {
   MDBNavbar,
   MDBNav,
@@ -34,12 +37,18 @@ class NavbarPage extends Component {
 
   toggleSingleCollapse = collapseId => {
     this.setState({
+      // eslint-disable-next-line react/no-access-state-in-setstate
       ...this.state,
+      // eslint-disable-next-line react/destructuring-assignment
       [collapseId]: !this.state[collapseId],
     });
   };
 
   render() {
+    const { collapse1 } = this.state;
+    const {
+      user: { uid },
+    } = this.props;
     return (
       <BrowserRouter>
         {isMobile ? (
@@ -52,7 +61,7 @@ class NavbarPage extends Component {
                   id='hamburger1'
                   onClick={() => this.toggleSingleCollapse('collapse1')}
                 />
-                <MDBCollapse isOpen={this.state.collapse1} navbar>
+                <MDBCollapse isOpen={collapse1} navbar>
                   <MDBNavbarNav left>
                     <MDBNavItem>
                       <MDBNavLink
@@ -81,9 +90,7 @@ class NavbarPage extends Component {
                     </MDBNavItem>
                     <MDBNavItem>
                       <MDBNavLink
-                        onClick={() =>
-                          navigate(`/choose/${this.props.user.uid}`)
-                        }
+                        onClick={() => navigate(`/choose/${uid}`)}
                         className='black-text'
                         to='#'
                       >
@@ -147,7 +154,7 @@ class NavbarPage extends Component {
                 </MDBNavItem>
                 <MDBNavItem>
                   <MDBNavLink
-                    onClick={() => navigate(`/choose/${this.props.user.uid}`)}
+                    onClick={() => navigate(`/choose/${uid}`)}
                     className='black-text'
                     to='#'
                   >
@@ -178,3 +185,13 @@ class NavbarPage extends Component {
 }
 
 export default NavbarPage;
+
+NavbarPage.propTypes = {
+  user: PropTypes.shape({
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+    photoUrl: PropTypes.string,
+    uid: PropTypes.string,
+    phoneNumber: PropTypes.string,
+  }),
+};
