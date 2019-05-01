@@ -7,6 +7,7 @@ import DashBoard from './components/DashBoard';
 import ScheduleFreeCall from './components/ScheduleFreeCall';
 import ChooseCallPlan from './components/ChooseCallPlan';
 import CallConfirmation from './components/CallConfirmation';
+import AboutUs from './components/AboutUs';
 
 function useAuth() {
   const [user, setUser] = React.useState(null);
@@ -42,6 +43,7 @@ function App() {
         <ChooseCallPlan path='/choose/:userId/:contactId/call-plan' />
         <ScheduleFreeCall path='/choose/:userId/:contactId/:frequency/schedule-free' />
         <CallConfirmation path='/confirmation/:contactId' />
+        <AboutUs path='/about-us' />
       </Router>
     </>
   ) : (

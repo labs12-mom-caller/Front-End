@@ -16,7 +16,8 @@
     "react/forbid-prop-types": "off",
     "no-shadow": "off",
     "import/no-extraneous-dependencies": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "no-return-assign": "off"
   },
   "env": {
     "browser": true
