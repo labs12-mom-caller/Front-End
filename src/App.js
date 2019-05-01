@@ -26,7 +26,7 @@ function useAuth() {
             email: firebaseUser.email,
             uid: firebaseUser.uid,
             photoUrl:
-              firebaseUser.photoUrl || `https://placekitten.com/200/200`,
+              firebaseUser.photoURL || `https://placekitten.com/200/200`,
           };
           window.localStorage.setItem('user', JSON.stringify(googleUser));
           setUser(googleUser);

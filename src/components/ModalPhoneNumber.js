@@ -1,3 +1,4 @@
+/* eslint-disable no-inner-declarations */
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import PropTypes from 'prop-types';
@@ -5,68 +6,74 @@ import { DefaultInput } from '../styles/styledDefaultComponents/index';
 import { fetchUser } from '../app/utils';
 import { db } from '../firebase';
 
-const ModalPhoneNumber = props => {
-  console.log(props, '$$$');
-  const {
-    user: { uid },
-  } = props;
-
+const ModalPhoneNumber = ({ user }) => {
   const [modal, setModal] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
 
   const toggle = () => {
     setModal(!modal);
   };
+
   const addPhoneNumber = async () => {
     const formattedPhone = String('+1').concat(
       String(phoneNumber).replace(/[^\d]/g, ''),
     );
+    setModal(false);
     await db
-      .doc(`users/${uid}`)
+      .doc(`users/${user.uid}`)
       .set({ phoneNumber: formattedPhone }, { merge: true });
-    setModal(!modal);
   };
-  useEffect(() => {
-    async function fetchData() {
-      const userCheck = await fetchUser(uid);
-      if (!userCheck.phoneNumber) {
-        setModal(true);
-      }
-    }
-    fetchData();
-  }, [modal, uid]);
 
-  return (
-    <div>
-      {/* eslint-disable-next-line react/destructuring-assignment */}
-      <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>
-          Please enter your phone number.
-        </ModalHeader>
-        <ModalBody>
-          <form>
-            <DefaultInput
-              type='text'
-              onChange={e => setPhoneNumber(e.target.value)}
-              value={phoneNumber}
-              placeholder='phone number...'
-            />
-          </form>
-        </ModalBody>
-        <ModalFooter>
-          <Button color='primary' onClick={addPhoneNumber}>
-            Submit
-          </Button>{' '}
-          <Button color='secondary' onClick={toggle}>
-            Cancel
-          </Button>
-        </ModalFooter>
-      </Modal>
-    </div>
-  );
+  useEffect(() => {
+    if (user) {
+      async function fetchData() {
+        const userCheck = await fetchUser(user.uid);
+        console.log(userCheck);
+        if (!userCheck.phoneNumber) {
+          setModal(true);
+        }
+      }
+      setTimeout(() => {
+        fetchData();
+      }, 3000);
+    }
+  }, [modal, user.uid]);
+
+  if (user) {
+    return (
+      <div>
+        {/* eslint-disable-next-line react/destructuring-assignment */}
+        <Modal isOpen={modal} toggle={toggle}>
+          <ModalHeader toggle={toggle}>
+            Please enter your phone number.
+          </ModalHeader>
+          <ModalBody>
+            <form>
+              <DefaultInput
+                type='text'
+                onChange={e => setPhoneNumber(e.target.value)}
+                value={phoneNumber}
+                placeholder='phone number...'
+              />
+            </form>
+          </ModalBody>
+          <ModalFooter>
+            <Button color='primary' onClick={addPhoneNumber}>
+              Submit
+            </Button>{' '}
+            <Button color='secondary' onClick={toggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </div>
+    );
+  }
+  return <p> Something went wrong! </p>;
 };
 
 export default ModalPhoneNumber;
+
 ModalPhoneNumber.propTypes = {
   user: PropTypes.shape({
     displayName: PropTypes.string,
