@@ -1,10 +1,13 @@
 const functions = require('firebase-functions');
 const axios = require('axios');
 const request = require('request');
+const sgMail = require('@sendgrid/mail');
 
 const accountSid = functions.config().twilio.sid;
 const authToken = functions.config().twilio.token;
 const client = require('twilio')(accountSid, authToken);
+
+sgMail.setApiKey(functions.config().sendgrid.key);
 
 exports.handler = async (req, res, firestore, storage) => {
   const calls = firestore.collection('calls');
