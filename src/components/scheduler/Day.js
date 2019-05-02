@@ -7,13 +7,13 @@ import { generateTimeSlots } from './generateTimeSlots';
 const Day = ({ day, timezone, selectTime }) => {
   //   const [scroll, setScroll] = useState(0);
 
-  const timeSlots = generateTimeSlots(60, '00:00', '23:00');
+  const timeSlots = generateTimeSlots(60, '06:00', '23:00');
+
   return (
-    <div>
+    <div className='slick-slide'>
       <h2>{day}</h2>
-      <div>
-        <div>Scroll Up</div>
-        <div>
+      <div className='time-slots-container'>
+        <div className='time-slots'>
           {timeSlots.map(slot => (
             <Slot
               slot={slot}
@@ -24,7 +24,6 @@ const Day = ({ day, timezone, selectTime }) => {
             />
           ))}
         </div>
-        <div>ScrollDown</div>
       </div>
     </div>
   );

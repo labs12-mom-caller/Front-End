@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import moment from 'moment-timezone';
+import Slider from 'react-slick';
 
 import Day from './scheduler/Day';
 import randomTime from './scheduler/randomTime';
@@ -81,6 +82,43 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
     }
   };
 
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 7,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 7,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 890,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 590,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 430,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   return (
     <Scheduler>
       <h2>Schedule a free call</h2>
@@ -110,14 +148,16 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
           <option value='US/Pacific-New'>Pacific-New</option>
         </select>
         <div className='days'>
-          {Object.keys(time.selectedTimes).map(day => (
-            <Day
-              day={day}
-              key={day}
-              timezone={time.timezone}
-              selectTime={selectTime}
-            />
-          ))}
+          <Slider {...settings}>
+            {Object.keys(time.selectedTimes).map(day => (
+              <Day
+                day={day}
+                key={day}
+                timezone={time.timezone}
+                selectTime={selectTime}
+              />
+            ))}
+          </Slider>
         </div>
         <button type='submit'>Complete Sign Up</button>
       </form>
