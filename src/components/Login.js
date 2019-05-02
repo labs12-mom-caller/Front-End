@@ -267,10 +267,10 @@ const WrapperDiv = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   @media (min-width: 768px) {
     /* justify-content: unset; */
-  min-height: 50vh;
+  /* min-height: 50vh; */
 
   }
   .loginHeader {
