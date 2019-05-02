@@ -5,20 +5,22 @@ import { navigate } from '@reach/router';
 import { Formik } from 'formik';
 import { signupUserTwo } from '../app/utils';
 import NavBar from './NavBar';
-import { Wrapper } from '../styles/Login';
+import styled from 'styled-components';
+import { styles } from '../styles/styledDefaultComponents';
+// import { Wrapper } from '../styles/Login';
 
 function Choose({ user, userId }) {
   return (
     <Wrapper>
       <NavBar />
-      <div>Hello {user.displayName} </div>
+      <div className='heading'>Hello {user.displayName} </div>
       <div className='app'>
-        <h1>Choose Your Loved One</h1>
+        <h1 className='choose'>Choose Your Loved One</h1>
         <Formik
           initialValues={{
-            email: 'checomichael25@yahoo.com',
-            name: 'Testing',
-            phoneNumber: '1234567890',
+            email: '',
+            name: '',
+            phoneNumber: '',
           }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
@@ -95,7 +97,7 @@ function Choose({ user, userId }) {
                 </label>
                 <input
                   id='phoneNumber'
-                  placeholder='Enter your phone number'
+                  placeholder='Enter your number'
                   type='number'
                   value={values.phoneNumber}
                   onChange={handleChange}
@@ -109,17 +111,23 @@ function Choose({ user, userId }) {
                 {errors.phoneNumber && touched.phoneNumber && (
                   <div className='input-feedback'>{errors.phoneNumber}</div>
                 )}
-                <button
-                  type='button'
-                  className='outline'
-                  onClick={handleReset}
-                  disabled={!dirty || isSubmitting}
-                >
-                  Reset
-                </button>
-                <button type='submit' disabled={isSubmitting}>
-                  Submit
-                </button>
+                <div className='buttonWrapper'>
+                  <button
+                    type='button'
+                    className='reset'
+                    onClick={handleReset}
+                    disabled={!dirty || isSubmitting}
+                  >
+                    Reset
+                  </button>
+                  <button
+                    type='submit'
+                    className='submit'
+                    disabled={isSubmitting}
+                  >
+                    Submit
+                  </button>
+                </div>
               </form>
             );
           }}
@@ -160,3 +168,103 @@ Choose.propTypes = {
   handleReset: PropTypes.func,
   userId: PropTypes.string,
 };
+
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: unset;
+  align-items: center;
+  min-height: 100vh;
+  .container {
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+  .heading {
+    font-size: 1.5rem;
+    color: ${styles.colors.mainBlue};
+    margin-bottom: 5%;
+    margin-top: 20%;
+    font-weight: 700;
+    text-align: center;
+  }
+  .choose {
+    text-align: center;
+    font-size: 1.3rem;
+    color: ${styles.colors.mainBlue};
+    margin-bottom: 5%;
+  }
+  form {
+    /* border: 1px solid red; */
+    margin-top: 5%;
+    label {
+      /* border: 1px solid green; */
+      text-align: center;
+      color: ${styles.colors.mainBlue};
+      margin-bottom: 3%;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    input {
+      /* border: 1px solid blue; */
+      text-align: center;
+      margin: 2% auto;
+      width: 100%;
+      border: 2px solid ${styles.colors.mainBlue};
+      border-radius: 100px;
+      ::-webkit-input-placeholder {
+        color: ${styles.colors.mainBlue};
+        text-transform: capitalize;
+        letter-spacing: 0.1rem;
+      }
+      ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: ${styles.colors.mainBlue};
+      }
+      :-ms-input-placeholder {
+        /* IE 10+ */
+        color: ${styles.colors.mainBlue};
+      }
+      :-moz-placeholder {
+        /* Firefox 18- */
+        color: ${styles.colors.mainBlue};
+      }
+    }
+  }
+  .buttonWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 2% auto;
+    margin-top: 25%;
+    width: 100%;
+    /* border: 1px solid purple; */
+    .reset {
+      border: 2px solid ${styles.colors.mainWhite};
+      margin-bottom: 3%;
+      padding: 1rem;
+      width: 100%;
+      border-radius: 100px;
+      color: ${styles.colors.mainWhite};
+      background: ${styles.colors.mainBlue};
+      &:hover {
+        color: ${styles.colors.mainBlue};
+        background: ${styles.colors.mainWhite};
+        border: 2px solid ${styles.colors.mainBlue};
+      }
+    }
+    .submit {
+      border: 2px solid ${styles.colors.mainWhite};
+      padding: 1rem;
+      width: 100%;
+      border-radius: 100px;
+      color: ${styles.colors.mainWhite};
+      background: ${styles.colors.mainBlue};
+      &:hover {
+        color: ${styles.colors.mainBlue};
+        background: ${styles.colors.mainWhite};
+        border: 2px solid ${styles.colors.mainBlue};
+      }
+    }
+  }
+`;
