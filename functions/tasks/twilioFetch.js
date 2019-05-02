@@ -47,6 +47,8 @@ exports.handler = async (req, res, firestore, storage) => {
               },
               params: {
                 model: 'phonecall',
+                multichannel: true,
+                punctuate: true,
               },
               data: {
                 url,

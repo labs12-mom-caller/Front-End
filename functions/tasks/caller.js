@@ -33,11 +33,17 @@ exports.handler = async (req, res, firestore) => {
       const user2 = await users.doc(user2id).get();
       const user2phone = user2.data().phoneNumber;
 
+      const twilioUrl =
+        doc.data().call_type === 'free'
+          ? `https://handler.twilio.com/twiml/EHef6fe8c09005a4e4fa44c3142c2b2592?BuddyPhone=${user2phone}`
+          : `https://handler.twilio.com/twiml/EHbb3b954f5734086e1f577a192e39c99f?BuddyPhone=${user2phone}`;
+
       client.calls.create(
         {
-          url: `https://handler.twilio.com/twiml/EHef6fe8c09005a4e4fa44c3142c2b2592?BuddyPhone=${user2phone}`,
+          url: twilioUrl,
           to: user1phone,
           from: '+18727048254',
+          machineDetection: 'Enable',
         },
         (err, call) => {
           calls
