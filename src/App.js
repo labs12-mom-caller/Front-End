@@ -9,6 +9,8 @@ import SchedulePaidCall from './components/SchedulePaidCall';
 import ChooseCallPlan from './components/ChooseCallPlan';
 import CallConfirmation from './components/CallConfirmation';
 import AboutUs from './components/AboutUs';
+import PreviousCalls from './components/dashboard/PreviousCalls';
+
 import UpdateAccount from './components/UpdateAccount';
 import { fetchUser } from './app/utils';
 // Updated useAuth
@@ -53,6 +55,7 @@ function App() {
         <ScheduleFreeCall path='/choose/:userId/:contactId/:frequency/schedule-free' />
         <SchedulePaidCall path='/choose/:userId/:contactId/:frequency/schedule' />
         <CallConfirmation path='/confirmation/:contactId' />
+        <PreviousCalls path='prev-calls/:userId' />
         <AboutUs path='/about-us' />
         <UpdateAccount user={user} path='/account/:userId' />
       </Router>
