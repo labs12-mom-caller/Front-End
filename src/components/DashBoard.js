@@ -45,7 +45,7 @@ function ContactList() {
 
 const DashBoard = ({ user }) => {
   console.log(user);
-  const { displayName, photoUrl } = user;
+  const { displayName, photoUrl, uid } = user;
   return (
     <div>
       <NavBar user={user} />
@@ -56,7 +56,12 @@ const DashBoard = ({ user }) => {
           <ProfileWrapper>
             <WelcomeUser>Hello {displayName} </WelcomeUser>
             <ProfileImage src={`${photoUrl}`} alt='ProfilePic' />
-            <UpdateAccount>Update Account</UpdateAccount>
+            <UpdateAccount
+              user={user}
+              onClick={() => navigate(`/account/${user.uid}`)}
+            >
+              Update Account
+            </UpdateAccount>
           </ProfileWrapper>
           {isMobile ? null : ContactList()}
         </div>

@@ -7,11 +7,8 @@ import styled from 'styled-components';
 import { signup } from '../app/utils';
 import logo from '../assets/images/icons8-google.svg';
 import {
-  DefaultButtonRed,
-  DefaultButtonBlue,
   DefaultInput,
   FormikWrapper,
-  DefaultButtonRedBG,
   DefaultButtonBlueBG,
   styles,
 } from '../styles/styledDefaultComponents';
