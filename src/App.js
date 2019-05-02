@@ -9,6 +9,8 @@ import SchedulePaidCall from './components/SchedulePaidCall';
 import ChooseCallPlan from './components/ChooseCallPlan';
 import CallConfirmation from './components/CallConfirmation';
 import AboutUs from './components/AboutUs';
+import PreviousCalls from './components/dashboard/PreviousCalls';
+
 import UpdateAccount from './components/UpdateAccount';
 import { fetchUser } from './app/utils';
 // Updated useAuth
@@ -19,7 +21,24 @@ function useAuth() {
   React.useEffect(() => {
     return firebase.auth().onAuthStateChanged(async firebaseUser => {
       if (firebaseUser) {
+        console.log(firebaseUser);
+        if (!firebaseUser.phoneNumber && !window.localStorage.getItem('user')) {
+          const googleUser = {
+            displayName: firebaseUser.displayName,
+            email: firebaseUser.email,
+            uid: firebaseUser.uid,
+            photoUrl:
+              firebaseUser.photoURL || `https://placekitten.com/200/200`,
+          };
+          window.localStorage.setItem('user', JSON.stringify(googleUser));
+          setUser(googleUser);
+          db.collection('users')
+            .doc(googleUser.uid)
+            .set(googleUser, { merge: true });
+          return;
+        }
         const x = await fetchUser(firebaseUser.uid);
+        console.log(x);
         if (x) {
           const currentUser = {
             ...x,
@@ -27,10 +46,10 @@ function useAuth() {
           if (!window.localStorage.getItem('user')) {
             window.localStorage.setItem('user', JSON.stringify(currentUser));
             setUser(currentUser);
+            db.collection('users')
+              .doc(currentUser.uid)
+              .set(currentUser, { merge: true });
           }
-          db.collection('users')
-            .doc(currentUser.uid)
-            .set(currentUser, { merge: true });
         }
       } else {
         setUser(null);
@@ -53,6 +72,7 @@ function App() {
         <ScheduleFreeCall path='/choose/:userId/:contactId/:frequency/schedule-free' />
         <SchedulePaidCall path='/choose/:userId/:contactId/:frequency/schedule' />
         <CallConfirmation path='/confirmation/:contactId' />
+        <PreviousCalls path='prev-calls/:userId' />
         <AboutUs path='/about-us' />
         <UpdateAccount user={user} path='/account/:userId' />
       </Router>

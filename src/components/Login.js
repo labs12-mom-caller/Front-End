@@ -5,6 +5,7 @@ import { MDBCol, MDBContainer, MDBRow, MDBFooter } from 'mdbreact';
 import { TiArrowLeftThick } from 'react-icons/ti';
 import styled from 'styled-components';
 import { signup } from '../app/utils';
+import img from '../assets/images/womanOnPhone.jpg';
 import logo from '../assets/images/icons8-google.svg';
 import {
   DefaultInput,
@@ -32,7 +33,7 @@ function Login() {
   };
   return (
     <WrapperDiv>
-      <h1 className='loginHeader'>ReCaller!</h1>
+      <h1 className='loginHeader'>ReCaller</h1>
       {!hasAccount && (
         <>
           <FormikWrapper>
@@ -125,18 +126,18 @@ function Login() {
                   >
                     Submit
                   </DefaultButtonBlueBG>
+                  <DefaultButtonBlueBG
+                    type='button'
+                    onClick={handleSignIn}
+                    className='signUpBtnG'
+                  >
+                    <img src={logo} alt='google logo' className='logo' />
+                    <p className='signUpText'>Sign up with Google</p>
+                  </DefaultButtonBlueBG>
                 </form>
               )}
             </Formik>
           </FormikWrapper>
-          <DefaultButtonBlueBG
-            type='button'
-            onClick={handleSignIn}
-            className='signUpBtnG'
-          >
-            <img src={logo} alt='google logo' className='logo' />
-            <p className='signUpText'>Sign up with Google</p>
-          </DefaultButtonBlueBG>
           {!hasAccount && (
             <p className='haveAccountText'>
               already have an account?{' '}
@@ -215,7 +216,7 @@ function Login() {
           <MDBContainer fluid className='text-center text-md-left'>
             <MDBRow>
               <MDBCol md='5'>
-                <p>
+                <p style={{ fontSize: '.9rem', width: '119%' }}>
                   We believe in connecting friends and family by offering
                   scheduled calls and call transcription. Always remember the
                   things you’ve talked about with your loved ones. We are
@@ -223,12 +224,13 @@ function Login() {
                 </p>
                 &copy; {new Date().getFullYear()} <a href='/'> ReCaller </a>
               </MDBCol>
-              <MDBCol style={{ marginLeft: '5%' }} md='5'>
+              <MDBCol style={{ marginLeft: '13%', alignSelf: 'center' }} md='5'>
                 <span>
-                  <strong style={{ fontSize: '26px' }}>
+                  <strong style={{ fontSize: '23px' }}>
                     Already have an account?
                     <button
                       type='button'
+                      onClick={() => setHasAccount(true)}
                       style={{
                         color: '#FF6F61',
                         backgroundColor: 'transparent',
@@ -261,36 +263,71 @@ const WrapperDiv = styled.div`
   justify-content: space-evenly;
   align-items: center;
   min-height: 100vh;
+
   .loginHeader {
     ${styles.logoText};
     font-size: 5rem;
     color: ${styles.colors.mainBlue};
-
     @media (min-width: 992px) {
-      align-self: baseline;
+      /* justify-content: space-between; */
+      /* align-self: baseline; */
+      /* margin-top: 0; */
+      /* margin-bottom: 10%; */
+      /* margin-left: 5%; */
+      /* padding-bottom: 21%; */
+      position: absolute;
+      top: 2%;
+      left: 2%;
     }
   }
   .signUpBtnG {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 58%;
+    width: 70%;
     @media (min-width: 768px) {
       width: 50%;
     }
     @media (min-width: 992px) {
-      width: 35%;
+      position: absolute;
+      right: 17%;
+      top: 30%;
+      display: flex;
+      flex-direction: column-reverse;
+      margin: 1rem auto;
+      border: 2px solid ${styles.colors.mainBlue};
+      width: 20%;
+      height: 25%;
+      padding: 10% 0;
+      color: ${styles.colors.mainBlue};
+      background-color: white;
+      font-size: 1rem;
+      text-transform: capitalize;
+      font-weight: 700;
+      border-radius: 40px;
     }
     .logo {
       max-width: 30px;
       max-height: 30px;
-      margin-right: 2%;
+      margin-right: 1%;
+      @media (min-width: 992px) {
+        margin-right: 3%;
+        min-width: 120px;
+        min-height: 120px;
+
+        border-radius: 50%;
+        background-color: #f3f3f3;
+        border: 15px solid #f3f3f3;
+      }
     }
     .signUpText {
       font-size: 1rem;
       text-transform: capitalize;
       margin-bottom: 0;
-      letter-spacing: 0.1rem;
+      /* letter-spacing: 0.1rem; */
+      @media (min-width: 992px) {
+        width: 60%;
+      }
     }
   }
   .submitCustomBtn {
@@ -299,6 +336,19 @@ const WrapperDiv = styled.div`
     font-weight: 700;
     text-transform: uppercase;
     min-width: 70%;
+    margin-bottom: 0;
+    @media (min-width: 992px) {
+      min-width: 0px;
+      width: 142px;
+      height: 50px;
+      border-radius: 50px;
+      background: ${styles.colors.redOrange};
+      &:hover {
+        background: white;
+        color: ${styles.colors.redOrange};
+        border: 2px solid ${styles.colors.redOrange};
+      }
+    }
   }
   .haveAccountText {
     text-transform: capitalize;
@@ -309,6 +359,9 @@ const WrapperDiv = styled.div`
     margin-bottom: 8%;
     @media (min-width: 768px) {
       font-size: 1.5rem;
+    }
+    @media (min-width: 992px) {
+      display: none;
     }
     .signInSpan {
       color: ${styles.colors.redOrange};
@@ -323,6 +376,7 @@ const WrapperDiv = styled.div`
     justify-content: center;
     align-items: center;
     margin: 2% auto;
+    width: 60%;
     @media (min-width: 768px) {
       width: 60%;
     }
