@@ -78,3 +78,29 @@ app.post('/', (req, res) => {
 });
 
 exports.charge = functions.https.onRequest(app);
+
+exports.signupUserTwo = functions.firestore
+  .document(`/users/{useruid}`)
+  .onCreate(async (snapshot, context) => {
+    const data = snapshot.data();
+    console.log(data);
+    try {
+      await admin.auth().createUser({
+        email: data.email,
+        emailVerified: false,
+        password: Math.random()
+          .toString(36)
+          .slice(-8),
+        displayName: data.displayName,
+        photoURL: data.photoURL,
+        disabled: false,
+        uid: data.id,
+      });
+
+      admin.auth().generatePasswordResetLink({
+        email: data.email,
+      });
+    } catch (e) {
+      throw e;
+    }
+  });

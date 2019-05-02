@@ -20,6 +20,7 @@ class NavbarPage extends Component {
 
   logoutHandler = e => {
     e.preventDefault();
+    window.localStorage.clear();
     logout();
   };
 

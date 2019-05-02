@@ -24,7 +24,6 @@ RecentTranscripts.propTypes = {
     contactName: PropTypes.string,
     callDate: PropTypes.string,
     callTime: PropTypes.string,
-
   }),
 };
 
