@@ -23,7 +23,7 @@ exports.handler = async (req, res, firestore, storage) => {
       const { sid, status } = recording;
       if (status === 'completed') {
         const { id } = doc;
-        const file = storage.file(`${id}`);
+        const file = await storage.file(`${id}`);
         request(
           `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Recordings/${sid}.wav`,
         )
