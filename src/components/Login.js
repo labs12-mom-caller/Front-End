@@ -156,7 +156,7 @@ function Login() {
       <div className='signInContainer'>
         {hasAccount && (
           <DefaultButtonBlueBG
-            className='signUpBtnG backSignUp'
+            className='backSignUp'
             type='button'
             onClick={() => setHasAccount(null)}
           >
@@ -267,9 +267,16 @@ const WrapperDiv = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+<<<<<<< HEAD
   /* min-height: 100vh; */
   max-height: 95vh;
 
+=======
+  min-height: 100vh;
+  @media (min-width: 768px) {
+    /* justify-content: unset; */
+  }
+>>>>>>> a12b30815bc41c12a5deb547fd386f106dfa6f00
   .loginHeader {
     ${styles.logoText};
     font-size: 5rem;
@@ -292,7 +299,7 @@ const WrapperDiv = styled.div`
     justify-content: center;
     width: 70%;
     @media (min-width: 768px) {
-      width: 50%;
+      width: 70%;
     }
     @media (min-width: 992px) {
       position: absolute;
@@ -365,8 +372,12 @@ const WrapperDiv = styled.div`
     margin-bottom: 8%;
     @media (min-width: 768px) {
       font-size: 1.5rem;
+      display: none;
     }
     @media (min-width: 992px) {
+      display: none;
+    }
+    @media (min-width: 1500px) {
       display: none;
     }
     .signInSpan {
