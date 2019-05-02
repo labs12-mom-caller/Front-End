@@ -241,50 +241,6 @@ function Login() {
           </div>
         )}
       </WrapperDiv>
-      {isMobile ? null : (
-        <MDBFooter
-          fixed-bottom
-          style={{ backgroundColor: '#083D77' }}
-          className='fixed-bottom pt-4 mt-4'
-        >
-          <MDBContainer fluid className='text-center text-md-left'>
-            <MDBRow>
-              <MDBCol md='5'>
-                <p style={{ fontSize: '.9rem', width: '119%' }}>
-                  We believe in connecting friends and family by offering
-                  scheduled calls and call transcription. Always remember the
-                  things you’ve talked about with your loved ones. We are
-                  ReCaller.
-                </p>
-                &copy; {new Date().getFullYear()} <a href='/'> ReCaller </a>
-              </MDBCol>
-              <MDBCol style={{ marginLeft: '16%', alignSelf: 'center' }} md='5'>
-                <span>
-                  <strong style={{ fontSize: '23px' }}>
-                    Already have an account?
-                    <button
-                      type='button'
-                      onClick={() => setHasAccount(true)}
-                      style={{
-                        color: '#FF6F61',
-                        backgroundColor: 'transparent',
-                        border: 'none',
-                      }}
-                    >
-                      Log In
-                    </button>
-                  </strong>
-                </span>
-              </MDBCol>
-            </MDBRow>
-          </MDBContainer>
-          {/* <div className='footer-copyright text-center py-3'>
-          <MDBContainer fluid>
-            &copy; {new Date().getFullYear()} <a href='/'> ReCaller </a>
-          </MDBContainer>
-        </div> */}
-        </MDBFooter>
-      )}
     </div>
   );
 }
@@ -397,13 +353,13 @@ const WrapperDiv = styled.div`
     margin-bottom: 8%;
     @media (min-width: 768px) {
       font-size: 1.5rem;
-      display: none;
+      /* display: none; */
     }
     @media (min-width: 992px) {
-      display: none;
+      /* display: none; */
     }
     @media (min-width: 1500px) {
-      display: none;
+      /* display: none; */
     }
     .signInSpan {
       color: ${styles.colors.redOrange};
@@ -470,10 +426,10 @@ const WrapperDiv = styled.div`
       .loginHeader2 {
         /* margin-left: 35%; */
         ${styles.logoText}
-    font-size: 5rem;
-    color: ${styles.colors.mainBlue};
+        font-size: 5rem;
+        color: ${styles.colors.mainBlue};
+      }
     }
-
   }
   .signInButton {
     width: 60%;
