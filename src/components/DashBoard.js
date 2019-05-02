@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { navigate } from '@reach/router';
+// import { navigate } from '@reach/router';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from 'mdbreact';
 import NavBar from './NavBar';
 import ModalPhoneNumber from './ModalPhoneNumber';
@@ -56,7 +56,12 @@ const DashBoard = ({ user }) => {
           <ProfileWrapper>
             <WelcomeUser>Hello {displayName} </WelcomeUser>
             <ProfileImage src={`${photoUrl}`} alt='ProfilePic' />
-            <UpdateAccount>Update Account</UpdateAccount>
+            <UpdateAccount
+              user={user}
+              onClick={() => navigate(`/account/${user.uid}`)}
+            >
+              Update Account
+            </UpdateAccount>
           </ProfileWrapper>
           {isMobile ? null : ContactList()}
         </div>

@@ -23,11 +23,11 @@ function Choose({ user, userId }) {
             phoneNumber: '',
           }}
           onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              signupUserTwo(values);
+            setTimeout(async () => {
+              const user2id = await signupUserTwo(values);
               setSubmitting(false);
-              navigate(`/choose/${userId}/${user.uid}/call-plan`);
-            }, 500);
+              navigate(`/choose/${userId}/${user2id}/call-plan`);
+            }, 1000);
           }}
           validationSchema={Yup.object().shape({
             email: Yup.string()

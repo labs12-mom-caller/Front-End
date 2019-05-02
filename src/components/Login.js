@@ -8,11 +8,11 @@ import { signup } from '../app/utils';
 import img from '../assets/images/womanOnPhone.jpg';
 import logo from '../assets/images/icons8-google.svg';
 import {
-  DefaultButtonRed,
-  DefaultButtonBlue,
+  // DefaultButtonRed,
+  // DefaultButtonBlue,
   DefaultInput,
   FormikWrapper,
-  DefaultButtonRedBG,
+  // DefaultButtonRedBG,
   DefaultButtonBlueBG,
   styles,
 } from '../styles/styledDefaultComponents';
