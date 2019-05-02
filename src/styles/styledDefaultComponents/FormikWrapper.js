@@ -21,7 +21,7 @@ export const FormikWrapper = styled.div`
       margin-right: 48%;
       /* overflow: hidden; */
       /* margin-bottom: 25%; */
-      margin-top: 18%;
+      margin-top: 15%;
     }
   }
 `;
