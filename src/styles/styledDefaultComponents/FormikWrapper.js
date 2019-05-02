@@ -20,7 +20,7 @@ export const FormikWrapper = styled.div`
       width: 50%;
       margin-right: 48%;
       /* overflow: hidden; */
-      margin-bottom: 25%;
+      /* margin-bottom: 25%; */
       margin-top: 18%;
     }
   }

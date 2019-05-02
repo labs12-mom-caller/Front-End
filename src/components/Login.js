@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
 import { Formik } from 'formik';
 import firebase from 'firebase';
@@ -154,7 +156,7 @@ function Login() {
       <div className='signInContainer'>
         {hasAccount && (
           <DefaultButtonBlueBG
-            className='signUpBtnG backSignUp'
+            className='backSignUp'
             type='button'
             onClick={() => setHasAccount(null)}
           >
@@ -266,7 +268,11 @@ const WrapperDiv = styled.div`
   justify-content: space-evenly;
   align-items: center;
   min-height: 100vh;
+  @media (min-width: 768px) {
+    /* justify-content: unset; */
+  min-height: 50vh;
 
+  }
   .loginHeader {
     ${styles.logoText};
     font-size: 5rem;
@@ -289,7 +295,7 @@ const WrapperDiv = styled.div`
     justify-content: center;
     width: 70%;
     @media (min-width: 768px) {
-      width: 50%;
+      width: 70%;
     }
     @media (min-width: 992px) {
       position: absolute;
@@ -362,8 +368,12 @@ const WrapperDiv = styled.div`
     margin-bottom: 8%;
     @media (min-width: 768px) {
       font-size: 1.5rem;
+      display: none;
     }
     @media (min-width: 992px) {
+      display: none;
+    }
+    @media (min-width: 1500px) {
       display: none;
     }
     .signInSpan {
