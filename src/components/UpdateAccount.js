@@ -34,8 +34,8 @@ const UpdateAccount = ({ user }) => {
       );
   }
 
-  const uploadFile = ({ target, preventDefault }) => {
-    preventDefault();
+  const uploadFile = e => {
+    e.preventDefault();
     const files = target.files;
     setImageInput(files[0]);
     console.log(imageInput);
