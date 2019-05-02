@@ -1,6 +1,6 @@
-import moment from 'moment-timezone';
+const moment = require('moment-timezone');
 
-export default function randomTime(timeArr) {
+module.exports = function randomTime(timeArr) {
   const steps = [0, 15, 30, 45];
 
   const random = timeArr[Math.floor(Math.random() * timeArr.length)];
@@ -9,7 +9,7 @@ export default function randomTime(timeArr) {
 
   const newTime = moment(random)
     .add(randomStep, 'm')
-    .format();
+    .toDate();
 
   return newTime;
-}
+};
