@@ -14,6 +14,7 @@ import {
 } from '../styles/Dashboard';
 import { DefaultButtonBlueBG } from '../styles/styledDefaultComponents';
 import UpcomingCalls from './UpcomingCalls';
+import RecentTranscripts from './RecentTranscripts';
 
 const isMobile = window.innerWidth <= 768;
 
@@ -31,6 +32,18 @@ const calls = [
     callTime: '2:30 PM',
   },
 ];
+const transcripts = [
+  {
+    id: 1,
+    contactName: 'Shawn',
+    transcript: 'Hello how are you!',
+  },
+  {
+    id: 2,
+    contactName: 'Jack',
+    transcript: 'Hello how are you!',
+  },
+];
 
 function ContactList() {
   return (
@@ -38,6 +51,16 @@ function ContactList() {
       <h2 style={{ textAlign: 'center' }}>Upcoming Calls</h2>
       {calls.map(call => (
         <UpcomingCalls key={call.id} call={call} />
+      ))}
+    </div>
+  );
+}
+function TranscriptList() {
+  return (
+    <div>
+      <h2 style={{ textAlign: 'center' }}>Recent transcripts</h2>
+      {transcripts.map(transcript => (
+        <RecentTranscripts key={transcript.id} transcripts={transcripts} />
       ))}
     </div>
   );
@@ -64,6 +87,8 @@ const DashBoard = ({ user }) => {
             </UpdateAccount>
           </ProfileWrapper>
           {isMobile ? null : ContactList()}
+          {/* {isMobile ? null : TranscriptList()} */}
+          {/* <RecentTranscripts transcripts={transcripts} /> */}
         </div>
         <ModalPhoneNumber user={user} />
 
