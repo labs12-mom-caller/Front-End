@@ -15,6 +15,32 @@ const Slot = ({ slot, timezone, day, selectTime }) => {
     selectTime(day, formatted, click);
   };
 
+  const handleFocus = e => {
+    e.preventDefault();
+    e.target.addEventListener('keydown', e => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        setClick(prev => !prev);
+        const formatted = moment
+          .tz(`${day} ${slot}`, 'dddd hh:mm A', timezone)
+          .tz('UTC')
+          .format();
+        selectTime(day, formatted, click);
+      }
+    });
+    return e.target.removeEventListener('keydown', e => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        setClick(prev => !prev);
+        const formatted = moment
+          .tz(`${day} ${slot}`, 'dddd hh:mm A', timezone)
+          .tz('UTC')
+          .format();
+        selectTime(day, formatted, click);
+      }
+    });
+  };
+
   return (
     <>
       <div
@@ -24,7 +50,7 @@ const Slot = ({ slot, timezone, day, selectTime }) => {
             handleClick(e);
           }
         }}
-        onFocus={e => handleClick(e)}
+        onFocus={e => handleFocus(e)}
         role='option'
         aria-selected={click}
         tabIndex='0'

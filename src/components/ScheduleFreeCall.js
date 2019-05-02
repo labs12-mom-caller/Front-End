@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import moment from 'moment-timezone';
+import Slider from 'react-slick';
 
 import Day from './scheduler/Day';
 import randomTime from './scheduler/randomTime';
@@ -12,16 +13,17 @@ import { db } from '../firebase';
 
 const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
   const initialState = {
-    timezone: '',
-    selectedTimes: {
-      Sunday: [],
-      Monday: [],
-      Tuesday: [],
-      Wednesday: [],
-      Thursday: [],
-      Friday: [],
-      Saturday: [],
-    },
+    timezone: moment.tz.guess(),
+    days: [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ],
+    selectedTimes: [],
   };
 
   const [time, setTime] = useState(initialState);
@@ -34,22 +36,16 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
   };
 
   const selectTime = (day, selected, clicked) => {
-    const prevTimes = time.selectedTimes[day];
+    const prevTimes = time.selectedTimes;
     if (clicked) {
       setTime({
         ...time,
-        selectedTimes: {
-          ...time.selectedTimes,
-          [day]: prevTimes.filter(item => item !== selected),
-        },
+        selectedTimes: prevTimes.filter(item => item !== selected),
       });
     } else {
       setTime({
         ...time,
-        selectedTimes: {
-          ...time.selectedTimes,
-          [day]: [...prevTimes, selected],
-        },
+        selectedTimes: [...prevTimes, selected],
       });
     }
   };
@@ -81,6 +77,39 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
     }
   };
 
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 7,
+    slidesToScroll: 1,
+    touchMove: false,
+    swipe: false,
+    touchThreshold: 1,
+    responsive: [
+      {
+        breakpoint: 890,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 590,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 430,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   return (
     <Scheduler>
       <h2>Schedule a free call</h2>
@@ -95,7 +124,7 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
           onChange={setTimezone}
           placeholder='Select a Time Zone'
         >
-          <option value='' />
+          <option value={time.timezone}>{time.timezone}</option>
           <option value='US/Alaska'>Alaska</option>
           <option value='US/Aleutian'>Aleutian</option>
           <option value='US/Arizona'>Arizona</option>
@@ -110,14 +139,17 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
           <option value='US/Pacific-New'>Pacific-New</option>
         </select>
         <div className='days'>
-          {Object.keys(time.selectedTimes).map(day => (
-            <Day
-              day={day}
-              key={day}
-              timezone={time.timezone}
-              selectTime={selectTime}
-            />
-          ))}
+          <Slider {...settings}>
+            {time.days.map((day, index) => (
+              <Day
+                day={day}
+                key={day}
+                timezone={time.timezone}
+                selectTime={selectTime}
+                index={index}
+              />
+            ))}
+          </Slider>
         </div>
         <button type='submit'>Complete Sign Up</button>
       </form>

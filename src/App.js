@@ -21,7 +21,6 @@ function useAuth() {
   React.useEffect(() => {
     return firebase.auth().onAuthStateChanged(async firebaseUser => {
       if (firebaseUser) {
-        console.log(firebaseUser);
         if (!firebaseUser.phoneNumber && !window.localStorage.getItem('user')) {
           const googleUser = {
             displayName: firebaseUser.displayName,
@@ -50,6 +49,41 @@ function useAuth() {
               .doc(currentUser.uid)
               .set(currentUser, { merge: true });
           }
+          if (
+            window.localStorage.getItem('user') &&
+            x.photoUrl !== 'https://placekitten.com/200/200'
+          ) {
+            setUser({ ...user, phoneNumber: x.phoneNumber });
+            window.localStorage.setItem(
+              'user',
+              JSON.stringify({ ...user, phoneNumber: x.phoneNumber }),
+            );
+          }
+          if (
+            window.localStorage.getItem('user') &&
+            (user.displayName != x.displayName ||
+              user.email != x.email ||
+              user.phoneNumber != x.phoneNumber ||
+              user.photoUrl != x.photoUrl)
+          ) {
+            setUser({ ...user, ...x });
+            window.localStorage.setItem(
+              'user',
+              JSON.stringify({ ...user, ...x }),
+            );
+          }
+          //     if(window.localStorage.getItem('user') &&
+          //     user.displayName != x.displayName ||
+          //     user.email != x.email ||
+          //     user.phoneNumber != x.phoneNumber ||
+          //     user.photoUrl != x.photoUrl ||
+          // )) {
+          //     setUser({ ...user, ...x  });
+          //     window.localStorage.setItem(
+          //       'user',
+          //       JSON.stringify({ ...user, ...x }),
+          //     );
+          //   }
         }
       } else {
         setUser(null);
@@ -62,6 +96,7 @@ function useAuth() {
 
 function App() {
   const user = useAuth();
+  console.log(user, 'USERRRRR');
   return user ? (
     <>
       <Router>
