@@ -59,5 +59,6 @@ export const Scheduler = styled.div`
     border: 3px solid #ee6352;
     border-radius: 10px;
     width: 100%;
+    // overscroll-behavior-y: none;
   }
 `;

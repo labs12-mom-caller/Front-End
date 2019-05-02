@@ -1,12 +1,6 @@
 import moment from 'moment-timezone';
 
-export default function randomTime(timeObj) {
-  const timeArr = Object.entries(timeObj).reduce((array, [key, val]) => {
-    if (val.length) {
-      array.push(...val);
-    }
-    return array;
-  }, []);
+export default function randomTime(timeArr) {
   const steps = [0, 15, 30, 45];
 
   const random = timeArr[Math.floor(Math.random() * timeArr.length)];

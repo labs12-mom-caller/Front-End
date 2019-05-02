@@ -14,15 +14,16 @@ import { db } from '../firebase';
 const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
   const initialState = {
     timezone: '',
-    selectedTimes: {
-      Sunday: [],
-      Monday: [],
-      Tuesday: [],
-      Wednesday: [],
-      Thursday: [],
-      Friday: [],
-      Saturday: [],
-    },
+    days: [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ],
+    selectedTimes: [],
   };
 
   const [time, setTime] = useState(initialState);
@@ -35,22 +36,16 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
   };
 
   const selectTime = (day, selected, clicked) => {
-    const prevTimes = time.selectedTimes[day];
+    const prevTimes = time.selectedTimes;
     if (clicked) {
       setTime({
         ...time,
-        selectedTimes: {
-          ...time.selectedTimes,
-          [day]: prevTimes.filter(item => item !== selected),
-        },
+        selectedTimes: prevTimes.filter(item => item !== selected),
       });
     } else {
       setTime({
         ...time,
-        selectedTimes: {
-          ...time.selectedTimes,
-          [day]: [...prevTimes, selected],
-        },
+        selectedTimes: [...prevTimes, selected],
       });
     }
   };
@@ -87,14 +82,10 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
     speed: 500,
     slidesToShow: 7,
     slidesToScroll: 1,
+    touchMove: false,
+    swipe: false,
+    touchThreshold: 1,
     responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 7,
-          slidesToScroll: 1,
-        },
-      },
       {
         breakpoint: 890,
         settings: {
@@ -149,12 +140,13 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
         </select>
         <div className='days'>
           <Slider {...settings}>
-            {Object.keys(time.selectedTimes).map(day => (
+            {time.days.map((day, index) => (
               <Day
                 day={day}
                 key={day}
                 timezone={time.timezone}
                 selectTime={selectTime}
+                index={index}
               />
             ))}
           </Slider>
