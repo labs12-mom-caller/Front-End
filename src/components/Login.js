@@ -267,7 +267,8 @@ const WrapperDiv = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  max-height: 95vh;
 
   .loginHeader {
     ${styles.logoText};

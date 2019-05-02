@@ -91,7 +91,6 @@ const DashBoard = ({ user }) => {
           {/* {isMobile ? null : ContactList()} */}
           {/* {isMobile ? null : TranscriptList()} */}
           {/* <RecentTranscripts transcripts={transcripts} /> */}
-
         </div>
         <ModalPhoneNumber user={user} />
 
@@ -178,7 +177,8 @@ DashBoard.propTypes = {
 const Footer = styled.div`
   display: flex;
   background-color: #083d77;
-  height: 250px;
+  /* height: 250px; */
+  height: 17%;
 
   @media (max-width: 992px) {
     margin-top: 40%;
