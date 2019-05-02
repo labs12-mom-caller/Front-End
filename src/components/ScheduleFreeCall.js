@@ -13,7 +13,7 @@ import { db } from '../firebase';
 
 const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
   const initialState = {
-    timezone: '',
+    timezone: moment.tz.guess(),
     days: [
       'Sunday',
       'Monday',
@@ -124,7 +124,7 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
           onChange={setTimezone}
           placeholder='Select a Time Zone'
         >
-          <option value='' />
+          <option value={time.timezone}>{time.timezone}</option>
           <option value='US/Alaska'>Alaska</option>
           <option value='US/Aleutian'>Aleutian</option>
           <option value='US/Arizona'>Arizona</option>

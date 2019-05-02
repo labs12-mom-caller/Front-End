@@ -63,6 +63,7 @@ export async function signupUserTwo({
       photoURL,
       phoneNumber: formattedPhone,
     });
+    return user.uid;
   } catch (e) {
     throw e;
   }
