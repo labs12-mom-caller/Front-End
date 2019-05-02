@@ -37,7 +37,7 @@ const ModalPhoneNumber = ({ user }) => {
         fetchData();
       }, 3000);
     }
-  }, [modal, user.uid]);
+  }, [modal]);
 
   if (user) {
     return (
