@@ -28,17 +28,7 @@ class NavbarPage extends Component {
     return (
       <div>
         <Navbar className={collapseID ? 'Navbar__ToggleShow' : null}>
-          <div
-            className='NavbarLink NavbarLink-brand'
-            style={{
-              color: '#083D77',
-              fontSize: '4rem',
-              fontFamily: 'pacifico',
-              marginLeft: '2.5%',
-            }}
-          >
-            ReCaller
-          </div>
+          <div className='NavbarLink NavbarLink-brand'>ReCaller</div>
           {/* <nav
           className={
             this.state.collapseID
@@ -119,16 +109,8 @@ class NavbarPage extends Component {
           >
             <i className='fas fa-bars' />
           </div>
+          <Hr className='hr-underline' />
         </Navbar>
-        <hr
-          style={{
-            borderColor: '#083D77',
-            width: '70%',
-            marginLeft: '30%',
-            position: 'absolute',
-            top: '75px',
-          }}
-        />
       </div>
     );
   }
@@ -146,6 +128,16 @@ const Navbar = styled.div`
   .NavbarLink {
     padding-right: 8px;
     font-size: 1.2rem;
+  }
+  .NavbarLink-brand {
+    color: #083d77;
+    font-size: 4rem;
+    font-family: pacifico;
+    margin-left: 2.5%;
+    @media only screen and (max-width: 768px) {
+      font-size: 2.5rem;
+      align-self: center;
+    }
   }
   .Navbar__Items {
     display: flex;
@@ -173,9 +165,23 @@ const Navbar = styled.div`
     }
     .NavbarLink-toggle {
       align-self: flex-end;
+      color: #083d77;
       display: initial;
-      /* position: absolute; */
+      align-self: center;
+      font-size: 2.5rem;
       cursor: pointer;
     }
+  }
+`;
+
+const Hr = styled.hr`
+  border-color: #083d77;
+  width: 70%;
+  margin-left: 30%;
+  position: absolute;
+  top: 75px;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
   }
 `;
