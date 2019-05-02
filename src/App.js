@@ -102,7 +102,7 @@ function App() {
       <Router>
         <Redirect from='/' to={`user/${user.uid}`} noThrow />
         <DashBoard user={user} path='/user/:userId' />
-        <ChooseYourContact user={user} path='/choose/:userId' />
+        <ChooseYourContact user={user} path='/choose' />
         <ChooseCallPlan path='/choose/:userId/:contactId/call-plan' />
         <ScheduleFreeCall path='/choose/:userId/:contactId/:frequency/schedule-free' />
         <SchedulePaidCall path='/choose/:userId/:contactId/:frequency/schedule' />

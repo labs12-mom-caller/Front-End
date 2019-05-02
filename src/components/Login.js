@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
 import { Formik } from 'formik';
 import firebase from 'firebase';
@@ -35,181 +37,192 @@ function Login() {
     }
   };
   return (
-    <WrapperDiv>
-      <h1 className='loginHeader'>ReCaller</h1>
-      {!hasAccount && (
-        <>
-          <FormikWrapper>
-            <Formik
-              initialValues={{
-                email: '',
-                phoneNumber: '',
-                password: '',
-                displayName: '',
-              }}
-              validate={values => {
-                const errors = {};
-                if (!values.password) {
-                  errors.password = 'Required';
-                }
-                if (!values.phoneNumber) {
-                  errors.phoneNumber = 'Required';
-                }
-                if (!values.email) {
-                  errors.email = 'Required';
-                } else if (
-                  !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                ) {
-                  errors.email = 'Invalid email address';
-                  errors.password = 'Password should be at least 6 characters';
-                  errors.phoneNumber = 'Phone number is invalid';
-                }
-                return errors;
-              }}
-              onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
-                  console.log(values);
-                  signup(values);
-                  setSubmitting(false);
-                }, 400);
-              }}
-            >
-              {({
-                values,
-                errors,
-                touched,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                isSubmitting,
-              }) => (
-                <form onSubmit={handleSubmit}>
-                  <DefaultInput
-                    type='email'
-                    name='email'
-                    placeholder='Email'
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.email}
-                  />
-                  <DefaultInput
-                    type='name'
-                    name='displayName'
-                    placeholder='display Name'
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.displayName}
-                  />
-                  {errors.email && touched.email && errors.email}
-                  <DefaultInput
-                    pattern='[1-9]{1}[0-9]{9}'
-                    type='text'
-                    name='phoneNumber'
-                    placeholder='Phone'
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.phoneNumber}
-                  />
-                  {errors.phoneNumber &&
-                    touched.phoneNumber &&
-                    errors.phoneNumber}
-                  <DefaultInput
-                    type='password'
-                    name='password'
-                    placeholder='Password'
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.password}
-                  />
-                  {errors.password && touched.password && errors.password}
-                  <DefaultButtonBlueBG
-                    className='submitCustomBtn'
-                    type='submit'
-                    disabled={isSubmitting}
-                  >
-                    Submit
-                  </DefaultButtonBlueBG>
-                  <DefaultButtonBlueBG
-                    type='button'
-                    onClick={handleSignIn}
-                    className='signUpBtnG'
-                  >
-                    <img src={logo} alt='google logo' className='logo' />
-                    <p className='signUpText'>Sign up with Google</p>
-                  </DefaultButtonBlueBG>
-                </form>
-              )}
-            </Formik>
-          </FormikWrapper>
-          {!hasAccount && (
-            <p className='haveAccountText'>
-              already have an account?{' '}
-              <span onClick={() => setHasAccount(true)} className='signInSpan'>
-                sign in!
-              </span>
-            </p>
-          )}
-        </>
-      )}
-      <div className='signInContainer'>
-        {hasAccount && (
-          <DefaultButtonBlueBG
-            className='signUpBtnG backSignUp'
-            type='button'
-            onClick={() => setHasAccount(null)}
-          >
-            <TiArrowLeftThick className='backLogo' />{' '}
-            <p className='backBtnText'>to sign up page !</p>
-          </DefaultButtonBlueBG>
-        )}
-
-        {hasAccount && (
+    <div>
+      <WrapperDiv>
+        <h1 className='loginHeader'>ReCaller</h1>
+        {!hasAccount && (
           <>
-            <DefaultButtonBlueBG className='googleLogin' onClick={handleSignIn}>
-              google login
-            </DefaultButtonBlueBG>
-            <form className='signInForm'>
-              <DefaultInput
-                type='text'
-                onChange={e => setEmail(e.target.value)}
-                value={email}
-                placeholder='email'
-              />
-              <DefaultInput
-                type='text'
-                onChange={e => setPassword(e.target.value)}
-                value={password}
-                placeholder='password'
-              />
-
-              <DefaultButtonBlueBG
-                type='button'
-                className='signInButton'
-                onClick={() =>
-                  firebase
-                    .auth()
-                    .signInWithEmailAndPassword(email, password)
-                    .catch(function catchError(error) {
-                      console.log(`Error ${error.message}`);
-                    })
-                }
+            <FormikWrapper>
+              <Formik
+                initialValues={{
+                  email: '',
+                  phoneNumber: '',
+                  password: '',
+                  displayName: '',
+                }}
+                validate={values => {
+                  const errors = {};
+                  if (!values.password) {
+                    errors.password = 'Required';
+                  }
+                  if (!values.phoneNumber) {
+                    errors.phoneNumber = 'Required';
+                  }
+                  if (!values.email) {
+                    errors.email = 'Required';
+                  } else if (
+                    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
+                      values.email,
+                    )
+                  ) {
+                    errors.email = 'Invalid email address';
+                    errors.password =
+                      'Password should be at least 6 characters';
+                    errors.phoneNumber = 'Phone number is invalid';
+                  }
+                  return errors;
+                }}
+                onSubmit={(values, { setSubmitting }) => {
+                  setTimeout(() => {
+                    console.log(values);
+                    signup(values);
+                    setSubmitting(false);
+                  }, 400);
+                }}
               >
-                Sign in {'🎈'}
-              </DefaultButtonBlueBG>
-            </form>
+                {({
+                  values,
+                  errors,
+                  touched,
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  isSubmitting,
+                }) => (
+                  <form onSubmit={handleSubmit}>
+                    <DefaultInput
+                      type='email'
+                      name='email'
+                      placeholder='Email'
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.email}
+                    />
+                    <DefaultInput
+                      type='name'
+                      name='displayName'
+                      placeholder='display Name'
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.displayName}
+                    />
+                    {errors.email && touched.email && errors.email}
+                    <DefaultInput
+                      pattern='[1-9]{1}[0-9]{9}'
+                      type='text'
+                      name='phoneNumber'
+                      placeholder='Phone'
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.phoneNumber}
+                    />
+                    {errors.phoneNumber &&
+                      touched.phoneNumber &&
+                      errors.phoneNumber}
+                    <DefaultInput
+                      type='password'
+                      name='password'
+                      placeholder='Password'
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.password}
+                    />
+                    {errors.password && touched.password && errors.password}
+                    <DefaultButtonBlueBG
+                      className='submitCustomBtn'
+                      type='submit'
+                      disabled={isSubmitting}
+                    >
+                      Submit
+                    </DefaultButtonBlueBG>
+                    <DefaultButtonBlueBG
+                      type='button'
+                      onClick={handleSignIn}
+                      className='signUpBtnG'
+                    >
+                      <img src={logo} alt='google logo' className='logo' />
+                      <p className='signUpText'>Sign up with Google</p>
+                    </DefaultButtonBlueBG>
+                  </form>
+                )}
+              </Formik>
+            </FormikWrapper>
+            {!hasAccount && (
+              <p className='haveAccountText'>
+                already have an account?{' '}
+                <span
+                  onClick={() => setHasAccount(true)}
+                  className='signInSpan'
+                >
+                  sign in!
+                </span>
+              </p>
+            )}
           </>
         )}
-      </div>
+        <div className='signInContainer'>
+          {hasAccount && (
+            <DefaultButtonBlueBG
+              className='backSignUp'
+              type='button'
+              onClick={() => setHasAccount(null)}
+            >
+              <TiArrowLeftThick className='backLogo' />{' '}
+              <p className='backBtnText'>to sign up page !</p>
+            </DefaultButtonBlueBG>
+          )}
 
-      {authError && (
-        <div>
-          <p>Sorry, there was a problem</p>
-          <p>
-            <i>{authError.message}</i>
-          </p>
-          <p>Please try again</p>
+          {hasAccount && (
+            <>
+              <DefaultButtonBlueBG
+                className='googleLogin'
+                onClick={handleSignIn}
+              >
+                google login
+              </DefaultButtonBlueBG>
+              <form className='signInForm'>
+                <DefaultInput
+                  type='text'
+                  onChange={e => setEmail(e.target.value)}
+                  value={email}
+                  placeholder='email'
+                />
+                <DefaultInput
+                  type='text'
+                  onChange={e => setPassword(e.target.value)}
+                  value={password}
+                  placeholder='password'
+                />
+
+                <DefaultButtonBlueBG
+                  type='button'
+                  className='signInButton'
+                  onClick={() =>
+                    firebase
+                      .auth()
+                      .signInWithEmailAndPassword(email, password)
+                      .catch(function catchError(error) {
+                        console.log(`Error ${error.message}`);
+                      })
+                  }
+                >
+                  Sign in {'🎈'}
+                </DefaultButtonBlueBG>
+              </form>
+            </>
+          )}
         </div>
-      )}
+
+        {authError && (
+          <div>
+            <p>Sorry, there was a problem</p>
+            <p>
+              <i>{authError.message}</i>
+            </p>
+            <p>Please try again</p>
+          </div>
+        )}
+      </WrapperDiv>
       {isMobile ? null : (
         <MDBFooter
           fixed-bottom
@@ -254,7 +267,7 @@ function Login() {
         </div> */}
         </MDBFooter>
       )}
-    </WrapperDiv>
+    </div>
   );
 }
 
@@ -265,8 +278,11 @@ const WrapperDiv = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  min-height: 100vh;
-
+  /* min-height: 100vh; */
+  @media (min-width: 768px) {
+    /* justify-content: unset; */
+    /* min-height: 50vh; */
+  }
   .loginHeader {
     ${styles.logoText};
     font-size: 5rem;
@@ -289,12 +305,12 @@ const WrapperDiv = styled.div`
     justify-content: center;
     width: 70%;
     @media (min-width: 768px) {
-      width: 50%;
+      width: 70%;
     }
     @media (min-width: 992px) {
       position: absolute;
       right: 17%;
-      top: 30%;
+      top: 27%;
       display: flex;
       flex-direction: column-reverse;
       margin: 1rem auto;
@@ -362,8 +378,12 @@ const WrapperDiv = styled.div`
     margin-bottom: 8%;
     @media (min-width: 768px) {
       font-size: 1.5rem;
+      display: none;
     }
     @media (min-width: 992px) {
+      display: none;
+    }
+    @media (min-width: 1500px) {
       display: none;
     }
     .signInSpan {
