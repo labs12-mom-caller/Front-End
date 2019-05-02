@@ -1,3 +1,6 @@
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/destructuring-assignment */
+
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom'; // why is this woring
 import PropTypes from 'prop-types';
@@ -27,6 +30,10 @@ class NavbarPage extends Component {
     };
   }
 
+  // const [collapse1, setCollapse1] = useState (false)
+  // const [collapseID, setCollapseID] = useState ('')
+  // const [mobile, setMobile] = useState (true)
+
   toggleCollapse = collapseID => () => {
     this.setState(prevState => ({
       collapseID: prevState.collapseID !== collapseID ? collapseID : '',
@@ -35,12 +42,15 @@ class NavbarPage extends Component {
 
   toggleSingleCollapse = collapseId => {
     this.setState({
+      // eslint-disable-next-line react/no-access-state-in-setstate
       ...this.state,
+      // eslint-disable-next-line react/destructuring-assignment
       [collapseId]: !this.state[collapseId],
     });
   };
 
   render() {
+    console.log(this.props);
     return (
       <BrowserRouter>
         {isMobile ? (
@@ -106,7 +116,14 @@ class NavbarPage extends Component {
                       </MDBNavLink>
                     </MDBNavItem>
                     <MDBNavItem>
-                      <MDBNavLink onClick={logout} className='red-text' to='/'>
+                      <MDBNavLink
+                        onClick={() => {
+                          window.localStorage.removeItem('user');
+                          logout();
+                        }}
+                        className='red-text'
+                        to='/'
+                      >
                         Sign Out
                       </MDBNavLink>
                     </MDBNavItem>

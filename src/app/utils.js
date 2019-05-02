@@ -11,7 +11,7 @@ export async function signup({
   password,
   phoneNumber,
   displayName,
-  photoURL = 'https://placekitten.com/200/200',
+  photoUrl = 'https://placekitten.com/200/200',
 }) {
   const formattedPhone = String('+1').concat(
     String(phoneNumber).replace(/[^\d]/g, ''),
@@ -21,12 +21,12 @@ export async function signup({
       email,
       password,
     );
-    await user.updateProfile({ displayName, photoURL });
+    await user.updateProfile({ displayName, photoUrl });
     await db.doc(`users/${user.uid}`).set({
       displayName,
       uid: user.uid,
       email,
-      photoURL,
+      photoUrl: 'https://placekitten.com/200/200',
       phoneNumber: formattedPhone,
     });
   } catch (e) {
