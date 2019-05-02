@@ -42,7 +42,7 @@ const transcripts = [
     id: 2,
     contactName: 'Jack',
     transcript: 'Hello how are you!',
-  },
+   },
 ];
 
 function ContactList() {
@@ -164,6 +164,11 @@ const DashBoard = ({ user }) => {
                   <li className='list' style={{ color: '#6B6D76' }}>
                     <a style={{ color: '#FF6F61' }} href='#!'>
                       Previous Calls
+                    </a>
+                  </li>
+                  <li className='list' style={{ color: '#6B6D76' }}>
+                    <a style={{ color: '#FF6F61' }} href='/about-us'>
+                      Our Team
                     </a>
                   </li>
                 </ul>

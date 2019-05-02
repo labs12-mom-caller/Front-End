@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { UpcomingCallsComponent } from '../styles/UpcomingCalls';
 
 function RecentTranscripts({ transcripts }) {
@@ -17,5 +18,14 @@ function RecentTranscripts({ transcripts }) {
     </UpcomingCallsComponent>
   );
 }
+
+RecentTranscripts.propTypes = {
+  transcripts: PropTypes.shape({
+    contactName: PropTypes.string,
+    callDate: PropTypes.string,
+    callTime: PropTypes.string,
+
+  }),
+};
 
 export default RecentTranscripts;
