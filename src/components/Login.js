@@ -39,9 +39,9 @@ function Login() {
   return (
     <div>
       <WrapperDiv>
-        <h1 className='loginHeader'>ReCaller</h1>
         {!hasAccount && (
           <>
+            <h1 className='loginHeader'>ReCaller</h1>
             <FormikWrapper>
               <Formik
                 initialValues={{
@@ -154,14 +154,14 @@ function Login() {
                   onClick={() => setHasAccount(true)}
                   className='signInSpan'
                 >
-                  sign in!
+                  Log In
                 </span>
               </p>
             )}
           </>
         )}
         <div className='signInContainer'>
-          {hasAccount && (
+          {/* {hasAccount && (
             <DefaultButtonBlueBG
               className='backSignUp'
               type='button'
@@ -170,16 +170,16 @@ function Login() {
               <TiArrowLeftThick className='backLogo' />{' '}
               <p className='backBtnText'>to sign up page !</p>
             </DefaultButtonBlueBG>
-          )}
+          )} */}
 
           {hasAccount && (
             <>
-              <DefaultButtonBlueBG
+              {/* <DefaultButtonBlueBG
                 className='googleLogin'
                 onClick={handleSignIn}
               >
                 google login
-              </DefaultButtonBlueBG>
+              </DefaultButtonBlueBG> */}
               <form className='signInForm'>
                 <DefaultInput
                   type='text'
@@ -208,6 +208,24 @@ function Login() {
                 >
                   Sign in {'🎈'}
                 </DefaultButtonBlueBG>
+                <DefaultButtonBlueBG
+                  className='googleLogin'
+                  onClick={handleSignIn}
+                >
+                  google login
+                </DefaultButtonBlueBG>
+                {hasAccount && (
+                  <p className='haveAccountText'>
+                    Don't have an account?{' '}
+                    <span
+                      style={{ color: '#FF6F61' }}
+                      onClick={() => setHasAccount(false)}
+                      className='signInSpan'
+                    >
+                      Sign Up
+                    </span>
+                  </p>
+                )}
               </form>
             </>
           )}
@@ -294,9 +312,10 @@ const WrapperDiv = styled.div`
       /* margin-bottom: 10%; */
       /* margin-left: 5%; */
       /* padding-bottom: 21%; */
-      position: absolute;
+      /* position: absolute;
       top: 2%;
-      left: 2%;
+      left: 2%; */
+      align-self: flex-start;
     }
   }
   .signUpBtnG {
@@ -445,11 +464,20 @@ const WrapperDiv = styled.div`
     justify-content: center;
     align-items: space-evenly;
     min-width: 100%;
-    margin-top: -100px;
+    /* margin-top: -100px; */
+    margin-top: 8%;
+    @media (min-width: 992px) {
+      .loginHeader2 {
+        /* margin-left: 35%; */
+        ${styles.logoText}
+    font-size: 5rem;
+    color: ${styles.colors.mainBlue};
+    }
+
   }
   .signInButton {
     width: 60%;
-    margin-top: 10%;
+    /* margin-top: 8%; */
     @media (min-width: 992px) {
       width: 40%;
     }
