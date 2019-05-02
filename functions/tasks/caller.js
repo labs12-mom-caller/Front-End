@@ -47,9 +47,6 @@ exports.handler = async (req, res, firestore) => {
           from: '+18727048254',
         })
         .then(call => {
-          console.log(call.sid);
-          console.log(doc);
-          console.log(contacts);
           calls
             .add({
               contact_ref: contacts.doc(doc.id),

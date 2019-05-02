@@ -9,8 +9,13 @@ const client = require('twilio')(accountSid, authToken);
 
 sgMail.setApiKey(functions.config().sendgrid.key);
 
+const callEmail = require('./helpers/callEmail.js');
+
 exports.handler = async (req, res, firestore, storage) => {
   const calls = firestore.collection('calls');
+  const contacts = firestore.collection('contacts');
+  const users = firestore.collection('users');
+
   try {
     const snapshot = await calls.where('fetched', '==', false).get();
     if (snapshot.empty) {
@@ -24,7 +29,7 @@ exports.handler = async (req, res, firestore, storage) => {
       if (status === 'completed') {
         const { id } = doc;
         const file = await storage.file(`${id}`);
-        request(
+        await request(
           `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Recordings/${sid}.wav`,
         )
           .pipe(
@@ -65,6 +70,51 @@ exports.handler = async (req, res, firestore, storage) => {
               deepgram: response.data,
             });
             await client.recordings(sid).remove();
+            const userInfo = {
+              user1email: '',
+              user1name: '',
+              user2email: '',
+              user2name: '',
+            };
+            await contacts
+              .doc(doc.data().contact_ref.id)
+              .onSnapshot(async doc => {
+                await users.doc(doc.data().user1.id).onSnapshot(user1 => {
+                  userInfo.user1email = user1.email;
+                  userInfo.user1name = user1.displayName;
+                });
+                await users.doc(doc.data().user2.id).onSnapshot(user2 => {
+                  userInfo.user2email = user2.email;
+                  userInfo.user2name = user2.displayName;
+                });
+              });
+            const email1 = {
+              to: userInfo.user1email,
+              from: 'labsrecaller@gmail.com',
+              templateId: 'd-59ed5092b3bf44118a5d7c1e0f617eef',
+              substitutionWrappers: ['{{', '}}'],
+              substitutions: {
+                user2: userInfo.user2name,
+                audio: url,
+                transcript:
+                  response.data.results.channels[0].alternatives[0].transcript,
+              },
+            };
+            const email2 = {
+              to: userInfo.user2email,
+              from: 'labsrecaller@gmail.com',
+              templateId: 'd-59ed5092b3bf44118a5d7c1e0f617eef',
+              substitutionWrappers: ['{{', '}}'],
+              substitutions: {
+                user2: userInfo.user1name,
+                audio: url,
+                transcript:
+                  response.data.results.channels[0].alternatives[0].transcript,
+              },
+            };
+
+            await sgMail.send(email1);
+            await sgMail.send(email2);
           });
       } else {
         console.log('Call has not finished recording');
