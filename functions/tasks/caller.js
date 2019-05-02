@@ -6,6 +6,8 @@ const accountSid = functions.config().twilio.sid;
 const authToken = functions.config().twilio.token;
 const client = require('twilio')(accountSid, authToken);
 
+const randomTime = require('./helpers/randomTime.js');
+
 exports.handler = async (req, res, firestore) => {
   const contacts = firestore.collection('contacts');
   const users = firestore.collection('users');
@@ -43,7 +45,6 @@ exports.handler = async (req, res, firestore) => {
           url: twilioUrl,
           to: user1phone,
           from: '+18727048254',
-          machineDetection: 'Enable',
         },
         (err, call) => {
           calls
@@ -57,6 +58,50 @@ exports.handler = async (req, res, firestore) => {
             });
         },
       );
+      if (doc.data().call_type === 'paid') {
+        if (doc.data().call_frequency === 'Bi-Weekly') {
+          const nextCall = moment(doc.data().next_call)
+            .add(2, 'w')
+            .toDate();
+          contacts.doc(doc.id).update({
+            next_call: nextCall,
+            updated_at: moment().toDate(),
+          });
+          console.log('Call information updated!');
+        } else {
+          const nextCall = moment(doc.data().next_call)
+            .add(1, 'M')
+            .toDate();
+          contacts.doc(doc.id).update({
+            next_call: nextCall,
+            updated_at: moment().toDate(),
+          });
+          console.log('Call information updated!');
+        }
+      } else {
+        if (doc.data().call_frequency === 'Bi-Weekly') {
+          const rando = randomTime(doc.data().selected_times);
+          const nextCall = moment(rando)
+            .add(2, 'w')
+            .toDate();
+          contacts.doc(doc.id).update({
+            next_call: nextCall,
+            updated_at: moment().toDate(),
+          });
+          console.log('Call information updated!');
+        } else {
+          const rando = randomTime(doc.data().selected_times);
+          const nextCall = moment(rando)
+            .add(1, 'M')
+            .toDate();
+          contacts.doc(doc.id).update({
+            next_call: nextCall,
+            updated_at: moment().toDate(),
+          });
+          console.log('Call information updated!');
+        }
+        console.log('Updated!');
+      }
     });
   } catch (err) {
     console.log('Error getting docs', err);
