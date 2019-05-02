@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { auth, db, storage } from '../firebase';
+import { db, storage } from '../firebase';
 import { ProfileImage } from '../styles/Dashboard';
 
 const useInputValue = initialValue => {
@@ -15,7 +15,7 @@ const useInputValue = initialValue => {
 const UpdateAccount = ({ user }) => {
   const displayName = useInputValue(user.displayName);
   const phoneNumber = useInputValue(user.phoneNumber);
-  const [imageInput, setImageInput] = React.useState(null);
+  const [imageInput, setImageInput] = useState(null);
 
   function fileUpload(e) {
     e.preventDefault();

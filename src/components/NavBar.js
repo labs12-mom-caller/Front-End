@@ -1,38 +1,16 @@
-/* eslint-disable react/no-access-state-in-setstate */
-/* eslint-disable react/destructuring-assignment */
-
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom'; // why is this woring
-import PropTypes from 'prop-types';
-import { navigate } from '@reach/router';
-import {
-  MDBNavbar,
-  MDBNav,
-  MDBNavbarBrand,
-  MDBNavbarNav,
-  MDBNavItem,
-  MDBNavLink,
-  MDBCollapse,
-  MDBContainer,
-  MDBHamburgerToggler,
-} from 'mdbreact';
+import styled from 'styled-components';
 import { logout } from '../app/utils';
-
-const isMobile = window.innerWidth <= 768;
 
 class NavbarPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collapse1: false,
       collapseID: '',
-      mobile: true,
     };
   }
-
-  // const [collapse1, setCollapse1] = useState (false)
-  // const [collapseID, setCollapseID] = useState ('')
-  // const [mobile, setMobile] = useState (true)
 
   toggleCollapse = collapseID => () => {
     this.setState(prevState => ({
@@ -40,184 +18,171 @@ class NavbarPage extends Component {
     }));
   };
 
-  toggleSingleCollapse = collapseId => {
-    this.setState({
-      // eslint-disable-next-line react/no-access-state-in-setstate
-      ...this.state,
-      // eslint-disable-next-line react/destructuring-assignment
-      [collapseId]: !this.state[collapseId],
-    });
+  logoutHandler = e => {
+    e.preventDefault();
+    window.localStorage.clear();
+    logout();
   };
 
   render() {
-    console.log(this.props);
+    const { collapseID } = this.state;
     return (
-      <BrowserRouter>
-        {isMobile ? (
-          <MDBContainer>
-            <MDBNavbar color='transparent' light>
-              <MDBContainer>
-                <MDBNavbarBrand
-                  style={{ fontFamily: 'pacifico' }}
-                  className='black-text'
-                >
-                  ReCaller
-                </MDBNavbarBrand>
-                <MDBHamburgerToggler
-                  color='black'
-                  id='hamburger1'
-                  onClick={() => this.toggleSingleCollapse('collapse1')}
-                />
-                <MDBCollapse isOpen={this.state.collapse1} navbar>
-                  <MDBNavbarNav left>
-                    <MDBNavItem>
-                      <MDBNavLink
-                        active
-                        onClick={() => navigate('/')}
-                        className='black-text'
-                        to='/'
-                      >
-                        Dashboard
-                      </MDBNavLink>
-                    </MDBNavItem>
-                    <MDBNavItem>
-                      <MDBNavLink active className='black-text' to=''>
-                        Add New Call
-                      </MDBNavLink>
-                    </MDBNavItem>
-                    <MDBNavItem>
-                      <MDBNavLink className='black-text' to=''>
-                        Review Calls
-                      </MDBNavLink>
-                    </MDBNavItem>
-                    <MDBNavItem>
-                      <MDBNavLink className='black-text' to=''>
-                        Previous Calls
-                      </MDBNavLink>
-                    </MDBNavItem>
-                    <MDBNavItem>
-                      <MDBNavLink
-                        onClick={() =>
-                          navigate(`/choose/${this.props.user.uid}`)
-                        }
-                        className='black-text'
-                        to='#'
-                      >
-                        Choose Contact
-                      </MDBNavLink>
-                    </MDBNavItem>
-                    <MDBNavItem>
-                      <MDBNavLink
-                        onClick={() => navigate(`/about-us`)}
-                        className='black-text'
-                        to='/choose'
-                      >
-                        Our Team
-                      </MDBNavLink>
-                    </MDBNavItem>
-                    <MDBNavItem>
-                      <MDBNavLink
-                        onClick={() => {
-                          window.localStorage.removeItem('user');
-                          logout();
-                        }}
-                        className='red-text'
-                        to='/'
-                      >
-                        Sign Out
-                      </MDBNavLink>
-                    </MDBNavItem>
-                  </MDBNavbarNav>
-                </MDBCollapse>
-              </MDBContainer>
-            </MDBNavbar>
-          </MDBContainer>
-        ) : (
-          <div
-            style={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'space-between',
-              marginTop: '15px',
-              paddingBottom: '5px',
-            }}
+      <div>
+        <Navbar className={collapseID ? 'Navbar__ToggleShow' : null}>
+          <div className='NavbarLink NavbarLink-brand'>ReCaller</div>
+          {/* <nav
+          className={
+            this.state.collapseID
+              ? 'Navbar__Items Navbar__ToggleShow'
+              : 'Navbar__Items'
+          }
+        >
+          <div className='NavbarLink'>Link</div>
+          <div className='NavbarLink'>Link</div>
+          <div className='NavbarLink'>Link</div>
+        </nav> */}
+          <nav
+            className={
+              collapseID
+                ? 'Navbar__Items Navbar__ToggleShow'
+                : 'Navbar__Items Navbar__Items--right'
+            }
           >
-            <h2
-              style={{
-                marginLeft: '10.4%',
-                fontFamily: 'pacifico',
-                alignItems: 'baseline',
-              }}
+            {/* <div className='NavbarLink'>Dashboard</div> */}
+            <li
+              className='NavbarLink'
+              style={{ color: '#6B6D76', listStyle: 'none' }}
             >
-              ReCaller
-            </h2>
-            <div style={{ width: '65%', paddingRight: '50px' }}>
-              <MDBNav className='nav-pills nav-fill'>
-                <MDBNavItem>
-                  <MDBNavLink
-                    onClick={() => navigate('/')}
-                    className='black-text'
-                    to='#'
-                  >
-                    Dashboard
-                  </MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink className='black-text' to='!#'>
-                    Add New Call
-                  </MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink className='black-text' to='!#'>
-                    Review Calls
-                  </MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink className='black-text' to='!#'>
-                    Previous Calls
-                  </MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink
-                    onClick={() => navigate(`/choose/${this.props.user.uid}`)}
-                    className='black-text'
-                    to='#'
-                  >
-                    Choose Contact
-                  </MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink
-                    onClick={() => navigate(`/about-us`)}
-                    className='black-text'
-                    to='#'
-                  >
-                    Our Team
-                  </MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink onClick={logout} className='red-text' to='#'>
-                    Sign Out
-                  </MDBNavLink>
-                </MDBNavItem>
-              </MDBNav>
-              <hr style={{ borderColor: 'black', width: '100%' }} />
-            </div>
+              <a style={{ color: '#083D77', padding: '5px' }} href='/'>
+                Dashboard
+              </a>
+            </li>
+            <li
+              className='NavbarLink'
+              style={{ color: '#6B6D76', listStyle: 'none' }}
+            >
+              <a style={{ color: '#083D77', padding: '5px' }} href='/'>
+                Add New Call
+              </a>
+            </li>
+            <li
+              className='NavbarLink'
+              style={{ color: '#6B6D76', listStyle: 'none' }}
+            >
+              <a style={{ color: '#083D77', padding: '5px' }} href='/'>
+                Review Calls
+              </a>
+            </li>
+            <li
+              className='NavbarLink'
+              style={{ color: '#6B6D76', listStyle: 'none' }}
+            >
+              <a style={{ color: '#083D77', padding: '5px' }} href='/'>
+                Previous Calls
+              </a>
+            </li>
+            <li
+              className='NavbarLink'
+              style={{ color: '#6B6D76', listStyle: 'none' }}
+            >
+              <a style={{ color: '#083D77', padding: '5px' }} href='/choose'>
+                Choose Contact
+              </a>
+            </li>
+            <li
+              className='NavbarLink'
+              style={{ color: '#6B6D76', listStyle: 'none' }}
+            >
+              <a
+                style={{ color: '#083D77', padding: '5px' }}
+                href='/'
+                onClick={this.logoutHandler}
+              >
+                Sign Out
+              </a>
+            </li>
+          </nav>
+          <div
+            onClick={this.toggleCollapse('navbarCollapse1')}
+            id='navbarCollapse1'
+            isOpen={collapseID}
+            className='NavbarLink NavbarLink-toggle'
+          >
+            <i className='fas fa-bars' />
           </div>
-        )}
-      </BrowserRouter>
+          <Hr className='hr-underline' />
+        </Navbar>
+      </div>
     );
   }
 }
 
 export default NavbarPage;
 
-NavbarPage.propTypes = {
-  user: PropTypes.shape({
-    displayName: PropTypes.string,
-    email: PropTypes.string,
-    photoUrl: PropTypes.string,
-    uid: PropTypes.string,
-    phoneNumber: PropTypes.string,
-  }),
-};
+const Navbar = styled.div`
+  background-color: transparent;
+  display: flex;
+  padding: 16px;
+  justify-content: space-between;
+  font-family: sans-serif;
+  color: white;
+  .NavbarLink {
+    padding-right: 8px;
+    font-size: 1.2rem;
+  }
+  .NavbarLink-brand {
+    color: #083d77;
+    font-size: 4rem;
+    font-family: pacifico;
+    margin-left: 2.5%;
+    @media only screen and (max-width: 768px) {
+      font-size: 2.5rem;
+      align-self: center;
+    }
+  }
+  .Navbar__Items {
+    display: flex;
+  }
+  .Navbar__Items--right {
+    margin-left: auto;
+    align-self: center;
+  }
+  .NavbarLink-toggle {
+    display: none;
+  }
+  @media only screen and (max-width: 768px) {
+    .Navbar__Items,
+    .Navbar {
+      flex-direction: column;
+    }
+    .Navbar__Items {
+      display: none;
+    }
+    .Navbar__Items--right {
+      margin-left: 0;
+    }
+    .Navbar__ToggleShow {
+      display: flex;
+    }
+    .NavbarLink-toggle {
+      align-self: flex-end;
+      color: #083d77;
+      display: initial;
+      align-self: center;
+      font-size: 2.5rem;
+      cursor: pointer;
+    }
+  }
+`;
+
+const Hr = styled.hr`
+  border-color: #083d77;
+  width: 70%;
+  margin-left: 30%;
+  position: absolute;
+  top: 75px;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+`;
