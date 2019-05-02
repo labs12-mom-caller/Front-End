@@ -267,16 +267,12 @@ const WrapperDiv = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-<<<<<<< HEAD
-  /* min-height: 100vh; */
-  max-height: 95vh;
-
-=======
   min-height: 100vh;
   @media (min-width: 768px) {
     /* justify-content: unset; */
+  min-height: 50vh;
+
   }
->>>>>>> a12b30815bc41c12a5deb547fd386f106dfa6f00
   .loginHeader {
     ${styles.logoText};
     font-size: 5rem;
