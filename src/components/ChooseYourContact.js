@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { navigate } from '@reach/router';
 import { Formik } from 'formik';
-import { signupUserTwo } from '../app/utils';
 import NavBar from './NavBar';
 import { Wrapper } from '../styles/Login';
+import { db } from '../firebase';
 
 function Choose({ user, userId }) {
   return (
@@ -21,10 +21,17 @@ function Choose({ user, userId }) {
             phoneNumber: '1234567890',
           }}
           onSubmit={(values, { setSubmitting }) => {
+            values.phoneNumber = String('+1').concat(
+              String(values.phoneNumber).replace(/[^\d]/g, ''),
+            );
             setTimeout(async () => {
-              const user2id = await signupUserTwo(values);
-              setSubmitting(false);
-              navigate(`/choose/${userId}/${user2id}/call-plan`);
+              await db.collection(`users`).add(values);
+              db.collection(`users`)
+                .where(`email`, `==`, values.email)
+                .onSnapshot(doc => {
+                  setSubmitting(false);
+                  navigate(`/choose/${userId}/${doc.id}/call-plan`);
+                });
             }, 1000);
           }}
           validationSchema={Yup.object().shape({

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { navigate } from '@reach/router';
+import { navigate } from '@reach/router';
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from 'mdbreact';
 import NavBar from './NavBar';
 import ModalPhoneNumber from './ModalPhoneNumber';

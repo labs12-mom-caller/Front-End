@@ -61,10 +61,10 @@ function useAuth() {
           }
           if (
             window.localStorage.getItem('user') &&
-            (user.displayName != x.displayName ||
-              user.email != x.email ||
-              user.phoneNumber != x.phoneNumber ||
-              user.photoUrl != x.photoUrl)
+            (user.displayName !== x.displayName ||
+              user.email !== x.email ||
+              user.phoneNumber !== x.phoneNumber ||
+              user.photoUrl !== x.photoUrl)
           ) {
             setUser({ ...user, ...x });
             window.localStorage.setItem(
