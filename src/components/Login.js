@@ -240,7 +240,7 @@ function Login() {
                 </p>
                 &copy; {new Date().getFullYear()} <a href='/'> ReCaller </a>
               </MDBCol>
-              <MDBCol style={{ marginLeft: '13%', alignSelf: 'center' }} md='5'>
+              <MDBCol style={{ marginLeft: '16%', alignSelf: 'center' }} md='5'>
                 <span>
                   <strong style={{ fontSize: '23px' }}>
                     Already have an account?
