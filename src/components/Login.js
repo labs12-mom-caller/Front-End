@@ -3,24 +3,18 @@
 import React, { useState } from 'react';
 import { Formik } from 'formik';
 import firebase from 'firebase';
-import { MDBCol, MDBContainer, MDBRow, MDBFooter } from 'mdbreact';
-import { TiArrowLeftThick } from 'react-icons/ti';
+// import { TiArrowLeftThick } from 'react-icons/ti';
 import styled from 'styled-components';
 import { signup } from '../app/utils';
 import img from '../assets/images/womanOnPhone.jpg';
 import bottomImg from '../assets/images/festivities.svg';
 import logo from '../assets/images/icons8-google.svg';
 import {
-  // DefaultButtonRed,
-  // DefaultButtonBlue,
   DefaultInput,
   FormikWrapper,
-  // DefaultButtonRedBG,
   DefaultButtonBlueBG,
   styles,
 } from '../styles/styledDefaultComponents';
-
-const isMobile = window.innerWidth <= 768;
 
 function Login() {
   // state
@@ -148,7 +142,7 @@ function Login() {
                 )}
               </Formik>
             </FormikWrapper>
-            <img src={bottomImg} className='bottomImg' />
+            <img src={bottomImg} className='bottomImg' alt='bottom img' />
             {!hasAccount && (
               <p className='haveAccountText'>
                 already have an account?{' '}
@@ -232,6 +226,7 @@ function Login() {
                   src={bottomImg}
                   className='bottomImg'
                   style={{ marginTop: '5%' }}
+                  alt='bottom img'
                 />
                 {hasAccount && (
                   <p className='haveAccountText'>
