@@ -63,7 +63,7 @@ export const UpdateAccount = styled.p`
   color: red;
 
   @media (min-width: 992px) {
-    margin-left: 6.5%;
+    margin-left: 14.5%;
   }
 `;
 

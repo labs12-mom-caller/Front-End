@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { navigate } from '@reach/router';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { db, storage } from '../firebase';
 import { ProfileImage } from '../styles/Dashboard';
+import NavBar from './NavBar';
 
 const useInputValue = initialValue => {
   const [value, setValue] = React.useState(initialValue);
@@ -42,11 +45,19 @@ const UpdateAccount = ({ user }) => {
   };
 
   return (
-    <>
-      <ProfileImage src={user.photoUrl} alt={user.displayName} />
-      <form>
+    <div style={{ width: '100%' }}>
+      <NavBar />
+      <ProfileImage
+        style={{ width: '15%' }}
+        src={user.photoUrl}
+        alt={user.displayName}
+      />
+      <UpdateForm
+        style={{ display: 'flex', width: '20%', flexDirection: 'column' }}
+      >
         <label htmlFor='displayName'>
           <button
+            style={{ marginBottom: '25px' }}
             type='submit'
             onClick={e => {
               e.preventDefault();
@@ -54,35 +65,42 @@ const UpdateAccount = ({ user }) => {
                 ...user,
                 displayName: displayName.value,
                 phoneNumber: phoneNumber.value,
-              });
+              }).then(user => {
+
+                navigate(`/`)
+              })
             }}
           >
             update
           </button>
+          <br />
+          Display Name
           <input
             type='text'
             id='displayName'
             {...displayName}
-            placeholder='name'
+            placeholder='Enter your name'
           />
         </label>
         <label htmlFor='phoneNumber'>
+          Phone Number
           <input
             type='text'
             id='phoneNumber'
-            placeholder='enter your phone number'
             {...phoneNumber}
+            placeholder='enter your phone number'
           />
         </label>
         <label htmlFor='img'>
+          Profile Picture
           <input onChange={uploadFile} type='file' />
         </label>
         <button type='button' onClick={e => fileUpload(e)}>
           {' '}
           upload{' '}
         </button>
-      </form>
-    </>
+      </UpdateForm>
+    </div>
   );
 };
 
@@ -97,3 +115,10 @@ UpdateAccount.propTypes = {
     phoneNumber: PropTypes.string,
   }),
 };
+
+const UpdateForm = styled.form`
+  label {
+    color: black;
+    font-weight: bold;
+  }
+`;
