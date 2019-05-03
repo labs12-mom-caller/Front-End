@@ -1,31 +1,106 @@
 import React, { useState } from 'react';
+import { navigate } from '@reach/router';
 import PropTypes from 'prop-types';
-import { auth, db } from '../firebase';
-// displayName: "Michael Checo"
-// email: "checomichael2@gmail.com"
-// phoneNumber: "+12012503670"
-// photoUrl: "https://lh4.googleusercontent.com/-IKpg7va2yR8/AAAAAAAAAAI/AAAAAAAAADo/OoOmhzvtjEc/photo.jpg"
-// uid: "1POJa09XbdcZbc2606JeeuprAuu1"
+import styled from 'styled-components';
+import { db, storage } from '../firebase';
+import { ProfileImage } from '../styles/Dashboard';
+import NavBar from './NavBar';
+
+const useInputValue = initialValue => {
+  const [value, setValue] = React.useState(initialValue);
+  return {
+    value,
+    onChange: e => {
+      setValue(e.target.value || e.target.innerText);
+    },
+  };
+};
 const UpdateAccount = ({ user }) => {
-  console.log(user);
-  db.doc(`users/${user.uid}`).set({
-    ...user,
-    displayName: 'LULULEMON',
-  });
-  const [displayName, setDisplayName] = useState(user.displayName);
+  const displayName = useInputValue(user.displayName);
+  const phoneNumber = useInputValue(user.phoneNumber);
+  const [imageInput, setImageInput] = useState(null);
+
+  function fileUpload(e) {
+    e.preventDefault();
+    storage
+      .ref()
+      .child('user-profiles')
+      .child(user.uid)
+      .child(imageInput.name)
+      .put(imageInput)
+      .then(response => response.ref.getDownloadURL())
+      .then(photoURL =>
+        db.doc(`users/${user.uid}`).set({
+          ...user,
+          photoUrl: photoURL,
+        }),
+      );
+  }
+
+  const uploadFile = e => {
+    e.preventDefault();
+    const files = e.target.files;
+    setImageInput(files[0]);
+    console.log(imageInput);
+  };
 
   return (
-    <form>
-      <label htmlFor='displayName'>
-        <input
-          type='text'
-          id='displayName'
-          value={displayName}
-          onChange={e => setDisplayName(e.target.value)}
-          placeholder='name'
-        />
-      </label>
-    </form>
+    <div style={{ width: '100%' }}>
+      <NavBar />
+      <ProfileImage
+        style={{ width: '15%' }}
+        src={user.photoUrl}
+        alt={user.displayName}
+      />
+      <UpdateForm
+        style={{ display: 'flex', width: '20%', flexDirection: 'column' }}
+      >
+        <label htmlFor='displayName'>
+          <button
+            style={{ marginBottom: '25px' }}
+            type='submit'
+            onClick={e => {
+              e.preventDefault();
+              db.doc(`users/${user.uid}`).set({
+                ...user,
+                displayName: displayName.value,
+                phoneNumber: phoneNumber.value,
+              }).then(user => {
+
+                navigate(`/`)
+              })
+            }}
+          >
+            update
+          </button>
+          <br />
+          Display Name
+          <input
+            type='text'
+            id='displayName'
+            {...displayName}
+            placeholder='Enter your name'
+          />
+        </label>
+        <label htmlFor='phoneNumber'>
+          Phone Number
+          <input
+            type='text'
+            id='phoneNumber'
+            {...phoneNumber}
+            placeholder='enter your phone number'
+          />
+        </label>
+        <label htmlFor='img'>
+          Profile Picture
+          <input onChange={uploadFile} type='file' />
+        </label>
+        <button type='button' onClick={e => fileUpload(e)}>
+          {' '}
+          upload{' '}
+        </button>
+      </UpdateForm>
+    </div>
   );
 };
 
@@ -40,3 +115,10 @@ UpdateAccount.propTypes = {
     phoneNumber: PropTypes.string,
   }),
 };
+
+const UpdateForm = styled.form`
+  label {
+    color: black;
+    font-weight: bold;
+  }
+`;
