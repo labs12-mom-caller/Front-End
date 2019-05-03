@@ -294,6 +294,7 @@ const WrapperDiv = styled.div`
     align-items: center;
     justify-content: center;
     width: 70%;
+    border-radius: 50px;
     @media (min-width: 768px) {
       width: 70%;
     }
@@ -358,7 +359,8 @@ const WrapperDiv = styled.div`
     min-width: 70%;
     margin-bottom: 0;
     @media (min-width: 992px) {
-      min-width: 0px;
+      /* min-width: 0px; */
+      min-width: 70%;
       width: 142px;
       height: 50px;
       border-radius: 50px;
