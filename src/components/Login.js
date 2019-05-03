@@ -175,14 +175,26 @@ function Login() {
           )} */}
 
           {hasAccount && (
-            <>
+            <div className='hasAccount' style={{ justifyContent: 'center' }}>
+              <h1 className='loginHeader' style={{ marginBottom: '10%' }}>
+                ReCaller
+              </h1>
               {/* <DefaultButtonBlueBG
                 className='googleLogin'
                 onClick={handleSignIn}
               >
                 google login
               </DefaultButtonBlueBG> */}
-              <form className='signInForm'>
+              <form
+                className='signInForm'
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-evenly',
+                  alignItems: 'center',
+                  height: '60vh',
+                }}
+              >
                 <DefaultInput
                   type='text'
                   onChange={e => setEmail(e.target.value)}
@@ -216,6 +228,11 @@ function Login() {
                 >
                   google login
                 </DefaultButtonBlueBG>
+                <img
+                  src={bottomImg}
+                  className='bottomImg'
+                  style={{ marginTop: '5%' }}
+                />
                 {hasAccount && (
                   <p className='haveAccountText'>
                     Don't have an account?{' '}
@@ -229,7 +246,7 @@ function Login() {
                   </p>
                 )}
               </form>
-            </>
+            </div>
           )}
         </div>
 
@@ -412,8 +429,14 @@ const WrapperDiv = styled.div`
     letter-spacing: 0.1rem;
     margin: 2% auto;
     width: 60%;
+    @media (min-width: 768px) {
+      width: 50%;
+    }
     @media (min-width: 992px) {
       width: 40%;
+    }
+    @media (min-width: 1200px) {
+      width: 30%;
     }
   }
   .signInForm {
@@ -424,8 +447,14 @@ const WrapperDiv = styled.div`
     width: 100%;
     input {
       width: 60%;
+      @media (min-width: 768px) {
+        width: 50%;
+      }
       @media (min-width: 992px) {
         width: 40%;
+      }
+      @media (min-width: 1200px) {
+        width: 30%;
       }
     }
   }
@@ -436,7 +465,7 @@ const WrapperDiv = styled.div`
     align-items: space-evenly;
     min-width: 100%;
     /* margin-top: -100px; */
-    margin-top: 8%;
+    /* margin-top: 8%; */
     @media (min-width: 992px) {
       .loginHeader2 {
         /* margin-left: 35%; */
@@ -449,8 +478,22 @@ const WrapperDiv = styled.div`
   .signInButton {
     width: 60%;
     /* margin-top: 8%; */
+    @media (min-width: 768px) {
+      width: 50%;
+    }
     @media (min-width: 992px) {
       width: 40%;
     }
+    @media (min-width: 1200px) {
+      width: 30%;
+    }
+  }
+  .hasAccount {
+    display: flex;
+    flex-direction: column;
+    justify-content: unset;
+    align-items: center;
+    border: 1px solid red;
+    min-height: 100vh;
   }
 `;
