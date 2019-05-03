@@ -11,17 +11,21 @@ export const FormikWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 2% auto;
+    margin: 1% auto;
     width: 80%;
     @media (min-width: 768px) {
       width: 70%;
     }
     @media (min-width: 992px) {
       width: 50%;
-      margin-right: 48%;
+      /* margin-right: 48%; */
       /* overflow: hidden; */
       /* margin-bottom: 25%; */
-      margin-top: 5%;
+      margin: 3% auto;
+    }
+    @media (min-width: 1600px) {
+      width: 40%;
+      margin: 2% auto;
     }
   }
 `;

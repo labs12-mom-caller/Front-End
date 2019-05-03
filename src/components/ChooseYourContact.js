@@ -12,7 +12,7 @@ import { db } from '../firebase';
 function Choose({ user, userId }) {
   return (
     <div>
-      <NavBar />
+      {/* <NavBar /> */}
 
       <Wrapper>
         <div className='heading'>Hello {user.displayName} </div>
