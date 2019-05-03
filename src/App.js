@@ -23,7 +23,6 @@ function useAuth() {
     return firebase.auth().onAuthStateChanged(async firebaseUser => {
       if (firebaseUser) {
         const x = await fetchUser(firebaseUser.uid);
-        console.log(x);
         if (x) {
           const currentUser = {
             ...x,
@@ -33,6 +32,18 @@ function useAuth() {
           db.collection('users')
             .doc(currentUser.uid)
             .set(currentUser, { merge: true });
+        } else if (firebaseUser) {
+          const newUser = {
+            displayName: firebaseUser.displayName,
+            photoUrl: firebaseUser.photoURL,
+            uid: firebaseUser.uid,
+            email: firebaseUser.email,
+          };
+          setUser(newUser);
+          window.localStorage.setItem('user', JSON.stringify(newUser));
+          db.collection('users')
+            .doc(newUser.uid)
+            .set(newUser, { merge: true });
         }
       } else {
         setUser(null);
