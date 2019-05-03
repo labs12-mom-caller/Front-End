@@ -76,7 +76,7 @@ exports.handler = async (req, res, firestore, storage) => {
               user2email: '',
               user2name: '',
             };
-            await contacts
+            const contact = await contacts
               .doc(doc.data().contact_ref.id)
               .onSnapshot(async doc => {
                 const user1 = await users.doc(doc.data().user1.id).get();
