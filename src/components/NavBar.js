@@ -86,7 +86,10 @@ class NavbarPage extends Component {
               className='NavbarLink'
               style={{ color: '#6B6D76', listStyle: 'none' }}
             >
-              <Link style={{ color: '#083D77', padding: '5px' }} to={`/choose/${this.props.user.uid}`}>
+              <Link
+                style={{ color: '#083D77', padding: '5px' }}
+                to={`/choose/${this.props.user.uid}`}
+              >
                 Choose Contact
               </Link>
             </li>
