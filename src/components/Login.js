@@ -37,6 +37,7 @@ function Login() {
         {!hasAccount && (
           <>
             <h1 className='loginHeader'>ReCaller</h1>
+            <h2 className='signInHeader'>Sign Up</h2>
             <FormikWrapper style={{ marginTop: '5px' }}>
               <Formik
                 initialValues={{
@@ -170,15 +171,11 @@ function Login() {
 
           {hasAccount && (
             <div className='hasAccount' style={{ justifyContent: 'center' }}>
-              <h1 className='loginHeader' style={{ marginBottom: '10%' }}>
+              <h1 className='loginHeader' style={{ marginBottom: '2%' }}>
                 ReCaller
               </h1>
-              {/* <DefaultButtonBlueBG
-                className='googleLogin'
-                onClick={handleSignIn}
-              >
-                google login
-              </DefaultButtonBlueBG> */}
+
+              <h2 className='logInH2'>Log In</h2>
               <form
                 className='signInForm'
                 style={{
@@ -289,6 +286,25 @@ const WrapperDiv = styled.div`
       margin-top: 5%;
     }
   }
+  .signInHeader {
+    ${styles.logoText};
+    font-size: 2rem;
+    color: ${styles.colors.mainBlue};
+    @media (min-width: 992px) {
+      /* justify-content: space-between; */
+      /* align-self: baseline; */
+      /* margin-top: 0; */
+      /* margin-bottom: 10%; */
+      /* margin-left: 5%; */
+      /* padding-bottom: 21%; */
+      /* position: absolute;
+      top: 2%;
+      left: 2%; */
+      /* align-self: flex-start; */
+      margin-top: 2%;
+    }
+  }
+
   .signUpBtnG {
     display: flex;
     align-items: center;
@@ -372,6 +388,25 @@ const WrapperDiv = styled.div`
       }
     }
   }
+  .logInH2 {
+    ${styles.logoText};
+    font-size: 2rem;
+    color: ${styles.colors.mainBlue};
+    margin-bottom: 10%;
+
+    @media (min-width: 992px) {
+      /* justify-content: space-between; */
+      /* align-self: baseline; */
+      /* margin-top: 0; */
+      /* margin-bottom: 10%; */
+      /* margin-left: 5%; */
+      /* padding-bottom: 21%; */
+      /* position: absolute;
+      top: 2%;
+      left: 2%; */
+      /* align-self: flex-start; */
+    }
+  }
   .haveAccountText {
     text-transform: capitalize;
     font-size: 1rem;
@@ -380,6 +415,7 @@ const WrapperDiv = styled.div`
     word-spacing: 0.1rem;
     /* margin-bottom: 8%; */
     /* margin-top: 35%; */
+
     @media (min-width: 768px) {
       font-size: 1.5rem;
       /* display: none; */
