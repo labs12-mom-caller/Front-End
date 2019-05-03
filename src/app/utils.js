@@ -26,7 +26,8 @@ export async function signup({
       displayName,
       uid: user.uid,
       email,
-      photoUrl: 'https://placekitten.com/200/200',
+      photoUrl:
+        'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico',
       phoneNumber: formattedPhone,
     });
   } catch (e) {
@@ -42,7 +43,7 @@ export async function signupUserTwo({
     .slice(-8),
   phoneNumber,
   displayName = name,
-  photoURL = 'https://placekitten.com/200/200',
+  photoURL = 'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico',
 }) {
   const formattedPhone = String('+1').concat(
     String(phoneNumber).replace(/[^\d]/g, ''),

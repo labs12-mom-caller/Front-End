@@ -2,17 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import styled from 'styled-components';
-import NavBar from './NavBar';
 import ModalPhoneNumber from './ModalPhoneNumber';
 import {
   Wrapper,
   ProfileImage,
   UpdateAccount,
-  DashboardButtons,
   WelcomeUser,
   ProfileWrapper,
 } from '../styles/Dashboard';
-import { DefaultButtonBlueBG } from '../styles/styledDefaultComponents';
 import UpcomingCalls from './UpcomingCalls';
 import RecentTranscripts from './RecentTranscripts';
 
@@ -87,7 +84,7 @@ const DashBoard = ({ user }) => {
             <ProfileImage src={`${photoUrl}`} alt='ProfilePic' />
             <UpdateAccount
               user={user}
-              onClick={() => navigate(`/account/${user.uid}`)}
+              onClick={() => navigate(`/account/${uid}`)}
             >
               Update Account
             </UpdateAccount>
