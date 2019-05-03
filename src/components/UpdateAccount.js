@@ -61,14 +61,15 @@ const UpdateAccount = ({ user }) => {
             type='submit'
             onClick={e => {
               e.preventDefault();
-              db.doc(`users/${user.uid}`).set({
-                ...user,
-                displayName: displayName.value,
-                phoneNumber: phoneNumber.value,
-              }).then(user => {
-
-                navigate(`/`)
-              })
+              db.doc(`users/${user.uid}`)
+                .set({
+                  ...user,
+                  displayName: displayName.value,
+                  phoneNumber: phoneNumber.value,
+                })
+                .then(user => {
+                  navigate(`/`);
+                });
             }}
           >
             update
