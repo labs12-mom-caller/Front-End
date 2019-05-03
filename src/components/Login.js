@@ -493,7 +493,7 @@ const WrapperDiv = styled.div`
     flex-direction: column;
     justify-content: unset;
     align-items: center;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     min-height: 100vh;
   }
 `;
