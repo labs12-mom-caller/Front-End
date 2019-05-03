@@ -109,7 +109,7 @@ class NavbarPage extends Component {
           <div
             onClick={this.toggleCollapse('navbarCollapse1')}
             id='navbarCollapse1'
-            isOpen={collapseID}
+            isopen={collapseID}
             className='NavbarLink NavbarLink-toggle'
           >
             <i className='fas fa-bars' />
