@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Link } from '@reach/router';
 import { logout } from '../app/utils';
 
 class NavbarPage extends Component {
@@ -53,53 +54,56 @@ class NavbarPage extends Component {
               className='NavbarLink'
               style={{ color: '#6B6D76', listStyle: 'none' }}
             >
-              <a style={{ color: '#083D77', padding: '5px' }} href='/'>
+              <Link style={{ color: '#083D77', padding: '5px' }} to='/'>
                 Dashboard
-              </a>
+              </Link>
             </li>
             <li
               className='NavbarLink'
               style={{ color: '#6B6D76', listStyle: 'none' }}
             >
-              <a style={{ color: '#083D77', padding: '5px' }} href='/'>
+              <Link style={{ color: '#083D77', padding: '5px' }} to='/'>
                 Add New Call
-              </a>
+              </Link>
             </li>
             <li
               className='NavbarLink'
               style={{ color: '#6B6D76', listStyle: 'none' }}
             >
-              <a style={{ color: '#083D77', padding: '5px' }} href='/'>
+              <Link style={{ color: '#083D77', padding: '5px' }} to='/'>
                 Review Calls
-              </a>
+              </Link>
             </li>
             <li
               className='NavbarLink'
               style={{ color: '#6B6D76', listStyle: 'none' }}
             >
-              <a style={{ color: '#083D77', padding: '5px' }} href='/'>
+              <Link style={{ color: '#083D77', padding: '5px' }} to='/'>
                 Previous Calls
-              </a>
+              </Link>
             </li>
             <li
               className='NavbarLink'
               style={{ color: '#6B6D76', listStyle: 'none' }}
             >
-              <a style={{ color: '#083D77', padding: '5px' }} href='/choose'>
-                Choose Contact
-              </a>
-            </li>
-            <li
-              className='NavbarLink'
-              style={{ color: '#6B6D76', listStyle: 'none' }}
-            >
-              <a
+              <Link
                 style={{ color: '#083D77', padding: '5px' }}
-                href='/'
+                to={`/choose/${this.props.user.uid}`}
+              >
+                Choose Contact
+              </Link>
+            </li>
+            <li
+              className='NavbarLink'
+              style={{ color: '#6B6D76', listStyle: 'none' }}
+            >
+              <Link
+                style={{ color: '#083D77', padding: '5px' }}
+                to='/'
                 onClick={this.logoutHandler}
               >
                 Sign Out
-              </a>
+              </Link>
             </li>
           </nav>
           <div
