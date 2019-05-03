@@ -1,31 +1,88 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { auth, db } from '../firebase';
-// displayName: "Michael Checo"
-// email: "checomichael2@gmail.com"
-// phoneNumber: "+12012503670"
-// photoUrl: "https://lh4.googleusercontent.com/-IKpg7va2yR8/AAAAAAAAAAI/AAAAAAAAADo/OoOmhzvtjEc/photo.jpg"
-// uid: "1POJa09XbdcZbc2606JeeuprAuu1"
+import { db, storage } from '../firebase';
+import { ProfileImage } from '../styles/Dashboard';
+
+const useInputValue = initialValue => {
+  const [value, setValue] = React.useState(initialValue);
+  return {
+    value,
+    onChange: e => {
+      setValue(e.target.value || e.target.innerText);
+    },
+  };
+};
 const UpdateAccount = ({ user }) => {
-  console.log(user);
-  db.doc(`users/${user.uid}`).set({
-    ...user,
-    displayName: 'LULULEMON',
-  });
-  const [displayName, setDisplayName] = useState(user.displayName);
+  const displayName = useInputValue(user.displayName);
+  const phoneNumber = useInputValue(user.phoneNumber);
+  const [imageInput, setImageInput] = useState(null);
+
+  function fileUpload(e) {
+    e.preventDefault();
+    storage
+      .ref()
+      .child('user-profiles')
+      .child(user.uid)
+      .child(imageInput.name)
+      .put(imageInput)
+      .then(response => response.ref.getDownloadURL())
+      .then(photoURL =>
+        db.doc(`users/${user.uid}`).set({
+          ...user,
+          photoUrl: photoURL,
+        }),
+      );
+  }
+
+  const uploadFile = e => {
+    e.preventDefault();
+    const files = e.target.files;
+    setImageInput(files[0]);
+    console.log(imageInput);
+  };
 
   return (
-    <form>
-      <label htmlFor='displayName'>
-        <input
-          type='text'
-          id='displayName'
-          value={displayName}
-          onChange={e => setDisplayName(e.target.value)}
-          placeholder='name'
-        />
-      </label>
-    </form>
+    <>
+      <ProfileImage src={user.photoUrl} alt={user.displayName} />
+      <form>
+        <label htmlFor='displayName'>
+          <button
+            type='submit'
+            onClick={e => {
+              e.preventDefault();
+              db.doc(`users/${user.uid}`).set({
+                ...user,
+                displayName: displayName.value,
+                phoneNumber: phoneNumber.value,
+              });
+            }}
+          >
+            update
+          </button>
+          <input
+            type='text'
+            id='displayName'
+            {...displayName}
+            placeholder='name'
+          />
+        </label>
+        <label htmlFor='phoneNumber'>
+          <input
+            type='text'
+            id='phoneNumber'
+            placeholder='enter your phone number'
+            {...phoneNumber}
+          />
+        </label>
+        <label htmlFor='img'>
+          <input onChange={uploadFile} type='file' />
+        </label>
+        <button type='button' onClick={e => fileUpload(e)}>
+          {' '}
+          upload{' '}
+        </button>
+      </form>
+    </>
   );
 };
 
