@@ -9,8 +9,13 @@ const client = require('twilio')(accountSid, authToken);
 
 sgMail.setApiKey(functions.config().sendgrid.key);
 
+const callEmail = require('./helpers/callEmail.js');
+
 exports.handler = async (req, res, firestore, storage) => {
   const calls = firestore.collection('calls');
+  const contacts = firestore.collection('contacts');
+  const users = firestore.collection('users');
+
   try {
     const snapshot = await calls.where('fetched', '==', false).get();
     if (snapshot.empty) {
@@ -23,8 +28,8 @@ exports.handler = async (req, res, firestore, storage) => {
       const { sid, status } = recording;
       if (status === 'completed') {
         const { id } = doc;
-        const file = storage.file(`${id}`);
-        request(
+        const file = await storage.file(`${id}`);
+        await request(
           `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Recordings/${sid}.wav`,
         )
           .pipe(
@@ -65,6 +70,51 @@ exports.handler = async (req, res, firestore, storage) => {
               deepgram: response.data,
             });
             await client.recordings(sid).remove();
+            const userInfo = {
+              user1email: '',
+              user1name: '',
+              user2email: '',
+              user2name: '',
+            };
+            await contacts
+              .doc(doc.data().contact_ref.id)
+              .onSnapshot(async doc => {
+                const user1 = await users.doc(doc.data().user1.id).get();
+                userInfo.user1email = user1.data().email;
+                userInfo.user1name = user1.data().displayName;
+
+                const user2 = await users.doc(doc.data().user2.id).get();
+                userInfo.user2email = user2.data().email;
+                userInfo.user2name = user2.data().displayName;
+              });
+
+            const msg = {
+              personalizations: [
+                {
+                  to: userInfo.user1email,
+                  name: userInfo.user1name,
+                  dynamic_template_data: {
+                    user2: userInfo.user2name,
+                  },
+                },
+                {
+                  to: userInfo.user2email,
+                  name: userInfo.user2name,
+                  dynamic_template_data: {
+                    user2: userInfo.user1name,
+                  },
+                },
+              ],
+              from: { email: 'labsrecaller@gmail.com', name: 'ReCaller' },
+              dynamic_template_data: {
+                audio: url,
+                id,
+                transcript: 'Need to map transcript received from deepgram',
+              },
+              templateId: 'd-59ed5092b3bf44118a5d7c1e0f617eef',
+            };
+
+            await sgMail.send(msg);
           });
       } else {
         console.log('Call has not finished recording');
