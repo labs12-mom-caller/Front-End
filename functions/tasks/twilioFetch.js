@@ -79,42 +79,42 @@ exports.handler = async (req, res, firestore, storage) => {
             await contacts
               .doc(doc.data().contact_ref.id)
               .onSnapshot(async doc => {
-                await users.doc(doc.data().user1.id).onSnapshot(user1 => {
-                  userInfo.user1email = user1.email;
-                  userInfo.user1name = user1.displayName;
-                });
-                await users.doc(doc.data().user2.id).onSnapshot(user2 => {
-                  userInfo.user2email = user2.email;
-                  userInfo.user2name = user2.displayName;
-                });
+                const user1 = await users.doc(doc.data().user1.id).get();
+                userInfo.user1email = user1.data().email;
+                userInfo.user1name = user1.data().displayName;
+
+                const user2 = await users.doc(doc.data().user2.id).get();
+                userInfo.user2email = user2.data().email;
+                userInfo.user2name = user2.data().displayName;
               });
-            const email1 = {
-              to: userInfo.user1email,
-              from: 'labsrecaller@gmail.com',
-              templateId: 'd-59ed5092b3bf44118a5d7c1e0f617eef',
-              substitutionWrappers: ['{{', '}}'],
-              substitutions: {
-                user2: userInfo.user2name,
+
+            const msg = {
+              personalizations: [
+                {
+                  to: userInfo.user1email,
+                  name: userInfo.user1name,
+                  dynamic_template_data: {
+                    user2: userInfo.user2name,
+                  },
+                },
+                {
+                  to: userInfo.user2email,
+                  name: userInfo.user2name,
+                  dynamic_template_data: {
+                    user2: userInfo.user1name,
+                  },
+                },
+              ],
+              from: { email: 'labsrecaller@gmail.com', name: 'ReCaller' },
+              dynamic_template_data: {
                 audio: url,
-                transcript:
-                  response.data.results.channels[0].alternatives[0].transcript,
+                id,
+                transcript: 'Need to map transcript received from deepgram',
               },
-            };
-            const email2 = {
-              to: userInfo.user2email,
-              from: 'labsrecaller@gmail.com',
               templateId: 'd-59ed5092b3bf44118a5d7c1e0f617eef',
-              substitutionWrappers: ['{{', '}}'],
-              substitutions: {
-                user2: userInfo.user1name,
-                audio: url,
-                transcript:
-                  response.data.results.channels[0].alternatives[0].transcript,
-              },
             };
 
-            await sgMail.send(email1);
-            await sgMail.send(email2);
+            await sgMail.send(msg);
           });
       } else {
         console.log('Call has not finished recording');

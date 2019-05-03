@@ -29,7 +29,7 @@ function Choose({ user, userId }) {
                 String(values.phoneNumber).replace(/[^\d]/g, ''),
               );
               setTimeout(async () => {
-                await db.collection(`users`).add(values);
+                db.collection(`users`).add(values);
                 db.collection(`users`)
                   .where(`email`, `==`, values.email)
                   .onSnapshot(doc => {
