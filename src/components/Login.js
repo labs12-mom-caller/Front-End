@@ -37,7 +37,13 @@ function Login() {
         {!hasAccount && (
           <>
             <h1 className='loginHeader'>ReCaller</h1>
-            <h2 className='signInHeader'>Sign Up</h2>
+            <button
+              className='signInHeader'
+              type='button'
+              onClick={() => setHasAccount(true)}
+            >
+              Sign Up
+            </button>
             <FormikWrapper style={{ marginTop: '5px' }}>
               <Formik
                 initialValues={{
@@ -158,24 +164,19 @@ function Login() {
           </>
         )}
         <div className='signInContainer'>
-          {/* {hasAccount && (
-            <DefaultButtonBlueBG
-              className='backSignUp'
-              type='button'
-              onClick={() => setHasAccount(null)}
-            >
-              <TiArrowLeftThick className='backLogo' />{' '}
-              <p className='backBtnText'>to sign up page !</p>
-            </DefaultButtonBlueBG>
-          )} */}
-
           {hasAccount && (
             <div className='hasAccount' style={{ justifyContent: 'center' }}>
               <h1 className='loginHeader' style={{ marginBottom: '2%' }}>
                 ReCaller
               </h1>
 
-              <h2 className='logInH2'>Log In</h2>
+              <button
+                className='logInH2'
+                type='button'
+                onClick={() => setHasAccount  (false)}
+              >
+                Log In
+              </button>
               <form
                 className='signInForm'
                 style={{
@@ -290,6 +291,8 @@ const WrapperDiv = styled.div`
     ${styles.logoText};
     font-size: 2rem;
     color: ${styles.colors.mainBlue};
+    background: none;
+    border: none;
     @media (min-width: 992px) {
       /* justify-content: space-between; */
       /* align-self: baseline; */
@@ -374,6 +377,7 @@ const WrapperDiv = styled.div`
     text-transform: uppercase;
     min-width: 70%;
     margin-bottom: 0;
+    background: #ff6f61;
     @media (min-width: 992px) {
       /* min-width: 0px; */
       min-width: 70%;
@@ -393,7 +397,8 @@ const WrapperDiv = styled.div`
     font-size: 2rem;
     color: ${styles.colors.mainBlue};
     margin-bottom: 10%;
-
+    background: none;
+    border: none;
     @media (min-width: 992px) {
       /* justify-content: space-between; */
       /* align-self: baseline; */
