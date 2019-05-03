@@ -39,9 +39,9 @@ function Login() {
   return (
     <div>
       <WrapperDiv>
-        <h1 className='loginHeader'>ReCaller</h1>
         {!hasAccount && (
           <>
+            <h1 className='loginHeader'>ReCaller</h1>
             <FormikWrapper>
               <Formik
                 initialValues={{
@@ -154,14 +154,14 @@ function Login() {
                   onClick={() => setHasAccount(true)}
                   className='signInSpan'
                 >
-                  sign in!
+                  Log In
                 </span>
               </p>
             )}
           </>
         )}
         <div className='signInContainer'>
-          {hasAccount && (
+          {/* {hasAccount && (
             <DefaultButtonBlueBG
               className='backSignUp'
               type='button'
@@ -170,16 +170,16 @@ function Login() {
               <TiArrowLeftThick className='backLogo' />{' '}
               <p className='backBtnText'>to sign up page !</p>
             </DefaultButtonBlueBG>
-          )}
+          )} */}
 
           {hasAccount && (
             <>
-              <DefaultButtonBlueBG
+              {/* <DefaultButtonBlueBG
                 className='googleLogin'
                 onClick={handleSignIn}
               >
                 google login
-              </DefaultButtonBlueBG>
+              </DefaultButtonBlueBG> */}
               <form className='signInForm'>
                 <DefaultInput
                   type='text'
@@ -208,6 +208,24 @@ function Login() {
                 >
                   Sign in {'🎈'}
                 </DefaultButtonBlueBG>
+                <DefaultButtonBlueBG
+                  className='googleLogin'
+                  onClick={handleSignIn}
+                >
+                  google login
+                </DefaultButtonBlueBG>
+                {hasAccount && (
+                  <p className='haveAccountText'>
+                    Don't have an account?{' '}
+                    <span
+                      style={{ color: '#FF6F61' }}
+                      onClick={() => setHasAccount(false)}
+                      className='signInSpan'
+                    >
+                      Sign Up
+                    </span>
+                  </p>
+                )}
               </form>
             </>
           )}
@@ -235,50 +253,6 @@ function Login() {
           </div>
         )}
       </WrapperDiv>
-      {isMobile ? null : (
-        <MDBFooter
-          fixed-bottom
-          style={{ backgroundColor: '#083D77' }}
-          className='fixed-bottom pt-4 mt-4'
-        >
-          <MDBContainer fluid className='text-center text-md-left'>
-            <MDBRow>
-              <MDBCol md='5'>
-                <p style={{ fontSize: '.9rem', width: '119%' }}>
-                  We believe in connecting friends and family by offering
-                  scheduled calls and call transcription. Always remember the
-                  things you’ve talked about with your loved ones. We are
-                  ReCaller.
-                </p>
-                &copy; {new Date().getFullYear()} <a href='/'> ReCaller </a>
-              </MDBCol>
-              <MDBCol style={{ marginLeft: '13%', alignSelf: 'center' }} md='5'>
-                <span>
-                  <strong style={{ fontSize: '23px' }}>
-                    Already have an account?
-                    <button
-                      type='button'
-                      onClick={() => setHasAccount(true)}
-                      style={{
-                        color: '#FF6F61',
-                        backgroundColor: 'transparent',
-                        border: 'none',
-                      }}
-                    >
-                      Log In
-                    </button>
-                  </strong>
-                </span>
-              </MDBCol>
-            </MDBRow>
-          </MDBContainer>
-          {/* <div className='footer-copyright text-center py-3'>
-          <MDBContainer fluid>
-            &copy; {new Date().getFullYear()} <a href='/'> ReCaller </a>
-          </MDBContainer>
-        </div> */}
-        </MDBFooter>
-      )}
     </div>
   );
 }
@@ -306,9 +280,10 @@ const WrapperDiv = styled.div`
       /* margin-bottom: 10%; */
       /* margin-left: 5%; */
       /* padding-bottom: 21%; */
-      position: absolute;
+      /* position: absolute;
       top: 2%;
-      left: 2%;
+      left: 2%; */
+      align-self: flex-start;
     }
   }
   .signUpBtnG {
@@ -390,13 +365,13 @@ const WrapperDiv = styled.div`
     margin-bottom: 8%;
     @media (min-width: 768px) {
       font-size: 1.5rem;
-      display: none;
+      /* display: none; */
     }
     @media (min-width: 992px) {
-      display: none;
+      /* display: none; */
     }
     @media (min-width: 1500px) {
-      display: none;
+      /* display: none; */
     }
     .signInSpan {
       color: ${styles.colors.redOrange};
@@ -457,11 +432,20 @@ const WrapperDiv = styled.div`
     justify-content: center;
     align-items: space-evenly;
     min-width: 100%;
-    margin-top: -100px;
+    /* margin-top: -100px; */
+    margin-top: 8%;
+    @media (min-width: 992px) {
+      .loginHeader2 {
+        /* margin-left: 35%; */
+        ${styles.logoText}
+        font-size: 5rem;
+        color: ${styles.colors.mainBlue};
+      }
+    }
   }
   .signInButton {
     width: 60%;
-    margin-top: 10%;
+    /* margin-top: 8%; */
     @media (min-width: 992px) {
       width: 40%;
     }
