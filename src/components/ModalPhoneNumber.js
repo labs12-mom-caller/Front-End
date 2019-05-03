@@ -1,6 +1,5 @@
 /* eslint-disable no-inner-declarations */
 import React, { useState, useEffect } from 'react';
-import { Button, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
 import styled from 'styled-components';
