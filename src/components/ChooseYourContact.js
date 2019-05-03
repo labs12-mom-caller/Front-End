@@ -4,7 +4,6 @@ import * as Yup from 'yup';
 import { navigate } from '@reach/router';
 import { Formik } from 'formik';
 import styled from 'styled-components';
-import NavBar from './NavBar';
 import { styles } from '../styles/styledDefaultComponents';
 import { db } from '../firebase';
 // import { Wrapper } from '../styles/Login';
@@ -28,13 +27,12 @@ function Choose({ user, userId }) {
               values.phoneNumber = String('+1').concat(
                 String(values.phoneNumber).replace(/[^\d]/g, ''),
               );
-              setTimeout(async () => {
-                db.collection(`users`).add(values);
+              setTimeout(() => {
                 db.collection(`users`)
-                  .where(`email`, `==`, values.email)
-                  .onSnapshot(doc => {
+                  .add(values)
+                  .then(ref => {
                     setSubmitting(false);
-                    navigate(`/choose/${userId}/${doc.id}/call-plan`);
+                    navigate(`/choose/${userId}/${ref.id}/call-plan`);
                   });
               }, 1000);
             }}
@@ -185,6 +183,7 @@ export const Wrapper = styled.div`
   justify-content: unset;
   align-items: center;
   min-height: 100vh;
+  margin-top: -8%;
 
   @media (max-width: 992px) {
     min-height: 60vh;

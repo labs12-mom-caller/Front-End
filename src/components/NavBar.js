@@ -31,17 +31,6 @@ class NavbarPage extends Component {
       <div>
         <Navbar className={collapseID ? 'Navbar__ToggleShow' : null}>
           <div className='NavbarLink NavbarLink-brand'>ReCaller</div>
-          {/* <nav
-          className={
-            this.state.collapseID
-              ? 'Navbar__Items Navbar__ToggleShow'
-              : 'Navbar__Items'
-          }
-        >
-          <div className='NavbarLink'>Link</div>
-          <div className='NavbarLink'>Link</div>
-          <div className='NavbarLink'>Link</div>
-        </nav> */}
           <nav
             className={
               collapseID
@@ -49,7 +38,6 @@ class NavbarPage extends Component {
                 : 'Navbar__Items Navbar__Items--right'
             }
           >
-            {/* <div className='NavbarLink'>Dashboard</div> */}
             <li
               className='NavbarLink'
               style={{ color: '#6B6D76', listStyle: 'none' }}
@@ -86,7 +74,10 @@ class NavbarPage extends Component {
               className='NavbarLink'
               style={{ color: '#6B6D76', listStyle: 'none' }}
             >
-              <Link style={{ color: '#083D77', padding: '5px' }} to={`/choose/${this.props.user.uid}`}>
+              <Link
+                style={{ color: '#083D77', padding: '5px' }}
+                to={`/choose/${this.props.user.uid}`}
+              >
                 Choose Contact
               </Link>
             </li>
@@ -106,7 +97,7 @@ class NavbarPage extends Component {
           <div
             onClick={this.toggleCollapse('navbarCollapse1')}
             id='navbarCollapse1'
-            isOpen={collapseID}
+            isopen={collapseID}
             className='NavbarLink NavbarLink-toggle'
           >
             <i className='fas fa-bars' />
@@ -127,13 +118,16 @@ const Navbar = styled.div`
   justify-content: space-between;
   font-family: sans-serif;
   color: white;
+  max-width: 100%;
   .NavbarLink {
     padding-right: 8px;
-    font-size: 1.2rem;
+    font-size: 100%;
+    max-width: 100%;
+    white-space: nowrap;
   }
   .NavbarLink-brand {
     color: #083d77;
-    font-size: 4rem;
+    font-size: 3em;
     font-family: pacifico;
     margin-left: 2.5%;
     @media only screen and (max-width: 768px) {
