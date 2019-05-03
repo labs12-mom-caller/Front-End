@@ -5,6 +5,7 @@ const express = require('express');
 const cors = require('cors')({ origin: true });
 const caller = require('./tasks/caller.js');
 const fetch = require('./tasks/twilioFetch.js');
+const contactEmail = require('./tasks/contactEmail.js');
 
 const app = express();
 const serviceAccount = require('./serviceAccountKey.json');
@@ -103,4 +104,10 @@ exports.signupUserTwo = functions.firestore
     } catch (e) {
       throw e;
     }
+  });
+
+exports.contactEmail = functions.firestore
+  .document(`/contacts/{contactId}`)
+  .onCreate((snapshot, context) => {
+    return contactEmail.handler(snapshot, context, firestore);
   });

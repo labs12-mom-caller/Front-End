@@ -21,8 +21,5 @@
     "stripe": "^6.31.1",
     "twilio": "^3.30.2"
   },
-  "private": true,
-  "engines": {
-    "node": "8"
-  }
+  "private": true
 }

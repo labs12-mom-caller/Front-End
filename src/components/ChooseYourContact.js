@@ -28,13 +28,12 @@ function Choose({ user, userId }) {
               values.phoneNumber = String('+1').concat(
                 String(values.phoneNumber).replace(/[^\d]/g, ''),
               );
-              setTimeout(async () => {
-                await db.collection(`users`).add(values);
+              setTimeout(() => {
                 db.collection(`users`)
-                  .where(`email`, `==`, values.email)
-                  .onSnapshot(doc => {
+                  .add(values)
+                  .then(ref => {
                     setSubmitting(false);
-                    navigate(`/choose/${userId}/${doc.id}/call-plan`);
+                    navigate(`/choose/${userId}/${ref.id}/call-plan`);
                   });
               }, 1000);
             }}
