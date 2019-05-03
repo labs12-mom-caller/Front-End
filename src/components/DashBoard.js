@@ -36,12 +36,18 @@ const transcripts = [
   {
     id: 1,
     contactName: 'Shawn',
-    transcript: 'Hello how are you!',
+    transcript:
+      'Another big problem in the speech analytics space when customers first bring a software on is that they are   ',
+    photoUrl:
+      'https://images.pexels.com/photos/428361/pexels-photo-428361.jpeg?cs=srgb&dl=adult-blur-boy-428361.jpg&fm=jpg',
   },
   {
     id: 2,
-    contactName: 'Jack',
-    transcript: 'Hello how are you!',
+    contactName: 'Jenny',
+    transcript:
+      'con manolo bueno manolo ya está en su último año de universidades boston grado el próximo año y yo siempre  ',
+    photoUrl:
+      'https://images.pexels.com/photos/1542085/pexels-photo-1542085.jpeg?cs=srgb&dl=attractive-beautiful-beauty-1542085.jpg&fm=jpg',
   },
 ];
 
@@ -58,9 +64,9 @@ function ContactList() {
 function TranscriptList() {
   return (
     <div>
-      <h2 style={{ textAlign: 'center' }}>Recent transcripts</h2>
+      <h2 style={{ textAlign: 'center', width: '80%' }}>Recent transcripts</h2>
       {transcripts.map(transcript => (
-        <RecentTranscripts key={transcript.id} transcripts={transcripts} />
+        <RecentTranscripts key={transcript.id} transcripts={transcript} />
       ))}
     </div>
   );
@@ -86,12 +92,11 @@ const DashBoard = ({ user }) => {
               Update Account
             </UpdateAccount>
           </ProfileWrapper>
-
           {/* Calls Components */}
-          {/* {isMobile ? null : ContactList()} */}
-          {/* {isMobile ? null : TranscriptList()} */}
+          {isMobile ? null : ContactList()}
           {/* <RecentTranscripts transcripts={transcripts} /> */}
         </div>
+        {isMobile ? null : TranscriptList()}
         <ModalPhoneNumber user={user} />
 
         {/* Conditional render menu buttons */}
