@@ -22,10 +22,10 @@ function useAuth() {
   React.useEffect(() => {
     return firebase.auth().onAuthStateChanged(async firebaseUser => {
       if (firebaseUser) {
-        const x = await fetchUser(firebaseUser.uid);
-        if (x) {
+        const updatedUser = await fetchUser(firebaseUser.uid);
+        if (updatedUser) {
           const currentUser = {
-            ...x,
+            ...updatedUser,
           };
           setUser(currentUser);
           window.localStorage.setItem('user', JSON.stringify(currentUser));
