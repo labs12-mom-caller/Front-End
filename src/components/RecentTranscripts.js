@@ -4,17 +4,29 @@ import { UpcomingCallsComponent } from '../styles/UpcomingCalls';
 
 function RecentTranscripts({ transcripts }) {
   return (
-    <UpcomingCallsComponent>
+    <UpcomingCallsComponent
+      style={{ overflow: 'hidden', maxHeight: '100px', maxWidth: '80%' }}
+    >
       <img
-        src='https://lh4.googleusercontent.com/-zMAmXLwB4do/AAAAAAAAAAI/AAAAAAAAAaY/Udt0zCXYzKI/photo.jpg'
+        src={`${transcripts.photoUrl}`}
         alt='contact img'
+        style={{ maxWidth: '100px', maxHeight: '100px' }}
       />
-      <span>
-        <strong>{transcripts.contactName}</strong>
-      </span>
-      <span>
-        Date: {transcripts.callDate} Time: {transcripts.callTime}
-      </span>
+      <div
+        style={{
+          maxWidth: '80%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <span>
+          <strong>{transcripts.contactName}</strong>
+        </span>
+        <span style={{ maxWidth: '80%', marginLeft: '14%' }}>
+          {transcripts.transcript}
+        </span>
+      </div>
     </UpcomingCallsComponent>
   );
 }

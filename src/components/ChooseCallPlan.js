@@ -33,7 +33,7 @@ const ChooseCallPlan = ({ contactId, userId }) => {
 
   const selectPaid = e => {
     e.preventDefault();
-    navigate(`/choose/${userId}/${contactId}/${free}/schedule`);
+    navigate(`/choose/${userId}/${contactId}/${paid}/schedule`);
   };
 
   return (
