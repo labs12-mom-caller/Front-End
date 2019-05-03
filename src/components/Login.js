@@ -3,24 +3,18 @@
 import React, { useState } from 'react';
 import { Formik } from 'formik';
 import firebase from 'firebase';
-import { MDBCol, MDBContainer, MDBRow, MDBFooter } from 'mdbreact';
-import { TiArrowLeftThick } from 'react-icons/ti';
+// import { TiArrowLeftThick } from 'react-icons/ti';
 import styled from 'styled-components';
 import { signup } from '../app/utils';
 import img from '../assets/images/womanOnPhone.jpg';
 import bottomImg from '../assets/images/festivities.svg';
 import logo from '../assets/images/icons8-google.svg';
 import {
-  // DefaultButtonRed,
-  // DefaultButtonBlue,
   DefaultInput,
   FormikWrapper,
-  // DefaultButtonRedBG,
   DefaultButtonBlueBG,
   styles,
 } from '../styles/styledDefaultComponents';
-
-const isMobile = window.innerWidth <= 768;
 
 function Login() {
   // state
@@ -43,6 +37,13 @@ function Login() {
         {!hasAccount && (
           <>
             <h1 className='loginHeader'>ReCaller</h1>
+            <button
+              className='signInHeader'
+              type='button'
+              onClick={() => setHasAccount(true)}
+            >
+              Sign Up
+            </button>
             <FormikWrapper style={{ marginTop: '5px' }}>
               <Formik
                 initialValues={{
@@ -148,7 +149,7 @@ function Login() {
                 )}
               </Formik>
             </FormikWrapper>
-            <img src={bottomImg} className='bottomImg' />
+            <img src={bottomImg} className='bottomImg' alt='bottom img' />
             {!hasAccount && (
               <p className='haveAccountText'>
                 already have an account?{' '}
@@ -163,28 +164,19 @@ function Login() {
           </>
         )}
         <div className='signInContainer'>
-          {/* {hasAccount && (
-            <DefaultButtonBlueBG
-              className='backSignUp'
-              type='button'
-              onClick={() => setHasAccount(null)}
-            >
-              <TiArrowLeftThick className='backLogo' />{' '}
-              <p className='backBtnText'>to sign up page !</p>
-            </DefaultButtonBlueBG>
-          )} */}
-
           {hasAccount && (
             <div className='hasAccount' style={{ justifyContent: 'center' }}>
-              <h1 className='loginHeader' style={{ marginBottom: '10%' }}>
+              <h1 className='loginHeader' style={{ marginBottom: '2%' }}>
                 ReCaller
               </h1>
-              {/* <DefaultButtonBlueBG
-                className='googleLogin'
-                onClick={handleSignIn}
+
+              <button
+                className='logInH2'
+                type='button'
+                onClick={() => setHasAccount  (false)}
               >
-                google login
-              </DefaultButtonBlueBG> */}
+                Log In
+              </button>
               <form
                 className='signInForm'
                 style={{
@@ -232,6 +224,7 @@ function Login() {
                   src={bottomImg}
                   className='bottomImg'
                   style={{ marginTop: '5%' }}
+                  alt='bottom img'
                 />
                 {hasAccount && (
                   <p className='haveAccountText'>
@@ -294,11 +287,33 @@ const WrapperDiv = styled.div`
       margin-top: 5%;
     }
   }
+  .signInHeader {
+    ${styles.logoText};
+    font-size: 2rem;
+    color: ${styles.colors.mainBlue};
+    background: none;
+    border: none;
+    @media (min-width: 992px) {
+      /* justify-content: space-between; */
+      /* align-self: baseline; */
+      /* margin-top: 0; */
+      /* margin-bottom: 10%; */
+      /* margin-left: 5%; */
+      /* padding-bottom: 21%; */
+      /* position: absolute;
+      top: 2%;
+      left: 2%; */
+      /* align-self: flex-start; */
+      margin-top: 2%;
+    }
+  }
+
   .signUpBtnG {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 70%;
+    border-radius: 50px;
     @media (min-width: 768px) {
       width: 70%;
     }
@@ -362,8 +377,10 @@ const WrapperDiv = styled.div`
     text-transform: uppercase;
     min-width: 70%;
     margin-bottom: 0;
+    background: #ff6f61;
     @media (min-width: 992px) {
-      min-width: 0px;
+      /* min-width: 0px; */
+      min-width: 70%;
       width: 142px;
       height: 50px;
       border-radius: 50px;
@@ -375,6 +392,26 @@ const WrapperDiv = styled.div`
       }
     }
   }
+  .logInH2 {
+    ${styles.logoText};
+    font-size: 2rem;
+    color: ${styles.colors.mainBlue};
+    margin-bottom: 10%;
+    background: none;
+    border: none;
+    @media (min-width: 992px) {
+      /* justify-content: space-between; */
+      /* align-self: baseline; */
+      /* margin-top: 0; */
+      /* margin-bottom: 10%; */
+      /* margin-left: 5%; */
+      /* padding-bottom: 21%; */
+      /* position: absolute;
+      top: 2%;
+      left: 2%; */
+      /* align-self: flex-start; */
+    }
+  }
   .haveAccountText {
     text-transform: capitalize;
     font-size: 1rem;
@@ -383,6 +420,7 @@ const WrapperDiv = styled.div`
     word-spacing: 0.1rem;
     /* margin-bottom: 8%; */
     /* margin-top: 35%; */
+
     @media (min-width: 768px) {
       font-size: 1.5rem;
       /* display: none; */

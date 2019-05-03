@@ -4,7 +4,6 @@ import * as Yup from 'yup';
 import { navigate } from '@reach/router';
 import { Formik } from 'formik';
 import styled from 'styled-components';
-import NavBar from './NavBar';
 import { styles } from '../styles/styledDefaultComponents';
 import { db } from '../firebase';
 // import { Wrapper } from '../styles/Login';
@@ -184,6 +183,7 @@ export const Wrapper = styled.div`
   justify-content: unset;
   align-items: center;
   min-height: 100vh;
+  margin-top: -8%;
 
   @media (max-width: 992px) {
     min-height: 60vh;
