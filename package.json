@@ -23,7 +23,6 @@
     "react-scripts": "3.0.0",
     "react-slick": "^0.24.0",
     "react-stripe-checkout": "^2.6.3",
-    "reactstrap": "^8.0.0",
     "styled-components": "^4.2.0",
     "yup": "^0.27.0"
   },
