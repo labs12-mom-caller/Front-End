@@ -185,6 +185,7 @@ export const Wrapper = styled.div`
   justify-content: unset;
   align-items: center;
   min-height: 100vh;
+  margin-top: -8%;
 
   @media (max-width: 992px) {
     min-height: 60vh;
