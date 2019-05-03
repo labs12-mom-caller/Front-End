@@ -98,9 +98,7 @@ exports.signupUserTwo = functions.firestore
       });
       admin
         .auth()
-        .generatePasswordResetLink({
-          email: data.email,
-        })
+        .generatePasswordResetLink(data.email)
         .then(link => {
           console.log(link);
         });
