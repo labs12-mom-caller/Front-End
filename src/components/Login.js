@@ -8,6 +8,7 @@ import { TiArrowLeftThick } from 'react-icons/ti';
 import styled from 'styled-components';
 import { signup } from '../app/utils';
 import img from '../assets/images/womanOnPhone.jpg';
+import bottomImg from '../assets/images/festivities.svg';
 import logo from '../assets/images/icons8-google.svg';
 import {
   // DefaultButtonRed,
@@ -42,7 +43,7 @@ function Login() {
         {!hasAccount && (
           <>
             <h1 className='loginHeader'>ReCaller</h1>
-            <FormikWrapper>
+            <FormikWrapper style={{ marginTop: '5px' }}>
               <Formik
                 initialValues={{
                   email: '',
@@ -147,6 +148,7 @@ function Login() {
                 )}
               </Formik>
             </FormikWrapper>
+            <img src={bottomImg} className='bottomImg' />
             {!hasAccount && (
               <p className='haveAccountText'>
                 already have an account?{' '}
@@ -252,7 +254,7 @@ const WrapperDiv = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  /* min-height: 100vh; */
+  min-height: 100vh;
   @media (min-width: 768px) {
     /* justify-content: unset; */
     /* min-height: 50vh; */
@@ -271,7 +273,8 @@ const WrapperDiv = styled.div`
       /* position: absolute;
       top: 2%;
       left: 2%; */
-      align-self: flex-start;
+      /* align-self: flex-start; */
+      margin-top: 5%;
     }
   }
   .signUpBtnG {
@@ -283,10 +286,10 @@ const WrapperDiv = styled.div`
       width: 70%;
     }
     @media (min-width: 992px) {
-      position: absolute;
-      right: 17%;
-      top: 27%;
-      display: flex;
+      /* position: absolute; */
+      /* right: 17%; */
+      /* top: 27%; */
+      /* display: flex;
       flex-direction: column-reverse;
       margin: 1rem auto;
       border: 2px solid ${styles.colors.mainBlue};
@@ -298,20 +301,20 @@ const WrapperDiv = styled.div`
       font-size: 1rem;
       text-transform: capitalize;
       font-weight: 700;
-      border-radius: 40px;
+      border-radius: 40px; */
     }
     .logo {
       max-width: 30px;
       max-height: 30px;
       margin-right: 1%;
       @media (min-width: 992px) {
-        margin-right: 3%;
+        /* margin-right: 3%;
         min-width: 120px;
         min-height: 120px;
 
         border-radius: 50%;
         background-color: #f3f3f3;
-        border: 15px solid #f3f3f3;
+        border: 15px solid #f3f3f3; */
       }
     }
     .signUpText {
@@ -322,6 +325,17 @@ const WrapperDiv = styled.div`
       @media (min-width: 992px) {
         width: 60%;
       }
+    }
+  }
+  .bottomImg {
+    max-width: 200px;
+    max-height: 200px;
+    margin-bottom: 8%;
+    @media (min-width: 992px) {
+      margin-bottom: 5%;
+    }
+    @media (min-width: 1600px) {
+      margin-bottom: 2%;
     }
   }
   .submitCustomBtn {
@@ -350,7 +364,8 @@ const WrapperDiv = styled.div`
     font-weight: 700;
     color: ${styles.colors.mainBlue};
     word-spacing: 0.1rem;
-    margin-bottom: 8%;
+    /* margin-bottom: 8%; */
+    /* margin-top: 35%; */
     @media (min-width: 768px) {
       font-size: 1.5rem;
       /* display: none; */
