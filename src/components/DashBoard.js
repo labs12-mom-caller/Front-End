@@ -67,11 +67,11 @@ function TranscriptList() {
 }
 
 const DashBoard = ({ user }) => {
-  console.log(user);
+  console.log(user, "From Dashboard");
   const { displayName, photoUrl, uid } = user;
   return (
     <div>
-      <NavBar user={user} />
+      {/* <NavBar user={user} /> */}
       <Wrapper>
         <div
           style={{ display: 'flex', flexDirection: 'row', maxWidth: '100%' }}
@@ -88,9 +88,9 @@ const DashBoard = ({ user }) => {
           </ProfileWrapper>
 
           {/* Calls Components */}
-          {/* {isMobile ? null : ContactList()} */}
-          {/* {isMobile ? null : TranscriptList()} */}
-          {/* <RecentTranscripts transcripts={transcripts} /> */}
+          {/* {isMobile ? null : ContactList()}
+          {isMobile ? null : TranscriptList()}
+          <RecentTranscripts transcripts={transcripts} /> */}
         </div>
         <ModalPhoneNumber user={user} />
 

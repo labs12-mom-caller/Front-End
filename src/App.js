@@ -10,6 +10,7 @@ import ChooseCallPlan from './components/ChooseCallPlan';
 import CallConfirmation from './components/CallConfirmation';
 import AboutUs from './components/AboutUs';
 import PreviousCalls from './components/dashboard/PreviousCalls';
+import NavBar from './components/NavBar';
 
 import UpdateAccount from './components/UpdateAccount';
 import { fetchUser } from './app/utils';
@@ -99,10 +100,11 @@ function App() {
   console.log(user, 'USERRRRR');
   return user ? (
     <>
+      <NavBar user={user} />
       <Router>
         <Redirect from='/' to={`user/${user.uid}`} noThrow />
         <DashBoard user={user} path='/user/:userId' />
-        <ChooseYourContact user={user} path='/choose' />
+        <ChooseYourContact user={user} path='/choose/:userId' />
         <ChooseCallPlan path='/choose/:userId/:contactId/call-plan' />
         <ScheduleFreeCall path='/choose/:userId/:contactId/:frequency/schedule-free' />
         <SchedulePaidCall path='/choose/:userId/:contactId/:frequency/schedule' />
