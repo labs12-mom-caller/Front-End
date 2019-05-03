@@ -96,10 +96,14 @@ exports.signupUserTwo = functions.firestore
         disabled: false,
         uid: data.id,
       });
-
-      admin.auth().generatePasswordResetLink({
-        email: data.email,
-      });
+      admin
+        .auth()
+        .generatePasswordResetLink({
+          email: data.email,
+        })
+        .then(link => {
+          console.log(link);
+        });
     } catch (e) {
       throw e;
     }

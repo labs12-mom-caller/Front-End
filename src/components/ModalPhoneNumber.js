@@ -49,6 +49,7 @@ const ModalPhoneNumber = ({ user }) => {
           </ModalHeader>
           <ModalBody>
             <form>
+              {/* TODO Validate phone number length */}
               <DefaultInput
                 type='text'
                 onChange={e => setPhoneNumber(e.target.value)}

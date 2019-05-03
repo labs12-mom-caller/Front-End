@@ -211,6 +211,18 @@ function Login() {
               </form>
             </>
           )}
+          {/* Eventually impement this */}
+          {/* {hasAccount && (
+          <p className='haveAccountText'>
+                don't have an account?{' '}
+                <span
+                  onClick={() => setHasAccount(false)}
+                  className='signInSpan'
+                >
+                  sign up!
+                </span>
+              </p>
+          )} */}
         </div>
 
         {authError && (
