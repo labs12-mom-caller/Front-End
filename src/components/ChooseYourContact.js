@@ -1,14 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { navigate } from '@reach/router';
 import { Formik } from 'formik';
 import styled from 'styled-components';
 import { styles } from '../styles/styledDefaultComponents';
-import { db } from '../firebase';
+import { db, firebase } from '../firebase';
 // import { Wrapper } from '../styles/Login';
 
-function Choose({ user, userId }) {
+function Choose({ userId }) {
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const fetchData = () => {
+      const user = firebase.auth().currentUser;
+      if (user.uid === userId) {
+        setUser({
+          displayName: user.displayName,
+          email: user.email,
+          photoUrl: user.photoURL,
+          uid: user.uid,
+        });
+        console.log(user);
+      } else {
+        navigate('/');
+      }
+    };
+    fetchData();
+  }, [userId]);
+
   return (
     <div>
       {/* <NavBar /> */}
@@ -20,7 +40,7 @@ function Choose({ user, userId }) {
           <Formik
             initialValues={{
               email: '',
-              name: '',
+              displayName: '',
               phoneNumber: '',
             }}
             onSubmit={(values, { setSubmitting }) => {
@@ -40,7 +60,7 @@ function Choose({ user, userId }) {
               email: Yup.string()
                 .email()
                 .required('Required'),
-              name: Yup.string()
+              displayName: Yup.string()
                 .min(2, 'Too Short!')
                 .max(50, 'Too Long!')
                 .required('Required'),
@@ -87,17 +107,17 @@ function Choose({ user, userId }) {
                     id='name'
                     placeholder='Enter your name'
                     type='text'
-                    value={values.name}
+                    value={values.displayName}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     className={
-                      errors.name && touched.name
+                      errors.displayName && touched.displayName
                         ? 'text-input error'
                         : 'text-input'
                     }
                   />
-                  {errors.name && touched.name && (
-                    <div className='input-feedback'>{errors.name}</div>
+                  {errors.displayName && touched.displayName && (
+                    <div className='input-feedback'>{errors.displayName}</div>
                   )}
                   <label htmlFor='phoneNumber' style={{ display: 'block' }}>
                     Phone Number
@@ -155,17 +175,17 @@ Choose.propTypes = {
   }),
   values: PropTypes.shape({
     email: PropTypes.string,
-    name: PropTypes.string,
+    displayName: PropTypes.string,
     phoneNumber: PropTypes.number,
   }),
   touched: PropTypes.shape({
     email: PropTypes.string,
-    name: PropTypes.string,
+    displayName: PropTypes.string,
     phoneNumber: PropTypes.number,
   }),
   errors: PropTypes.shape({
     email: PropTypes.string,
-    name: PropTypes.string,
+    displayName: PropTypes.string,
     phoneNumber: PropTypes.number,
   }),
   dirty: PropTypes.bool,

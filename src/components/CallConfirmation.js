@@ -12,7 +12,10 @@ const CallConfirmation = ({ contactId, navigate }) => {
     const getData = async () => {
       try {
         const fetchedContact = await fetchDoc(`/contacts/${contactId}`);
-        const formatted = moment(fetchedContact.next_call).format();
+        const formatted = moment(fetchedContact.next_call, 'X')
+          .tz(fetchedContact.timezone)
+          .format();
+        console.log(formatted);
         setContact(formatted);
         setUser(fetchedContact.user1.id);
       } catch (err) {
@@ -28,28 +31,36 @@ const CallConfirmation = ({ contactId, navigate }) => {
   };
 
   return (
-    <>
-      <h2>You&apos;re all set!</h2>
-      <p>You&apos;ll receive an email shortly confirming your subscription.</p>
-      <div>
-        <h3>Call Details</h3>
-        <p>Your first call is scheduled for:</p>
-        {contact && (
-          <>
-            <h4>{moment(contact.next_call).format('dddd')}</h4>
-            <h5>
-              {moment.tz(contact.next_call, contact.timezone).format('MMMM Do')}
-            </h5>
-            <h5>
-              {moment.tz(contact.next_call, contact.timezone).format('h:mm a')}
-            </h5>
-          </>
-        )}
-      </div>
-      <button type='button' onClick={goToDashboard}>
-        Continue to Dashboard
-      </button>
-    </>
+    contact && (
+      <>
+        <h2>You&apos;re all set!</h2>
+        <p>
+          You&apos;ll receive an email shortly confirming your subscription.
+        </p>
+        <div>
+          <h3>Call Details</h3>
+          <p>Your first call is scheduled for:</p>
+          {contact && (
+            <>
+              <h4>{moment(contact.next_call).format('dddd')}</h4>
+              <h5>
+                {moment
+                  .tz(contact.next_call, contact.timezone)
+                  .format('MMMM Do')}
+              </h5>
+              <h5>
+                {moment
+                  .tz(contact.next_call, contact.timezone)
+                  .format('h:mm a')}
+              </h5>
+            </>
+          )}
+        </div>
+        <button type='button' onClick={goToDashboard}>
+          Continue to Dashboard
+        </button>
+      </>
+    )
   );
 };
 

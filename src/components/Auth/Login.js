@@ -33,7 +33,10 @@ const Login = () => {
           .then(result => {
             setEmail('');
             setPassword('');
-            navigate(`/user/${result.user.uid}`);
+            localStorage.setItem('user', JSON.stringify(result.user));
+            setTimeout(() => {
+              navigate(`/`);
+            }, 500);
           })
           .catch(err => {
             setAuthError(true);
@@ -54,7 +57,8 @@ const Login = () => {
           .then(result => {
             setEmail('');
             setPassword('');
-            navigate(`/user/${result.user.uid}`);
+            localStorage.setItem('user', JSON.stringify(result.user));
+            navigate(`/`);
           })
           .catch(err => {
             setAuthError(true);

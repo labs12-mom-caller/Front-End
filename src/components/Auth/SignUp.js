@@ -1,6 +1,6 @@
 import React from 'react';
 import { Formik } from 'formik';
-import { Link } from '@reach/router';
+import { Link, navigate } from '@reach/router';
 
 import { signup } from '../../app/utils';
 import {
@@ -42,10 +42,11 @@ const SignUp = () => {
             return errors;
           }}
           onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
+            setTimeout(async () => {
               console.log(values);
-              signup(values);
+              const id = await signup(values);
               setSubmitting(false);
+              navigate(`/choose/${id}`);
             }, 400);
           }}
         >
@@ -112,7 +113,7 @@ const SignUp = () => {
       <p className='haveAccountText'>
         Already have an account?
         <Link to='/login' className='signInSpan'>
-          Sign Up
+          Login
         </Link>
       </p>
     </>
