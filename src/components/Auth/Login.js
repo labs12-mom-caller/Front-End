@@ -45,7 +45,9 @@ const Login = () => {
       .then(result => {
         setEmail('');
         setPassword('');
-        navigate(`/`);
+        setTimeout(() => {
+          navigate(`/`);
+        }, 1000);
       })
       .catch(err => {
         setAuthError(true);
