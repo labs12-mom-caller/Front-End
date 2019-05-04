@@ -2,14 +2,13 @@ import React from 'react';
 import { Router } from '@reach/router';
 
 import { firebase, db } from './firebase';
+
 import Login from './components/Auth/Login';
 import LandingPage from './components/LandingPage';
 import SignUp from './components/Auth/SignUp';
-
 import NavBar from './components/NavBar';
 import DashMain from './components/DashMain';
 import Footer from './components/Footer';
-
 import ChooseCallPlan from './components/ChooseCallPlan';
 import ChooseYourContact from './components/ChooseYourContact';
 import ScheduleFreeCall from './components/ScheduleFreeCall';
@@ -20,6 +19,9 @@ import AboutUs from './components/AboutUs';
 import UpdateAccount from './components/UpdateAccount';
 
 import { fetchUser } from './app/utils';
+
+import Global from './styles/Global';
+import CSSReset from './styles/CSSReset';
 
 function useAuth() {
   const [user, setUser] = React.useState(
@@ -66,6 +68,8 @@ function App() {
 
   return user ? (
     <>
+      <CSSReset />
+      <Global />
       <NavBar user={user} />
       <Router>
         <DashMain user={user} path='/' exact />
@@ -82,6 +86,8 @@ function App() {
     </>
   ) : (
     <>
+      <CSSReset />
+      <Global />
       <Router>
         <LandingPage path='/' exact />
         <SignUp path='/signup' />

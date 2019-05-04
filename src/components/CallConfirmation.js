@@ -5,8 +5,11 @@ import moment from 'moment-timezone';
 import { fetchDoc } from '../app/utils';
 
 const CallConfirmation = ({ contactId, navigate }) => {
-  const [contact, setContact] = useState(null);
-  const [user, setUser] = useState(null);
+  const [contact, setContact] = useState({
+    next_call: '',
+    timezone: '',
+    fetched: false,
+  });
 
   useEffect(() => {
     const getData = async () => {
@@ -15,8 +18,12 @@ const CallConfirmation = ({ contactId, navigate }) => {
         const formatted = moment(fetchedContact.next_call, 'X')
           .tz(fetchedContact.timezone)
           .format();
-        setContact(formatted);
-        setUser(fetchedContact.user1.id);
+        console.log(formatted);
+        setContact({
+          next_call: formatted,
+          timezone: fetchedContact.timezone,
+          fetched: true,
+        });
       } catch (err) {
         console.log(err);
       }
@@ -29,37 +36,31 @@ const CallConfirmation = ({ contactId, navigate }) => {
     navigate('/');
   };
 
-  return (
-    contact && (
-      <>
-        <h2>You&apos;re all set!</h2>
-        <p>
-          You&apos;ll receive an email shortly confirming your subscription.
-        </p>
-        <div>
-          <h3>Call Details</h3>
-          <p>Your first call is scheduled for:</p>
-          {contact && (
-            <>
-              <h4>{moment(contact.next_call).format('dddd')}</h4>
-              <h5>
-                {moment
-                  .tz(contact.next_call, contact.timezone)
-                  .format('MMMM Do')}
-              </h5>
-              <h5>
-                {moment
-                  .tz(contact.next_call, contact.timezone)
-                  .format('h:mm a')}
-              </h5>
-            </>
-          )}
-        </div>
-        <button type='button' onClick={goToDashboard}>
-          Continue to Dashboard
-        </button>
-      </>
-    )
+  return contact.fetched ? (
+    <>
+      <h2>You&apos;re all set!</h2>
+      <p>You&apos;ll receive an email shortly confirming your subscription.</p>
+      <div>
+        <h3>Call Details</h3>
+        <p>Your first call is scheduled for:</p>
+        {contact && (
+          <>
+            <h4>{moment(contact.next_call).format('dddd')}</h4>
+            <h5>
+              {moment.tz(contact.next_call, contact.timezone).format('MMMM Do')}
+            </h5>
+            <h5>
+              {moment.tz(contact.next_call, contact.timezone).format('h:mm a')}
+            </h5>
+          </>
+        )}
+      </div>
+      <button type='button' onClick={goToDashboard}>
+        Continue to Dashboard
+      </button>
+    </>
+  ) : (
+    <h2>Loading...</h2>
   );
 };
 

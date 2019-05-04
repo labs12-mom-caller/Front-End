@@ -93,7 +93,6 @@ const SchedulePaidCall = ({ userId, contactId, frequency }) => {
         <option>Thursday</option>
         <option>Friday</option>
         <option>Saturday</option>
-        <option>Sunday</option>
       </select>
       <label htmlFor='selected_time'>Time</label>
       <input
