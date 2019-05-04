@@ -1,34 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { navigate } from '@reach/router';
 import { Formik } from 'formik';
 import styled from 'styled-components';
 import { styles } from '../styles/styledDefaultComponents';
-import { db, firebase } from '../firebase';
+import { db } from '../firebase';
 // import { Wrapper } from '../styles/Login';
 
-function Choose({ userId }) {
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    const fetchData = () => {
-      const user = firebase.auth().currentUser;
-      if (user.uid === userId) {
-        setUser({
-          displayName: user.displayName,
-          email: user.email,
-          photoUrl: user.photoURL,
-          uid: user.uid,
-        });
-        console.log(user);
-      } else {
-        navigate('/');
-      }
-    };
-    fetchData();
-  }, [userId]);
-
+function Choose({ user, userId }) {
   return (
     <div>
       {/* <NavBar /> */}
@@ -100,11 +80,11 @@ function Choose({ userId }) {
                   {errors.email && touched.email && (
                     <div className='input-feedback'>{errors.email}</div>
                   )}
-                  <label htmlFor='name' style={{ display: 'block' }}>
+                  <label htmlFor='displayName' style={{ display: 'block' }}>
                     Name
                   </label>
                   <input
-                    id='name'
+                    id='displayName'
                     placeholder='Enter your name'
                     type='text'
                     value={values.displayName}
@@ -125,7 +105,7 @@ function Choose({ userId }) {
                   <input
                     id='phoneNumber'
                     placeholder='Enter your number'
-                    type='number'
+                    type='tel'
                     value={values.phoneNumber}
                     onChange={handleChange}
                     onBlur={handleBlur}

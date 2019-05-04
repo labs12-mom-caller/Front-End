@@ -15,7 +15,6 @@ const CallConfirmation = ({ contactId, navigate }) => {
         const formatted = moment(fetchedContact.next_call, 'X')
           .tz(fetchedContact.timezone)
           .format();
-        console.log(formatted);
         setContact(formatted);
         setUser(fetchedContact.user1.id);
       } catch (err) {
@@ -27,7 +26,7 @@ const CallConfirmation = ({ contactId, navigate }) => {
 
   const goToDashboard = e => {
     e.preventDefault();
-    navigate(`/user/${user}`);
+    navigate('/');
   };
 
   return (
