@@ -6,7 +6,6 @@ import { signup } from '../../app/utils';
 import {
   DefaultInput,
   DefaultButtonBlueBG,
-  styles,
   FormikWrapper,
 } from '../../styles/styledDefaultComponents';
 

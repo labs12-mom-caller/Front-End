@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Link } from '@reach/router';
+import { Link, navigate } from '@reach/router';
 import { logout } from '../app/utils';
 
 class NavbarPage extends Component {
@@ -23,6 +23,7 @@ class NavbarPage extends Component {
     e.preventDefault();
     window.localStorage.clear();
     logout();
+    navigate('/');
   };
 
   render() {
@@ -74,12 +75,12 @@ class NavbarPage extends Component {
               className='NavbarLink'
               style={{ color: '#6B6D76', listStyle: 'none' }}
             >
-              <Link
+              {/* <Link
                 style={{ color: '#083D77', padding: '5px' }}
                 to={`/choose/${this.props.user.uid}`}
               >
                 Choose Contact
-              </Link>
+              </Link> */}
             </li>
             <li
               className='NavbarLink'

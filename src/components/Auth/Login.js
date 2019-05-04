@@ -5,14 +5,12 @@ import firebase from 'firebase';
 import { navigate, Link } from '@reach/router';
 import styled from 'styled-components';
 import bottomImg from '../../assets/images/festivities.svg';
-import logo from '../../assets/images/icons8-google.svg';
+// import logo from '../../assets/images/icons8-google.svg';
 import {
   DefaultInput,
   DefaultButtonBlueBG,
   styles,
 } from '../../styles/styledDefaultComponents';
-
-const isMobile = window.innerWidth <= 768;
 
 const Login = () => {
   const [email, setEmail] = useState('');

@@ -3,7 +3,6 @@ import { Router } from '@reach/router';
 
 import { firebase, db } from './firebase';
 import Login from './components/Auth/Login';
-import DashBoard from './components/DashBoard';
 import LandingPage from './components/LandingPage';
 import SignUp from './components/Auth/SignUp';
 

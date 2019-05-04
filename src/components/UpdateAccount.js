@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { db, storage } from '../firebase';
 import { ProfileImage } from '../styles/Dashboard';
-import NavBar from './NavBar';
 
 const useInputValue = initialValue => {
   const [value, setValue] = React.useState(initialValue);
@@ -46,7 +45,6 @@ const UpdateAccount = ({ user }) => {
 
   return (
     <div style={{ width: '100%' }}>
-      <NavBar />
       <ProfileImage
         style={{ width: '15%' }}
         src={user.photoUrl}
