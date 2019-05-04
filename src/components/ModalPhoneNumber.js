@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
 import styled from 'styled-components';
-import { DefaultInput } from '../styles/styledDefaultComponents/index';
+// import { DefaultInput } from '../styles/styledDefaultComponents/index';
 import { fetchUser } from '../app/utils';
 import { db } from '../firebase';
 

@@ -1,120 +1,121 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { Link, navigate } from '@reach/router';
 import { logout } from '../app/utils';
 
-class NavbarPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      collapseID: '',
-    };
-  }
+const NavbarPage = ({ user }) => {
+  const [collapseId, setCollapseId] = useState('');
 
-  toggleCollapse = collapseID => () => {
-    this.setState(prevState => ({
-      collapseID: prevState.collapseID !== collapseID ? collapseID : '',
-    }));
+  const toggleCollapse = newId => () => {
+    return newId !== collapseId ? setCollapseId('') : setCollapseId(newId);
   };
 
-  logoutHandler = e => {
+  const logoutHandler = e => {
     e.preventDefault();
     window.localStorage.clear();
     logout();
     navigate('/');
   };
 
-  render() {
-    const { collapseID } = this.state;
-    return (
-      <div>
-        <Navbar className={collapseID ? 'Navbar__ToggleShow' : null}>
-          <div className='NavbarLink NavbarLink-brand'>ReCaller</div>
-          <nav
-            className={
-              collapseID
-                ? 'Navbar__Items Navbar__ToggleShow'
-                : 'Navbar__Items Navbar__Items--right'
-            }
+  return (
+    <div>
+      <Navbar className={collapseId ? 'Navbar__ToggleShow' : null}>
+        <div className='NavbarLink NavbarLink-brand'>ReCaller</div>
+        <nav
+          className={
+            collapseId
+              ? 'Navbar__Items Navbar__ToggleShow'
+              : 'Navbar__Items Navbar__Items--right'
+          }
+        >
+          <li
+            className='NavbarLink'
+            style={{ color: '#6B6D76', listStyle: 'none' }}
           >
-            <li
-              className='NavbarLink'
-              style={{ color: '#6B6D76', listStyle: 'none' }}
+            <Link style={{ color: '#083D77', padding: '5px' }} to='/'>
+              Dashboard
+            </Link>
+          </li>
+          <li
+            className='NavbarLink'
+            style={{ color: '#6B6D76', listStyle: 'none' }}
+          >
+            <Link
+              style={{ color: '#083D77', padding: '5px' }}
+              to={`/choose/${user.uid}`}
             >
-              <Link style={{ color: '#083D77', padding: '5px' }} to='/'>
-                Dashboard
-              </Link>
-            </li>
-            <li
-              className='NavbarLink'
-              style={{ color: '#6B6D76', listStyle: 'none' }}
+              Add New Call
+            </Link>
+          </li>
+          <li
+            className='NavbarLink'
+            style={{ color: '#6B6D76', listStyle: 'none' }}
+          >
+            <Link style={{ color: '#083D77', padding: '5px' }} to='/'>
+              Currently Scheduled Calls
+            </Link>
+          </li>
+          <li
+            className='NavbarLink'
+            style={{ color: '#6B6D76', listStyle: 'none' }}
+          >
+            <Link
+              style={{ color: '#083D77', padding: '5px' }}
+              to={`/prev-calls/${user.uid}`}
             >
-              <Link
+              Previous Calls
+            </Link>
+          </li>
+          <li
+            className='NavbarLink'
+            style={{ color: '#6B6D76', listStyle: 'none' }}
+          >
+            {/* <Link
                 style={{ color: '#083D77', padding: '5px' }}
-                to={`/choose/${this.props.user.uid}`}
-              >
-                Add New Call
-              </Link>
-            </li>
-            <li
-              className='NavbarLink'
-              style={{ color: '#6B6D76', listStyle: 'none' }}
-            >
-              <Link style={{ color: '#083D77', padding: '5px' }} to='/'>
-                Currently Scheduled Calls
-              </Link>
-            </li>
-            <li
-              className='NavbarLink'
-              style={{ color: '#6B6D76', listStyle: 'none' }}
-            >
-              <Link
-                style={{ color: '#083D77', padding: '5px' }}
-                to={`/prev-calls/${this.props.user.uid}`}
-              >
-                Previous Calls
-              </Link>
-            </li>
-            <li
-              className='NavbarLink'
-              style={{ color: '#6B6D76', listStyle: 'none' }}
-            >
-              {/* <Link
-                style={{ color: '#083D77', padding: '5px' }}
-                to={`/choose/${this.props.user.uid}`}
+                to={`/choose/${user.uid}`}
               >
                 Choose Contact
               </Link> */}
-            </li>
-            <li
-              className='NavbarLink'
-              style={{ color: '#6B6D76', listStyle: 'none' }}
-            >
-              <Link
-                style={{ color: '#083D77', padding: '5px' }}
-                to='/'
-                onClick={this.logoutHandler}
-              >
-                Sign Out
-              </Link>
-            </li>
-          </nav>
-          <div
-            onClick={this.toggleCollapse('navbarCollapse1')}
-            id='navbarCollapse1'
-            isopen={collapseID}
-            className='NavbarLink NavbarLink-toggle'
+          </li>
+          <li
+            className='NavbarLink'
+            style={{ color: '#6B6D76', listStyle: 'none' }}
           >
-            <i className='fas fa-bars' />
-          </div>
-          <Hr className='hr-underline' />
-        </Navbar>
-      </div>
-    );
-  }
-}
+            <Link
+              style={{ color: '#083D77', padding: '5px' }}
+              to='/'
+              onClick={logoutHandler}
+            >
+              Sign Out
+            </Link>
+          </li>
+        </nav>
+        <div
+          onClick={toggleCollapse('navbarCollapse1')}
+          id='navbarCollapse1'
+          isopen={collapseId}
+          className='NavbarLink NavbarLink-toggle'
+        >
+          <i className='fas fa-bars' />
+        </div>
+        <Hr className='hr-underline' />
+      </Navbar>
+    </div>
+  );
+};
+
+NavbarPage.propTypes = {
+  user: PropTypes.shape({
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+    photoUrl: PropTypes.string,
+    uid: PropTypes.string,
+    phoneNumber: PropTypes.string,
+  }),
+};
 
 export default NavbarPage;
 
