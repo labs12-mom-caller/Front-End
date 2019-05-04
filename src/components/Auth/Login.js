@@ -21,47 +21,35 @@ const Login = () => {
 
   const handleSignIn = e => {
     e.preventDefault();
-    firebase
+    return firebase
       .auth()
-      .setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      .then(() => {
-        return firebase
-          .auth()
-          .signInWithEmailAndPassword(email, password)
-          .then(result => {
-            setEmail('');
-            setPassword('');
-            localStorage.setItem('user', JSON.stringify(result.user));
-            setTimeout(() => {
-              navigate(`/`);
-            }, 500);
-          })
-          .catch(err => {
-            setAuthError(true);
-            console.log(`Error code: ${err.code}, Message: ${err.message}`);
-          });
+      .signInWithEmailAndPassword(email, password)
+      .then(result => {
+        setEmail('');
+        setPassword('');
+        setTimeout(() => {
+          navigate(`/`);
+        }, 500);
+      })
+      .catch(err => {
+        setAuthError(true);
+        console.log(`Error code: ${err.code}, Message: ${err.message}`);
       });
   };
 
   const handleGoogleSignIn = e => {
     e.preventDefault();
-    firebase
+    return firebase
       .auth()
-      .setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      .then(() => {
-        return firebase
-          .auth()
-          .signInWithPopup(provider)
-          .then(result => {
-            setEmail('');
-            setPassword('');
-            localStorage.setItem('user', JSON.stringify(result.user));
-            navigate(`/`);
-          })
-          .catch(err => {
-            setAuthError(true);
-            console.log(`Error code: ${err.code}, Message: ${err.message}`);
-          });
+      .signInWithPopup(provider)
+      .then(result => {
+        setEmail('');
+        setPassword('');
+        navigate(`/`);
+      })
+      .catch(err => {
+        setAuthError(true);
+        console.log(`Error code: ${err.code}, Message: ${err.message}`);
       });
   };
 

@@ -51,7 +51,10 @@ class NavbarPage extends Component {
               className='NavbarLink'
               style={{ color: '#6B6D76', listStyle: 'none' }}
             >
-              <Link style={{ color: '#083D77', padding: '5px' }} to='/'>
+              <Link
+                style={{ color: '#083D77', padding: '5px' }}
+                to={`/choose/${this.props.user.uid}`}
+              >
                 Add New Call
               </Link>
             </li>
@@ -60,14 +63,17 @@ class NavbarPage extends Component {
               style={{ color: '#6B6D76', listStyle: 'none' }}
             >
               <Link style={{ color: '#083D77', padding: '5px' }} to='/'>
-                Review Calls
+                Currently Scheduled Calls
               </Link>
             </li>
             <li
               className='NavbarLink'
               style={{ color: '#6B6D76', listStyle: 'none' }}
             >
-              <Link style={{ color: '#083D77', padding: '5px' }} to='/'>
+              <Link
+                style={{ color: '#083D77', padding: '5px' }}
+                to={`/prev-calls/${this.props.user.uid}`}
+              >
                 Previous Calls
               </Link>
             </li>

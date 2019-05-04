@@ -63,6 +63,7 @@ function useAuth() {
 function App() {
   const user = useAuth();
   console.log(user, 'USERRRRR');
+
   return user ? (
     <>
       <NavBar user={user} />
