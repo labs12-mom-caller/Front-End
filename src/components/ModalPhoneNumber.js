@@ -92,7 +92,7 @@ const ModalPhoneNumber = ({ user }) => {
     if (user) {
       async function fetchData() {
         const userCheck = await fetchUser(user.uid);
-        console.log(userCheck);
+        // console.log(userCheck);
         if (!userCheck.phoneNumber) {
           setModal(true);
         }

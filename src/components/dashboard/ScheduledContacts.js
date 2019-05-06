@@ -23,33 +23,35 @@ const ScheduledContacts = ({ user }) => {
           .where(`${userContacts.docs.id}`, '==', `${user.uid}`)
           .get();
 
-          console.log(userContacts, "from contacts")
+        console.log(userContacts, 'from contacts');
 
-        if (!allContacts.empty) {
-          allContacts.forEach(async doc => {
-            const contactData = {
-              // callId: doc.id,
-              // user2: {},
-              // contactId: '',
-              // audio: doc.data().audio,
-              // call_duration: doc.data().call_duration,
-              // call_time: moment(doc.data().call_time.toDate()).format(),
-              user2: {},
-              next_call: moment(doc.data().call_time.toDate()).format(),
-
-            };
-            const contactRef = doc.data().userContacts.docs.id.path;
-            await db.doc(contactRef).onSnapshot(async doc => {
-              contactData.user2 = doc.data().user2;
-              await db.doc(doc.data().user2.path).onSnapshot(doc => {
-                contactData.user2 = {
-                  displayName: doc.data().displayName
-                };
-                setContacts(c => [...c, contactData]);
-              });
+        // if (!allContacts.empty) {
+        console.log('fire here');
+        userContacts.forEach(async doc => {
+          const contactData = {
+            // callId: doc.id,
+            // user2: {},
+            // contactId: '',
+            // audio: doc.data().audio,
+            // call_duration: doc.data().call_duration,
+            // call_time: moment(doc.data().call_time.toDate()).format(),
+            user2: {},
+            next_call: moment(doc.data().next_call.toDate()).format(),
+          };
+          const arg = `${userContacts.docs.id}.path`;
+          const contactRef = doc.data().arg;
+          console.log(contactRef, 'from contactRef');
+          await db.doc(contactRef.id).onSnapshot(async doc => {
+            contactData.user2 = doc.data().user2;
+            await db.doc(doc.data().user2.path).onSnapshot(doc => {
+              contactData.user2 = {
+                displayName: doc.data().displayName,
+              };
+              setContacts(c => [...c, contactData]);
             });
           });
-        }
+        });
+        // }
       });
     };
     fetchData();

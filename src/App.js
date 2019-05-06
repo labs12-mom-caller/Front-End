@@ -58,13 +58,13 @@ function useAuth() {
       }
     });
   }, []);
-  console.log(user);
+  // console.log(user);
   return user;
 }
 
 function App() {
   const user = useAuth();
-  console.log(user, 'USERRRRR');
+  // console.log(user, 'USERRRRR');
 
   return user ? (
     <>
