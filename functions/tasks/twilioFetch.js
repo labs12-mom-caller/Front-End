@@ -9,8 +9,6 @@ const client = require('twilio')(accountSid, authToken);
 
 sgMail.setApiKey(functions.config().sendgrid.key);
 
-const callEmail = require('./helpers/callEmail.js');
-
 exports.handler = async (req, res, firestore, storage) => {
   const calls = firestore.collection('calls');
   const contacts = firestore.collection('contacts');
@@ -43,6 +41,7 @@ exports.handler = async (req, res, firestore, storage) => {
               action: 'read',
               expires: '01-01-3000',
             });
+
             const response = await axios({
               method: 'post',
               url: 'https://brain.deepgram.com/v2/listen',
@@ -62,6 +61,7 @@ exports.handler = async (req, res, firestore, storage) => {
                 url,
               },
             });
+
             await calls.doc(id).update({
               audio: url,
               fetched: true,
@@ -69,39 +69,27 @@ exports.handler = async (req, res, firestore, storage) => {
               call_time: recording.dateCreated,
               deepgram: response.data,
             });
-            await client.recordings(sid).remove();
-            const userInfo = {
-              user1email: '',
-              user1name: '',
-              user2email: '',
-              user2name: '',
-            };
-            const contact = await contacts
-              .doc(doc.data().contact_ref.id)
-              .onSnapshot(async doc => {
-                const user1 = await users.doc(doc.data().user1.id).get();
-                userInfo.user1email = user1.data().email;
-                userInfo.user1name = user1.data().displayName;
 
-                const user2 = await users.doc(doc.data().user2.id).get();
-                userInfo.user2email = user2.data().email;
-                userInfo.user2name = user2.data().displayName;
-              });
+            await client.recordings(sid).remove();
+
+            const contact = await contacts.doc(doc.data().contact_ref.id).get();
+            const user1 = await users.doc(contact.data().user1.id).get();
+            const user2 = await users.doc(contact.data().user2.id).get();
 
             const msg = {
               personalizations: [
                 {
-                  to: userInfo.user1email,
-                  name: userInfo.user1name,
+                  to: user1.data().email,
+                  name: user1.data().displayName,
                   dynamic_template_data: {
-                    user2: userInfo.user2name,
+                    user2: user2.data().displayName,
                   },
                 },
                 {
-                  to: userInfo.user2email,
-                  name: userInfo.user2name,
+                  to: user2.data().email,
+                  name: user2.data().displayName,
                   dynamic_template_data: {
-                    user2: userInfo.user1name,
+                    user2: user1.data().displayName,
                   },
                 },
               ],

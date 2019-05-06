@@ -60,12 +60,7 @@ const PreviousCalls = ({ userId }) => {
             <p>Listen to call</p>
             <audio controls>
               <source src={call.audio} type='audio/wav' />
-              <track
-                src='transcription.vtt'
-                kind='transcription'
-                srcLang='en'
-                label='English'
-              />
+              <track />
               Your browser does not support the audio element
             </audio>
           </div>
