@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import React, { useState } from 'react';
 import { navigate } from '@reach/router';
 import PropTypes from 'prop-types';
@@ -18,6 +19,7 @@ const UpdateAccount = ({ user }) => {
   const displayName = useInputValue(user.displayName);
   const phoneNumber = useInputValue(user.phoneNumber);
   const email = useInputValue(user.email);
+  const newPassword = useInputValue('');
   const [imageInput, setImageInput] = useState(null);
 
   function fileUpload(e) {
@@ -59,6 +61,16 @@ const UpdateAccount = ({ user }) => {
       .then(user => {
         navigate(`/`);
       });
+  };
+
+  const passwordUpdate = async () => {
+    const userOne = firebase.auth().currentUser;
+    try {
+      await userOne.updatePassword(newPassword.value);
+      console.log('successfully updated password');
+    } catch (error) {
+      console.log('error updating password', error);
+    }
   };
 
   return (
@@ -110,6 +122,19 @@ const UpdateAccount = ({ user }) => {
           Profile Picture
           <input onChange={uploadFile} type='file' />
         </label>
+        <label htmlFor='password'>
+          password
+          <input
+            type='password'
+            id='password'
+            {...newPassword}
+            placeholder='enter your password'
+          />
+        </label>
+        <button onClick={passwordUpdate} type='button'>
+          {' '}
+          Update Password{' '}
+        </button>
       </UpdateForm>
     </div>
   );
