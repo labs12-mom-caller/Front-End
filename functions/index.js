@@ -84,7 +84,6 @@ exports.signupUserTwo = functions.firestore
   .document(`/users/{useruid}`)
   .onCreate(async (snapshot, context) => {
     const data = snapshot.data();
-    console.log(data);
     try {
       await admin.auth().createUser({
         email: data.email,
@@ -95,14 +94,17 @@ exports.signupUserTwo = functions.firestore
         displayName: data.displayName,
         photoURL: data.photoURL,
         disabled: false,
-        uid: data.id,
+        uid: snapshot.id,
       });
-      admin
+
+      const passwordLink = await admin
         .auth()
-        .generatePasswordResetLink(data.email)
-        .then(link => {
-          console.log(link);
-        });
+        .generatePasswordResetLink(data.email);
+      const verifyLink = await admin
+        .auth()
+        .generateEmailVerificationLink(data.email);
+      console.log(passwordLink);
+      console.log(verifyLink);
     } catch (e) {
       throw e;
     }

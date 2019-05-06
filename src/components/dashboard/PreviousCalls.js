@@ -58,14 +58,10 @@ const PreviousCalls = ({ userId }) => {
             <p>{moment(call.call_time).format('dddd, MMMM Do [at] h:mm A')}</p>
             <p>Call duration: {call.call_duration} seconds</p>
             <p>Listen to call</p>
+            {/* eslint-disable jsx-a11y/media-has-caption */}
             <audio controls>
               <source src={call.audio} type='audio/wav' />
-              <track
-                src='transcription.vtt'
-                kind='transcription'
-                srcLang='en'
-                label='English'
-              />
+              <track />
               Your browser does not support the audio element
             </audio>
           </div>

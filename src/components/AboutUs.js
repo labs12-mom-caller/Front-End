@@ -10,14 +10,12 @@ import {
   MDBContainer,
   MDBJumbotron,
 } from 'mdbreact';
-import NavBar from './NavBar';
+
 import { CardContainer } from '../styles/AboutUs';
 
 const AboutUs = () => {
   return (
     <div>
-      <NavBar />
-
       <div
         style={{
           display: 'flex',
