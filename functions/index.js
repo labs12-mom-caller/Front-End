@@ -3,12 +3,15 @@ const admin = require('firebase-admin');
 const stripe = require('stripe')(functions.config().stripe.token);
 const express = require('express');
 const cors = require('cors')({ origin: true });
+const sgMail = require('@sendgrid/mail');
 const caller = require('./tasks/caller.js');
 const fetch = require('./tasks/twilioFetch.js');
 const contactEmail = require('./tasks/contactEmail.js');
 
 const app = express();
 const serviceAccount = require('./serviceAccountKey.json');
+
+sgMail.setApiKey(functions.config().sendgrid.key);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -100,11 +103,33 @@ exports.signupUserTwo = functions.firestore
       const passwordLink = await admin
         .auth()
         .generatePasswordResetLink(data.email);
-      const verifyLink = await admin
-        .auth()
-        .generateEmailVerificationLink(data.email);
       console.log(passwordLink);
-      console.log(verifyLink);
+      const msg = {
+        personalizations: [
+          {
+            to: [
+              {
+                email: data.email,
+                name: data.displayName,
+              },
+            ],
+            dynamic_template_data: {
+              url: passwordLink,
+            },
+            subject: 'A friend or loved one has signed you up for ReCaller!',
+          },
+        ],
+        from: {
+          email: 'labsrecaller@gmail.com',
+          name: 'ReCaller Team',
+        },
+        reply_to: {
+          email: 'labsrecaller@gmail.com',
+          name: 'ReCaller',
+        },
+        template_id: 'd-6077c121962b439f983a559b6f3a57f8',
+      };
+      sgMail.send(msg);
     } catch (e) {
       throw e;
     }
