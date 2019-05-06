@@ -17,7 +17,7 @@ import CallConfirmation from './components/CallConfirmation';
 import PreviousCalls from './components/dashboard/PreviousCalls';
 import AboutUs from './components/AboutUs';
 import UpdateAccount from './components/UpdateAccount';
-
+import CallRecord from './components/dashboard/CallRecord';
 import { fetchUser } from './app/utils';
 
 import Global from './styles/Global';
@@ -58,13 +58,13 @@ function useAuth() {
       }
     });
   }, []);
-  console.log(user);
+  // console.log(user);
   return user;
 }
 
 function App() {
   const user = useAuth();
-  console.log(user, 'USERRRRR');
+  // console.log(user, 'USERRRRR');
 
   return user ? (
     <>
@@ -79,6 +79,7 @@ function App() {
         <SchedulePaidCall path='/choose/:userId/:contactId/:frequency/schedule' />
         <CallConfirmation path='/confirmation/:contactId' />
         <PreviousCalls path='prev-calls/:userId' />
+        <CallRecord path='prev-calls/:userId/:callId' />
         <AboutUs path='/about-us' />
         <UpdateAccount user={user} path='/account/:userId' />
       </Router>
