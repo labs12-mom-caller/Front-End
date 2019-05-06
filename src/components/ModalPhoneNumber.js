@@ -89,18 +89,22 @@ const ModalPhoneNumber = ({ user }) => {
   };
 
   useEffect(() => {
+    let mounted = true;
     if (user) {
       async function fetchData() {
         const userCheck = await fetchUser(user.uid);
-        console.log(userCheck);
+        // console.log(userCheck);
         if (!userCheck.phoneNumber) {
-          setModal(true);
+          if (mounted) setModal(true);
         }
       }
       setTimeout(() => {
         fetchData();
       }, 5000);
     }
+    return () => {
+      mounted = false;
+    };
   }, [modal, user]);
 
   if (user) {
