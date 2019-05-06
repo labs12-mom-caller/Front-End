@@ -4,12 +4,12 @@ import 'firebase/auth';
 import 'firebase/storage';
 
 const config = {
-  apiKey: 'AIzaSyBNkicTWQam_Bwok0XHRvZl3FZ4eapu8UU',
-  authDomain: 'recaller-14a1f.firebaseapp.com',
-  databaseURL: 'https://recaller-14a1f.firebaseio.com',
-  projectId: 'recaller-14a1f',
-  storageBucket: 'recaller-14a1f.appspot.com',
-  messagingSenderId: '448806748779',
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTHDOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASEURL,
+  projectId: process.env.REACT_APP_PROJECTID,
+  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
 };
 
 firebase.initializeApp(config);
