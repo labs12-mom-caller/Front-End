@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import React, { useState } from 'react';
 import { navigate } from '@reach/router';
 import PropTypes from 'prop-types';
@@ -17,6 +18,8 @@ const useInputValue = initialValue => {
 const UpdateAccount = ({ user }) => {
   const displayName = useInputValue(user.displayName);
   const phoneNumber = useInputValue(user.phoneNumber);
+  const email = useInputValue(user.email);
+  const newPassword = useInputValue('');
   const [imageInput, setImageInput] = useState(null);
 
   function fileUpload(e) {
@@ -43,6 +46,33 @@ const UpdateAccount = ({ user }) => {
     console.log(imageInput);
   };
 
+  const update = e => {
+    e.preventDefault();
+    if (imageInput) {
+      fileUpload(e);
+    }
+    db.doc(`users/${user.uid}`)
+      .set({
+        ...user,
+        displayName: displayName.value,
+        phoneNumber: phoneNumber.value,
+        email: email.value,
+      })
+      .then(user => {
+        navigate(`/`);
+      });
+  };
+
+  const passwordUpdate = async () => {
+    const userOne = firebase.auth().currentUser;
+    try {
+      await userOne.updatePassword(newPassword.value);
+      console.log('successfully updated password');
+    } catch (error) {
+      console.log('error updating password', error);
+    }
+  };
+
   return (
     <div style={{ width: '100%' }}>
       <ProfileImage
@@ -57,18 +87,7 @@ const UpdateAccount = ({ user }) => {
           <button
             style={{ marginBottom: '25px' }}
             type='submit'
-            onClick={e => {
-              e.preventDefault();
-              db.doc(`users/${user.uid}`)
-                .set({
-                  ...user,
-                  displayName: displayName.value,
-                  phoneNumber: phoneNumber.value,
-                })
-                .then(user => {
-                  navigate(`/`);
-                });
-            }}
+            onClick={e => update(e)}
           >
             update
           </button>
@@ -90,13 +109,31 @@ const UpdateAccount = ({ user }) => {
             placeholder='enter your phone number'
           />
         </label>
+        <label htmlFor='email'>
+          Email
+          <input
+            type='text'
+            id='email'
+            {...email}
+            placeholder='enter your email'
+          />
+        </label>
         <label htmlFor='img'>
           Profile Picture
           <input onChange={uploadFile} type='file' />
         </label>
-        <button type='button' onClick={e => fileUpload(e)}>
+        <label htmlFor='password'>
+          password
+          <input
+            type='password'
+            id='password'
+            {...newPassword}
+            placeholder='enter your password'
+          />
+        </label>
+        <button onClick={passwordUpdate} type='button'>
           {' '}
-          upload{' '}
+          Update Password{' '}
         </button>
       </UpdateForm>
     </div>
