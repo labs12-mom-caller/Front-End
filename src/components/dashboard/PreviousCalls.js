@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
-
+import { Link } from '@reach/router';
 import { db } from '../../firebase';
 
 const PreviousCalls = ({ userId }) => {
   const [calls, setCalls] = useState([]);
-
+  console.log(calls, 'CALLS');
   useEffect(() => {
     const fetchData = async () => {
       const user = await db.collection('users').doc(userId);
@@ -14,7 +14,7 @@ const PreviousCalls = ({ userId }) => {
         .collection('contacts')
         .where('user1', '==', user)
         .get();
-
+      console.log(userContacts, 'userContacts');
       await userContacts.forEach(async doc => {
         const allCalls = await db
           .collection('calls')
@@ -54,6 +54,7 @@ const PreviousCalls = ({ userId }) => {
       {calls &&
         calls.map(call => (
           <div key={call.callId}>
+            <Link to={`${call.callId}`}>View Call</Link>
             <h3>Call with {call.user2.displayName}</h3>
             <p>{moment(call.call_time).format('dddd, MMMM Do [at] h:mm A')}</p>
             <p>Call duration: {call.call_duration} seconds</p>
