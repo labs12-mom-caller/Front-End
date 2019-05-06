@@ -20,7 +20,7 @@ function Choose({ user, userId }) {
           <Formik
             initialValues={{
               email: '',
-              name: '',
+              displayName: '',
               phoneNumber: '',
             }}
             onSubmit={(values, { setSubmitting }) => {
@@ -40,7 +40,7 @@ function Choose({ user, userId }) {
               email: Yup.string()
                 .email()
                 .required('Required'),
-              name: Yup.string()
+              displayName: Yup.string()
                 .min(2, 'Too Short!')
                 .max(50, 'Too Long!')
                 .required('Required'),
@@ -80,24 +80,24 @@ function Choose({ user, userId }) {
                   {errors.email && touched.email && (
                     <div className='input-feedback'>{errors.email}</div>
                   )}
-                  <label htmlFor='name' style={{ display: 'block' }}>
+                  <label htmlFor='displayName' style={{ display: 'block' }}>
                     Name
                   </label>
                   <input
-                    id='name'
+                    id='displayName'
                     placeholder='Enter your name'
                     type='text'
-                    value={values.name}
+                    value={values.displayName}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     className={
-                      errors.name && touched.name
+                      errors.displayName && touched.displayName
                         ? 'text-input error'
                         : 'text-input'
                     }
                   />
-                  {errors.name && touched.name && (
-                    <div className='input-feedback'>{errors.name}</div>
+                  {errors.displayName && touched.displayName && (
+                    <div className='input-feedback'>{errors.displayName}</div>
                   )}
                   <label htmlFor='phoneNumber' style={{ display: 'block' }}>
                     Phone Number
@@ -105,7 +105,7 @@ function Choose({ user, userId }) {
                   <input
                     id='phoneNumber'
                     placeholder='Enter your number'
-                    type='number'
+                    type='tel'
                     value={values.phoneNumber}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -155,17 +155,17 @@ Choose.propTypes = {
   }),
   values: PropTypes.shape({
     email: PropTypes.string,
-    name: PropTypes.string,
+    displayName: PropTypes.string,
     phoneNumber: PropTypes.number,
   }),
   touched: PropTypes.shape({
     email: PropTypes.string,
-    name: PropTypes.string,
+    displayName: PropTypes.string,
     phoneNumber: PropTypes.number,
   }),
   errors: PropTypes.shape({
     email: PropTypes.string,
-    name: PropTypes.string,
+    displayName: PropTypes.string,
     phoneNumber: PropTypes.number,
   }),
   dirty: PropTypes.bool,

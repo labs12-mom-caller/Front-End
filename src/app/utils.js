@@ -30,6 +30,7 @@ export async function signup({
         'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico',
       phoneNumber: formattedPhone,
     });
+    return user.uid;
   } catch (e) {
     throw e;
   }

@@ -1,19 +1,27 @@
 import React from 'react';
-import { Router, Redirect } from '@reach/router';
-import ChooseYourContact from './components/ChooseYourContact';
+import { Router } from '@reach/router';
+
 import { firebase, db } from './firebase';
-import Login from './components/Login';
-import DashBoard from './components/DashBoard';
+
+import Login from './components/Auth/Login';
+import LandingPage from './components/LandingPage';
+import SignUp from './components/Auth/SignUp';
+import NavBar from './components/NavBar';
+import DashMain from './components/DashMain';
+import Footer from './components/Footer';
+import ChooseCallPlan from './components/ChooseCallPlan';
+import ChooseYourContact from './components/ChooseYourContact';
 import ScheduleFreeCall from './components/ScheduleFreeCall';
 import SchedulePaidCall from './components/SchedulePaidCall';
-import ChooseCallPlan from './components/ChooseCallPlan';
 import CallConfirmation from './components/CallConfirmation';
-import AboutUs from './components/AboutUs';
 import PreviousCalls from './components/dashboard/PreviousCalls';
-import NavBar from './components/NavBar';
-
+import AboutUs from './components/AboutUs';
 import UpdateAccount from './components/UpdateAccount';
+
 import { fetchUser } from './app/utils';
+
+import Global from './styles/Global';
+import CSSReset from './styles/CSSReset';
 
 function useAuth() {
   const [user, setUser] = React.useState(
@@ -57,12 +65,14 @@ function useAuth() {
 function App() {
   const user = useAuth();
   console.log(user, 'USERRRRR');
+
   return user ? (
     <>
+      <CSSReset />
+      <Global />
       <NavBar user={user} />
       <Router>
-        <Redirect from='/' to={`user/${user.uid}`} noThrow />
-        <DashBoard user={user} path='/user/:userId' />
+        <DashMain user={user} path='/' exact />
         <ChooseYourContact user={user} path='/choose/:userId' />
         <ChooseCallPlan path='/choose/:userId/:contactId/call-plan' />
         <ScheduleFreeCall path='/choose/:userId/:contactId/:frequency/schedule-free' />
@@ -72,10 +82,17 @@ function App() {
         <AboutUs path='/about-us' />
         <UpdateAccount user={user} path='/account/:userId' />
       </Router>
+      <Footer />
     </>
   ) : (
     <>
-      <Login />
+      <CSSReset />
+      <Global />
+      <Router>
+        <LandingPage path='/' exact />
+        <SignUp path='/signup' />
+        <Login path='/login' />
+      </Router>
     </>
   );
 }

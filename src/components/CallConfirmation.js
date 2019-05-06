@@ -5,16 +5,25 @@ import moment from 'moment-timezone';
 import { fetchDoc } from '../app/utils';
 
 const CallConfirmation = ({ contactId, navigate }) => {
-  const [contact, setContact] = useState(null);
-  const [user, setUser] = useState(null);
+  const [contact, setContact] = useState({
+    next_call: '',
+    timezone: '',
+    fetched: false,
+  });
 
   useEffect(() => {
     const getData = async () => {
       try {
         const fetchedContact = await fetchDoc(`/contacts/${contactId}`);
-        const formatted = moment(fetchedContact.next_call).format();
-        setContact(formatted);
-        setUser(fetchedContact.user1.id);
+        const formatted = moment(fetchedContact.next_call, 'X')
+          .tz(fetchedContact.timezone)
+          .format();
+        console.log(formatted);
+        setContact({
+          next_call: formatted,
+          timezone: fetchedContact.timezone,
+          fetched: true,
+        });
       } catch (err) {
         console.log(err);
       }
@@ -24,10 +33,10 @@ const CallConfirmation = ({ contactId, navigate }) => {
 
   const goToDashboard = e => {
     e.preventDefault();
-    navigate(`/user/${user}`);
+    navigate('/');
   };
 
-  return (
+  return contact.fetched ? (
     <>
       <h2>You&apos;re all set!</h2>
       <p>You&apos;ll receive an email shortly confirming your subscription.</p>
@@ -50,6 +59,8 @@ const CallConfirmation = ({ contactId, navigate }) => {
         Continue to Dashboard
       </button>
     </>
+  ) : (
+    <h2>Loading...</h2>
   );
 };
 

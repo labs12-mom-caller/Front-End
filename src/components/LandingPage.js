@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from '@reach/router';
+
 import { styles, DefaultButtonRedBG } from '../styles/styledDefaultComponents';
 import img from '../assets/images/womanOnPhone.jpg';
 
@@ -15,7 +17,11 @@ const MobileLandingPage = props => {
       <div className='flexIt'>
         <h3 className='subheading'>stay connected</h3>
         <p className='text'>Never forget to call your loved ones again.</p>
-        <DefaultButtonRedBG className='custom'>get started</DefaultButtonRedBG>
+        <Link to='/signup'>
+          <DefaultButtonRedBG className='custom'>
+            get started
+          </DefaultButtonRedBG>
+        </Link>
       </div>
     </MobileLandingPageContainer>
   );

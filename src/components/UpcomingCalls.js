@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { UpcomingCallsComponent } from '../styles/UpcomingCalls';
 
 function UpcomingCalls({ call }) {
@@ -17,5 +18,9 @@ function UpcomingCalls({ call }) {
     </UpcomingCallsComponent>
   );
 }
+
+UpcomingCalls.propTypes = {
+  call: PropTypes.object,
+};
 
 export default UpcomingCalls;
