@@ -17,6 +17,7 @@ const useInputValue = initialValue => {
 const UpdateAccount = ({ user }) => {
   const displayName = useInputValue(user.displayName);
   const phoneNumber = useInputValue(user.phoneNumber);
+  const email = useInputValue(user.email);
   const [imageInput, setImageInput] = useState(null);
 
   function fileUpload(e) {
@@ -43,6 +44,23 @@ const UpdateAccount = ({ user }) => {
     console.log(imageInput);
   };
 
+  const update = e => {
+    e.preventDefault();
+    if (imageInput) {
+      fileUpload(e);
+    }
+    db.doc(`users/${user.uid}`)
+      .set({
+        ...user,
+        displayName: displayName.value,
+        phoneNumber: phoneNumber.value,
+        email: email.value,
+      })
+      .then(user => {
+        navigate(`/`);
+      });
+  };
+
   return (
     <div style={{ width: '100%' }}>
       <ProfileImage
@@ -57,18 +75,7 @@ const UpdateAccount = ({ user }) => {
           <button
             style={{ marginBottom: '25px' }}
             type='submit'
-            onClick={e => {
-              e.preventDefault();
-              db.doc(`users/${user.uid}`)
-                .set({
-                  ...user,
-                  displayName: displayName.value,
-                  phoneNumber: phoneNumber.value,
-                })
-                .then(user => {
-                  navigate(`/`);
-                });
-            }}
+            onClick={e => update(e)}
           >
             update
           </button>
@@ -90,14 +97,19 @@ const UpdateAccount = ({ user }) => {
             placeholder='enter your phone number'
           />
         </label>
+        <label htmlFor='email'>
+          Email
+          <input
+            type='text'
+            id='email'
+            {...email}
+            placeholder='enter your email'
+          />
+        </label>
         <label htmlFor='img'>
           Profile Picture
           <input onChange={uploadFile} type='file' />
         </label>
-        <button type='button' onClick={e => fileUpload(e)}>
-          {' '}
-          upload{' '}
-        </button>
       </UpdateForm>
     </div>
   );
