@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
-
 import ModalPhoneNumber from './ModalPhoneNumber';
 import UpcomingCalls from './UpcomingCalls';
 import RecentTranscripts from './RecentTranscripts';
+import ScheduledContacts from './dashboard/ScheduledContacts';
 import {
   Wrapper,
   ProfileImage,
@@ -85,11 +85,12 @@ const DashMain = ({ user }) => {
           </UpdateAccount>
         </ProfileWrapper>
         {/* Calls Components */}
-        {isMobile ? null : ContactList()}
+        {/* {isMobile ? null : ContactList()} */}
+        <ScheduledContacts user={user} />
         {/* {isMobile ? null : TranscriptList()} */}
         {/* <RecentTranscripts transcripts={transcripts} /> */}
       </div>
-      {isMobile ? null : TranscriptList()}
+      {/* {isMobile ? null : TranscriptList()} */}
       <ModalPhoneNumber user={user} />
 
       {/* Conditional render menu buttons */}
