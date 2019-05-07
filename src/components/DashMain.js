@@ -65,6 +65,19 @@ function TranscriptList() {
 //     {/* <img src={`${photoUrl}`} alt='ProfilePic' /> */}
 //   </div>
 // </div>
+// f.value = f_val.slice(0,3)+"-"+f_val.slice(3,6)+"-"+f_val.slice(6);
+function formatPhoneNumber(number) {
+  const numberCopy = [...number];
+  const digitsOnly = numberCopy.slice(2);
+  const withDashes = `${digitsOnly.slice(0, 3)}-${digitsOnly.slice(
+    3,
+    6,
+  )}-${digitsOnly.slice(6)}`;
+  const formatted = [...withDashes];
+  const phoneNumber = formatted.filter(n => n !== ',');
+  phoneNumber.join('');
+  return phoneNumber;
+}
 
 const DashMain = ({ user }) => {
   console.log(user, 'dash');
@@ -72,17 +85,31 @@ const DashMain = ({ user }) => {
   return (
     <Container>
       <Navbar user={user} />
-      <Aside>Welcome!</Aside>
+      <Aside>
+        <User>
+          <Img src={photoUrl} alt={displayName} />
+          <h3>{displayName}</h3>
+          <p>{formatPhoneNumber(user.phoneNumber)}</p>
+          <p>{user.email}</p>
+        </User>
+      </Aside>
       <Upcoming>Michael</Upcoming>
       <Previous>Checo</Previous>
       <ModalPhoneNumber user={user} />
     </Container>
   );
 };
+const User = styled.div`
+  border: 3px solid #999999;
+`;
 const Aside = styled.aside`
   border: 1px solid #000000;
   grid-row: 2 / -1;
   grid-column: 1;
+`;
+const Img = styled.img`
+  border-radius: 50%;
+  border: 1px solid #999999;
 `;
 const Upcoming = styled.div`
   border: 1px solid #000000;
