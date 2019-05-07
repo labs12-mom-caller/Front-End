@@ -6,7 +6,14 @@ import Navbar from './NavBar';
 import ModalPhoneNumber from './ModalPhoneNumber';
 import UpcomingCalls from './UpcomingCalls';
 import RecentTranscripts from './RecentTranscripts';
-
+import ScheduledContacts from './dashboard/ScheduledContacts';
+import {
+  Wrapper,
+  ProfileImage,
+  UpdateAccount,
+  WelcomeUser,
+  ProfileWrapper,
+} from '../styles/Dashboard';
 const calls = [
   {
     id: 1,
@@ -78,6 +85,24 @@ const DashMain = ({ user }) => {
   console.log(user, 'dash');
   const { displayName, photoUrl, uid } = user;
   return (
+
+    <Wrapper>
+      <div style={{ display: 'flex', flexDirection: 'row', maxWidth: '100%' }}>
+        <ProfileWrapper>
+          <WelcomeUser>Hello {displayName} </WelcomeUser>
+          <ProfileImage src={`${photoUrl}`} alt='ProfilePic' />
+          <UpdateAccount
+            user={user}
+            onClick={() => navigate(`/account/${uid}`)}
+          >
+            Update Account
+          </UpdateAccount>
+        </ProfileWrapper>
+        {/* Calls Components */}
+
+        <ScheduledContacts user={user} />
+      </div>
+
     <Container>
       <Navbar user={user} />
       <Aside>
