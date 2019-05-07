@@ -87,8 +87,8 @@ const DashMain = ({ user }) => {
             <H3>{displayName}</H3>
             <P>{formatPhoneNumber(user.phoneNumber)}</P>
             <P>{user.email}</P>
+            <Button>Add Call</Button>
           </UserInfo>
-          <Button>Add Call</Button>
         </User>
       </Aside>
       <Upcoming>Michael</Upcoming>
@@ -98,36 +98,41 @@ const DashMain = ({ user }) => {
   );
 };
 const UserInfo = styled.div`
-  border: 1px solid green;
   display: flex;
   flex-direction: column;
-  margin: 15px 0;
+  margin: 10px 0;
+  margin-top: 15px;
+  width: 80%;
   padding: 2px;
+  justify-content: center;
+  align-items: center;
   h3 {
-    margin-bottom: 10px;
+    margin-bottom: 17px;
   }
   p {
-    margin-bottom: 10px;
+    margin-bottom: 17px;
+  }
+  button {
+    margin-top: 15px;
   }
 `;
 const H3 = styled.h3`
   color: #999999;
-  font-size: 18px;
+  font-size: 19px;
 `;
 const Button = styled.button`
   background-color: #636578;
-  width: 132px;
-  height: 35px;
+  width: 157px;
+  height: 43px;
   border-radius: 5px;
   color: #ffffff;
-  font-size: 18px;
+  font-size: 20px;
 `;
 const P = styled.p`
   color: #999999;
-  font-size: 16px;
+  font-size: 19px;
 `;
 const User = styled.div`
-  border: 3px solid #999999;
   display: flex;
   flex-direction: column;
   justify-items: center;
@@ -136,7 +141,6 @@ const User = styled.div`
   height: 100%;
 `;
 const Aside = styled.aside`
-  border: 1px solid #000000;
   grid-row: 2 / -1;
   grid-column: 1;
 `;
@@ -145,7 +149,7 @@ const Img = styled.img`
   height: auto;
   margin-top: 35px;
   width: 80%;
-  border: 2px solid #999999;
+  border: 3px solid #999999;
 `;
 const Upcoming = styled.div`
   border: 1px solid #000000;
