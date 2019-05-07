@@ -9,6 +9,11 @@ import { logout } from '../app/utils';
 const NavbarPage = ({ user }) => {
   const [collapseId, setCollapseId] = useState('');
 
+  const [show, setShow] = useState(false);
+  const toggleNav = () => {
+    setShow(!show);
+  };
+
   const toggleCollapse = newId => () => {
     return newId !== collapseId ? setCollapseId('') : setCollapseId(newId);
   };
@@ -22,11 +27,11 @@ const NavbarPage = ({ user }) => {
 
   return (
     <div>
-      <Navbar className={collapseId ? 'Navbar__ToggleShow' : null}>
+      <Navbar className={show ? 'NavbarShow' : null}>
         <div className='NavbarLink NavbarLink-brand'>ReCaller</div>
         <nav
           className={
-            collapseId
+            show
               ? 'Navbar__Items Navbar__ToggleShow'
               : 'Navbar__Items Navbar__Items--right'
           }
@@ -35,50 +40,12 @@ const NavbarPage = ({ user }) => {
             className='NavbarLink'
             style={{ color: '#6B6D76', listStyle: 'none' }}
           >
-            <Link style={{ color: '#083D77', padding: '5px' }} to='/'>
-              Dashboard
-            </Link>
-          </li>
-          <li
-            className='NavbarLink'
-            style={{ color: '#6B6D76', listStyle: 'none' }}
-          >
             <Link
               style={{ color: '#083D77', padding: '5px' }}
-              to={`/choose/${user.uid}`}
+              to={`/account/${user.uid}`}
             >
-              Add New Call
+              Account
             </Link>
-          </li>
-          <li
-            className='NavbarLink'
-            style={{ color: '#6B6D76', listStyle: 'none' }}
-          >
-            <Link style={{ color: '#083D77', padding: '5px' }} to='/'>
-              Currently Scheduled Calls
-            </Link>
-          </li>
-          <li
-            className='NavbarLink'
-            style={{ color: '#6B6D76', listStyle: 'none' }}
-          >
-            <Link
-              style={{ color: '#083D77', padding: '5px' }}
-              to={`/prev-calls/${user.uid}`}
-            >
-              Previous Calls
-            </Link>
-          </li>
-          <li
-            className='NavbarLink'
-            style={{ color: '#6B6D76', listStyle: 'none' }}
-          >
-            {/* <Link
-                style={{ color: '#083D77', padding: '5px' }}
-                to={`/choose/${user.uid}`}
-              >
-                Choose Contact
-              </Link> */}
           </li>
           <li
             className='NavbarLink'
@@ -94,9 +61,7 @@ const NavbarPage = ({ user }) => {
           </li>
         </nav>
         <div
-          onClick={toggleCollapse('navbarCollapse1')}
-          id='navbarCollapse1'
-          isopen={collapseId}
+          onClick={() => toggleNav()}
           className='NavbarLink NavbarLink-toggle'
         >
           <i className='fas fa-bars' />
@@ -166,6 +131,11 @@ const Navbar = styled.div`
     }
     .Navbar__ToggleShow {
       display: flex;
+      height: 158px;
+      flex-direction: row;
+      position: absolute;
+      right: 69px;
+      top: 30px;
     }
     .NavbarLink-toggle {
       align-self: flex-end;
