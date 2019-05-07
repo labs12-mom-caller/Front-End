@@ -3,7 +3,7 @@ import { navigate } from '@reach/router';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { db, storage, auth } from '../firebase';
-import { ProfileImage } from '../styles/Dashboard';
+import NavbarPage from './NavBar';
 
 const useInputValue = initialValue => {
   const [value, setValue] = React.useState(initialValue);
@@ -73,21 +73,12 @@ const UpdateAccount = ({ user }) => {
   };
 
   return (
-    <div style={{ width: '100%' }}>
-      <ProfileImage
-        style={{ width: '15%' }}
-        src={user.photoUrl}
-        alt={user.displayName}
-      />
-      <UpdateForm
-        style={{ display: 'flex', width: '20%', flexDirection: 'column' }}
-      >
+    <Container>
+      <NavbarPage user={user} />
+      <img src={user.photoUrl} alt={user.displayName} />
+      <UpdateForm>
         <label htmlFor='displayName'>
-          <button
-            style={{ marginBottom: '25px' }}
-            type='submit'
-            onClick={e => update(e)}
-          >
+          <button type='submit' onClick={e => update(e)}>
             update
           </button>
           <br />
@@ -135,10 +126,15 @@ const UpdateAccount = ({ user }) => {
           Update Password{' '}
         </button>
       </UpdateForm>
-    </div>
+    </Container>
   );
 };
-
+const Container = styled.div`
+  display: grid;
+  height: 85vh;
+  grid-template-columns: 1fr 2fr 3fr;
+  grid-template-rows: 70px 1fr;
+`;
 export default UpdateAccount;
 
 UpdateAccount.propTypes = {
