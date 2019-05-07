@@ -88,9 +88,10 @@ const DashMain = ({ user }) => {
       <Aside>
         <User>
           <Img src={photoUrl} alt={displayName} />
-          <h3>{displayName}</h3>
-          <p>{formatPhoneNumber(user.phoneNumber)}</p>
-          <p>{user.email}</p>
+          <H3>{displayName}</H3>
+          <P>{formatPhoneNumber(user.phoneNumber)}</P>
+          <P>{user.email}</P>
+          <Button>Add Call</Button>
         </User>
       </Aside>
       <Upcoming>Michael</Upcoming>
@@ -99,8 +100,29 @@ const DashMain = ({ user }) => {
     </Container>
   );
 };
+const H3 = styled.h3`
+  color: #999999;
+`;
+const Button = styled.button`
+  background-color: #636578;
+  width: 132px;
+  height: 35px;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 16px;
+`;
+const P = styled.p`
+  color: #999999;
+  font-size: 16px;
+`;
 const User = styled.div`
   border: 3px solid #999999;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  padding: 5px;
+  height: 100%;
 `;
 const Aside = styled.aside`
   border: 1px solid #000000;
@@ -109,7 +131,10 @@ const Aside = styled.aside`
 `;
 const Img = styled.img`
   border-radius: 50%;
-  border: 1px solid #999999;
+  height: auto;
+  margin-top: 35px;
+  width: 80%;
+  border: 2px solid #999999;
 `;
 const Upcoming = styled.div`
   border: 1px solid #000000;
