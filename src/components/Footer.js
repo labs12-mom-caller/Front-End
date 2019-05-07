@@ -22,7 +22,7 @@ const Footer = () => {
         <ul>
           <li className='list' style={{ color: '#6B6D76' }}>
             <a style={{ color: '#FF6F61' }} href='/'>
-              Dashboard
+              Home
             </a>
           </li>
           <li className='list' style={{ color: '#6B6D76' }}>
