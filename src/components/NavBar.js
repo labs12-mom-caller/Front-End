@@ -150,10 +150,10 @@ const Navbar = styled.div`
 
 const Hr = styled.hr`
   border-color: #083d77;
-  width: 70%;
-  margin-left: 30%;
+  width: 150%;
   position: absolute;
-  top: 75px;
+  top: 70px;
+  left: 0;
 
   @media only screen and (max-width: 768px) {
     display: none;
