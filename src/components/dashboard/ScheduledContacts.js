@@ -4,61 +4,63 @@ import moment from 'moment-timezone';
 import { db } from '../../firebase';
 
 const ScheduledContacts = ({ user }) => {
-  const [contact, setContact] = React.useState([]);
-  const [assignContact, setAssignContact] = React.useState([]);
-  // const [callInfo, setCallInfo] = React.useState(null);
+  const [contacts, setContacts] = React.useState([]);
+
   const { uid } = user;
 
   React.useEffect(() => {
+    // console.log('in use effect');
     const fetchData = async () => {
-      const user = await db.collection('users').doc(uid);
-      const userContacts = await db
-        .collection('contacts')
-        .where('user1', '==', user)
-        .get();
-      // console.log(userContacts.docs[0].id, 'from useEffect');
-      userContacts.forEach(doc => {
-        console.log(doc, 'inside foreach');
-      });
-      setContact({ userContacts });
+      // console.log('fetch data');
+      try {
+        const userContacts = await db
+          .collection('contacts')
+          .where('user1', '==', db.doc(`users/${uid}`))
+          .get();
+        // console.log(uid);
+        userContacts.forEach(async doc => {
+          try {
+            const user2Snap = await db
+              .doc(`users/${doc.data().user2.id}`)
+              .get();
+            const contact = {
+              user2: {
+                ...user2Snap.data(),
+                id: user2Snap.id,
+              },
+              call_frequency: doc.data().call_frequency,
+              next_call: doc.data().next_call,
+              time_zone: doc.data().timezone,
+              id: doc.id,
+            };
+            // console.log(contact, 'forEach');
+            setContacts(contacts => [...contacts, contact]);
+          } catch (err) {
+            console.log(err);
+          }
+        });
+      } catch (err) {
+        console.log(err);
+      }
     };
     fetchData();
   }, [user]);
-
-  // console.log(contact);
-
-  // React.useEffect(() => {
-  //   const UserContact = async () => {
-  //     return db
-  //       .doc(`contacts/${contact.userContacts.doc.id}`)
-  //       .onSnapshot(document => {
-  //         setAssignContact({
-  //           ...document.data(),
-  //           user2: document.user2,
-  //           next_call: document.next_call,
-  //         });
-  //       });
-  //   };
-  // }, []);
-
-  // console.log(assignContact);
-
-  if (!contact) return <p>Loading...</p>;
-  if (!assignContact) return <p>Failed to retrieve your contacts...</p>;
+  console.log(contacts);
 
   return (
-    <>
-      <h2>List of your contacts</h2>
-      {/* {console.log(contact, 'from return')} */}
-      {contact &&
-        contact.map(contact => (
-          <div key={contact.user1}>
-            {/* <h3>Call with {contact.user2.displayName}</h3> */}
-            <h3>At {contact.next_call}</h3>
-          </div>
-        ))}
-    </>
+    contacts &&
+    contacts.map((c, index) => {
+      return (
+        <div key={index}>
+          <p>{c.user2.displayName}</p>
+          <p>
+            {moment(c.next_call, 'X')
+              .tz(c.time_zone)
+              .format('h:mm A [on] dddd MMMM Do, YYYY')}
+          </p>
+        </div>
+      );
+    })
   );
 };
-
 export default ScheduledContacts;
