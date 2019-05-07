@@ -124,11 +124,11 @@ const Card = styled.div`
   height: 475px;
   border-radius: 6px;
    background: #fff;
-   box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 11px rgba(33,33,33,.2); 
   transition: box-shadow 0.5s;
 }
 &:hover {
-  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+   box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
 `;
 const UserInfo = styled.div`
   display: flex;
