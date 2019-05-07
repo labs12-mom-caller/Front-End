@@ -61,12 +61,19 @@ const Login = () => {
         people!
       </p>
       <Form>
+        <label htmlFor='email' className='sr'>
+          Your E-mail Address
+        </label>
         <input
           type='text'
+          id='email'
           onChange={e => setEmail(e.target.value)}
           value={email}
           placeholder='Email Address'
         />
+        <label htmlFor='password' className='sr'>
+          Your Password
+        </label>
         <input
           type='password'
           onChange={e => setPassword(e.target.value)}

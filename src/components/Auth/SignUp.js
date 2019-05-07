@@ -20,7 +20,7 @@ const SignUp = () => {
       .signInWithPopup(provider)
       .then(result => {
         setTimeout(() => {
-          navigate(`/`);
+          navigate(`/choose/${result.user.uid}`);
         }, 1000);
       })
       .catch(err => {
