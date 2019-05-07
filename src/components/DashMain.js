@@ -7,66 +7,7 @@ import ModalPhoneNumber from './ModalPhoneNumber';
 import UpcomingCalls from './UpcomingCalls';
 import RecentTranscripts from './RecentTranscripts';
 import ScheduledContacts from './dashboard/ScheduledContacts';
-import {
-  Wrapper,
-  ProfileImage,
-  UpdateAccount,
-  WelcomeUser,
-  ProfileWrapper,
-} from '../styles/Dashboard';
-const calls = [
-  {
-    id: 1,
-    contactName: 'Shawn',
-    callDate: 'June 6',
-    callTime: '11:00 AM',
-  },
-  {
-    id: 2,
-    contactName: 'Michael',
-    callDate: 'July 10',
-    callTime: '2:30 PM',
-  },
-];
-const transcripts = [
-  {
-    id: 1,
-    contactName: 'Shawn',
-    transcript:
-      'Another big problem in the speech analytics space when customers first bring a software on is that they are   ',
-    photoUrl:
-      'https://images.pexels.com/photos/428361/pexels-photo-428361.jpeg?cs=srgb&dl=adult-blur-boy-428361.jpg&fm=jpg',
-  },
-  {
-    id: 2,
-    contactName: 'Jenny',
-    transcript:
-      'con manolo bueno manolo ya está en su último año de universidades boston grado el próximo año y yo siempre  ',
-    photoUrl:
-      'https://images.pexels.com/photos/1542085/pexels-photo-1542085.jpeg?cs=srgb&dl=attractive-beautiful-beauty-1542085.jpg&fm=jpg',
-  },
-];
-
-function ContactList() {
-  return (
-    <div>
-      <h2>Upcoming Calls</h2>
-      {calls.map(call => (
-        <UpcomingCalls key={call.id} call={call} />
-      ))}
-    </div>
-  );
-}
-function TranscriptList() {
-  return (
-    <div>
-      <h2>Recent transcripts</h2>
-      {transcripts.map(transcript => (
-        <RecentTranscripts key={transcript.id} transcripts={transcript} />
-      ))}
-    </div>
-  );
-}
+import PreviousCalls from './dashboard/PreviousCalls';
 
 function formatPhoneNumber(number) {
   const numberCopy = [...number];
@@ -85,32 +26,6 @@ const DashMain = ({ user }) => {
   console.log(user, 'dash');
   const { displayName, photoUrl, uid } = user;
   return (
-
-    <Wrapper>
-      <div style={{ display: 'flex', flexDirection: 'row', maxWidth: '100%' }}>
-        <ProfileWrapper>
-          <WelcomeUser>Hello {displayName} </WelcomeUser>
-          <ProfileImage src={`${photoUrl}`} alt='ProfilePic' />
-          <UpdateAccount
-            user={user}
-            onClick={() => navigate(`/account/${uid}`)}
-          >
-            Update Account
-          </UpdateAccount>
-        </ProfileWrapper>
-        {/* Calls Components */}
-        <div
-          style={{
-            width: '50%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-          }}
-        >
-          <ScheduledContacts user={user} />
-        </div>
-      </div>
-
     <Container>
       <Navbar user={user} />
       <Aside>
@@ -127,15 +42,19 @@ const DashMain = ({ user }) => {
       <Upcoming>
         <Wrapper>
           <CardHeader>Upcoming Calls</CardHeader>
-          <Card>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam
-            odio quas, atque exercitationem hic, totam magni dolore nulla
-            sapiente inventore magnam? Iste eaque ullam dicta doloribus
-            repellat, beatae praesentium quidem.
-          </Card>
+          <UpcomingCard>
+            <ScheduledContacts user={user} />
+          </UpcomingCard>
         </Wrapper>
       </Upcoming>
-      <Previous>Checo</Previous>
+      <Previous>
+        <PrevWrapper>
+          <CardHeader>Previous Calls</CardHeader>
+          <PreviousCard>
+            <PreviousCalls userId={user.uid} />
+          </PreviousCard>
+        </PrevWrapper>
+      </Previous>
       <ModalPhoneNumber user={user} />
     </Container>
   );
@@ -150,18 +69,41 @@ const CardHeader = styled.h2`
 const Wrapper = styled.div`
   margin-top: 40px;
 `;
-const Card = styled.div`
-
-    transition: box-shadow .3s;
-  width: 320px;
-  height: 475px;
-  border-radius: 6px;
-   background: #fff;
-  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+const PrevWrapper = styled.div`
+  margin-top: 40px;
+  /* border: 1px solid #000000; */
+  display: flex;
+  flex-direction: column;
+`;
+const UpcomingCard = styled.div`
+  transition: box-shadow 0.3s;
+  width: 330px;
+  height: 500px;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
   transition: box-shadow 0.5s;
-}
-&:hover {
-   box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+  }
+`;
+const PreviousCard = styled.div`
+  transition: box-shadow 0.3s;
+  width: 80%;
+  height: 110px;
+  margin: 15px 0;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  transition: box-shadow 0.5s;
+  &:hover {
+    box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+  }
+  &:nth-child(2) {
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
 `;
 const UserInfo = styled.div`
   display: flex;
@@ -193,6 +135,15 @@ const Button = styled.button`
   border-radius: 5px;
   color: #ffffff;
   font-size: 20px;
+  transition: all 0.4s ease;
+  outline: 0;
+  &:hover {
+    background-color: #ffffff;
+    color: #636578;
+    border: 1px solid #636578;
+    cursor: pointer;
+    transition: all 0.4s ease;
+  }
 `;
 const P = styled.p`
   color: #999999;
@@ -215,7 +166,6 @@ const Img = styled.img`
   height: auto;
   margin-top: 35px;
   width: 80%;
-  border: 3px solid #999999;
 `;
 const Upcoming = styled.div`
   grid-row: 2 / -1;
@@ -226,7 +176,6 @@ const Upcoming = styled.div`
   align-items: center;
 `;
 const Previous = styled.div`
-  border: 1px solid #000000;
   grid-row: 2 / -1;
   grid-column: 3;
 `;
