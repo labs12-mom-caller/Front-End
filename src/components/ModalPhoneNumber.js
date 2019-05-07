@@ -100,7 +100,7 @@ const ModalPhoneNumber = ({ user }) => {
       }
       setTimeout(() => {
         fetchData();
-      }, 5000);
+      }, 500);
     }
     return () => {
       mounted = false;
