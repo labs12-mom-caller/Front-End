@@ -17,9 +17,6 @@ const ScheduledContacts = ({ user }) => {
         .where('user1', '==', user)
         .get();
       // console.log(userContacts.docs[0].id, 'from useEffect');
-      userContacts.forEach(doc => {
-        console.log(doc, 'inside foreach');
-      });
       setContact({ userContacts });
     };
     fetchData();
@@ -49,11 +46,11 @@ const ScheduledContacts = ({ user }) => {
   return (
     <>
       <h2>List of your contacts</h2>
-      {/* {console.log(contact, 'from return')} */}
+      {console.log(contact, 'from return')}
       {contact &&
         contact.map(contact => (
           <div key={contact.user1}>
-            {/* <h3>Call with {contact.user2.displayName}</h3> */}
+            <h3>Call with {contact.user2.displayName}</h3>
             <h3>At {contact.next_call}</h3>
           </div>
         ))}
