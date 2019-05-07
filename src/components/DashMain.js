@@ -6,67 +6,6 @@ import Navbar from './NavBar';
 import ModalPhoneNumber from './ModalPhoneNumber';
 import UpcomingCalls from './UpcomingCalls';
 import RecentTranscripts from './RecentTranscripts';
-import ScheduledContacts from './dashboard/ScheduledContacts';
-import {
-  Wrapper,
-  ProfileImage,
-  UpdateAccount,
-  WelcomeUser,
-  ProfileWrapper,
-} from '../styles/Dashboard';
-const calls = [
-  {
-    id: 1,
-    contactName: 'Shawn',
-    callDate: 'June 6',
-    callTime: '11:00 AM',
-  },
-  {
-    id: 2,
-    contactName: 'Michael',
-    callDate: 'July 10',
-    callTime: '2:30 PM',
-  },
-];
-const transcripts = [
-  {
-    id: 1,
-    contactName: 'Shawn',
-    transcript:
-      'Another big problem in the speech analytics space when customers first bring a software on is that they are   ',
-    photoUrl:
-      'https://images.pexels.com/photos/428361/pexels-photo-428361.jpeg?cs=srgb&dl=adult-blur-boy-428361.jpg&fm=jpg',
-  },
-  {
-    id: 2,
-    contactName: 'Jenny',
-    transcript:
-      'con manolo bueno manolo ya está en su último año de universidades boston grado el próximo año y yo siempre  ',
-    photoUrl:
-      'https://images.pexels.com/photos/1542085/pexels-photo-1542085.jpeg?cs=srgb&dl=attractive-beautiful-beauty-1542085.jpg&fm=jpg',
-  },
-];
-
-function ContactList() {
-  return (
-    <div>
-      <h2>Upcoming Calls</h2>
-      {calls.map(call => (
-        <UpcomingCalls key={call.id} call={call} />
-      ))}
-    </div>
-  );
-}
-function TranscriptList() {
-  return (
-    <div>
-      <h2>Recent transcripts</h2>
-      {transcripts.map(transcript => (
-        <RecentTranscripts key={transcript.id} transcripts={transcript} />
-      ))}
-    </div>
-  );
-}
 
 function formatPhoneNumber(number) {
   const numberCopy = [...number];
@@ -85,24 +24,6 @@ const DashMain = ({ user }) => {
   console.log(user, 'dash');
   const { displayName, photoUrl, uid } = user;
   return (
-
-    <Wrapper>
-      <div style={{ display: 'flex', flexDirection: 'row', maxWidth: '100%' }}>
-        <ProfileWrapper>
-          <WelcomeUser>Hello {displayName} </WelcomeUser>
-          <ProfileImage src={`${photoUrl}`} alt='ProfilePic' />
-          <UpdateAccount
-            user={user}
-            onClick={() => navigate(`/account/${uid}`)}
-          >
-            Update Account
-          </UpdateAccount>
-        </ProfileWrapper>
-        {/* Calls Components */}
-
-        <ScheduledContacts user={user} />
-      </div>
-
     <Container>
       <Navbar user={user} />
       <Aside>
@@ -143,17 +64,17 @@ const Wrapper = styled.div`
   margin-top: 40px;
 `;
 const Card = styled.div`
-
-    transition: box-shadow .3s;
+  transition: box-shadow 0.3s;
   width: 320px;
   height: 475px;
   border-radius: 6px;
-   background: #fff;
-  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+  background: #fff;
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
   transition: box-shadow 0.5s;
-}
-&:hover {
-   box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+  }
 `;
 const UserInfo = styled.div`
   display: flex;
