@@ -13,6 +13,7 @@ export const Wrapper = styled.section`
     font-family: 'Pacifico', cursive;
     font-size: 3rem;
     margin-top: 30px;
+    color: #636578;
   }
 
   p {
