@@ -27,13 +27,21 @@ function Choose({ user, userId }) {
               values.phoneNumber = String('+1').concat(
                 String(values.phoneNumber).replace(/[^\d]/g, ''),
               );
-              setTimeout(() => {
-                db.collection(`users`)
-                  .add(values)
-                  .then(ref => {
-                    setSubmitting(false);
-                    navigate(`/choose/${userId}/${ref.id}/call-plan`);
-                  });
+              setTimeout(async () => {
+                const userRef = await db
+                  .collection('users')
+                  .where('email', '==', values.email)
+                  .get();
+                if (userRef.empty) {
+                  db.collection(`users`)
+                    .add(values)
+                    .then(ref => {
+                      setSubmitting(false);
+                      navigate(`/choose/${userId}/${ref.id}/call-plan`);
+                    });
+                } else {
+                  navigate(`/choose/${userId}/${userRef.docs[0].id}/call-plan`);
+                }
               }, 1000);
             }}
             validationSchema={Yup.object().shape({
