@@ -91,12 +91,45 @@ const DashMain = ({ user }) => {
           </UserInfo>
         </User>
       </Aside>
-      <Upcoming>Michael</Upcoming>
+      <Upcoming>
+        <Wrapper>
+          <CardHeader>Upcoming Calls</CardHeader>
+          <Card>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam
+            odio quas, atque exercitationem hic, totam magni dolore nulla
+            sapiente inventore magnam? Iste eaque ullam dicta doloribus
+            repellat, beatae praesentium quidem.
+          </Card>
+        </Wrapper>
+      </Upcoming>
       <Previous>Checo</Previous>
       <ModalPhoneNumber user={user} />
     </Container>
   );
 };
+const CardHeader = styled.h2`
+  color: #999999;
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+`;
+const Wrapper = styled.div`
+  margin-top: 40px;
+`;
+const Card = styled.div`
+
+    transition: box-shadow .3s;
+  width: 320px;
+  height: 475px;
+  border-radius: 6px;
+   background: #fff;
+   box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.5s;
+}
+&:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+`;
 const UserInfo = styled.div`
   display: flex;
   flex-direction: column;
@@ -152,9 +185,12 @@ const Img = styled.img`
   border: 3px solid #999999;
 `;
 const Upcoming = styled.div`
-  border: 1px solid #000000;
   grid-row: 2 / -1;
   grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
 `;
 const Previous = styled.div`
   border: 1px solid #000000;
