@@ -40,15 +40,31 @@ const DashMain = ({ user }) => {
       <Upcoming>
         <Wrapper>
           <CardHeader>Upcoming Calls</CardHeader>
-          <Card>
+          <UpcomingCard>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam
             odio quas, atque exercitationem hic, totam magni dolore nulla
             sapiente inventore magnam? Iste eaque ullam dicta doloribus
             repellat, beatae praesentium quidem.
-          </Card>
+          </UpcomingCard>
         </Wrapper>
       </Upcoming>
-      <Previous>Checo</Previous>
+      <Previous>
+        <PrevWrapper>
+          <CardHeader>Previous Calls</CardHeader>
+          <PreviousCard>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          </PreviousCard>
+          <PreviousCard>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          </PreviousCard>
+          <PreviousCard>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          </PreviousCard>
+          <PreviousCard>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          </PreviousCard>
+        </PrevWrapper>
+      </Previous>
       <ModalPhoneNumber user={user} />
     </Container>
   );
@@ -63,17 +79,40 @@ const CardHeader = styled.h2`
 const Wrapper = styled.div`
   margin-top: 40px;
 `;
-const Card = styled.div`
+const PrevWrapper = styled.div`
+  margin-top: 40px;
+  /* border: 1px solid #000000; */
+  display: flex;
+  flex-direction: column;
+`;
+const UpcomingCard = styled.div`
   transition: box-shadow 0.3s;
-  width: 320px;
-  height: 475px;
-  border-radius: 6px;
+  width: 330px;
+  height: 550px;
+  border-radius: 3px;
   background: #fff;
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
   transition: box-shadow 0.5s;
 
   &:hover {
     box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+  }
+`;
+const PreviousCard = styled.div`
+  transition: box-shadow 0.3s;
+  width: 80%;
+  height: 110px;
+  margin: 15px 0;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  transition: box-shadow 0.5s;
+  &:hover {
+    box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+  }
+  &:nth-child(2) {
+    margin-top: 0;
+    margin-bottom: 15px;
   }
 `;
 const UserInfo = styled.div`
@@ -106,6 +145,15 @@ const Button = styled.button`
   border-radius: 5px;
   color: #ffffff;
   font-size: 20px;
+  transition: all 0.4s ease;
+  outline: 0;
+  &:hover {
+    background-color: #ffffff;
+    color: #636578;
+    border: 1px solid #636578;
+    cursor: pointer;
+    transition: all 0.4s ease;
+  }
 `;
 const P = styled.p`
   color: #999999;
@@ -128,7 +176,6 @@ const Img = styled.img`
   height: auto;
   margin-top: 35px;
   width: 80%;
-  border: 3px solid #999999;
 `;
 const Upcoming = styled.div`
   grid-row: 2 / -1;
@@ -139,7 +186,6 @@ const Upcoming = styled.div`
   align-items: center;
 `;
 const Previous = styled.div`
-  border: 1px solid #000000;
   grid-row: 2 / -1;
   grid-column: 3;
 `;
