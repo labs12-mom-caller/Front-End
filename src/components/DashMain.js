@@ -29,8 +29,16 @@ const DashMain = ({ user }) => {
           </UpdateAccount>
         </ProfileWrapper>
         {/* Calls Components */}
-
-        <ScheduledContacts user={user} />
+        <div
+          style={{
+            width: '50%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+          }}
+        >
+          <ScheduledContacts user={user} />
+        </div>
       </div>
       <ModalPhoneNumber user={user} />
 

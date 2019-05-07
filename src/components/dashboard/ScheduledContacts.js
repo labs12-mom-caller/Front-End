@@ -1,6 +1,7 @@
 /* eslint-disable no-inner-declarations */
 import React from 'react';
 import moment from 'moment-timezone';
+import styled from 'styled-components';
 import { db } from '../../firebase';
 
 const ScheduledContacts = ({ user }) => {
@@ -51,16 +52,47 @@ const ScheduledContacts = ({ user }) => {
     contacts &&
     contacts.map((c, index) => {
       return (
-        <div key={index}>
-          <p>{c.user2.displayName}</p>
-          <p>
-            {moment(c.next_call, 'X')
-              .tz(c.time_zone)
-              .format('h:mm A [on] dddd MMMM Do, YYYY')}
-          </p>
-        </div>
+        <Table key={index}>
+          <thead>
+            <tr style={{ display: 'flex', justifyContent: 'space-around' }}>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style={{ display: 'flex', justifyContent: 'space-around' }}>
+              <td >{c.user2.displayName}</td>
+              <td style={{ width: '50%' }}>
+                {' '}
+                {moment(c.next_call, 'X')
+                  .tz(c.time_zone)
+                  .format(`h:mm A`)}
+              </td>
+              <td style={{ width: '50%' }}>
+                {' '}
+                {moment(c.next_call, 'X')
+                  .tz(c.time_zone)
+                  .format(`MMMM Do, YYYY`)}
+              </td>
+            </tr>
+          </tbody>
+        </Table>
       );
     })
   );
 };
+
 export default ScheduledContacts;
+
+const Table = styled.div`
+  max-width: 100%;
+  /* background: red; */
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+`;
