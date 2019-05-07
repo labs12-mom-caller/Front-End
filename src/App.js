@@ -83,7 +83,7 @@ function App() {
         <CallRecord path='prev-calls/:userId/:callId' />
         <AboutUs path='/about-us' />
         <UpdateAccount user={user} path='/account/:userId' />
-        <ContactInfo path='/contact/:contactId/' />
+        <ContactInfo user={user} path='/contact/:contactId/' />
       </Router>
       <Footer />
     </>
