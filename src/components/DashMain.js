@@ -60,12 +60,7 @@ function TranscriptList() {
     </div>
   );
 }
-// <div>
-//   <div>
-//     {/* <img src={`${photoUrl}`} alt='ProfilePic' /> */}
-//   </div>
-// </div>
-// f.value = f_val.slice(0,3)+"-"+f_val.slice(3,6)+"-"+f_val.slice(6);
+
 function formatPhoneNumber(number) {
   const numberCopy = [...number];
   const digitsOnly = numberCopy.slice(2);
@@ -88,9 +83,11 @@ const DashMain = ({ user }) => {
       <Aside>
         <User>
           <Img src={photoUrl} alt={displayName} />
-          <H3>{displayName}</H3>
-          <P>{formatPhoneNumber(user.phoneNumber)}</P>
-          <P>{user.email}</P>
+          <UserInfo>
+            <H3>{displayName}</H3>
+            <P>{formatPhoneNumber(user.phoneNumber)}</P>
+            <P>{user.email}</P>
+          </UserInfo>
           <Button>Add Call</Button>
         </User>
       </Aside>
@@ -100,8 +97,22 @@ const DashMain = ({ user }) => {
     </Container>
   );
 };
+const UserInfo = styled.div`
+  border: 1px solid green;
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  padding: 2px;
+  h3 {
+    margin-bottom: 10px;
+  }
+  p {
+    margin-bottom: 10px;
+  }
+`;
 const H3 = styled.h3`
   color: #999999;
+  font-size: 18px;
 `;
 const Button = styled.button`
   background-color: #636578;
@@ -109,7 +120,7 @@ const Button = styled.button`
   height: 35px;
   border-radius: 5px;
   color: #ffffff;
-  font-size: 16px;
+  font-size: 18px;
 `;
 const P = styled.p`
   color: #999999;
