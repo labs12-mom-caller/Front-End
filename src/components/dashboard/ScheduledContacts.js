@@ -2,6 +2,7 @@
 import React from 'react';
 import moment from 'moment-timezone';
 import { db } from '../../firebase';
+import { Link } from '@reach/router';
 
 const ScheduledContacts = ({ user }) => {
   const [contacts, setContacts] = React.useState([]);
@@ -51,14 +52,16 @@ const ScheduledContacts = ({ user }) => {
     contacts &&
     contacts.map((c, index) => {
       return (
-        <div key={index}>
-          <p>{c.user2.displayName}</p>
-          <p>
-            {moment(c.next_call, 'X')
-              .tz(c.time_zone)
-              .format('h:mm A [on] dddd MMMM Do, YYYY')}
-          </p>
-        </div>
+        <Link to={`/contact/${c.id}`}>
+          <div key={index}>
+            <p>{c.user2.displayName}</p>
+            <p>
+              {moment(c.next_call, 'X')
+                .tz(c.time_zone)
+                .format('h:mm A [on] dddd MMMM Do, YYYY')}
+            </p>
+          </div>
+        </Link>
       );
     })
   );

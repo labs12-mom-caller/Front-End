@@ -18,7 +18,7 @@ import PreviousCalls from './components/dashboard/PreviousCalls';
 import AboutUs from './components/AboutUs';
 import UpdateAccount from './components/UpdateAccount';
 import CallRecord from './components/dashboard/CallRecord';
-import ContactInfo from './components/dashboard/ContactInfo';
+import ContactInfoRebuilt from './components/dashboard/ContactInfoRebuilt';
 import { fetchUser } from './app/utils';
 
 import Global from './styles/Global';
@@ -71,7 +71,7 @@ function App() {
     <>
       <CSSReset />
       <Global />
-      <NavBar user={user} />
+      {/* <NavBar user={user} /> */}
       <Router>
         <DashMain user={user} path='/' exact />
         <ChooseYourContact user={user} path='/choose/:userId' />
@@ -83,7 +83,7 @@ function App() {
         <CallRecord path='prev-calls/:userId/:callId' />
         <AboutUs path='/about-us' />
         <UpdateAccount user={user} path='/account/:userId' />
-        <ContactInfo user={user} path='/contact/:contactId/' />
+        <ContactInfoRebuilt user={user} path='/contact/:contactId/' />
       </Router>
       <Footer />
     </>

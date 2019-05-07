@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import ModalPhoneNumber from './ModalPhoneNumber';
-import UpcomingCalls from './UpcomingCalls';
 import RecentTranscripts from './RecentTranscripts';
 import ScheduledContacts from './dashboard/ScheduledContacts';
 import {
@@ -48,16 +47,6 @@ const transcripts = [
   },
 ];
 
-function ContactList() {
-  return (
-    <div>
-      <h2 style={{ textAlign: 'center' }}>Upcoming Calls</h2>
-      {calls.map(call => (
-        <UpcomingCalls key={call.id} call={call} />
-      ))}
-    </div>
-  );
-}
 function TranscriptList() {
   return (
     <div>

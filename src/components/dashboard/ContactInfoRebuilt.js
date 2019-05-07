@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
 import { Link } from '@reach/router';
 import { db } from '../../firebase';
-import { ContactInfoPage } from '../../styles/ContactInfoPage';
 import styled from 'styled-components';
 
 const ContactInfo = ({ contactId, user }) => {
@@ -47,39 +46,8 @@ const ContactInfo = ({ contactId, user }) => {
 
   console.log(calls);
   return contact.fetched ? (
-    <ContactInfoPage>
-      <Aside>
-        <h2>
-          Call between {contact.user1.displayName} and{' '}
-          {contact.user2.displayName}
-        </h2>
-      </Aside>
-      <div className='contact-header'>
-        <img src={contact.user1.photoUrl} alt={contact.user1.displayName} />
-        <div>
-          <div>
-            Scheduled by {contact.user1.displayName} on{' '}
-            {moment(contact.created_at, 'X')
-              .tz(contact.timezone)
-              .format('MMMM Do, YYYY')}
-          </div>
-          <div>
-            Next call at{' '}
-            {moment(contact.next_call, 'X')
-              .tz(contact.timezone)
-              .format('h:mm A [on] dddd MMMM Do, YYYY')}
-          </div>
-          <div>Frequency of Calls: {contact.call_frequency}</div>
-          <div>
-            Call Schedule:{' '}
-            {contact.call_type === 'paid'
-              ? `${contact.scheduled_day}s at ${contact.scheduled_time}`
-              : 'Random'}
-          </div>
-        </div>
-        <img src={contact.user2.photoUrl} alt={contact.user2.displayName} />
-      </div>
-      <div>
+    <Container>
+      <PreviousCalls>
         <h3>Previous Calls</h3>
         {calls.length &&
           calls.map(call => {
@@ -98,24 +66,30 @@ const ContactInfo = ({ contactId, user }) => {
               </div>
             );
           })}
-      </div>
-    </ContactInfoPage>
+      </PreviousCalls>
+      <ScheduledBy>
+        <div />
+      </ScheduledBy>
+      <NextCall>
+        <p>Hello</p>
+      </NextCall>
+    </Container>
   ) : (
     <p>Loading...</p>
   );
 };
 
-const Aside = styled.aside`
+const PreviousCalls = styled.aside`
   border: 1px solid #000000;
   grid-row: 2 / -1;
   grid-column: 1;
 `;
-const Upcoming = styled.div`
+const ScheduledBy = styled.div`
   border: 1px solid #000000;
   grid-row: 2 / -1;
   grid-column: 2;
 `;
-const Previous = styled.div`
+const NextCall = styled.div`
   border: 1px solid #000000;
   grid-row: 2 / -1;
   grid-column: 3;
