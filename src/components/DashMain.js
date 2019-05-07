@@ -1,19 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
-
+import styled from 'styled-components';
+import Navbar from './NavBar';
 import ModalPhoneNumber from './ModalPhoneNumber';
 import UpcomingCalls from './UpcomingCalls';
 import RecentTranscripts from './RecentTranscripts';
-import {
-  Wrapper,
-  ProfileImage,
-  UpdateAccount,
-  WelcomeUser,
-  ProfileWrapper,
-} from '../styles/Dashboard';
-
-const isMobile = window.innerWidth <= 768;
 
 const calls = [
   {
@@ -51,7 +43,7 @@ const transcripts = [
 function ContactList() {
   return (
     <div>
-      <h2 style={{ textAlign: 'center' }}>Upcoming Calls</h2>
+      <h2>Upcoming Calls</h2>
       {calls.map(call => (
         <UpcomingCalls key={call.id} call={call} />
       ))}
@@ -61,53 +53,53 @@ function ContactList() {
 function TranscriptList() {
   return (
     <div>
-      <h2 style={{ textAlign: 'center', width: '80%' }}>Recent transcripts</h2>
+      <h2>Recent transcripts</h2>
       {transcripts.map(transcript => (
         <RecentTranscripts key={transcript.id} transcripts={transcript} />
       ))}
     </div>
   );
 }
+// <div>
+//   <div>
+//     {/* <img src={`${photoUrl}`} alt='ProfilePic' /> */}
+//   </div>
+// </div>
 
 const DashMain = ({ user }) => {
+  console.log(user, 'dash');
   const { displayName, photoUrl, uid } = user;
   return (
-    <Wrapper>
-      <div style={{ display: 'flex', flexDirection: 'row', maxWidth: '100%' }}>
-        <ProfileWrapper>
-          <WelcomeUser>Hello {displayName} </WelcomeUser>
-          <ProfileImage src={`${photoUrl}`} alt='ProfilePic' />
-          <UpdateAccount
-            user={user}
-            onClick={() => navigate(`/account/${uid}`)}
-          >
-            Update Account
-          </UpdateAccount>
-        </ProfileWrapper>
-        {/* Calls Components */}
-        {isMobile ? null : ContactList()}
-        {/* {isMobile ? null : TranscriptList()} */}
-        {/* <RecentTranscripts transcripts={transcripts} /> */}
-      </div>
-      {isMobile ? null : TranscriptList()}
+    <Container>
+      <Navbar user={user} />
+      <Aside>Welcome!</Aside>
+      <Upcoming>Michael</Upcoming>
+      <Previous>Checo</Previous>
       <ModalPhoneNumber user={user} />
-
-      {/* Conditional render menu buttons */}
-      {/* {isMobile ? (
-          <DashboardButtons>
-            <DefaultButtonBlueBG type='button'>New Call </DefaultButtonBlueBG>
-            <DefaultButtonBlueBG type='button'>
-              Scheduled Calls
-            </DefaultButtonBlueBG>
-            <DefaultButtonBlueBG type='button'>
-              Previous Calls{' '}
-            </DefaultButtonBlueBG>
-          </DashboardButtons>
-        ) : null} */}
-    </Wrapper>
+    </Container>
   );
 };
-
+const Aside = styled.aside`
+  border: 1px solid #000000;
+  grid-row: 2 / -1;
+  grid-column: 1;
+`;
+const Upcoming = styled.div`
+  border: 1px solid #000000;
+  grid-row: 2 / -1;
+  grid-column: 2;
+`;
+const Previous = styled.div`
+  border: 1px solid #000000;
+  grid-row: 2 / -1;
+  grid-column: 3;
+`;
+const Container = styled.div`
+  display: grid;
+  height: 85vh;
+  grid-template-columns: 1fr 2fr 3fr;
+  grid-template-rows: 70px 1fr;
+`;
 DashMain.propTypes = {
   user: PropTypes.shape({
     displayName: PropTypes.string,
