@@ -1,9 +1,8 @@
-import firebase from 'firebase';
 import React, { useState } from 'react';
 import { navigate } from '@reach/router';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { db, storage } from '../firebase';
+import { db, storage, auth } from '../firebase';
 import { ProfileImage } from '../styles/Dashboard';
 
 const useInputValue = initialValue => {
@@ -64,7 +63,7 @@ const UpdateAccount = ({ user }) => {
   };
 
   const passwordUpdate = async () => {
-    const userOne = firebase.auth().currentUser;
+    const userOne = auth().currentUser;
     try {
       await userOne.updatePassword(newPassword.value);
       console.log('successfully updated password');
