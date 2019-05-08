@@ -55,7 +55,7 @@ const ScheduledContacts = ({ user }) => {
       {contacts &&
         contacts.map(c => {
           return (
-            <Link to={`/contact/${c.id}`}>
+            <Link to={`/contact/${c.id}`} key={c.id}>
               <div style={{ display: 'flex' }}>
                 {c.user2.displayName}{' '}
                 {moment(c.next_call, 'X')

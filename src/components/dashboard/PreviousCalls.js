@@ -28,7 +28,7 @@ const PreviousCalls = ({ userId }) => {
               contactId: '',
               audio: doc.data().audio,
               call_duration: doc.data().call_duration,
-              call_time: moment(doc.data().call_time.toDate()).format(),
+              call_time: moment(doc.data().call_time, 'X').format(),
             };
             const contactRef = doc.data().contact_ref.path;
             await db.doc(contactRef).onSnapshot(async doc => {
