@@ -55,16 +55,6 @@ const ScheduledContacts = ({ user }) => {
       {contacts &&
         contacts.map(c => {
           return (
-            <div style={{ display: 'flex' }}>
-              {c.user2.displayName}{' '}
-              {moment(c.next_call, 'X')
-                .tz(c.time_zone)
-                .format(`h:mm A`)}{' '}
-              {moment(c.next_call, 'X')
-                .tz(c.time_zone)
-                .format(`MMMM Do, YYYY`)}
-            </div>
-
             <Link to={`/contact/${c.id}`}>
               <div style={{ display: 'flex' }}>
                 {c.user2.displayName}{' '}
@@ -76,7 +66,6 @@ const ScheduledContacts = ({ user }) => {
                   .format(`MMMM Do, YYYY`)}
               </div>
             </Link>
-
           );
         })}
     </>
