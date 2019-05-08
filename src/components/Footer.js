@@ -53,6 +53,7 @@ const FooterWrap = styled.footer`
   background-color: #636578;
   height: 15vh;
   width: 100%;
+  margin-top: 25px;
   @media (max-width: 992px) {
     /* margin-left: 6%; */
   }
