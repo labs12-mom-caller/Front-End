@@ -18,7 +18,7 @@ const ScheduledContacts = ({ user }) => {
           .collection('contacts')
           .where('user1', '==', db.doc(`users/${uid}`))
           .get();
-        // console.log(uid);
+        console.log(userContacts, 'userContacts');
         userContacts.forEach(async doc => {
           try {
             const user2Snap = await db
@@ -45,41 +45,32 @@ const ScheduledContacts = ({ user }) => {
       }
     };
     fetchData();
-  }, [user]);
-  console.log(contacts);
+  }, []);
+  console.log(contacts, 'From end');
 
   return (
-    contacts &&
-    contacts.map((c, index) => {
-      return (
-        <Table key={index}>
-          <thead>
-            <tr style={{ display: 'flex', justifyContent: 'space-around' }}>
-              <th>Name</th>
-              <th>Date</th>
-              <th>Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style={{ display: 'flex', justifyContent: 'space-around' }}>
-              <td >{c.user2.displayName}</td>
-              <td style={{ width: '50%' }}>
-                {' '}
-                {moment(c.next_call, 'X')
-                  .tz(c.time_zone)
-                  .format(`h:mm A`)}
-              </td>
-              <td style={{ width: '50%' }}>
-                {' '}
-                {moment(c.next_call, 'X')
-                  .tz(c.time_zone)
-                  .format(`MMMM Do, YYYY`)}
-              </td>
-            </tr>
-          </tbody>
-        </Table>
-      );
-    })
+    <>
+      <div style={{ display: 'flex' }}>
+        <div>Name</div>
+        <div>Date</div>
+        <div>Time</div>
+      </div>
+      {contacts &&
+        contacts.map(c => {
+          console.log(c, 'from C');
+          return (
+            <div style={{ display: 'flex' }}>
+              {c.user2.displayName}{' '}
+              {moment(c.next_call, 'X')
+                .tz(c.time_zone)
+                .format(`h:mm A`)}{' '}
+              {moment(c.next_call, 'X')
+                .tz(c.time_zone)
+                .format(`MMMM Do, YYYY`)}
+            </div>
+          );
+        })}
+    </>
   );
 };
 

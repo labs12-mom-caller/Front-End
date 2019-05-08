@@ -85,7 +85,7 @@ function App() {
         <UpdateAccount user={user} path='/account/:userId' />
         <ContactInfo user={user} path='/contact/:contactId/' />
       </Router>
-      <Footer />
+      <Footer user={user} />
     </>
   ) : (
     <>
