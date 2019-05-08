@@ -63,7 +63,6 @@ const PreviousCalls = ({ userId }) => {
               <img src={img} alt='temp holder' className='user2Img' />
               <p className='user2Name'>{call.user2.displayName}</p>
             </div>
-            {/*<Link to={`${call.callId}`}>View Call</Link>*/}
             <div className='flexIt'>
               <div className='transcriptWrapper'>
                 <p className='callDuration'>
@@ -93,7 +92,6 @@ const PreviousCalls = ({ userId }) => {
                 {moment(call.call_time).format('dddd, MMMM Do [at] h:mm A')}
               </p>
             </div>
-            {/*<p>Listen to call</p>*/}
             {/* eslint-disable jsx-a11y/media-has-caption */}
           </PrevCallsWrapper>
         ))}
@@ -213,43 +211,43 @@ const PrevCallsWrapper = styled.div`
         margin: 0 auta (min-width: 992px) {
           width: 100%;
         }
-      .callDuration {
-        font-size: 1rem;
-        color: ${styles.colors.mainBlue};
-        margin-bottom: 3%;
+        .callDuration {
+          font-size: 1rem;
+          color: ${styles.colors.mainBlue};
+          margin-bottom: 3%;
+        }
+        .audioControls {
+          margin-bottom: 3%;
+        }
+        .transcriptText {
+          line-height: 1.5rem;
+          font-size: 1.2rem;
+        }
       }
-      .audioControls {
-        margin-bottom: 3%;
-      }
-      .transcriptText {
-        line-height: 1.5rem;
-        font-size: 1.2rem;
+      @media (min-width: 992px) {
+        border: 1px solid grey;
+        box-shadow: 1px 5px 15px 1px;
+        padding: 3%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        //width: 40%;
+        margin: 5% auto 10% auto;
+        .callDuration {
+          font-size: 1rem;
+          color: ${styles.colors.mainBlue};
+          margin-bottom: 3%;
+        }
+        .audioControls {
+          margin-bottom: 3%;
+        }
+        .transcriptText {
+          line-height: 1.5rem;
+          font-size: 1.2rem;
+        }
       }
     }
-    @media (min-width: 992px) {
-      border: 1px solid grey;
-      box-shadow: 1px 5px 15px 1px;
-      padding: 3%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      //width: 40%;
-      margin: 5% auto 10% auto;
-      .callDuration {
-        font-size: 1rem;
-        color: ${styles.colors.mainBlue};
-        margin-bottom: 3%;
-      }
-      .audioControls {
-        margin-bottom: 3%;
-      }
-      .transcriptText {
-        line-height: 1.5rem;
-        font-size: 1.2rem;
-      }
-    }
-  }
   }
   .momentWrapper {
     @media (min-width: 768px) {
@@ -283,4 +281,5 @@ const PrevCallsWrapper = styled.div`
         //width: 50%;
       }
     }
+  }
 `;

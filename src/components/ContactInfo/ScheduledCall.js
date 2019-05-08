@@ -14,7 +14,13 @@ const ScheduledCall = ({ contact }) => {
       <main>
         <div>
           <div>{contact.user1.displayName}</div>{' '}
-          <img src={contact.user1.photoUrl} alt={contact.user1.displayName} />{' '}
+          <img
+            src={
+              contact.user1.photoUrl ||
+              'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
+            }
+            alt={contact.user1.displayName}
+          />{' '}
         </div>
         <div>
           {moment(contact.created_at, 'X')
