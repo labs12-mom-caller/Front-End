@@ -9,6 +9,8 @@ const client = require('twilio')(accountSid, authToken);
 
 sgMail.setApiKey(functions.config().sendgrid.key);
 
+const simplifyTranscript = require('./helpers/simplifyTranscript');
+
 exports.handler = async (req, res, firestore, storage) => {
   const calls = firestore.collection('calls');
   const contacts = firestore.collection('contacts');
@@ -63,14 +65,6 @@ exports.handler = async (req, res, firestore, storage) => {
                 },
               });
 
-              await calls.doc(id).update({
-                audio: url,
-                fetched: true,
-                call_duration: recording.duration,
-                call_time: recording.dateCreated,
-                deepgram: response.data,
-              });
-
               await client.recordings(sid).remove();
 
               const contact = await contacts
@@ -78,6 +72,27 @@ exports.handler = async (req, res, firestore, storage) => {
                 .get();
               const user1 = await users.doc(contact.data().user1.id).get();
               const user2 = await users.doc(contact.data().user2.id).get();
+
+              const simplified = simplifyTranscript(
+                response.data,
+                user1.data().displayName,
+                user2.data().displayName,
+              );
+
+              await calls.doc(id).update({
+                audio: url,
+                fetched: true,
+                call_duration: recording.duration,
+                call_time: recording.dateCreated,
+                deepgram: response.data,
+                simplified,
+              });
+
+              let html = ``;
+
+              simplified.forEach(line => {
+                html += `<h3>${line.user}</h3>\n<p>${line.script}</p>\n`;
+              });
 
               const msg = {
                 personalizations: [
@@ -100,7 +115,7 @@ exports.handler = async (req, res, firestore, storage) => {
                 dynamic_template_data: {
                   audio: url,
                   id,
-                  transcript: 'Need to map transcript received from deepgram',
+                  transcript: html,
                 },
                 templateId: 'd-59ed5092b3bf44118a5d7c1e0f617eef',
               };

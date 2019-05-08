@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import { db } from '../../firebase';
 import { ContactInfoPage } from '../../styles/ContactInfoPage';
 
+import Loading from '../Loading';
+
 const ContactInfo = ({ contactId, user }) => {
   const [contact, setContact] = useState({});
   const [calls, setCalls] = useState([]);
@@ -101,7 +103,7 @@ const ContactInfo = ({ contactId, user }) => {
       </div>
     </ContactInfoPage>
   ) : (
-    <p>Loading...</p>
+    <Loading />
   );
 };
 
