@@ -18,7 +18,7 @@ import PreviousCalls from './components/dashboard/PreviousCalls';
 import AboutUs from './components/AboutUs';
 import UpdateAccount from './components/UpdateAccount';
 import CallRecord from './components/dashboard/CallRecord';
-import ContactInfoRebuilt from './components/dashboard/ContactInfoRebuilt';
+import ContactInfo from './components/dashboard/ContactInfo';
 import { fetchUser } from './app/utils';
 
 import Global from './styles/Global';
@@ -83,7 +83,7 @@ function App() {
         <CallRecord path='/prev-calls/:userId/:callId' />
         <AboutUs path='/about-us' />
         <UpdateAccount user={user} path='/account/:userId' />
-        <ContactInfoRebuilt path='/contact/:contactId/' />
+        <ContactInfo path='/contact/:contactId/' />
       </Router>
       <Footer />
     </>
