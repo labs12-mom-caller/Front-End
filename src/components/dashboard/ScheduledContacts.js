@@ -1,24 +1,22 @@
 /* eslint-disable no-inner-declarations */
 import React from 'react';
 import moment from 'moment-timezone';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { db } from '../../firebase';
 
 const ScheduledContacts = ({ user }) => {
   const [contacts, setContacts] = React.useState([]);
-
   const { uid } = user;
 
   React.useEffect(() => {
-    // console.log('in use effect');
     const fetchData = async () => {
-      // console.log('fetch data');
       try {
         const userContacts = await db
           .collection('contacts')
           .where('user1', '==', db.doc(`users/${uid}`))
           .get();
-        // console.log(uid);
+        console.log(userContacts, 'userContacts');
         userContacts.forEach(async doc => {
           try {
             const user2Snap = await db
@@ -34,7 +32,6 @@ const ScheduledContacts = ({ user }) => {
               time_zone: doc.data().timezone,
               id: doc.id,
             };
-            // console.log(contact, 'forEach');
             setContacts(contacts => [...contacts, contact]);
           } catch (err) {
             console.log(err);
@@ -45,10 +42,30 @@ const ScheduledContacts = ({ user }) => {
       }
     };
     fetchData();
-  }, [user]);
-  console.log(contacts);
+  }, [uid]);
 
   return (
+    <>
+      <div style={{ display: 'flex' }}>
+        <div>Name</div>
+        <div>Date</div>
+        <div>Time</div>
+      </div>
+      {contacts &&
+        contacts.map(c => {
+          return (
+            <div style={{ display: 'flex' }}>
+              {c.user2.displayName}{' '}
+              {moment(c.next_call, 'X')
+                .tz(c.time_zone)
+                .format(`h:mm A`)}{' '}
+              {moment(c.next_call, 'X')
+                .tz(c.time_zone)
+                .format(`MMMM Do, YYYY`)}
+            </div>
+          );
+        })}
+    </>
     contacts &&
     contacts.map((c, index) => {
       return (
@@ -84,6 +101,18 @@ const ScheduledContacts = ({ user }) => {
 };
 
 export default ScheduledContacts;
+
+ScheduledContacts.propTypes = {
+  user: PropTypes.shape({
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+    photoUrl: PropTypes.string,
+    uid: PropTypes.string,
+    phoneNumber: PropTypes.string,
+  }),
+};
+const Table = styled.div`
+  max-width: 100%;
 
 const Table = styled.div`
   max-width: 100%;
