@@ -3,7 +3,7 @@ import { navigate } from '@reach/router';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { db, storage, auth } from '../firebase';
-import { ProfileImage } from '../styles/Dashboard';
+import NavbarPage from './NavBar';
 
 const useInputValue = initialValue => {
   const [value, setValue] = React.useState(initialValue);
@@ -73,72 +73,80 @@ const UpdateAccount = ({ user }) => {
   };
 
   return (
-    <div style={{ width: '100%' }}>
-      <ProfileImage
-        style={{ width: '15%' }}
-        src={user.photoUrl}
-        alt={user.displayName}
-      />
-      <UpdateForm
-        style={{ display: 'flex', width: '20%', flexDirection: 'column' }}
-      >
-        <label htmlFor='displayName'>
-          <button
-            style={{ marginBottom: '25px' }}
-            type='submit'
-            onClick={e => update(e)}
-          >
-            update
+    <Container>
+      <NavbarPage user={user} />
+      <Wrapper>
+        <img src={user.photoUrl} alt={user.displayName} />
+        <UpdateForm>
+          <label htmlFor='displayName'>
+            <button type='submit' onClick={e => update(e)}>
+              update
+            </button>
+            <br />
+            Display Name
+            <input
+              type='text'
+              id='displayName'
+              {...displayName}
+              placeholder='Enter your name'
+            />
+          </label>
+          <label htmlFor='phoneNumber'>
+            Phone Number
+            <input
+              type='text'
+              id='phoneNumber'
+              {...phoneNumber}
+              placeholder='enter your phone number'
+            />
+          </label>
+          <label htmlFor='email'>
+            Email
+            <input
+              type='text'
+              id='email'
+              {...email}
+              placeholder='enter your email'
+            />
+          </label>
+          <label htmlFor='img'>
+            Profile Picture
+            <input onChange={uploadFile} type='file' />
+          </label>
+          <label htmlFor='password'>
+            password
+            <input
+              type='password'
+              id='password'
+              {...newPassword}
+              placeholder='enter your password'
+            />
+          </label>
+          <button onClick={passwordUpdate} type='button'>
+            {' '}
+            Update Password{' '}
           </button>
-          <br />
-          Display Name
-          <input
-            type='text'
-            id='displayName'
-            {...displayName}
-            placeholder='Enter your name'
-          />
-        </label>
-        <label htmlFor='phoneNumber'>
-          Phone Number
-          <input
-            type='text'
-            id='phoneNumber'
-            {...phoneNumber}
-            placeholder='enter your phone number'
-          />
-        </label>
-        <label htmlFor='email'>
-          Email
-          <input
-            type='text'
-            id='email'
-            {...email}
-            placeholder='enter your email'
-          />
-        </label>
-        <label htmlFor='img'>
-          Profile Picture
-          <input onChange={uploadFile} type='file' />
-        </label>
-        <label htmlFor='password'>
-          password
-          <input
-            type='password'
-            id='password'
-            {...newPassword}
-            placeholder='enter your password'
-          />
-        </label>
-        <button onClick={passwordUpdate} type='button'>
-          {' '}
-          Update Password{' '}
-        </button>
-      </UpdateForm>
-    </div>
+        </UpdateForm>
+      </Wrapper>
+    </Container>
   );
 };
-
+const Wrapper = styled.div`
+  border: 2px solid orange;
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
+`;
+const Container = styled.div`
+  display: grid;
+  height: 85vh;
+  grid-template-columns: 1fr;
+  border: 3px solid black;
+  grid-template-rows: 70px 1fr;
+`;
 export default UpdateAccount;
 
 UpdateAccount.propTypes = {
@@ -152,6 +160,11 @@ UpdateAccount.propTypes = {
 };
 
 const UpdateForm = styled.form`
+  border: 2px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   label {
     color: black;
     font-weight: bold;

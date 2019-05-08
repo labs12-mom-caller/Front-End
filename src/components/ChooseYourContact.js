@@ -1,159 +1,200 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Yup from 'yup';
 import { navigate } from '@reach/router';
-import { Formik } from 'formik';
 import styled from 'styled-components';
-import { styles } from '../styles/styledDefaultComponents';
-import { db } from '../firebase';
-// import { Wrapper } from '../styles/Login';
+import Navbar from './NavBar';
+import ModalPhoneNumber from './ModalPhoneNumber';
+import UpcomingCalls from './UpcomingCalls';
+import RecentTranscripts from './RecentTranscripts';
 
-function Choose({ user, userId }) {
-  return (
-    <div>
-      {/* <NavBar /> */}
-
-      <Wrapper>
-        <div className='heading'>Hello {user.displayName} </div>
-        <div className='app'>
-          <h1 className='choose'>Choose Your Loved One</h1>
-          <Formik
-            initialValues={{
-              email: '',
-              displayName: '',
-              phoneNumber: '',
-            }}
-            onSubmit={(values, { setSubmitting }) => {
-              values.phoneNumber = String('+1').concat(
-                String(values.phoneNumber).replace(/[^\d]/g, ''),
-              );
-              setTimeout(async () => {
-                const userRef = await db
-                  .collection('users')
-                  .where('email', '==', values.email)
-                  .get();
-                if (userRef.empty) {
-                  db.collection(`users`)
-                    .add(values)
-                    .then(ref => {
-                      setSubmitting(false);
-                      navigate(`/choose/${userId}/${ref.id}/call-plan`);
-                    });
-                } else {
-                  navigate(`/choose/${userId}/${userRef.docs[0].id}/call-plan`);
-                }
-              }, 1000);
-            }}
-            validationSchema={Yup.object().shape({
-              email: Yup.string()
-                .email()
-                .required('Required'),
-              displayName: Yup.string()
-                .min(2, 'Too Short!')
-                .max(50, 'Too Long!')
-                .required('Required'),
-              phoneNumber: Yup.number().required('Required'),
-            })}
-          >
-            {props => {
-              const {
-                values,
-                touched,
-                errors,
-                dirty,
-                isSubmitting,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                handleReset,
-              } = props;
-              return (
-                <form onSubmit={handleSubmit}>
-                  <label htmlFor='email' style={{ display: 'block' }}>
-                    Email
-                  </label>
-                  <input
-                    id='email'
-                    placeholder='Enter your email'
-                    type='text'
-                    value={values.email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={
-                      errors.email && touched.email
-                        ? 'text-input error'
-                        : 'text-input'
-                    }
-                  />
-                  {errors.email && touched.email && (
-                    <div className='input-feedback'>{errors.email}</div>
-                  )}
-                  <label htmlFor='displayName' style={{ display: 'block' }}>
-                    Name
-                  </label>
-                  <input
-                    id='displayName'
-                    placeholder='Enter your name'
-                    type='text'
-                    value={values.displayName}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={
-                      errors.displayName && touched.displayName
-                        ? 'text-input error'
-                        : 'text-input'
-                    }
-                  />
-                  {errors.displayName && touched.displayName && (
-                    <div className='input-feedback'>{errors.displayName}</div>
-                  )}
-                  <label htmlFor='phoneNumber' style={{ display: 'block' }}>
-                    Phone Number
-                  </label>
-                  <input
-                    id='phoneNumber'
-                    placeholder='Enter your number'
-                    type='tel'
-                    value={values.phoneNumber}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={
-                      errors.phoneNumber && touched.phoneNumber
-                        ? 'text-input error'
-                        : 'text-input'
-                    }
-                  />
-                  {errors.phoneNumber && touched.phoneNumber && (
-                    <div className='input-feedback'>{errors.phoneNumber}</div>
-                  )}
-                  <div className='buttonWrapper'>
-                    <button
-                      type='button'
-                      className='reset'
-                      onClick={handleReset}
-                      disabled={!dirty || isSubmitting}
-                    >
-                      Reset
-                    </button>
-                    <button
-                      type='submit'
-                      className='submit'
-                      disabled={isSubmitting}
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </form>
-              );
-            }}
-          </Formik>
-        </div>
-      </Wrapper>
-    </div>
-  );
+function formatPhoneNumber(number) {
+  const numberCopy = [...number];
+  const digitsOnly = numberCopy.slice(2);
+  const withDashes = `${digitsOnly.slice(0, 3)}-${digitsOnly.slice(
+    3,
+    6,
+  )}-${digitsOnly.slice(6)}`;
+  const formatted = [...withDashes];
+  const phoneNumber = formatted.filter(n => n !== ',');
+  phoneNumber.join('');
+  return phoneNumber;
 }
-export default Choose;
-Choose.propTypes = {
+
+const DashMain = ({ user }) => {
+  console.log(user, 'dash');
+  const { displayName, photoUrl, uid } = user;
+  return (
+    <Container>
+      <Navbar user={user} />
+      <Aside>
+        <User>
+          <Img src={photoUrl} alt={displayName} />
+          <UserInfo>
+            <H3>{displayName}</H3>
+            <P>{formatPhoneNumber(user.phoneNumber)}</P>
+            <P>{user.email}</P>
+            <Button>Add Call</Button>
+          </UserInfo>
+        </User>
+      </Aside>
+      <Upcoming>
+        <Wrapper>
+          <CardHeader>Upcoming Calls</CardHeader>
+          <UpcomingCard>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam
+            odio quas, atque exercitationem hic, totam magni dolore nulla
+            sapiente inventore magnam? Iste eaque ullam dicta doloribus
+            repellat, beatae praesentium quidem.
+          </UpcomingCard>
+        </Wrapper>
+      </Upcoming>
+      <Previous>
+        <PrevWrapper>
+          <CardHeader>Previous Calls</CardHeader>
+          <PreviousCard>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          </PreviousCard>
+          <PreviousCard>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          </PreviousCard>
+          <PreviousCard>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          </PreviousCard>
+          <PreviousCard>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          </PreviousCard>
+        </PrevWrapper>
+      </Previous>
+      <ModalPhoneNumber user={user} />
+    </Container>
+  );
+};
+const CardHeader = styled.h2`
+  color: #999999;
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+`;
+const Wrapper = styled.div`
+  margin-top: 40px;
+`;
+const PrevWrapper = styled.div`
+  margin-top: 40px;
+  /* border: 1px solid #000000; */
+  display: flex;
+  flex-direction: column;
+`;
+const UpcomingCard = styled.div`
+  transition: box-shadow 0.3s;
+  width: 330px;
+  height: 500px;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  transition: box-shadow 0.5s;
+  &:hover {
+    box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+  }
+`;
+const PreviousCard = styled.div`
+  transition: box-shadow 0.3s;
+  width: 80%;
+  height: 110px;
+  margin: 15px 0;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  transition: box-shadow 0.5s;
+  &:hover {
+    box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+  }
+  &:nth-child(2) {
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+`;
+const UserInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  margin-top: 15px;
+  width: 80%;
+  padding: 2px;
+  justify-content: center;
+  align-items: center;
+  h3 {
+    margin-bottom: 17px;
+  }
+  p {
+    margin-bottom: 17px;
+  }
+  button {
+    margin-top: 15px;
+  }
+`;
+const H3 = styled.h3`
+  color: #999999;
+  font-size: 19px;
+`;
+const Button = styled.button`
+  background-color: #636578;
+  width: 157px;
+  height: 43px;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 20px;
+  transition: all 0.4s ease;
+  outline: 0;
+  &:hover {
+    background-color: #ffffff;
+    color: #636578;
+    border: 1px solid #636578;
+    cursor: pointer;
+    transition: all 0.4s ease;
+  }
+`;
+const P = styled.p`
+  color: #999999;
+  font-size: 19px;
+`;
+const User = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  padding: 5px;
+  height: 100%;
+`;
+const Aside = styled.aside`
+  grid-row: 2 / -1;
+  grid-column: 1;
+`;
+const Img = styled.img`
+  border-radius: 50%;
+  height: auto;
+  margin-top: 35px;
+  width: 80%;
+`;
+const Upcoming = styled.div`
+  grid-row: 2 / -1;
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+`;
+const Previous = styled.div`
+  grid-row: 2 / -1;
+  grid-column: 3;
+`;
+const Container = styled.div`
+  display: grid;
+  height: 85vh;
+  grid-template-columns: 1fr 2fr 3fr;
+  grid-template-rows: 70px 1fr;
+`;
+DashMain.propTypes = {
   user: PropTypes.shape({
     displayName: PropTypes.string,
     email: PropTypes.string,
@@ -161,131 +202,6 @@ Choose.propTypes = {
     uid: PropTypes.string,
     phoneNumber: PropTypes.string,
   }),
-  values: PropTypes.shape({
-    email: PropTypes.string,
-    displayName: PropTypes.string,
-    phoneNumber: PropTypes.number,
-  }),
-  touched: PropTypes.shape({
-    email: PropTypes.string,
-    displayName: PropTypes.string,
-    phoneNumber: PropTypes.number,
-  }),
-  errors: PropTypes.shape({
-    email: PropTypes.string,
-    displayName: PropTypes.string,
-    phoneNumber: PropTypes.number,
-  }),
-  dirty: PropTypes.bool,
-  isSubmitting: PropTypes.bool,
-  handleChange: PropTypes.func,
-  handleBlur: PropTypes.func,
-  handleSubmit: PropTypes.func,
-  handleReset: PropTypes.func,
-  userId: PropTypes.string,
 };
 
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: unset;
-  align-items: center;
-  min-height: 100vh;
-  margin-top: -8%;
-
-  @media (max-width: 992px) {
-    min-height: 60vh;
-  }
-  .container {
-    margin-top: 5%;
-    margin-bottom: 5%;
-  }
-  .heading {
-    font-size: 1.5rem;
-    color: ${styles.colors.mainBlue};
-    margin-bottom: 5%;
-    margin-top: 8%;
-    font-weight: 700;
-    text-align: center;
-  }
-  .choose {
-    text-align: center;
-    font-size: 1.3rem;
-    color: ${styles.colors.mainBlue};
-    margin-bottom: 5%;
-  }
-  form {
-    /* border: 1px solid red; */
-    margin-top: 5%;
-    label {
-      /* border: 1px solid green; */
-      text-align: center;
-      color: ${styles.colors.mainBlue};
-      margin-bottom: 3%;
-      font-size: 1.2rem;
-      font-weight: 700;
-    }
-    input {
-      /* border: 1px solid blue; */
-      text-align: center;
-      margin: 2% auto;
-      width: 100%;
-      border: 2px solid ${styles.colors.mainBlue};
-      border-radius: 100px;
-      ::-webkit-input-placeholder {
-        color: ${styles.colors.mainBlue};
-        text-transform: capitalize;
-        letter-spacing: 0.1rem;
-      }
-      ::-moz-placeholder {
-        /* Firefox 19+ */
-        color: ${styles.colors.mainBlue};
-      }
-      :-ms-input-placeholder {
-        /* IE 10+ */
-        color: ${styles.colors.mainBlue};
-      }
-      :-moz-placeholder {
-        /* Firefox 18- */
-        color: ${styles.colors.mainBlue};
-      }
-    }
-  }
-  .buttonWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 2% auto;
-    margin-top: 25%;
-    width: 100%;
-    /* border: 1px solid purple; */
-    .reset {
-      border: 2px solid ${styles.colors.mainWhite};
-      margin-bottom: 3%;
-      padding: 1rem;
-      width: 100%;
-      border-radius: 100px;
-      color: ${styles.colors.mainWhite};
-      background: ${styles.colors.mainBlue};
-      &:hover {
-        color: ${styles.colors.mainBlue};
-        background: ${styles.colors.mainWhite};
-        border: 2px solid ${styles.colors.mainBlue};
-      }
-    }
-    .submit {
-      border: 2px solid ${styles.colors.mainWhite};
-      padding: 1rem;
-      width: 100%;
-      border-radius: 100px;
-      color: ${styles.colors.mainWhite};
-      background: ${styles.colors.mainBlue};
-      &:hover {
-        color: ${styles.colors.mainBlue};
-        background: ${styles.colors.mainWhite};
-        border: 2px solid ${styles.colors.mainBlue};
-      }
-    }
-  }
-`;
+export default DashMain;

@@ -1,18 +1,16 @@
 /* eslint-disable no-inner-declarations */
 import React from 'react';
 import moment from 'moment-timezone';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { db } from '../../firebase';
 
 const ScheduledContacts = ({ user }) => {
   const [contacts, setContacts] = React.useState([]);
-
   const { uid } = user;
 
   React.useEffect(() => {
-    // console.log('in use effect');
     const fetchData = async () => {
-      // console.log('fetch data');
       try {
         const userContacts = await db
           .collection('contacts')
@@ -34,7 +32,6 @@ const ScheduledContacts = ({ user }) => {
               time_zone: doc.data().timezone,
               id: doc.id,
             };
-            // console.log(contact, 'forEach');
             setContacts(contacts => [...contacts, contact]);
           } catch (err) {
             console.log(err);
@@ -45,8 +42,7 @@ const ScheduledContacts = ({ user }) => {
       }
     };
     fetchData();
-  }, []);
-  console.log(contacts, 'From end');
+  }, [uid]);
 
   return (
     <>
@@ -57,7 +53,6 @@ const ScheduledContacts = ({ user }) => {
       </div>
       {contacts &&
         contacts.map(c => {
-          console.log(c, 'from C');
           return (
             <div style={{ display: 'flex' }}>
               {c.user2.displayName}{' '}
@@ -76,14 +71,12 @@ const ScheduledContacts = ({ user }) => {
 
 export default ScheduledContacts;
 
-const Table = styled.div`
-  max-width: 100%;
-  /* background: red; */
-  border: 1px solid black;
-  padding: 5px;
-  text-align: center;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-`;
+ScheduledContacts.propTypes = {
+  user: PropTypes.shape({
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+    photoUrl: PropTypes.string,
+    uid: PropTypes.string,
+    phoneNumber: PropTypes.string,
+  }),
+};

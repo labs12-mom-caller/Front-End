@@ -1,18 +1,24 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 2px solid black;
-  max-width: 350px;
-  padding: 20px;
+  width: 90%;
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
 
-  form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
+  h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 3rem;
+    margin-top: 30px;
+    color: #636578;
+  }
+
+  p {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 20px;
   }
 `;
