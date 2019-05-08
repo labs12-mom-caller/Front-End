@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { navigate } from '@reach/router';
+import { Link, navigate } from '@reach/router';
 import styled from 'styled-components';
 import Navbar from './NavBar';
 import ModalPhoneNumber from './ModalPhoneNumber';
-import UpcomingCalls from './UpcomingCalls';
 import RecentTranscripts from './RecentTranscripts';
 import ScheduledContacts from './dashboard/ScheduledContacts';
 import PreviousCalls from './dashboard/PreviousCalls';
@@ -26,7 +25,7 @@ const DashMain = ({ user }) => {
   const { displayName, photoUrl, uid } = user;
   return (
     <Container>
-      <Navbar user={user} />
+      {/* <Navbar user={user} /> */}
       <Aside>
         <User>
           <Img src={photoUrl} alt={displayName} />
@@ -34,7 +33,14 @@ const DashMain = ({ user }) => {
             <H3>{displayName}</H3>
             <P>{formatPhoneNumber(user.phoneNumber)}</P>
             <P>{user.email}</P>
-            <Button>Add Call</Button>
+            <Button
+              onClick={e => {
+                e.preventDefault();
+                navigate(`/choose/${uid}`);
+              }}
+            >
+              Add Call
+            </Button>
           </UserInfo>
         </User>
       </Aside>
