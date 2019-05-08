@@ -22,6 +22,7 @@ exports.handler = async (req, res, firestore) => {
     const snapshot = await contacts
       .where('next_call', '>', min)
       .where('next_call', '<', max)
+      .where('canceled', '==', false)
       .get();
     if (snapshot.empty) {
       console.log('No contacts');

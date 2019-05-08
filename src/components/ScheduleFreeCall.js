@@ -70,6 +70,7 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
         user2: db.collection('users').doc(contactId),
         created_at: moment().toDate(),
         updated_at: moment().toDate(),
+        canceled: false,
       });
       navigate(`/confirmation/${docRef.id}`);
     } catch (err) {
