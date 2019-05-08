@@ -4,6 +4,8 @@ import moment from 'moment-timezone';
 import { Link } from '@reach/router';
 import styled from 'styled-components';
 import { db } from '../../firebase';
+import ScheduledCall from '../ContactInfo/ScheduledCall';
+import NextCall from '../ContactInfo/NextCall';
 
 const ContactInfo = ({ contactId, user }) => {
   const [contact, setContact] = useState({});
@@ -47,68 +49,40 @@ const ContactInfo = ({ contactId, user }) => {
   console.log(calls);
   return contact.fetched ? (
     <Container>
-      <PreviousCalls>
-        <h3>Previous Calls</h3>
-        {calls.length &&
-          calls.map(call => {
-            return (
-              <Card key={call.id}>
-                <div>
-                  Call on{' '}
-                  {moment(call.call_time, 'X')
-                    .tz(contact.timezone)
-                    .format('MMMM Do, YYY [at] h:mm A')}
-                </div>
-                <div>Call duration: {call.call_duration} seconds</div>
-                <Link to={`/prev-calls/${user.uid}/${call.id}`}>
-                  Review Call
-                </Link>
-              </Card>
-            );
-          })}
-      </PreviousCalls>
-      <ScheduledBy>
+      <PreviousCallsContainer>
         <Card>
           <header>
-            <h3>Scheduled By</h3>
-            <h3>On</h3>
-            <h3>With</h3>
+            <h3>Previous Calls</h3>
           </header>
-          <main>
-            <div>
-              <div>{contact.user1.displayName}</div>{' '}
-              <img
-                src={contact.user1.photoUrl}
-                alt={contact.user1.displayName}
-              />{' '}
-            </div>
-            <div>
-              {moment(contact.created_at, 'X')
-                .tz(contact.timezone)
-                .format('MMMM Do, YYYY')}
-            </div>
-            <div>
-              <div>{contact.user2.displayName}</div>
-              <img
-                src={
-                  contact.user2.photoUrl ||
-                  'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
-                }
-                alt={contact.user2.displayName}
-              />
-            </div>
-          </main>
+          {calls.length &&
+            calls.map(call => {
+              return (
+                <Card key={call.id}>
+                  <div>
+                    Call on{' '}
+                    {moment(call.call_time, 'X')
+                      .tz(contact.timezone)
+                      .format('MMMM Do, YYY [at] h:mm A')}
+                  </div>
+                  <div>Call duration: {call.call_duration} seconds</div>
+                  <Link to={`/prev-calls/${user.uid}/${call.id}`}>
+                    Review Call
+                  </Link>
+                </Card>
+              );
+            })}
         </Card>
-      </ScheduledBy>
-      <NextCall>
+      </PreviousCallsContainer>
+      <ScheduledByContainer>
         <Card>
-          <div>
-            <header>
-              <h3>Next Call</h3>
-            </header>
-          </div>
+          <ScheduledCall contact={contact} />
         </Card>
-      </NextCall>
+      </ScheduledByContainer>
+      <NextCallContainer>
+        <Card>
+          <NextCall contact={contact} />
+        </Card>
+      </NextCallContainer>
     </Container>
   ) : (
     <p>Loading...</p>
@@ -126,7 +100,7 @@ const Card = styled.div`
 
     header {
       width: 100%
-      background-color: grey;
+      background-color: #C4C4C4;
       display: flex;
       justify-content: space-around;
     }
@@ -146,22 +120,22 @@ const Card = styled.div`
 }
 `;
 
-const PreviousCalls = styled.aside`
+const PreviousCallsContainer = styled.aside`
   grid-row: 2 / -1;
-  grid-column: 1;
+  grid-column: 2 / 5;
 `;
-const ScheduledBy = styled.div`
+const ScheduledByContainer = styled.div`
   grid-row: 2 / -1;
-  grid-column: 2;
+  grid-column: 6 / 11;
 `;
-const NextCall = styled.div`
+const NextCallContainer = styled.div`
   grid-row: 2 / -1;
-  grid-column: 3;
+  grid-column: 12 / 15;
 `;
 const Container = styled.div`
   display: grid;
   height: 85vh;
-  grid-template-columns: 1fr 2fr 3fr;
+  grid-template-columns: repeat(15, 1fr);
   grid-template-rows: 70px 1fr;
 `;
 

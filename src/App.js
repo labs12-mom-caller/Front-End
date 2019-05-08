@@ -71,7 +71,7 @@ function App() {
     <>
       <CSSReset />
       <Global />
-      {/* <NavBar user={user} /> */}
+      <NavBar user={user} />
       <Router>
         <DashMain user={user} path='/' exact />
         <ChooseYourContact user={user} path='/choose/:userId' />
