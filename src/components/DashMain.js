@@ -4,7 +4,6 @@ import { navigate } from '@reach/router';
 import styled from 'styled-components';
 import Navbar from './NavBar';
 import ModalPhoneNumber from './ModalPhoneNumber';
-import UpcomingCalls from './UpcomingCalls';
 import RecentTranscripts from './RecentTranscripts';
 import ScheduledContacts from './dashboard/ScheduledContacts';
 import PreviousCalls from './dashboard/PreviousCalls';
@@ -26,7 +25,7 @@ const DashMain = ({ user }) => {
   const { displayName, photoUrl, uid } = user;
   return (
     <Container>
-      <Navbar user={user} />
+      {/* <Navbar user={user} /> */}
       <Aside>
         <User>
           <Img src={photoUrl} alt={displayName} />
