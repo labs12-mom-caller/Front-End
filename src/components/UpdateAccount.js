@@ -3,7 +3,6 @@ import { navigate } from '@reach/router';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { db, storage, auth } from '../firebase';
-import NavbarPage from './NavBar';
 
 const useInputValue = initialValue => {
   const [value, setValue] = React.useState(initialValue);
