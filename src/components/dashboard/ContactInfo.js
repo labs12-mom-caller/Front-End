@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
 import { Link } from '@reach/router';
+import styled from 'styled-components';
 import { db } from '../../firebase';
 import { ContactInfoPage } from '../../styles/ContactInfoPage';
-import styled from 'styled-components';
 
 const ContactInfo = ({ contactId, user }) => {
   const [contact, setContact] = useState({});
