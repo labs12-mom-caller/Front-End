@@ -76,6 +76,7 @@ const ScheduledContacts = ({ user }) => {
                   .format(`MMMM Do, YYYY`)}
               </div>
             </Link>
+
           );
         })}
     </>
