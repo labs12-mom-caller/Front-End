@@ -3,7 +3,6 @@ import { navigate } from '@reach/router';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { db, storage, auth } from '../firebase';
-import NavbarPage from './NavBar';
 
 const useInputValue = initialValue => {
   const [value, setValue] = React.useState(initialValue);
@@ -74,7 +73,6 @@ const UpdateAccount = ({ user }) => {
 
   return (
     <Container>
-      {/* <NavbarPage user={user} /> */}
       <Wrapper>
         <img src={user.photoUrl} alt={user.displayName} />
         <UpdateForm>
