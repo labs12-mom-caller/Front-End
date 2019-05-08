@@ -78,10 +78,11 @@ const UpdateAccount = ({ user }) => {
       <Wrapper>
         <img src={user.photoUrl} alt={user.displayName} />
         <UpdateForm>
+          <label htmlFor='img' style={{ marginLeft: '30%' }}>
+            Profile Picture
+            <input onChange={uploadFile} type='file' />
+          </label>
           <label htmlFor='displayName'>
-            <button type='submit' onClick={e => update(e)}>
-              update
-            </button>
             <br />
             Display Name
             <input
@@ -109,10 +110,9 @@ const UpdateAccount = ({ user }) => {
               placeholder='enter your email'
             />
           </label>
-          <label htmlFor='img'>
-            Profile Picture
-            <input onChange={uploadFile} type='file' />
-          </label>
+          <button className='updateBtn' type='submit' onClick={e => update(e)}>
+            update
+          </button>
           <label htmlFor='password'>
             password
             <input
@@ -132,13 +132,24 @@ const UpdateAccount = ({ user }) => {
   );
 };
 const Wrapper = styled.div`
-  border: 2px solid orange;
+  /* border: 2px solid orange; */
   width: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   margin: 0 auto;
+
+  img {
+    width: 50%;
+    border: 1px solid #999999;
+    border-radius: 50%;
+  }
+  @media only screen and (max-width: 600px) {
+    img {
+      width: 100%;
+    }
+  }
 `;
 const Container = styled.div`
   display: grid;
@@ -147,6 +158,31 @@ const Container = styled.div`
   border: 3px solid black;
   grid-template-rows: 70px 1fr;
 `;
+const UpdateForm = styled.form`
+  border: 2px solid #999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 6%;
+  /* width: 60%; */
+  width: auto;
+  label {
+    color: black;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+  }
+  .updateBtn {
+    /* margin-left: 37%; */
+    margin-bottom: 5%;
+  }
+  @media only screen and (max-width: 600px) {
+    width: 140%;
+    height: 46%;
+  }
+`;
+
 export default UpdateAccount;
 
 UpdateAccount.propTypes = {
@@ -158,15 +194,3 @@ UpdateAccount.propTypes = {
     phoneNumber: PropTypes.string,
   }),
 };
-
-const UpdateForm = styled.form`
-  border: 2px solid red;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  label {
-    color: black;
-    font-weight: bold;
-  }
-`;

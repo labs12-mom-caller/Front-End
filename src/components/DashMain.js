@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import Navbar from './NavBar';
 import ModalPhoneNumber from './ModalPhoneNumber';
 import UpcomingCalls from './UpcomingCalls';
-import RecentTranscripts from './RecentTranscripts';
 import ScheduledContacts from './dashboard/ScheduledContacts';
+import RecentTranscripts from './RecentTranscripts';
 import PreviousCalls from './dashboard/PreviousCalls';
 
 function formatPhoneNumber(number) {
