@@ -48,6 +48,8 @@ const PreviousCalls = ({ userId }) => {
     fetchData();
   }, [userId]);
 
+  if (calls.empty) return <p>No Calls Available...</p>;
+
   return (
     <>
       <h2>List of previously recorded calls</h2>

@@ -66,10 +66,42 @@ const ScheduledContacts = ({ user }) => {
           );
         })}
     </>
+    contacts &&
+    contacts.map((c, index) => {
+      return (
+        <Table key={index}>
+          <thead>
+            <tr style={{ display: 'flex', justifyContent: 'space-around' }}>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style={{ display: 'flex', justifyContent: 'space-around' }}>
+              <td >{c.user2.displayName}</td>
+              <td style={{ width: '50%' }}>
+                {' '}
+                {moment(c.next_call, 'X')
+                  .tz(c.time_zone)
+                  .format(`h:mm A`)}
+              </td>
+              <td style={{ width: '50%' }}>
+                {' '}
+                {moment(c.next_call, 'X')
+                  .tz(c.time_zone)
+                  .format(`MMMM Do, YYYY`)}
+              </td>
+            </tr>
+          </tbody>
+        </Table>
+      );
+    })
   );
 };
 
 export default ScheduledContacts;
+
 ScheduledContacts.propTypes = {
   user: PropTypes.shape({
     displayName: PropTypes.string,
@@ -81,6 +113,10 @@ ScheduledContacts.propTypes = {
 };
 const Table = styled.div`
   max-width: 100%;
+
+const Table = styled.div`
+  max-width: 100%;
+  /* background: red; */
   border: 1px solid black;
   padding: 5px;
   text-align: center;

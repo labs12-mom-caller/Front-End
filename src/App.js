@@ -4,7 +4,7 @@ import { Router } from '@reach/router';
 import { firebase, db } from './firebase';
 
 import Login from './components/Auth/Login';
-import LandingPage from './components/LandingPage';
+import Landing from './components/Landing';
 import SignUp from './components/Auth/SignUp';
 import NavBar from './components/NavBar';
 import DashMain from './components/DashMain';
@@ -71,7 +71,7 @@ function App() {
     <>
       <CSSReset />
       <Global />
-      {/* <NavBar user={user} /> */}
+      <NavBar user={user} />
       <Router>
         <DashMain user={user} path='/' exact />
         <ChooseYourContact user={user} path='/choose/:userId' />
@@ -79,8 +79,8 @@ function App() {
         <ScheduleFreeCall path='/choose/:userId/:contactId/:frequency/schedule-free' />
         <SchedulePaidCall path='/choose/:userId/:contactId/:frequency/schedule' />
         <CallConfirmation path='/confirmation/:contactId' />
-        <PreviousCalls path='prev-calls/:userId' />
-        <CallRecord path='prev-calls/:userId/:callId' />
+        <PreviousCalls path='/prev-calls/:userId' />
+        <CallRecord path='/prev-calls/:userId/:callId' />
         <AboutUs path='/about-us' />
         <UpdateAccount user={user} path='/account/:userId' />
         <ContactInfo user={user} path='/contact/:contactId/' />
@@ -92,7 +92,7 @@ function App() {
       <CSSReset />
       <Global />
       <Router>
-        <LandingPage path='/' exact />
+        <Landing path='/' exact />
         <SignUp path='/signup' />
         <Login path='/login' />
       </Router>
