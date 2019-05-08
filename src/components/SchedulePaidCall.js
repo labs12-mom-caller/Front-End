@@ -22,6 +22,7 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
   const [time, setTime] = useState(initialState);
 
   const onToken = async token => {
+    let stripeId = user.stripe_id || '';
     if (!user.stripe_id) {
       const formData = new URLSearchParams({
         email: user.email,
@@ -30,14 +31,48 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
       const response = await fetch('https://api.stripe.com/v1/customers', {
         method: 'POST',
         headers: {
-          Accept: 'application/javascript',
           'Content-Type': 'application/x-www-form-urlencoded',
           Authorization: `Bearer ${process.env.REACT_APP_STRIPESECRET}`,
         },
         body: formData,
       });
       const { id } = await response.json();
+      await db.doc(`/users/${userId}`).update({
+        stripe_id: id,
+      });
+      stripeId = id;
     }
+    try {
+      await fetch(
+        `https://api.stripe.com/v1/customers/${stripeId}?source=${token.id}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: `Bearer ${process.env.REACT_APP_STRIPESECRET}`,
+          },
+        },
+      );
+      const planId =
+        frequency === 'Bi-Weekly'
+          ? 'plan_F20stdpdPhbPlz'
+          : 'plan_F20svaxc8pnQWp';
+      const response = await fetch(
+        `https://api.stripe.com/v1/subscriptions?customer=${stripeId}&items[0][plan]=${planId}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: `Bearer ${process.env.REACT_APP_STRIPESECRET}`,
+          },
+        },
+      );
+      const data = await response.json();
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+
     // fetch('https://us-central1-recaller-14a1f.cloudfunctions.net/charge', {
     //   method: 'POST',
     //   body: JSON.stringify({
