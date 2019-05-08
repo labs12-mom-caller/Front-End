@@ -6,6 +6,8 @@ import Navbar from './NavBar';
 import ModalPhoneNumber from './ModalPhoneNumber';
 import UpcomingCalls from './UpcomingCalls';
 import RecentTranscripts from './RecentTranscripts';
+import ScheduledContacts from './dashboard/ScheduledContacts';
+import PreviousCalls from './dashboard/PreviousCalls';
 
 function formatPhoneNumber(number) {
   const numberCopy = [...number];
@@ -41,10 +43,7 @@ const DashMain = ({ user }) => {
         <Wrapper>
           <CardHeader>Upcoming Calls</CardHeader>
           <UpcomingCard>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam
-            odio quas, atque exercitationem hic, totam magni dolore nulla
-            sapiente inventore magnam? Iste eaque ullam dicta doloribus
-            repellat, beatae praesentium quidem.
+            <ScheduledContacts user={user} />
           </UpcomingCard>
         </Wrapper>
       </Upcoming>
@@ -52,16 +51,7 @@ const DashMain = ({ user }) => {
         <PrevWrapper>
           <CardHeader>Previous Calls</CardHeader>
           <PreviousCard>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-          </PreviousCard>
-          <PreviousCard>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-          </PreviousCard>
-          <PreviousCard>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-          </PreviousCard>
-          <PreviousCard>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+            <PreviousCalls userId={user.uid} />
           </PreviousCard>
         </PrevWrapper>
       </Previous>
