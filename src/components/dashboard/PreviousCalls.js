@@ -6,7 +6,7 @@ import { db } from '../../firebase';
 
 const PreviousCalls = ({ userId }) => {
   const [calls, setCalls] = useState([]);
-  console.log(calls, 'CALLS');
+
   useEffect(() => {
     const fetchData = async () => {
       const user = await db.collection('users').doc(userId);
@@ -14,7 +14,7 @@ const PreviousCalls = ({ userId }) => {
         .collection('contacts')
         .where('user1', '==', user)
         .get();
-      console.log(userContacts, 'userContacts');
+
       await userContacts.forEach(async doc => {
         const allCalls = await db
           .collection('calls')
@@ -28,7 +28,7 @@ const PreviousCalls = ({ userId }) => {
               contactId: '',
               audio: doc.data().audio,
               call_duration: doc.data().call_duration,
-              call_time: moment(doc.data().call_time.toDate()).format(),
+              call_time: moment(doc.data().call_time, 'X').format(),
             };
             const contactRef = doc.data().contact_ref.path;
             await db.doc(contactRef).onSnapshot(async doc => {

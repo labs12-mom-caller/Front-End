@@ -8,7 +8,7 @@ import { Scheduler } from '../styles/Scheduler';
 
 import { db } from '../firebase';
 
-const SchedulePaidCall = ({ userId, contactId, frequency }) => {
+const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
   const [paid, setPaid] = useState(false);
 
   const initialState = {
@@ -21,25 +21,41 @@ const SchedulePaidCall = ({ userId, contactId, frequency }) => {
 
   const [time, setTime] = useState(initialState);
 
-  const onToken = token => {
-    fetch('https://us-central1-recaller-14a1f.cloudfunctions.net/charge', {
-      method: 'POST',
-      body: JSON.stringify({
-        token,
-        charge: {
-          amount: 250,
-          currency: 'usd',
-        },
-      }),
-    }).then(res => {
-      res.json().then(data => {
-        data.body = JSON.parse(data.body);
-        if (data.statusCode === 200) {
-          setPaid(true);
-        }
-        return data;
+  const onToken = async token => {
+    if (!user.stripe_id) {
+      const formData = new URLSearchParams({
+        email: user.email,
+        name: user.displayName,
       });
-    });
+      const response = await fetch('https://api.stripe.com/v1/customers', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/javascript',
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: `Bearer ${process.env.REACT_APP_STRIPESECRET}`,
+        },
+        body: formData,
+      });
+      const { id } = await response.json();
+    }
+    // fetch('https://us-central1-recaller-14a1f.cloudfunctions.net/charge', {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     token,
+    //     charge: {
+    //       amount: 250,
+    //       currency: 'usd',
+    //     },
+    //   }),
+    // }).then(res => {
+    //   res.json().then(data => {
+    //     data.body = JSON.parse(data.body);
+    //     if (data.statusCode === 200) {
+    //       setPaid(true);
+    //     }
+    //     return data;
+    //   });
+    // });
   };
 
   const handleChange = e => {
@@ -80,6 +96,7 @@ const SchedulePaidCall = ({ userId, contactId, frequency }) => {
       console.log(err);
     }
   };
+
   return (
     <Scheduler>
       <h2>Schedule a call</h2>
@@ -175,6 +192,14 @@ SchedulePaidCall.propTypes = {
   userId: PropTypes.string,
   contactId: PropTypes.string,
   frequency: PropTypes.string,
+  user: PropTypes.shape({
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+    photoUrl: PropTypes.string,
+    uid: PropTypes.string,
+    phoneNumber: PropTypes.string,
+    stripe_id: PropTypes.string,
+  }),
 };
 
 export default SchedulePaidCall;

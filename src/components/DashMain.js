@@ -25,7 +25,6 @@ const DashMain = ({ user }) => {
   const { displayName, photoUrl, uid } = user;
   return (
     <Container>
-      {/* <Navbar user={user} /> */}
       <Aside>
         <User>
           <Img src={photoUrl} alt={displayName} />
