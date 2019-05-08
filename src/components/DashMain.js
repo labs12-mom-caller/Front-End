@@ -4,8 +4,9 @@ import { Link, navigate } from '@reach/router';
 import styled from 'styled-components';
 import Navbar from './NavBar';
 import ModalPhoneNumber from './ModalPhoneNumber';
-import RecentTranscripts from './RecentTranscripts';
+import UpcomingCalls from './UpcomingCalls';
 import ScheduledContacts from './dashboard/ScheduledContacts';
+import RecentTranscripts from './RecentTranscripts';
 import PreviousCalls from './dashboard/PreviousCalls';
 
 function formatPhoneNumber(number) {

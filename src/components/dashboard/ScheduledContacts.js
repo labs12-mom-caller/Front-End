@@ -3,7 +3,6 @@ import React from 'react';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Link } from '@reach/router';
 import { db } from '../../firebase';
 
 const ScheduledContacts = ({ user }) => {
@@ -54,6 +53,16 @@ const ScheduledContacts = ({ user }) => {
       {contacts &&
         contacts.map(c => {
           return (
+            <div style={{ display: 'flex' }}>
+              {c.user2.displayName}{' '}
+              {moment(c.next_call, 'X')
+                .tz(c.time_zone)
+                .format(`h:mm A`)}{' '}
+              {moment(c.next_call, 'X')
+                .tz(c.time_zone)
+                .format(`MMMM Do, YYYY`)}
+            </div>
+
             <Link to={`/contact/${c.id}`} key={c.id}>
               <div style={{ display: 'flex' }}>
                 <div>{c.user2.displayName}</div>
