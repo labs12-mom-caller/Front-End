@@ -132,38 +132,29 @@ const UpdateAccount = ({ user }) => {
   );
 };
 const Wrapper = styled.div`
-  /* border: 2px solid orange; */
   width: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   margin: 0 auto;
-  margin-top: 30%;
+  align-self: flex-start;
   img {
     width: 50%;
     border: 1px solid #999999;
     border-radius: 50%;
   }
-  @media only screen and (max-width: 850px) {
-    margin-top: 40%;
+  @media only screen and (max-width: 1000px) {
+    align-self: flex-start;
     img {
       width: 60%;
-    }
-  }
-  @media only screen and (max-width: 600px) {
-    margin-top: 80%;
-    img {
-      width: 100%;
-      margin-top: 15%;
     }
   }
 `;
 const Container = styled.div`
   display: grid;
-  height: 85vh;
+  height: 72vh;
   grid-template-columns: 1fr;
-  /* border: 3px solid black; */
   grid-template-rows: 70px 1fr;
 `;
 const UpdateForm = styled.form`
@@ -173,7 +164,6 @@ const UpdateForm = styled.form`
   align-items: center;
   flex-direction: column;
   margin-top: 6%;
-  /* width: 60%; */
   width: auto;
   label {
     color: black;
@@ -188,7 +178,7 @@ const UpdateForm = styled.form`
   @media only screen and (max-width: 600px) {
     width: auto;
     height: auto;
-    margin-top: 20%;
+    margin-top: 2%;
   }
 `;
 
