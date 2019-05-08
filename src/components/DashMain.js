@@ -41,6 +41,7 @@ const DashMain = ({ user }) => {
             >
               Add Call
             </Button>
+            <Button onClick={() => navigate(`/billing/${uid}`)}>Billing</Button>
           </UserInfo>
         </User>
       </Aside>

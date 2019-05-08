@@ -120,7 +120,7 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
         canceled: false,
       });
       await fetch(
-        `https://api.stripe.com/v1/subscriptions/${subId}?metadata[call_id]=${
+        `https://api.stripe.com/v1/subscriptions/${subId}?metadata[contact_id]=${
           docRef.id
         }`,
         {
