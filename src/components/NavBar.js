@@ -79,7 +79,7 @@ const Container = styled.div`
   border-bottom: 0.5px solid #000000;
   display: grid;
   grid-column: 1 / -1;
-  margin-bottom: 5%;
+  margin-bottom: 2%;
 
   .NavbarLink-toggle {
     display: none;

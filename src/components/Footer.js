@@ -34,7 +34,7 @@ const Footer = ({ user }) => {
             <a href='#!'>Review Calls</a>
           </li>
           <li className='list'>
-            <a href='#!'>Previous Calls</a>
+            <a href={`/prev-calls/${user.uid}`}>Previous Calls</a>
           </li>
           <li className='list'>
             <a href='/about-us'>Our Team</a>
@@ -53,6 +53,7 @@ const FooterWrap = styled.footer`
   background-color: #636578;
   height: 15vh;
   width: 100%;
+  margin-top: 25px;
   @media (max-width: 992px) {
     /* margin-left: 6%; */
   }
