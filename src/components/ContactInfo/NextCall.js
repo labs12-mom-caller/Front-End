@@ -50,11 +50,5 @@ const Container = styled.div`
 export default NextCall;
 
 NextCall.propTypes = {
-  contact: PropTypes.shape({
-    displayName: PropTypes.string,
-    email: PropTypes.string,
-    photoUrl: PropTypes.string,
-    uid: PropTypes.string,
-    phoneNumber: PropTypes.string,
-  }),
+  contact: PropTypes.object,
 };
