@@ -22,7 +22,6 @@ function formatPhoneNumber(number) {
 }
 
 const DashMain = ({ user }) => {
-  console.log(user, 'dash');
   const { displayName, photoUrl, uid } = user;
   return (
     <Container>

@@ -7,7 +7,6 @@ import { Link, navigate } from '@reach/router';
 import { logout } from '../app/utils';
 
 const NavbarPage = ({ user }) => {
-  console.log(user, 'ello!');
   const [collapseId, setCollapseId] = useState('');
 
   const toggleCollapse = newId => () => {
