@@ -34,7 +34,7 @@ const Footer = ({ user }) => {
             <a href='#!'>Review Calls</a>
           </li>
           <li className='list'>
-            <a href='#!'>Previous Calls</a>
+            <a href={`/prev-calls/${user.uid}`}>Previous Calls</a>
           </li>
           <li className='list'>
             <a href='/about-us'>Our Team</a>
