@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaFacebook, FaTwitter, FaLinkedin } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 import { styles } from 'ansi-colors';
 
-const Footer = () => {
+const Footer = ({ user }) => {
   return (
     <FooterWrap>
       <SectionLeft className='sectionLeft' style={{}}>
@@ -27,7 +28,7 @@ const Footer = () => {
             <a href='/'>Dashboard</a>
           </li>
           <li className='list'>
-            <a href='#!'>Add New Call</a>
+            <a href={`/choose/${user.uid}`}>Add New Call</a>
           </li>
           <li className='list'>
             <a href='#!'>Review Calls</a>
@@ -138,3 +139,13 @@ const SectionRight = styled.div`
     color: white;
   }
 `;
+
+Footer.propTypes = {
+  user: PropTypes.shape({
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+    photoUrl: PropTypes.string,
+    uid: PropTypes.string,
+    phoneNumber: PropTypes.string,
+  }),
+};

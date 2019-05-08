@@ -8,6 +8,11 @@ import { logout } from '../app/utils';
 
 const NavbarPage = ({ user }) => {
   const [collapseId, setCollapseId] = useState('');
+  const [show, setShow] = useState(false);
+
+  const toggleNav = () => {
+    setShow(!show);
+  };
 
   const toggleCollapse = newId => () => {
     return newId !== collapseId ? setCollapseId('') : setCollapseId(newId);
@@ -21,11 +26,17 @@ const NavbarPage = ({ user }) => {
   };
 
   return (
-    <Container>
+    <Container className={show ? 'NavbarShow' : null}>
       <Name>
         <Link to='/'>ReCaller</Link>
       </Name>
-      <Nav>
+      <Nav
+        className={
+          show
+            ? 'Navbar__Items Navbar__ToggleShow'
+            : 'Navbar__Items Navbar__Items--right'
+        }
+      >
         <li>
           <Link to={`/account/${user.uid}`}>Account</Link>
         </li>
@@ -38,9 +49,13 @@ const NavbarPage = ({ user }) => {
           </Link>
         </li>
       </Nav>
+      <div onClick={() => toggleNav()} className='NavbarLink NavbarLink-toggle'>
+        <i className='fas fa-bars' />
+      </div>
     </Container>
   );
 };
+
 const Name = styled.h1`
   grid-column: 1 / span 1;
   margin-top: 7px;
@@ -55,15 +70,41 @@ const Name = styled.h1`
 const VL = styled.div`
   border-left: 1px solid #999999;
   height: 25px;
-  position: absolute;
-  right: 4.8%;
-  margin-left: -3px;
+  /* position: absolute; */
+  /* right: 4.8%; */
+  /* margin-left: -3px; */
   top: 2.4%;
 `;
 const Container = styled.div`
-  border: 0.5px solid #000000;
+  border-bottom: 0.5px solid #000000;
   display: grid;
   grid-column: 1 / -1;
+  .NavbarLink-toggle {
+    display: none;
+  }
+
+  @media only screen and (max-width: 600px) {
+    border-bottom: none;
+    .Navbar__ToggleShow {
+      display: flex;
+      height: 158px;
+      flex-direction: row;
+      position: absolute;
+      right: 4px;
+      top: -2px;
+    }
+    .NavbarLink-toggle {
+      /* align-self: flex-end; */
+      color: #083d77;
+      display: initial;
+      /* align-self: center; */
+      font-size: 2.5rem;
+      cursor: pointer;
+      position: absolute;
+      right: 4%;
+      top: 1.5%;
+    }
+  }
 `;
 const Nav = styled.nav`
   display: flex;
@@ -80,7 +121,39 @@ const Nav = styled.nav`
     margin: 0 5px;
     padding: 3px;
   }
+  @media only screen and (max-width: 850px) {
+    position: absolute;
+    right: 3%;
+    top: 3%;
+  }
+  @media only screen and (max-width: 600px) {
+    display: none;
+    a {
+      font-size: 0.8rem;
+    }
+    .Navbar__ToggleShow {
+      display: flex;
+      height: 158px;
+      font-size: 1rem;
+      flex-direction: row;
+      position: absolute;
+      right: 69px;
+      top: -45px;
+    }
+    .NavbarLink-toggle {
+      /* align-self: flex-end; */
+      color: #083d77;
+      display: initial;
+      /* align-self: center; */
+      font-size: 2.5rem;
+      cursor: pointer;
+      position: absolute;
+      right: 4%;
+      top: 1.5%;
+    }
+  }
 `;
+
 NavbarPage.propTypes = {
   user: PropTypes.shape({
     displayName: PropTypes.string,
