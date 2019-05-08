@@ -3,6 +3,7 @@ import React from 'react';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Link } from '@reach/router';
 import { db } from '../../firebase';
 
 const ScheduledContacts = ({ user }) => {

@@ -74,96 +74,118 @@ const UpdateAccount = ({ user }) => {
   return (
     <Container>
       <Wrapper>
-        <img src={user.photoUrl} alt={user.displayName} />
+        <ProfileImage src={user.photoUrl} alt={user.displayName} />
         <UpdateForm>
-          <label htmlFor='img' style={{ marginLeft: '30%' }}>
-            Profile Picture
-            <input onChange={uploadFile} type='file' />
-          </label>
-          <label htmlFor='displayName'>
-            <br />
-            Display Name
-            <input
-              type='text'
-              id='displayName'
-              {...displayName}
-              placeholder='Enter your name'
-            />
-          </label>
-          <label htmlFor='phoneNumber'>
-            Phone Number
-            <input
-              type='text'
-              id='phoneNumber'
-              {...phoneNumber}
-              placeholder='enter your phone number'
-            />
-          </label>
-          <label htmlFor='email'>
-            Email
-            <input
-              type='text'
-              id='email'
-              {...email}
-              placeholder='enter your email'
-            />
-          </label>
-          <button className='updateBtn' type='submit' onClick={e => update(e)}>
-            update
-          </button>
-          <label htmlFor='password'>
-            password
-            <input
-              type='password'
-              id='password'
-              {...newPassword}
-              placeholder='enter your password'
-            />
-          </label>
-          <button onClick={passwordUpdate} type='button'>
-            {' '}
-            Update Password{' '}
-          </button>
+          <div>
+            <InputLabel htmlFor='img' style={{ textAlign: 'center' }}>
+              Profile Picture
+              <PictureFile onChange={uploadFile} type='file' />
+            </InputLabel>
+            <div>
+              <InputLabel htmlFor='displayName' style={{ marginTop: '25px' }}>
+                <br />
+                Display Name
+                <InputEntry
+                  type='text'
+                  id='displayName'
+                  {...displayName}
+                  placeholder='Enter your name'
+                />
+              </InputLabel>
+
+              <InputLabel htmlFor='password'>
+                Password
+                <InputEntry
+                  type='password'
+                  id='password'
+                  {...newPassword}
+                  placeholder='enter your password'
+                />
+              </InputLabel>
+
+              <InputLabel htmlFor='email'>
+                Email
+                <InputEntry
+                  type='text'
+                  id='email'
+                  {...email}
+                  placeholder='enter your email'
+                />
+              </InputLabel>
+
+              <InputLabel htmlFor='phoneNumber'>
+                Phone Number
+                <InputEntry
+                  type='text'
+                  id='phoneNumber'
+                  {...phoneNumber}
+                  placeholder='enter your phone number'
+                />
+              </InputLabel>
+              <ButtonGroup>
+                <FormButton onClick={passwordUpdate} type='button'>
+                  {' '}
+                  Update Password{' '}
+                </FormButton>
+
+                <FormButton
+                  className='updateBtn'
+                  type='submit'
+                  onClick={e => update(e)}
+                >
+                  Update Profile
+                </FormButton>
+              </ButtonGroup>
+            </div>
+          </div>
         </UpdateForm>
       </Wrapper>
     </Container>
   );
 };
-const Wrapper = styled.div`
-  width: 40%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin: 0 auto;
-  align-self: flex-start;
-  img {
-    width: 50%;
-    border: 1px solid #999999;
-    border-radius: 50%;
-  }
-  @media only screen and (max-width: 1000px) {
-    align-self: flex-start;
-    img {
-      width: 60%;
-    }
-  }
-`;
 const Container = styled.div`
   display: grid;
-  height: 72vh;
+  height: 88vh;
   grid-template-columns: 1fr;
   grid-template-rows: 70px 1fr;
 `;
-const UpdateForm = styled.form`
-  border: 2px solid #999999;
+const Wrapper = styled.div`
+  width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 6%;
-  width: auto;
+  align-self: flex-start;
+  font-family: 'Open Sans Condensed', arial, sans;
+  width: 50%;
+  padding: 30px;
+  background: #ffffff;
+  margin: 10px auto;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+  -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+  -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+
+  @media only screen and (max-width: 750px) {
+    width: 70%;
+  }
+  @media only screen and (max-width: 450px) {
+    width: 90%;
+  }
+`;
+
+const UpdateForm = styled.form`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 90%;
+  /* padding: 30px; */
+  /* background: #ffffff;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+  -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+  -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22); */
   label {
+    font-family: "Roboto"
     color: black;
     font-weight: bold;
     display: flex;
@@ -178,6 +200,109 @@ const UpdateForm = styled.form`
     height: auto;
     margin-top: 2%;
   }
+`;
+
+const ProfileImage = styled.img`
+  width: 30%;
+  border-radius: 50%;
+  margin: 15px auto;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.22);
+  -moz-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.22);
+  -webkit-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.22);
+
+  @media only screen and (max-width: 750px) {
+    width: 50%;
+  }
+`;
+
+const InputLabel = styled.label`
+  /* text-align: center; */
+  @media only screen and (max-width: 750px) {
+    font-size: 0.9rem;
+  }
+`;
+
+const InputEntry = styled.input`
+  width: 95%;
+  border-radius: 4px;
+  outline: 0;
+  color: #999999;
+  margin: 5px 0;
+  padding-left: 12px;
+  padding: 9px
+  font-size: 14px;
+  background-color: rgba(0, 0, 0, 0.0001);
+  border: 1px solid #999999;
+
+  &::placeholder {
+    color: #999999;
+    /* padding-left: 12px; */
+    font-size: 14px;
+  }
+
+  @media only screen and (max-width: 750px) {
+  width: 100%;
+  }
+`;
+
+const FormButton = styled.button`
+  width: 140px;
+  height: 33px;
+  background-color: #ff6f61;
+  color: white;
+  border-radius: 2px;
+  font-size: 13px;
+  transition: all 0.4s ease;
+  outline: 0;
+  margin-top: 15px;
+  &:hover {
+    background-color: #ffffff;
+    color: #ff6f61;
+    border: 1px solid #ff6f61;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  }
+  @media only screen and (max-width: 750px) {
+    /* width: 140px; */
+    font-size: 0.7rem;
+  }
+`;
+
+const PictureFile = styled.input`
+  color: red;
+  position: relative;
+  right: -29px;
+  top: 9px;
+
+  ::-webkit-file-upload-button {
+    width: 90px;
+    height: 33px;
+    background-color: #ff6f61;
+    color: white;
+    border-radius: 2px;
+    font-size: 13px;
+    transition: all 0.4s ease;
+    outline: 0;
+    margin-top: 15px;
+    &:hover {
+      background-color: #ffffff;
+      color: #ff6f61;
+      border: 1px solid #ff6f61;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+    }
+    @media only screen and (max-width: 750px) {
+      /* width: 140px; */
+      font-size: 0.7rem;
+    }
+  }
+`;
+const ButtonGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export default UpdateAccount;

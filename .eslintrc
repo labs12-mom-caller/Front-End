@@ -17,7 +17,8 @@
     "no-shadow": "off",
     "import/no-extraneous-dependencies": "off",
     "no-param-reassign": "off",
-    "no-return-assign": "off"
+    "no-return-assign": "off",
+    "no-descending-specificity": null
   },
   "env": {
     "browser": true
