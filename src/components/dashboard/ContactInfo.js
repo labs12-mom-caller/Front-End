@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
 import { Link } from '@reach/router';
-
+import styled from 'styled-components';
 import { db } from '../../firebase';
-
-import { ContactInfoPage } from '../../styles/ContactInfoPage';
-
-import Loading from '../Loading';
+import ScheduledCall from '../ContactInfo/ScheduledCall';
+import NextCall from '../ContactInfo/NextCall';
 
 const ContactInfo = ({ contactId, user }) => {
   const [contact, setContact] = useState({});
@@ -50,60 +48,96 @@ const ContactInfo = ({ contactId, user }) => {
 
   console.log(calls);
   return contact.fetched ? (
-    <ContactInfoPage>
-      <h2>
-        Call between {contact.user1.displayName} and {contact.user2.displayName}
-      </h2>
-      <div className='contact-header'>
-        <img src={contact.user1.photoUrl} alt={contact.user1.displayName} />
-        <div>
-          <div>
-            Scheduled by {contact.user1.displayName} on{' '}
-            {moment(contact.created_at, 'X')
-              .tz(contact.timezone)
-              .format('MMMM Do, YYYY')}
-          </div>
-          <div>
-            Next call at{' '}
-            {moment(contact.next_call, 'X')
-              .tz(contact.timezone)
-              .format('h:mm A [on] dddd MMMM Do, YYYY')}
-          </div>
-          <div>Frequency of Calls: {contact.call_frequency}</div>
-          <div>
-            Call Schedule:{' '}
-            {contact.call_type === 'paid'
-              ? `${contact.scheduled_day}s at ${contact.scheduled_time}`
-              : 'Random'}
-          </div>
-        </div>
-        <img src={contact.user2.photoUrl} alt={contact.user2.displayName} />
-      </div>
-      <div>
-        <h3>Previous Calls</h3>
-        {calls.length &&
-          calls.map(call => {
-            return (
-              <div key={call.id}>
-                <div>
-                  Call on{' '}
-                  {moment(call.call_time, 'X')
-                    .tz(contact.timezone)
-                    .format('MMMM Do, YYY [at] h:mm A')}
-                </div>
-                <div>Call duration: {call.call_duration} seconds</div>
-                <Link to={`/prev-calls/${user.uid}/${call.id}`}>
-                  Review Call
-                </Link>
-              </div>
-            );
-          })}
-      </div>
-    </ContactInfoPage>
+    <Container>
+      <PreviousCallsContainer>
+        <Card>
+          <header>
+            <h3>Previous Calls</h3>
+          </header>
+          {calls.length &&
+            calls.map(call => {
+              return (
+                <Card key={call.id}>
+                  <div>
+                    Call on{' '}
+                    {moment(call.call_time, 'X')
+                      .tz(contact.timezone)
+                      .format('MMMM Do, YYY [at] h:mm A')}
+                  </div>
+                  <div>Call duration: {call.call_duration} seconds</div>
+                  <Link to={`/prev-calls/${user.uid}/${call.id}`}>
+                    Review Call
+                  </Link>
+                </Card>
+              );
+            })}
+        </Card>
+      </PreviousCallsContainer>
+      <ScheduledByContainer>
+        <Card>
+          <ScheduledCall contact={contact} />
+        </Card>
+      </ScheduledByContainer>
+      <NextCallContainer>
+        <Card>
+          <NextCall contact={contact} />
+        </Card>
+      </NextCallContainer>
+    </Container>
   ) : (
-    <Loading />
+    <p>Loading...</p>
   );
 };
+
+const Card = styled.div`
+
+  transition: box-shadow .3s;
+  width: 100%;
+  border-radius: 6px;
+   background: #fff;
+  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+  transition: box-shadow 0.5s;
+
+    header {
+      width: 100%
+      background-color: #C4C4C4;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    main {
+      display: flex;
+      justify-content: space-around;
+    }
+
+  img {
+    max-width: 80px;
+    border-radius: 100px;
+  }
+
+&:hover {
+   box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+}
+`;
+
+const PreviousCallsContainer = styled.aside`
+  grid-row: 2 / -1;
+  grid-column: 2 / 5;
+`;
+const ScheduledByContainer = styled.div`
+  grid-row: 2 / -1;
+  grid-column: 6 / 11;
+`;
+const NextCallContainer = styled.div`
+  grid-row: 2 / -1;
+  grid-column: 12 / 15;
+`;
+const Container = styled.div`
+  display: grid;
+  height: 85vh;
+  grid-template-columns: repeat(15, 1fr);
+  grid-template-rows: 70px 1fr;
+`;
 
 ContactInfo.propTypes = {
   contactId: PropTypes.string,
