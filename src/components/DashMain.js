@@ -2,10 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import styled from 'styled-components';
-
+import Navbar from './NavBar';
 import ModalPhoneNumber from './ModalPhoneNumber';
 import UpcomingCalls from './UpcomingCalls';
+import RecentTranscripts from './RecentTranscripts';
+
+function formatPhoneNumber(number) {
+  const numberCopy = [...number];
+  const digitsOnly = numberCopy.slice(2);
+  const withDashes = `${digitsOnly.slice(0, 3)}-${digitsOnly.slice(
+    3,
+    6,
+  )}-${digitsOnly.slice(6)}`;
   const formatted = [...withDashes];
+  const phoneNumber = formatted.filter(n => n !== ',');
   phoneNumber.join('');
   return phoneNumber;
 }
@@ -59,7 +69,6 @@ const DashMain = ({ user }) => {
     </Container>
   );
 };
-
 const CardHeader = styled.h2`
   color: #999999;
   margin-bottom: 20px;
