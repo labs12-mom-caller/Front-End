@@ -52,22 +52,18 @@ const PreviousCalls = ({ userId }) => {
 
   return (
     <>
-      <h2>List of previously recorded calls</h2>
       {calls &&
         calls.map(call => (
-          <div key={call.callId}>
-            <Link to={`${call.callId}`}>View Call</Link>
-            <h3>Call with {call.user2.displayName}</h3>
-            <p>{moment(call.call_time).format('dddd, MMMM Do [at] h:mm A')}</p>
-            <p>Call duration: {call.call_duration} seconds</p>
-            <p>Listen to call</p>
-            {/* eslint-disable jsx-a11y/media-has-caption */}
-            <audio controls>
-              <source src={call.audio} type='audio/wav' />
-              <track />
-              Your browser does not support the audio element
-            </audio>
-          </div>
+          <Link to={`/prev-calls/${userId}/${call.callId}`} key={call.callId}>
+            <div>
+              <h3>Call with {call.user2.displayName}</h3>
+              <p>
+                {moment(call.call_time).format('dddd, MMMM Do [at] h:mm A')}
+              </p>
+              <p>Call duration: {call.call_duration} seconds</p>
+              <p>Listen to call</p>
+            </div>
+          </Link>
         ))}
     </>
   );
