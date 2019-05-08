@@ -5,23 +5,7 @@ import styled from 'styled-components';
 
 import ModalPhoneNumber from './ModalPhoneNumber';
 import UpcomingCalls from './UpcomingCalls';
-import {
-  Wrapper,
-  ProfileImage,
-  UpdateAccount,
-  WelcomeUser,
-  ProfileWrapper,
-} from '../styles/Dashboard';
-
-function formatPhoneNumber(number) {
-  const numberCopy = [...number];
-  const digitsOnly = numberCopy.slice(2);
-  const withDashes = `${digitsOnly.slice(0, 3)}-${digitsOnly.slice(
-    3,
-    6,
-  )}-${digitsOnly.slice(6)}`;
   const formatted = [...withDashes];
-  const phoneNumber = formatted.filter(n => n !== ',');
   phoneNumber.join('');
   return phoneNumber;
 }
@@ -30,34 +14,49 @@ const DashMain = ({ user }) => {
   console.log(user, 'dash');
   const { displayName, photoUrl, uid } = user;
   return (
-    <Wrapper>
-      <Container>
-        <Aside>
-          <User>
-            <Img src={photoUrl} alt={displayName} />
-            <UserInfo>
-              <H3>{displayName}</H3>
-              <P>{formatPhoneNumber(user.phoneNumber)}</P>
-              <P>{user.email}</P>
-              <Button>Add Call</Button>
-            </UserInfo>
-          </User>
-        </Aside>
-        <Upcoming>
-          <Wrapper>
-            <CardHeader>Upcoming Calls</CardHeader>
-            <Card>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam
-              odio quas, atque exercitationem hic, totam magni dolore nulla
-              sapiente inventore magnam? Iste eaque ullam dicta doloribus
-              repellat, beatae praesentium quidem.
-            </Card>
-          </Wrapper>
-        </Upcoming>
-        <Previous>Checo</Previous>
-        <ModalPhoneNumber user={user} />
-      </Container>
-    </Wrapper>
+    <Container>
+      <Navbar user={user} />
+      <Aside>
+        <User>
+          <Img src={photoUrl} alt={displayName} />
+          <UserInfo>
+            <H3>{displayName}</H3>
+            <P>{formatPhoneNumber(user.phoneNumber)}</P>
+            <P>{user.email}</P>
+            <Button>Add Call</Button>
+          </UserInfo>
+        </User>
+      </Aside>
+      <Upcoming>
+        <Wrapper>
+          <CardHeader>Upcoming Calls</CardHeader>
+          <UpcomingCard>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam
+            odio quas, atque exercitationem hic, totam magni dolore nulla
+            sapiente inventore magnam? Iste eaque ullam dicta doloribus
+            repellat, beatae praesentium quidem.
+          </UpcomingCard>
+        </Wrapper>
+      </Upcoming>
+      <Previous>
+        <PrevWrapper>
+          <CardHeader>Previous Calls</CardHeader>
+          <PreviousCard>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          </PreviousCard>
+          <PreviousCard>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          </PreviousCard>
+          <PreviousCard>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          </PreviousCard>
+          <PreviousCard>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          </PreviousCard>
+        </PrevWrapper>
+      </Previous>
+      <ModalPhoneNumber user={user} />
+    </Container>
   );
 };
 
@@ -68,23 +67,44 @@ const CardHeader = styled.h2`
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 `;
-
-// const Wrapper = styled.div`
-//   margin-top: 40px;
-// `;
-const Card = styled.div`
-
-    transition: box-shadow .3s;
-  width: 320px;
-  height: 475px;
-  border-radius: 6px;
-   background: #fff;
-  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+const Wrapper = styled.div`
+  margin-top: 40px;
+`;
+const PrevWrapper = styled.div`
+  margin-top: 40px;
+  /* border: 1px solid #000000; */
+  display: flex;
+  flex-direction: column;
+`;
+const UpcomingCard = styled.div`
+  transition: box-shadow 0.3s;
+  width: 330px;
+  height: 500px;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
   transition: box-shadow 0.5s;
-}
-&:hover {
-   box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
-}
+
+  &:hover {
+    box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+  }
+`;
+const PreviousCard = styled.div`
+  transition: box-shadow 0.3s;
+  width: 80%;
+  height: 110px;
+  margin: 15px 0;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  transition: box-shadow 0.5s;
+  &:hover {
+    box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+  }
+  &:nth-child(2) {
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
 `;
 const UserInfo = styled.div`
   display: flex;
@@ -116,6 +136,15 @@ const Button = styled.button`
   border-radius: 5px;
   color: #ffffff;
   font-size: 20px;
+  transition: all 0.4s ease;
+  outline: 0;
+  &:hover {
+    background-color: #ffffff;
+    color: #636578;
+    border: 1px solid #636578;
+    cursor: pointer;
+    transition: all 0.4s ease;
+  }
 `;
 const P = styled.p`
   color: #999999;
@@ -138,7 +167,6 @@ const Img = styled.img`
   height: auto;
   margin-top: 35px;
   width: 80%;
-  border: 3px solid #999999;
 `;
 const Upcoming = styled.div`
   grid-row: 2 / -1;
@@ -149,7 +177,6 @@ const Upcoming = styled.div`
   align-items: center;
 `;
 const Previous = styled.div`
-  border: 1px solid #000000;
   grid-row: 2 / -1;
   grid-column: 3;
 `;
