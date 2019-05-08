@@ -3,6 +3,7 @@ import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import StripeCheckout from 'react-stripe-checkout';
+import Loader from 'react-loader-spinner';
 
 import { Scheduler } from '../styles/Scheduler';
 
@@ -10,6 +11,9 @@ import { db } from '../firebase';
 
 const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
   const [paid, setPaid] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [payError, setPayError] = useState(false);
+  const [subId, setSubId] = useState('');
 
   const initialState = {
     timezone: moment.tz.guess(),
@@ -22,6 +26,7 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
   const [time, setTime] = useState(initialState);
 
   const onToken = async token => {
+    setLoading(true);
     let stripeId = user.stripe_id || '';
     if (!user.stripe_id) {
       const formData = new URLSearchParams({
@@ -68,29 +73,17 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
         },
       );
       const data = await response.json();
-      console.log(data);
+      if (data.status === 'active') {
+        setSubId(data.id);
+        setLoading(false);
+        setPaid(true);
+      } else {
+        setLoading(false);
+        setPayError(true);
+      }
     } catch (err) {
       console.log(err);
     }
-
-    // fetch('https://us-central1-recaller-14a1f.cloudfunctions.net/charge', {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     token,
-    //     charge: {
-    //       amount: 250,
-    //       currency: 'usd',
-    //     },
-    //   }),
-    // }).then(res => {
-    //   res.json().then(data => {
-    //     data.body = JSON.parse(data.body);
-    //     if (data.statusCode === 200) {
-    //       setPaid(true);
-    //     }
-    //     return data;
-    //   });
-    // });
   };
 
   const handleChange = e => {
@@ -126,6 +119,18 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
         updated_at: moment().toDate(),
         canceled: false,
       });
+      await fetch(
+        `https://api.stripe.com/v1/subscriptions/${subId}?metadata[call_id]=${
+          docRef.id
+        }`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: `Bearer ${process.env.REACT_APP_STRIPESECRET}`,
+          },
+        },
+      );
       navigate(`/confirmation/${docRef.id}`);
     } catch (err) {
       console.log(err);
@@ -152,12 +157,6 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
       </div>
       <div>
         <label htmlFor='selected_time'>Time</label>
-        {/* <input
-        type='time'
-        id='selected_time'
-        value={time.selected_time}
-        onChange={handleChange}
-      /> */}
         <select value={time.hour} id='hour' onChange={handleChange}>
           <option>1</option>
           <option>2</option>
@@ -217,8 +216,11 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
         stripeKey={process.env.REACT_APP_STRIPEKEY}
       />
       <button type='button' onClick={handleSubmit} disabled={!paid}>
-        Save &amp; Continue
+        {loading ? <Loader type='ThreeDots' /> : 'Save & Continue'}
       </button>
+      <div style={{ visibility: payError ? 'visible' : 'hidden' }}>
+        Issue with payment. Please try again
+      </div>
     </Scheduler>
   );
 };
