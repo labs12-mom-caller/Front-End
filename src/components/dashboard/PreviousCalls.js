@@ -9,7 +9,7 @@ import img from '../../assets/images/randomDummyImage.jpg';
 
 const PreviousCalls = ({ userId }) => {
   const [calls, setCalls] = useState([]);
-  console.log(calls, 'CALLS');
+
   useEffect(() => {
     const fetchData = async () => {
       const user = await db.collection('users').doc(userId);
@@ -17,7 +17,7 @@ const PreviousCalls = ({ userId }) => {
         .collection('contacts')
         .where('user1', '==', user)
         .get();
-      console.log(userContacts, 'userContacts');
+
       await userContacts.forEach(async doc => {
         const allCalls = await db
           .collection('calls')

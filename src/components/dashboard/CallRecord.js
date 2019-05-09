@@ -68,11 +68,7 @@ const CallRecord = ({ callId }) => {
         <track kind='captions' />
         Your browser does not support the audio element
       </audio>
-      <p>This call occurs {callInfo.call_frequency}</p>
-      <p>
-        Your next call is{' '}
-        {moment(callInfo.next_call.seconds).format('dddd, MMMM Do [at] h:mm A')}{' '}
-      </p>
+      <Link to={`/contact/${callInfo.id}`}>Contact Information</Link>
       <h2>Transcript</h2>
       {call.simplified.map((line, index) => {
         return (

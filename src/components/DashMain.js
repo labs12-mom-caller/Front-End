@@ -26,7 +26,6 @@ const DashMain = ({ user }) => {
   const { displayName, photoUrl, uid } = user;
   return (
     <Container>
-      {/* <Navbar user={user} /> */}
       <Aside>
         <User>
           <Img src={photoUrl} alt={displayName} />
@@ -42,6 +41,7 @@ const DashMain = ({ user }) => {
             >
               Add Call
             </Button>
+            <Button onClick={() => navigate(`/billing/${uid}`)}>Billing</Button>
           </UserInfo>
         </User>
       </Aside>
