@@ -29,11 +29,9 @@ exports.handler = async (req, res, firestore) => {
       return;
     }
     snapshot.forEach(async doc => {
-      const user1id = doc.data().user1.id;
-      const user1 = await users.doc(user1id).get();
+      const user1 = await doc.data().user1.get();
       const user1phone = user1.data().phoneNumber;
-      const user2id = doc.data().user2.id;
-      const user2 = await users.doc(user2id).get();
+      const user2 = doc.data().user2.get();
       const user2phone = user2.data().phoneNumber;
 
       const twilioUrl =
@@ -57,7 +55,7 @@ exports.handler = async (req, res, firestore) => {
             .then(ref => {
               if (doc.data().call_type === 'paid') {
                 if (doc.data().call_frequency === 'Bi-Weekly') {
-                  const nextCall = moment(doc.data().next_call)
+                  const nextCall = moment(doc.data().next_call, 'X')
                     .add(2, 'w')
                     .toDate();
                   contacts.doc(doc.id).update({
@@ -66,7 +64,7 @@ exports.handler = async (req, res, firestore) => {
                   });
                   console.log('Call information updated!');
                 } else {
-                  const nextCall = moment(doc.data().next_call)
+                  const nextCall = moment(doc.data().next_call, 'X')
                     .add(1, 'M')
                     .toDate();
                   contacts.doc(doc.id).update({
@@ -78,9 +76,19 @@ exports.handler = async (req, res, firestore) => {
               } else {
                 if (doc.data().call_frequency === 'Bi-Weekly') {
                   const rando = randomTime(doc.data().selected_times);
-                  const nextCall = moment(rando)
+                  let nextCall = moment(rando)
                     .add(2, 'w')
                     .toDate();
+                  if (
+                    nextCall <
+                    moment()
+                      .tz(doc.data().timezone)
+                      .toDate()
+                  ) {
+                    nextCall = moment(nextCall)
+                      .add(1, 'w')
+                      .toDate();
+                  }
                   contacts.doc(doc.id).update({
                     next_call: nextCall,
                     updated_at: moment().toDate(),
@@ -88,9 +96,19 @@ exports.handler = async (req, res, firestore) => {
                   console.log('Call information updated!');
                 } else {
                   const rando = randomTime(doc.data().selected_times);
-                  const nextCall = moment(rando)
+                  let nextCall = moment(rando)
                     .add(1, 'M')
                     .toDate();
+                  if (
+                    nextCall <
+                    moment()
+                      .tz(doc.data().timezone)
+                      .toDate()
+                  ) {
+                    nextCall = moment(nextCall)
+                      .add(1, 'w')
+                      .toDate();
+                  }
                   contacts.doc(doc.id).update({
                     next_call: nextCall,
                     updated_at: moment().toDate(),
