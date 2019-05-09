@@ -20,6 +20,7 @@ import UpdateAccount from './components/UpdateAccount';
 import CallRecord from './components/dashboard/CallRecord';
 import ContactInfo from './components/dashboard/ContactInfo';
 import Billing from './components/dashboard/Billing';
+import UpdateContact from './components/scheduler/UpdateContact';
 import { fetchUser } from './app/utils';
 
 import Global from './styles/Global';
@@ -87,8 +88,9 @@ function App() {
         <CallRecord path='/prev-calls/:userId/:callId' />
         <AboutUs path='/about-us' />
         <UpdateAccount user={user} path='/account/:userId' />
-        <ContactInfo user={user} path='/contact/:contactId/' />
+        <ContactInfo user={user} exact path='/contact/:contactId/' />
         <Billing user={user} path='/billing/:userId' />
+        <UpdateContact user={user} path='/contact/:contactId/update' />
       </Router>
       <Footer user={user} />
     </>
