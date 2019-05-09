@@ -57,21 +57,23 @@ const PreviousCalls = ({ userId }) => {
     <>
       {calls &&
         calls.map(call => (
-          <PrevCallsWrapper key={call.callId}>
-            <User>
-              <h3 className='prevHeader'>{call.user2.displayName}</h3>
-              <Img src={img} alt='temp holder' className='user2Img' />
-            </User>
-            <Info>
-              <Date>{moment(call.call_time).format('MMM DD - h:mm A')}</Date>
-              <Transcript>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Asperiores excepturi nulla modi corporis totam itaque non quasi
-                sapiente, dolor quod, nemo in! Error delectus aliquam magnam
-                voluptatem maiores dignissimos facilis!
-              </Transcript>
-            </Info>
-          </PrevCallsWrapper>
+          <Link to={`single-call/${call.callId}`} style={{ inherit: 'all' }}>
+            <PrevCallsWrapper key={call.callId}>
+              <User>
+                <h3 className='prevHeader'>{call.user2.displayName}</h3>
+                <Img src={img} alt='temp holder' className='user2Img' />
+              </User>
+              <Info>
+                <Date>{moment(call.call_time).format('MMM DD - h:mm A')}</Date>
+                <Transcript>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Asperiores excepturi nulla modi corporis totam itaque non
+                  quasi sapiente, dolor quod, nemo in! Error delectus aliquam
+                  magnam voluptatem maiores dignissimos facilis!
+                </Transcript>
+              </Info>
+            </PrevCallsWrapper>
+          </Link>
         ))}
     </>
   );
@@ -89,6 +91,7 @@ const Info = styled.div`
 const Transcript = styled.p`
   font-family: 'Roboto';
   margin-top: 8px;
+  color: #000000;
   font-weight: 300;
   line-height: 1.5;
   padding: 0px;
@@ -96,6 +99,7 @@ const Transcript = styled.p`
 const User = styled.div`
   h3 {
     margin-top: 5px;
+    color: #000000;
   }
   width: 20%;
   display: flex;
@@ -114,6 +118,7 @@ const Img = styled.img`
 const Date = styled.h3`
   font-family: 'Roboto';
   margin-top: 5px;
+  color: #000000;
   font-size: 18px;
   font-weight: 380;
 `;
