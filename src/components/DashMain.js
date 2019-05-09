@@ -94,9 +94,11 @@ const UpcomingCard = styled.div`
     box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
   }
 `;
+
 const PreviousCard = styled.div`
   transition: box-shadow 0.3s;
   width: 80%;
+  min-width: 500px;
   height: 120px;
   margin: 15px 0;
   border-radius: 3px;
@@ -111,6 +113,7 @@ const PreviousCard = styled.div`
     margin-bottom: 15px;
   }
 `;
+
 const UserInfo = styled.div`
   display: flex;
   flex-direction: column;

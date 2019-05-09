@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { db } from '../../firebase';
+import { Card } from '../../styles/styledDefaultComponents/ContactInfo';
 import ScheduledBy from '../ContactInfo/ScheduledBy';
 import NextCall from '../ContactInfo/NextCall';
 import PreviousCallsWithContact from '../ContactInfo/PreviousCallsWithContact';
@@ -67,34 +68,18 @@ const ContactInfo = ({ contactId, user }) => {
   );
 };
 
-const Card = styled.div`
+export default ContactInfo;
 
-  transition: box-shadow .3s;
-  width: 100%;
-  border-radius: 6px;
-   background: #fff;
-  box-shadow: 0 0 11px rgba(33,33,33,.2); 
-  transition: box-shadow 0.5s;
-
-    header {
-      width: 100%
-      background-color: #C4C4C4;
-    }
-
-    main {
-      display: flex;
-      justify-content: space-around;
-    }
-
-  img {
-    max-width: 80px;
-    border-radius: 100px;
-  }
-
-&:hover {
-   box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
-}
-`;
+ContactInfo.propTypes = {
+  contactId: PropTypes.string,
+  user: PropTypes.shape({
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+    photoUrl: PropTypes.string,
+    uid: PropTypes.string,
+    phoneNumber: PropTypes.string,
+  }),
+};
 
 const PreviousCallsWithContactContainer = styled.div`
   grid-row: 2 / -1;
@@ -115,6 +100,7 @@ const PreviousCallsWithContactContainer = styled.div`
     margin: 10px auto;
   }
 `;
+
 const ScheduledByContainer = styled.div`
   grid-row: 2 / -1;
   grid-column: 6 / 11;
@@ -145,16 +131,3 @@ const Container = styled.div`
   grid-template-rows: repeat(15, 1fr);
   font-family: helvetica;
 `;
-
-ContactInfo.propTypes = {
-  contactId: PropTypes.string,
-  user: PropTypes.shape({
-    displayName: PropTypes.string,
-    email: PropTypes.string,
-    photoUrl: PropTypes.string,
-    uid: PropTypes.string,
-    phoneNumber: PropTypes.string,
-  }),
-};
-
-export default ContactInfo;
