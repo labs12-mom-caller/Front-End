@@ -95,7 +95,7 @@ const UpcomingCard = styled.div`
 const PreviousCard = styled.div`
   transition: box-shadow 0.3s;
   width: 80%;
-  height: 110px;
+  height: 120px;
   margin: 15px 0;
   border-radius: 3px;
   background: #fff;

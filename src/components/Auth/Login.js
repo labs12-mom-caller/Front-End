@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
 import { navigate, Link } from '@reach/router';
-
+import styled from 'styled-components';
 import { firebase } from '../../firebase';
 
 import logo from '../../assets/images/icons8-google.svg';
@@ -55,16 +55,19 @@ const Login = () => {
 
   return (
     <Wrapper>
-      <h1>ReCaller</h1>
-      <p>
-        Sign in to review your previous calls or schedule calls with more
-        people!
-      </p>
+      <Header>
+        <h1>ReCaller</h1>
+        <p>
+          Sign in to review your previous calls or schedule calls with more
+          people!
+        </p>
+      </Header>
       <Form>
         <label htmlFor='email' className='sr'>
           Your E-mail Address
         </label>
         <input
+          style={{ width: '82%' }}
           type='text'
           id='email'
           onChange={e => setEmail(e.target.value)}
@@ -75,18 +78,19 @@ const Login = () => {
           Your Password
         </label>
         <input
+          style={{ width: '82%' }}
           type='password'
           onChange={e => setPassword(e.target.value)}
           value={password}
           placeholder='Password'
         />
-        <button type='button' onClick={handleSignIn}>
+        <SignupButton type='button' onClick={handleSignIn}>
           Sign In
-        </button>
-        <button type='button' onClick={handleGoogleSignIn}>
+        </SignupButton>
+        <GoogleButton type='button' onClick={handleGoogleSignIn}>
           <img src={logo} alt='Google Logo' />
           Sign In with Google
-        </button>
+        </GoogleButton>
         <p>
           Don&apos;t have an account?{' '}
           <Link to='/signup' className='signInSpan'>
@@ -106,5 +110,76 @@ const Login = () => {
     </Wrapper>
   );
 };
+const GoogleButton = styled.button`
+  height: 40px;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
 
+  img {
+    height: 90%;
+  }
+  width: 82%;
+  height: 40px;
+  background: #ffffff;
+  color: #000000;
+  border-radius: 2px;
+  font-weight: 300;
+  font-size: 1.4rem;
+  transition: all 0.4s ease;
+  outline: 0;
+  &:hover {
+    background-color: #ffffff;
+    color: #ff6f61;
+    border: 1px solid #ff6f61;
+    cursor: pointer;
+    transition: all 0.4s ease;
+  }
+  box-shadow: 1px 1px 0px 1px rgba(0, 0, 0, 0.05);
+  transition-property: background-color, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+`;
+const SignupButton = styled.button`
+  height: 40px;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 300;
+  margin-bottom: 10px;
+  border: none;
+
+  img {
+    height: 90%;
+  }
+  width: 82%;
+  height: 40px;
+  background-color: #636578;
+  color: white;
+  border-radius: 2px;
+  font-size: 1.4rem;
+  transition: all 0.4s ease;
+  outline: 0;
+  &:hover {
+    background-color: #ffffff;
+    color: #636578;
+    border: 1px solid #636578;
+    cursor: pointer;
+    transition: all 0.4s ease;
+  }
+`;
+const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 75%;
+  p {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+`;
 export default Login;

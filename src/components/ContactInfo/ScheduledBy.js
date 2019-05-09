@@ -57,21 +57,29 @@ const ScheduledCall = ({ contact, user }) => {
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
   grid-template-areas:
     'header header header'
     'stuff stuff stuff'
-    '. . .';
+    'stuff stuff stuff'
+    'stuff stuff stuff';
 
   header {
     grid-area: header;
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
+    justify-items: center;
   }
 
   main {
     grid-area: stuff;
+    justify-content: space-around;
+    margin: 5px;
+  }
+
+  footer {
+    grid-area: edit;
   }
 `;
 

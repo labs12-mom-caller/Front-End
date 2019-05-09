@@ -84,7 +84,7 @@ function App() {
           path='/choose/:userId/:contactId/:frequency/schedule'
         />
         <CallConfirmation path='/confirmation/:contactId' />
-        <PreviousCalls path='/prev-calls/:userId' />
+        <PreviousCalls userId={user.uid} path='/prev-calls/:userId' />
         <CallRecord path='/prev-calls/:userId/:callId' />
         <AboutUs path='/about-us' />
         <UpdateAccount user={user} path='/account/:userId' />
