@@ -19,8 +19,8 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
     timezone: moment.tz.guess(),
     hour: '1',
     minute: '00',
-    periods: 'AM',
-    day: '',
+    period: 'AM',
+    day: 'Sunday',
   };
 
   const [time, setTime] = useState(initialState);
