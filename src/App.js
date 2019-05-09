@@ -89,11 +89,8 @@ function App() {
         <AboutUs path='/about-us' />
         <UpdateAccount user={user} path='/account/:userId' />
         <ContactInfo user={user} path='/contact/:contactId/' />
-<<<<<<< HEAD
         <SingleCall userId={user.uid} path='/single-call/:callId' />
-=======
         <Billing user={user} path='/billing/:userId' />
->>>>>>> a90ff78daf4f613fbacf94e85c5f126fe6e651de
       </Router>
       <Footer user={user} />
     </>
