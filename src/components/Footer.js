@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaFacebook, FaTwitter, FaLinkedin } from 'react-icons/fa';
 import PropTypes from 'prop-types';
-import { styles } from 'ansi-colors';
 
 const Footer = ({ user }) => {
   return (

@@ -20,6 +20,7 @@ import UpdateAccount from './components/UpdateAccount';
 import CallRecord from './components/dashboard/CallRecord';
 import ContactInfo from './components/dashboard/ContactInfo';
 import Billing from './components/dashboard/Billing';
+import UpdateContact from './components/scheduler/UpdateContact';
 import { fetchUser } from './app/utils';
 import SingleCall from './components/ContactInfo/SingleCall';
 
@@ -91,6 +92,7 @@ function App() {
         <ContactInfo user={user} path='/contact/:contactId/' />
         <SingleCall userId={user.uid} path='/single-call/:callId' />
         <Billing user={user} path='/billing/:userId' />
+        <UpdateContact user={user} path='/contact/:contactId/update' />
       </Router>
       <Footer user={user} />
     </>
