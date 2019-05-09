@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { db } from '../../firebase';
 import ScheduledBy from '../ContactInfo/ScheduledBy';
 import NextCall from '../ContactInfo/NextCall';
-import PreviousCalls from '../ContactInfo/PreviousCalls';
+import PreviousCallsWithContact from '../ContactInfo/PreviousCallsWithContact';
 
 const ContactInfo = ({ contactId, user }) => {
   const [contact, setContact] = useState({});
@@ -48,9 +48,9 @@ const ContactInfo = ({ contactId, user }) => {
   console.log(calls);
   return contact.fetched ? (
     <Container>
-      <PreviousCallsContainer>
-        <PreviousCalls calls={calls} contact={contact} user={user} />
-      </PreviousCallsContainer>
+      <PreviousCallsWithContactContainer>
+        <PreviousCallsWithContact calls={calls} contact={contact} user={user} />
+      </PreviousCallsWithContactContainer>
       <ScheduledByContainer>
         <Card>
           <ScheduledBy contact={contact} />
@@ -96,12 +96,12 @@ const Card = styled.div`
 }
 `;
 
-const PreviousCallsContainer = styled.div`
+const PreviousCallsWithContactContainer = styled.div`
   grid-row: 2 / -1;
   grid-column: 2 / 5;
 
   @media (max-width: 900px) {
-  grid-row: 7 / 15;
+  grid-row: 8 / 15;
   grid-column: 2 / 9;
 }
 
@@ -143,6 +143,7 @@ const Container = styled.div`
   height: 85vh;
   grid-template-columns: repeat(15, 1fr);
   grid-template-rows: repeat(15, 1fr);
+  font-family: helvetica;
 `;
 
 ContactInfo.propTypes = {

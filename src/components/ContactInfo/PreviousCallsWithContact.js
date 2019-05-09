@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Link } from '@reach/router';
 import PropTypes from 'prop-types';
 
-const PreviousCalls = ({ calls, contact, user }) => {
+const PreviousCallsWithContact = ({ calls, contact, user }) => {
   return (
     <>
       <header>
@@ -33,9 +33,9 @@ const PreviousCalls = ({ calls, contact, user }) => {
   );
 };
 
-export default PreviousCalls;
+export default PreviousCallsWithContact;
 
-PreviousCalls.propTypes = {
+PreviousCallsWithContact.propTypes = {
   contact: PropTypes.object,
   calls: PropTypes.array,
   user: PropTypes.shape({
