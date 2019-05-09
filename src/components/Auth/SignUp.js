@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik } from 'formik';
 import { Link, navigate } from '@reach/router';
 import { FaChevronRight } from 'react-icons/fa';
-
+import styled from 'styled-components';
 import { signup } from '../../app/utils';
 
 import { Form } from '../../styles/Form';
@@ -30,13 +30,15 @@ const SignUp = () => {
 
   return (
     <Wrapper>
-      <h1>ReCaller</h1>
-      <p>
-        Never forget to call your loved ones by creating a new ReCall, which
-        will automatically call both you and a person of your choosing, and
-        record the call for future review.
-      </p>
-      <p>Get started by letting us know your information below</p>
+      <Header>
+        <h1>ReCaller</h1>
+        <p>
+          Never forget to call your loved ones by creating a new ReCall, which
+          will automatically call both you and a person of your choosing, and
+          record the call for future review.
+        </p>
+        <p>Get started by letting us know your information below</p>
+      </Header>
       <Formik
         initialValues={{
           email: '',
@@ -133,13 +135,13 @@ const SignUp = () => {
               value={values.password}
             />
             {errors.password && touched.password && errors.password}
-            <button type='submit' disabled={isSubmitting}>
+            <SignupButton type='submit' disabled={isSubmitting}>
               Choose Your Contact <FaChevronRight />
-            </button>
-            <button type='button' onClick={handleGoogleSignUp}>
+            </SignupButton>
+            <GoogleButton type='button' onClick={handleGoogleSignUp}>
               <img src={logo} alt='Google logo' />
               <span>Sign Up with Google</span>
-            </button>
+            </GoogleButton>
           </Form>
         )}
       </Formik>
@@ -151,4 +153,76 @@ const SignUp = () => {
   );
 };
 
+const GoogleButton = styled.button`
+  height: 40px;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+
+  img {
+    height: 90%;
+  }
+  width: 75%;
+  height: 40px;
+  background: #ffffff;
+  color: #000000;
+  border-radius: 2px;
+  font-weight: 300;
+  font-size: 1.4rem;
+  transition: all 0.4s ease;
+  outline: 0;
+  &:hover {
+    background-color: #ffffff;
+    color: #ff6f61;
+    border: 1px solid #ff6f61;
+    cursor: pointer;
+    transition: all 0.4s ease;
+  }
+  box-shadow: 1px 1px 0px 1px rgba(0, 0, 0, 0.05);
+  transition-property: background-color, box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
+`;
+const SignupButton = styled.button`
+  height: 40px;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 300;
+  margin-bottom: 10px;
+  border: none;
+
+  img {
+    height: 90%;
+  }
+  width: 75%;
+  height: 40px;
+  background-color: #636578;
+  color: white;
+  border-radius: 2px;
+  font-size: 1.4rem;
+  transition: all 0.4s ease;
+  outline: 0;
+  &:hover {
+    background-color: #ffffff;
+    color: #636578;
+    border: 1px solid #636578;
+    cursor: pointer;
+    transition: all 0.4s ease;
+  }
+`;
+const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 68%;
+  p {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+`;
 export default SignUp;
