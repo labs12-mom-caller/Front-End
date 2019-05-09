@@ -9,7 +9,7 @@ import { db } from '../../firebase';
 const ScheduledContacts = ({ user }) => {
   const [contacts, setContacts] = React.useState([]);
   const { uid } = user;
-
+  console.log(contacts, 'boyy');
   React.useEffect(() => {
     const fetchData = async () => {
       try {
