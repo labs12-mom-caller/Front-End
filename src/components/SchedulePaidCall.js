@@ -19,8 +19,8 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
     timezone: moment.tz.guess(),
     hour: '1',
     minute: '00',
-    periods: 'AM',
-    day: '',
+    period: 'AM',
+    day: 'Sunday',
   };
 
   const [time, setTime] = useState(initialState);
@@ -100,8 +100,14 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
       .tz(`${time.day} ${selectedTime}`, 'dddd h:mm A', time.timezone)
       .utc()
       .toDate();
-    if (nextCall < moment().toDate()) {
-      nextCall = moment(nextCall)
+    if (
+      nextCall <
+      moment()
+        .tz(time.timezone)
+        .toDate()
+    ) {
+      nextCall = moment
+        .tz(nextCall, time.timezone)
         .add(1, 'w')
         .toDate();
     }

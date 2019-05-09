@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Slot from './Slot';
 import { generateTimeSlots } from './generateTimeSlots';
 
-const Day = ({ day, timezone, selectTime }) => {
+const Day = ({ day, timezone, selectTime, current }) => {
   //   const [scroll, setScroll] = useState(0);
 
   const timeSlots = generateTimeSlots(60, '06:00', '23:00');
@@ -21,6 +21,7 @@ const Day = ({ day, timezone, selectTime }) => {
               day={day}
               timezone={timezone}
               selectTime={selectTime}
+              current={current}
             />
           ))}
         </div>
@@ -33,6 +34,7 @@ Day.propTypes = {
   day: PropTypes.string,
   timezone: PropTypes.string,
   selectTime: PropTypes.func,
+  current: PropTypes.array,
 };
 
 export default Day;
