@@ -144,10 +144,10 @@ const UpdateAccount = ({ user }) => {
   );
 };
 const Container = styled.div`
-  display: grid;
-  height: 88vh;
-  grid-template-columns: 1fr;
-  grid-template-rows: 70px 1fr;
+  display: flex;
+  /* height: 88vh; */
+  /* grid-template-columns: 1fr; */
+  /* grid-template-rows: 70px 1fr; */
 `;
 const Wrapper = styled.div`
   width: 50%;
@@ -156,15 +156,14 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   align-self: flex-start;
-  font-family: 'Open Sans Condensed', arial, sans;
-  width: 50%;
-  padding: 30px;
+  width: 40%;
+  padding: 20px;
   background: #ffffff;
-  margin: 10px auto;
+  margin: 5px auto;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
   -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
   -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
-
+  margin: 5% auto;
   @media only screen and (max-width: 750px) {
     width: 70%;
   }
@@ -179,17 +178,15 @@ const UpdateForm = styled.form`
   align-items: center;
   flex-direction: column;
   width: 90%;
-  /* padding: 30px; */
-  /* background: #ffffff;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
-  -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
-  -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22); */
+  height: 40%;
+
   label {
     font-family: "Roboto"
     color: black;
     font-weight: bold;
     display: flex;
     flex-direction: column;
+    font-weight: 300;
   }
   .updateBtn {
     /* margin-left: 37%; */
@@ -197,9 +194,8 @@ const UpdateForm = styled.form`
   }
   @media only screen and (max-width: 600px) {
     width: auto;
-    height: auto;
-    margin-top: 2%;
   }
+
 `;
 
 const ProfileImage = styled.img`
