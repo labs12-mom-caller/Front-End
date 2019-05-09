@@ -51,9 +51,8 @@ const FooterWrap = styled.footer`
   display: flex;
   justify-content: space-between;
   background-color: #636578;
-  height: 15vh;
+  /* height: 15vh; */
   width: 100%;
-  margin-top: 25px;
   @media (max-width: 992px) {
     /* margin-left: 6%; */
   }
