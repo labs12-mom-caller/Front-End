@@ -54,7 +54,12 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
     e.preventDefault();
     const thisTime = randomTime(time.selectedTimes);
     let nextCall = moment(thisTime).toDate();
-    if (nextCall < moment().toDate()) {
+    if (
+      nextCall <
+      moment()
+        .tz(time.timezone)
+        .toDate()
+    ) {
       nextCall = moment(nextCall)
         .add(1, 'w')
         .toDate();
