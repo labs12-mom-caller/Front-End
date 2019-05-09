@@ -19,6 +19,7 @@ import AboutUs from './components/AboutUs';
 import UpdateAccount from './components/UpdateAccount';
 import CallRecord from './components/dashboard/CallRecord';
 import ContactInfo from './components/dashboard/ContactInfo';
+import Billing from './components/dashboard/Billing';
 import { fetchUser } from './app/utils';
 import SingleCall from './components/ContactInfo/SingleCall';
 
@@ -78,14 +79,21 @@ function App() {
         <ChooseYourContact user={user} path='/choose/:userId' />
         <ChooseCallPlan path='/choose/:userId/:contactId/call-plan' />
         <ScheduleFreeCall path='/choose/:userId/:contactId/:frequency/schedule-free' />
-        <SchedulePaidCall path='/choose/:userId/:contactId/:frequency/schedule' />
+        <SchedulePaidCall
+          user={user}
+          path='/choose/:userId/:contactId/:frequency/schedule'
+        />
         <CallConfirmation path='/confirmation/:contactId' />
-        <PreviousCalls path='/prev-calls/:userId' />
+        <PreviousCalls userId={user.uid} path='/prev-calls/:userId' />
         <CallRecord path='/prev-calls/:userId/:callId' />
         <AboutUs path='/about-us' />
         <UpdateAccount user={user} path='/account/:userId' />
         <ContactInfo user={user} path='/contact/:contactId/' />
+<<<<<<< HEAD
         <SingleCall userId={user.uid} path='/single-call/:callId' />
+=======
+        <Billing user={user} path='/billing/:userId' />
+>>>>>>> a90ff78daf4f613fbacf94e85c5f126fe6e651de
       </Router>
       <Footer user={user} />
     </>

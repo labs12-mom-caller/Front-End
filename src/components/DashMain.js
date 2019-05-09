@@ -26,7 +26,6 @@ const DashMain = ({ user }) => {
   const { displayName, photoUrl, uid } = user;
   return (
     <Container>
-      {/* <Navbar user={user} /> */}
       <Aside>
         <User>
           <Img src={photoUrl} alt={displayName} />
@@ -42,6 +41,7 @@ const DashMain = ({ user }) => {
             >
               Add Call
             </Button>
+            <Button onClick={() => navigate(`/billing/${uid}`)}>Billing</Button>
           </UserInfo>
         </User>
       </Aside>
@@ -97,7 +97,7 @@ const UpcomingCard = styled.div`
 const PreviousCard = styled.div`
   transition: box-shadow 0.3s;
   width: 80%;
-  height: 110px;
+  height: 120px;
   margin: 15px 0;
   border-radius: 3px;
   background: #fff;
