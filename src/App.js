@@ -20,6 +20,7 @@ import UpdateAccount from './components/UpdateAccount';
 import CallRecord from './components/dashboard/CallRecord';
 import ContactInfo from './components/dashboard/ContactInfo';
 import { fetchUser } from './app/utils';
+import SingleCall from './components/ContactInfo/SingleCall';
 
 import Global from './styles/Global';
 import CSSReset from './styles/CSSReset';
@@ -84,6 +85,7 @@ function App() {
         <AboutUs path='/about-us' />
         <UpdateAccount user={user} path='/account/:userId' />
         <ContactInfo user={user} path='/contact/:contactId/' />
+        <SingleCall userId={user.uid} path='/single-call/:callId' />
       </Router>
       <Footer user={user} />
     </>
