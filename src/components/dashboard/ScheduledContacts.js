@@ -4,7 +4,9 @@ import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from '@reach/router';
+import { FaEllipsisV } from 'react-icons/fa';
 import { db } from '../../firebase';
+import UpcomingCalls from '../UpcomingCalls';
 
 const ScheduledContacts = ({ user }) => {
   const [contacts, setContacts] = React.useState([]);
@@ -47,30 +49,66 @@ const ScheduledContacts = ({ user }) => {
 
   return (
     <>
-      <div style={{ display: 'flex' }}>
-        <div>Name</div>
-        <div>Date</div>
-        <div>Time</div>
-      </div>
+      <TableHeader style={{ display: 'flex' }}>
+        <div style={{ marginLeft: '4.5%' }}>Name</div>
+        <div style={{ marginLeft: '10%' }}>Upcoming Call</div>
+      </TableHeader>
       {contacts &&
         contacts.map(c => {
           return (
-            <Link to={`/contact/${c.id}`} key={c.id}>
-              <div style={{ display: 'flex' }}>
-                {c.user2.displayName}{' '}
-                {moment(c.next_call, 'X')
-                  .tz(c.time_zone)
-                  .format(`h:mm A`)}{' '}
-                {moment(c.next_call, 'X')
-                  .tz(c.time_zone)
-                  .format(`MMMM Do, YYYY`)}
-              </div>
-            </Link>
+            <CallLink to={`/contact/${c.id}`} key={c.id}>
+              <LinkWrapper>
+                <Display>{c.user2.displayName}</Display>
+                <Display>
+                  {moment(c.next_call, 'X')
+                    .tz(c.time_zone)
+                    .format(`MMMM Do`)}
+                </Display>
+                <Display>
+                  {moment(c.next_call, 'X')
+                    .tz(c.time_zone)
+                    .format(`h:mm A`)}
+                </Display>
+                <Display>
+                  <FaEllipsisV
+                    style={{ marginLeft: '40%', color: '#7D7D7D' }}
+                  />
+                </Display>
+              </LinkWrapper>
+            </CallLink>
           );
         })}
     </>
   );
 };
+
+const TableHeader = styled.div`
+  display: flex;
+  padding: 5px;
+  border: 1px solid #cecece;
+  background-color: #cecece;
+  color: #7d7d7d;
+  font-family: Roboto;
+  font-size: 0.9rem;
+  font-weight: 400;
+`;
+
+const CallLink = styled(Link)`
+  color: #7d7d7d;
+`;
+
+const LinkWrapper = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: 1px solid #7d7d7d;
+  padding: 20px;
+`;
+
+const Display = styled.div`
+  width: 25%;
+  /* text-align: center; */
+  font-family: Roboto;
+`;
 
 export default ScheduledContacts;
 
