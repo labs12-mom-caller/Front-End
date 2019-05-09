@@ -47,7 +47,7 @@ const DashMain = ({ user }) => {
       </Aside>
       <Upcoming>
         <Wrapper>
-          <CardHeader>Upcoming Calls</CardHeader>
+          <CardHeader>Your Contacts</CardHeader>
           <UpcomingCard>
             <ScheduledContacts user={user} />
           </UpcomingCard>
@@ -84,7 +84,7 @@ const PrevWrapper = styled.div`
 const UpcomingCard = styled.div`
   transition: box-shadow 0.3s;
   width: 330px;
-  height: 500px;
+  max-height: 400px;
   border-radius: 3px;
   background: #fff;
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
