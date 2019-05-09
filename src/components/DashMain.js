@@ -84,7 +84,7 @@ const PrevWrapper = styled.div`
 const UpcomingCard = styled.div`
   transition: box-shadow 0.3s;
   width: 330px;
-  max-height: 400px;
+  min-height: auto;
   border-radius: 3px;
   background: #fff;
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
