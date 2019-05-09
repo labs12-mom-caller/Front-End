@@ -66,7 +66,7 @@ const ChooseCallPlan = ({ contactId, userId }) => {
           <hr />
           <p>{paid === 'Bi-Weekly' ? '$5.00' : '$2.50'} per month</p>
           <button type='button' disabled={!paid} onClick={selectPaid}>
-            Select
+            Choose Plan
           </button>
         </div>
         <div className='card'>
@@ -94,7 +94,7 @@ const ChooseCallPlan = ({ contactId, userId }) => {
           <hr />
           <p>Free</p>
           <button type='button' disabled={!free} onClick={selectFree}>
-            Select
+            Choose Plan
           </button>
         </div>
       </div>
