@@ -36,13 +36,31 @@ const Time = styled.div`
 `;
 
 const Container = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    'header'
+    'main'
+    'main'
+    '.';
+
+  header {
+    grid-area: header;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: center;
+  }
+
   main {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
+    grid-area: main;
 
     div {
-      margin: 12px;
+      margin: 2px;
     }
   }
 `;

@@ -28,7 +28,7 @@ const NavbarPage = ({ user }) => {
   return (
     <Container className={show ? 'NavbarShow' : null}>
       <Name>
-        <Link to='/'>ReCaller</Link>
+        <BrandLink to='/'>ReCaller</BrandLink>
       </Name>
       <Nav
         className={
@@ -38,20 +38,23 @@ const NavbarPage = ({ user }) => {
         }
       >
         <li>
-          <Link to={`/account/${user.uid}`}>Account</Link>
+          <BrandLink to={`/account/${user.uid}`}>Account</BrandLink>
         </li>
         <li>
           <VL />
         </li>
         <li>
-          <Link to='/' onClick={logoutHandler}>
+          <BrandLink to='/' onClick={logoutHandler}>
             Sign Out
-          </Link>
+          </BrandLink>
         </li>
       </Nav>
-      <div onClick={() => toggleNav()} className='NavbarLink NavbarLink-toggle'>
+      <Hamburger
+        onClick={() => toggleNav()}
+        className='NavbarLink NavbarLink-toggle'
+      >
         <i className='fas fa-bars' />
-      </div>
+      </Hamburger>
     </Container>
   );
 };
@@ -75,6 +78,20 @@ const VL = styled.div`
   /* margin-left: -3px; */
   top: 2.4%;
 `;
+
+const BrandLink = styled(Link)`
+  &:hover {
+    color: #ff6f61;
+  }
+`;
+const Hamburger = styled.div`
+  i {
+    &:hover {
+      color: #ff6f61;
+    }
+  }
+`;
+
 const Container = styled.div`
   border-bottom: 0.5px solid #000000;
   display: grid;
