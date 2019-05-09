@@ -71,14 +71,14 @@ const UpdateFreeCall = ({ contact }) => {
         .toDate();
     }
     try {
-      const docRef = await db.doc(`contacts/${contact.id}`).update({
+      await db.doc(`contacts/${contact.id}`).update({
         call_type: 'free',
         next_call: nextCall,
         timezone: time.timezone,
         selected_times: time.selectedTimes,
         updated_at: moment().toDate(),
       });
-      navigate(`/confirmation/${docRef.id}`);
+      navigate(`/contact/${contact.id}`);
     } catch (err) {
       console.log(err);
     }
