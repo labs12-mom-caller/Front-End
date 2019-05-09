@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment-timezone';
-import { Link } from '@reach/router';
 import styled from 'styled-components';
 import { db } from '../../firebase';
-import ScheduledCall from '../ContactInfo/ScheduledCall';
+import ScheduledBy from '../ContactInfo/ScheduledBy';
 import NextCall from '../ContactInfo/NextCall';
+import PreviousCalls from '../ContactInfo/PreviousCalls';
 
 const ContactInfo = ({ contactId, user }) => {
   const [contact, setContact] = useState({});
@@ -50,35 +49,11 @@ const ContactInfo = ({ contactId, user }) => {
   return contact.fetched ? (
     <Container>
       <PreviousCallsContainer>
-        <header>
-          <h3>Previous Calls</h3>
-        </header>
-
-        {calls.length > 0 ? (
-          calls.map(call => {
-            return (
-              <Card key={call.id}>
-                <h2>
-                  {moment(call.call_time, 'X')
-                    .tz(contact.timezone)
-                    .format('MMMM Do, YY [at] h:mm A')}
-                </h2>
-                <div>Call duration: {call.call_duration} seconds</div>
-                <Link to={`/prev-calls/${user.uid}/${call.id}`}>
-                  Review Call
-                </Link>
-              </Card>
-            );
-          })
-        ) : (
-          <Card>
-            <p>You have no previous calls with this contact</p>
-          </Card>
-        )}
+        <PreviousCalls calls={calls} contact={contact} user={user} />
       </PreviousCallsContainer>
       <ScheduledByContainer>
         <Card>
-          <ScheduledCall contact={contact} />
+          <ScheduledBy contact={contact} />
         </Card>
       </ScheduledByContainer>
       <NextCallContainer>
@@ -104,8 +79,6 @@ const Card = styled.div`
     header {
       width: 100%
       background-color: #C4C4C4;
-      display: flex;
-      justify-content: space-around;
     }
 
     main {
@@ -123,9 +96,15 @@ const Card = styled.div`
 }
 `;
 
-const PreviousCallsContainer = styled.aside`
+const PreviousCallsContainer = styled.div`
   grid-row: 2 / -1;
   grid-column: 2 / 5;
+
+  @media (max-width: 900px) {
+  grid-row: 7 / 15;
+  grid-column: 2 / 9;
+}
+
   header {
       width: 100%
       background-color: #C4C4C4;
@@ -139,6 +118,12 @@ const PreviousCallsContainer = styled.aside`
 const ScheduledByContainer = styled.div`
   grid-row: 2 / -1;
   grid-column: 6 / 11;
+
+  @media (max-width: 900px) {
+    grid-row: 2 / -1;
+    grid-column: 2 / 9;
+  }
+
   img {
     width: 60px;
     height: 60px;
@@ -147,12 +132,17 @@ const ScheduledByContainer = styled.div`
 const NextCallContainer = styled.div`
   grid-row: 2 / -1;
   grid-column: 12 / 15;
+
+  @media (max-width: 900px) {
+    grid-row: 2 / -1;
+    grid-column: 10 / 15;
+  }
 `;
 const Container = styled.div`
   display: grid;
   height: 85vh;
   grid-template-columns: repeat(15, 1fr);
-  grid-template-rows: 70px 1fr;
+  grid-template-rows: repeat(15, 1fr);
 `;
 
 ContactInfo.propTypes = {
