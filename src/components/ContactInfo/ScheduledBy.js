@@ -2,8 +2,9 @@ import React from 'react';
 import moment from 'moment-timezone';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { Link } from '@reach/router';
 
-const ScheduledCall = ({ contact }) => {
+const ScheduledCall = ({ contact, user }) => {
   return (
     <Container>
       <header>
@@ -20,7 +21,18 @@ const ScheduledCall = ({ contact }) => {
               'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
             }
             alt={contact.user1.displayName}
-          />{' '}
+          />
+          <div
+            style={
+              user.uid === contact.user1.uid
+                ? { visibility: 'visible' }
+                : { visibility: 'hidden' }
+            }
+          >
+            <Link to={`/contact/${contact.id}/update`} state={{ contact }}>
+              Update Call
+            </Link>
+          </div>
         </div>
         <div>
           {moment(contact.created_at, 'X')
@@ -78,4 +90,11 @@ export default ScheduledCall;
 
 ScheduledCall.propTypes = {
   contact: PropTypes.object,
+  user: PropTypes.shape({
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+    photoUrl: PropTypes.string,
+    uid: PropTypes.string,
+    phoneNumber: PropTypes.string,
+  }),
 };

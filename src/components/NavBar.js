@@ -7,16 +7,16 @@ import { Link, navigate } from '@reach/router';
 import { logout } from '../app/utils';
 
 const NavbarPage = ({ user }) => {
-  const [collapseId, setCollapseId] = useState('');
+  // const [collapseId, setCollapseId] = useState('');
   const [show, setShow] = useState(false);
 
   const toggleNav = () => {
     setShow(!show);
   };
 
-  const toggleCollapse = newId => () => {
-    return newId !== collapseId ? setCollapseId('') : setCollapseId(newId);
-  };
+  // const toggleCollapse = newId => () => {
+  //   return newId !== collapseId ? setCollapseId('') : setCollapseId(newId);
+  // };
 
   const logoutHandler = e => {
     e.preventDefault();

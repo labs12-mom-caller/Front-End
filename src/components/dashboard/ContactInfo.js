@@ -21,6 +21,7 @@ const ContactInfo = ({ contactId, user }) => {
         .doc(`users/${contactSnap.data().user2.id}`)
         .get();
       setContact({
+        id: contactId,
         ...contactSnap.data(),
         user1: {
           ...user1Snap.data(),
@@ -54,7 +55,7 @@ const ContactInfo = ({ contactId, user }) => {
       </PreviousCallsWithContactContainer>
       <ScheduledByContainer>
         <Card>
-          <ScheduledBy contact={contact} />
+          <ScheduledBy contact={contact} user={user} />
         </Card>
       </ScheduledByContainer>
       <NextCallContainer>

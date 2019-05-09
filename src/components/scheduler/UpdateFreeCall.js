@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { navigate } from '@reach/router';
-import moment from 'moment-timezone';
 import Slider from 'react-slick';
+import moment from 'moment-timezone';
+import { navigate } from '@reach/router';
 
-import Day from './scheduler/Day';
-import randomTime from './scheduler/randomTime';
+import Day from './Day';
+import randomTime from './randomTime';
 
-import { Scheduler } from '../styles/Scheduler';
+import { db } from '../../firebase';
 
-import { db } from '../firebase';
+import { Scheduler } from '../../styles/Scheduler';
 
-const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
+const UpdateFreeCall = ({ contact }) => {
   const initialState = {
-    timezone: moment.tz.guess(),
+    timezone: contact.timezone,
     days: [
       'Sunday',
       'Monday',
@@ -23,15 +23,21 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
       'Friday',
       'Saturday',
     ],
-    selectedTimes: [],
+    selectedTimes: [...contact.selected_times],
+    currentAvailability: contact.selected_times,
   };
 
   const [time, setTime] = useState(initialState);
 
   const setTimezone = e => {
+    const prevTz = time.timezone;
+    const prevAvail = time.currentAvailability;
     setTime({
       ...time,
       timezone: e.target.value,
+      currentAvailability: prevAvail.map(slot => {
+        return moment.tz(slot, prevTz).tz(e.target.value);
+      }),
     });
   };
 
@@ -65,19 +71,14 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
         .toDate();
     }
     try {
-      const docRef = await db.collection('contacts').add({
-        call_frequency: frequency,
+      await db.doc(`contacts/${contact.id}`).update({
         call_type: 'free',
         next_call: nextCall,
         timezone: time.timezone,
         selected_times: time.selectedTimes,
-        user1: db.collection('users').doc(userId),
-        user2: db.collection('users').doc(contactId),
-        created_at: moment().toDate(),
         updated_at: moment().toDate(),
-        canceled: false,
       });
-      navigate(`/confirmation/${docRef.id}`);
+      navigate(`/contact/${contact.id}`);
     } catch (err) {
       console.log(err);
     }
@@ -118,11 +119,8 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
 
   return (
     <Scheduler>
-      <h2>Schedule a free call</h2>
-      <p>
-        Please select the block of hours that you have availability. A call will
-        be randomly scheduled in one of the time blocks selected
-      </p>
+      <h2>Update Your Availability</h2>
+      <p>Below is your current availability.</p>
       <form onSubmit={handleSubmit}>
         <label htmlFor='timezone'>Please select your time zone</label>
         <select
@@ -153,21 +151,19 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
                 timezone={time.timezone}
                 selectTime={selectTime}
                 index={index}
-                current={[]}
+                current={time.currentAvailability}
               />
             ))}
           </Slider>
         </div>
-        <button type='submit'>Complete Sign Up</button>
+        <button type='submit'>Update Availability</button>
       </form>
     </Scheduler>
   );
 };
 
-ScheduleFreeCall.propTypes = {
-  contactId: PropTypes.string,
-  userId: PropTypes.string,
-  frequency: PropTypes.string,
+UpdateFreeCall.propTypes = {
+  contact: PropTypes.object,
 };
 
-export default ScheduleFreeCall;
+export default UpdateFreeCall;
