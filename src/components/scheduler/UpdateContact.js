@@ -16,9 +16,9 @@ const UpdateContact = ({ location, user }) => {
     );
 
   return contact.call_type === 'paid' ? (
-    <UpdatePaidCall contact={contact} user={user} />
+    <UpdatePaidCall contact={contact} />
   ) : (
-    <UpdateFreeCall contact={contact} user={user} />
+    <UpdateFreeCall contact={contact} />
   );
 };
 

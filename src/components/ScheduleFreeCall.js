@@ -35,7 +35,7 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
     });
   };
 
-  const selectTime = (day, selected, clicked) => {
+  const selectTime = (selected, clicked) => {
     const prevTimes = time.selectedTimes;
     if (clicked) {
       setTime({
@@ -61,7 +61,7 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
     }
     try {
       const docRef = await db.collection('contacts').add({
-        call_frequency: frequency.toLowerCase(),
+        call_frequency: frequency,
         call_type: 'free',
         next_call: nextCall,
         timezone: time.timezone,
@@ -148,6 +148,7 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
                 timezone={time.timezone}
                 selectTime={selectTime}
                 index={index}
+                current={[]}
               />
             ))}
           </Slider>

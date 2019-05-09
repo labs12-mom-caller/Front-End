@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import moment from 'moment-timezone';
 import { Link } from '@reach/router';
 import { db } from '../../firebase';
-import { styles } from '../../styles/styledDefaultComponents';
+// import { styles } from '../../styles/styledDefaultComponents';
 import img from '../../assets/images/randomDummyImage.jpg';
 
 const PreviousCalls = ({ userId }) => {

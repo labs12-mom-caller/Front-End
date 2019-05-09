@@ -7,7 +7,7 @@ import { Scheduler } from '../../styles/Scheduler';
 
 import { db } from '../../firebase';
 
-const UpdatePaidCall = ({ contact, user }) => {
+const UpdatePaidCall = ({ contact }) => {
   const splitTime = time => {
     const hour = time.length === 7 ? time.slice(0, 1) : time.slice(0, 2);
     const minute = time.length === 7 ? time.slice(2, 4) : time.slice(3, 5);
@@ -68,9 +68,9 @@ const UpdatePaidCall = ({ contact, user }) => {
 
   return (
     <Scheduler>
-      <h2>Schedule a call</h2>
+      <h2>Update Call Information</h2>
       <p>
-        ReCaller will only call you and your loved one at your selected time.
+        Your current contact with {contact.user2.displayName} is listed below.
       </p>
       <form onSubmit={handleSubmit}>
         <div>
@@ -145,13 +145,6 @@ const UpdatePaidCall = ({ contact, user }) => {
 };
 
 UpdatePaidCall.propTypes = {
-  user: PropTypes.shape({
-    displayName: PropTypes.string,
-    email: PropTypes.string,
-    photoUrl: PropTypes.string,
-    uid: PropTypes.string,
-    phoneNumber: PropTypes.string,
-  }),
   contact: PropTypes.object,
 };
 
