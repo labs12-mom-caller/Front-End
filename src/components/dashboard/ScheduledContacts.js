@@ -48,35 +48,27 @@ const ScheduledContacts = ({ user }) => {
     <>
       <div style={{ display: 'flex' }}>
         <div>Name</div>
-        <div>Date</div>
         <div>Time</div>
+        <div>Date</div>
       </div>
       {contacts &&
         contacts.map(c => {
           return (
-            <>
+            <Link to={`/contact/${c.id}`} key={c.id}>
               <div style={{ display: 'flex' }}>
-                {c.user2.displayName}{' '}
-                {moment(c.next_call, 'X')
-                  .tz(c.time_zone)
-                  .format(`h:mm A`)}{' '}
-                {moment(c.next_call, 'X')
-                  .tz(c.time_zone)
-                  .format(`MMMM Do, YYYY`)}
-              </div>
-
-              <Link to={`/contact/${c.id}`}>
-                <div style={{ display: 'flex' }}>
-                  {c.user2.displayName}{' '}
+                <div>{c.user2.displayName}</div>
+                <div>
                   {moment(c.next_call, 'X')
                     .tz(c.time_zone)
-                    .format(`h:mm A`)}{' '}
+                    .format(`h:mm A`)}
+                </div>
+                <div>
                   {moment(c.next_call, 'X')
                     .tz(c.time_zone)
                     .format(`MMMM Do, YYYY`)}
                 </div>
-              </Link>
-            </>
+              </div>
+            </Link>
           );
         })}
     </>

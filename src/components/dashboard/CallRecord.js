@@ -1,4 +1,5 @@
 /* eslint-disable no-inner-declarations */
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
@@ -51,6 +52,7 @@ const CallRecord = ({ callId }) => {
   if (!call) return <p>Loading..</p>;
   if (!callInfo) return <p>...</p>;
   if (!contact) return <p>...</p>;
+  console.log(call);
   return (
     <Card>
       <h2>Review your call with {contact.displayName}</h2>
@@ -71,6 +73,15 @@ const CallRecord = ({ callId }) => {
         Your next call is{' '}
         {moment(callInfo.next_call.seconds).format('dddd, MMMM Do [at] h:mm A')}{' '}
       </p>
+      <h2>Transcript</h2>
+      {call.simplified.map((line, index) => {
+        return (
+          <div key={index}>
+            <h3>{line.user}</h3>
+            <p>{line.script}</p>
+          </div>
+        );
+      })}
     </Card>
   );
 };

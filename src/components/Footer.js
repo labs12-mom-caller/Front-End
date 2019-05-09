@@ -34,7 +34,7 @@ const Footer = ({ user }) => {
             <a href='#!'>Review Calls</a>
           </li>
           <li className='list'>
-            <a href='#!'>Previous Calls</a>
+            <a href={`/prev-calls/${user.uid}`}>Previous Calls</a>
           </li>
           <li className='list'>
             <a href='/about-us'>Our Team</a>
@@ -53,6 +53,7 @@ const FooterWrap = styled.footer`
   background-color: #636578;
   height: 15vh;
   width: 100%;
+  margin-top: 25px;
   @media (max-width: 992px) {
     /* margin-left: 6%; */
   }
@@ -79,7 +80,7 @@ const SectionLeft = styled.div`
       margin-left: -7%;
     }
     .icon {
-      font-size: 2rem;
+      font-size: 1.5rem;
       transition: all 1s ease-in-out;
     }
     .facebook {
@@ -102,14 +103,14 @@ const SectionLeft = styled.div`
     font-size: 1rem;
     margin-top: 5%;
     @media (min-width: 992px) {
-      font-size: 1.5rem;
+      font-size: 1rem;
       margin-top: 1%;
     }
   }
   span {
     margin-bottom: 5%;
     @media (min-width: 992px) {
-      font-size: 1.5rem;
+      font-size: 1rem;
       margin-bottom: 1%;
     }
   }
@@ -131,7 +132,7 @@ const SectionRight = styled.div`
       list-style: none;
       color: white;
       @media (min-width: 992px) {
-        font-size: 1.2rem;
+        font-size: 1rem;
       }
     }
   }
@@ -142,10 +143,6 @@ const SectionRight = styled.div`
 
 Footer.propTypes = {
   user: PropTypes.shape({
-    displayName: PropTypes.string,
-    email: PropTypes.string,
-    photoUrl: PropTypes.string,
     uid: PropTypes.string,
-    phoneNumber: PropTypes.string,
   }),
 };
