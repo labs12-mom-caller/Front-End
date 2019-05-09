@@ -30,9 +30,14 @@ const UpdateFreeCall = ({ contact }) => {
   const [time, setTime] = useState(initialState);
 
   const setTimezone = e => {
+    const prevTz = time.timezone;
+    const prevAvail = time.currentAvailability;
     setTime({
       ...time,
       timezone: e.target.value,
+      currentAvailability: prevAvail.map(slot => {
+        return moment.tz(slot, prevTz).tz(e.target.value);
+      }),
     });
   };
 
