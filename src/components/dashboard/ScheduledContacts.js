@@ -9,7 +9,7 @@ import { db } from '../../firebase';
 const ScheduledContacts = ({ user }) => {
   const [contacts, setContacts] = React.useState([]);
   const { uid } = user;
-
+  console.log(contacts, 'boyy');
   React.useEffect(() => {
     const fetchData = async () => {
       try {
@@ -17,7 +17,6 @@ const ScheduledContacts = ({ user }) => {
           .collection('contacts')
           .where('user1', '==', db.doc(`users/${uid}`))
           .get();
-        console.log(userContacts, 'userContacts');
         userContacts.forEach(async doc => {
           try {
             const user2Snap = await db
@@ -55,17 +54,7 @@ const ScheduledContacts = ({ user }) => {
       {contacts &&
         contacts.map(c => {
           return (
-            <div style={{ display: 'flex' }}>
-              {c.user2.displayName}{' '}
-              {moment(c.next_call, 'X')
-                .tz(c.time_zone)
-                .format(`h:mm A`)}{' '}
-              {moment(c.next_call, 'X')
-                .tz(c.time_zone)
-                .format(`MMMM Do, YYYY`)}
-            </div>
-
-            <Link to={`/contact/${c.id}`}>
+            <>
               <div style={{ display: 'flex' }}>
                 {c.user2.displayName}{' '}
                 {moment(c.next_call, 'X')
@@ -75,8 +64,19 @@ const ScheduledContacts = ({ user }) => {
                   .tz(c.time_zone)
                   .format(`MMMM Do, YYYY`)}
               </div>
-            </Link>
 
+              <Link to={`/contact/${c.id}`}>
+                <div style={{ display: 'flex' }}>
+                  {c.user2.displayName}{' '}
+                  {moment(c.next_call, 'X')
+                    .tz(c.time_zone)
+                    .format(`h:mm A`)}{' '}
+                  {moment(c.next_call, 'X')
+                    .tz(c.time_zone)
+                    .format(`MMMM Do, YYYY`)}
+                </div>
+              </Link>
+            </>
           );
         })}
     </>
