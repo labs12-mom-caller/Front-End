@@ -112,6 +112,7 @@ const TableHeader = styled.div`
   font-family: Roboto;
   font-size: 0.9rem;
   font-weight: 400;
+  margin-bottom: 20px;
 `;
 const Info = styled.div`
   display: flex;
@@ -160,9 +161,9 @@ const PrevCallsWrapper = styled.div`
 const Card = styled.div`
   transition: box-shadow 0.3s;
   width: 90%;
-  margin: 10px;
   ${'' /* height: 120px; */}
   margin: 15px auto;
+  margin-top: 20px;
   border-radius: 3px;
   background: #fff;
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
