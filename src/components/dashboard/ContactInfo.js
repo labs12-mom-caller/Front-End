@@ -87,7 +87,7 @@ const PreviousCallsWithContactContainer = styled.div`
   grid-column: 2 / 5;
 
   @media (max-width: 900px) {
-  grid-row: 8 / 15;
+  grid-row: 9 / 15;
   grid-column: 2 / 9;
 }
 

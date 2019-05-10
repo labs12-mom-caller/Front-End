@@ -7,6 +7,7 @@ import { Link } from '@reach/router';
 import { FaEllipsisV } from 'react-icons/fa';
 import { db } from '../../firebase';
 import UpcomingCalls from '../UpcomingCalls';
+import { firstNameOnly } from '../../app/utils';
 
 const ScheduledContacts = ({ user }) => {
   const [contacts, setContacts] = React.useState([]);
@@ -58,7 +59,7 @@ const ScheduledContacts = ({ user }) => {
           return (
             <CallLink to={`/contact/${c.id}`} key={c.id}>
               <LinkWrapper>
-                <Display>{c.user2.displayName}</Display>
+                <Display>{firstNameOnly(c.user2.displayName)}</Display>
                 <Display>
                   {moment(c.next_call, 'X')
                     .tz(c.time_zone)

@@ -6,6 +6,7 @@ import { Link } from '@reach/router';
 import { db } from '../../firebase';
 import { styles } from '../../styles/styledDefaultComponents';
 import img from '../../assets/images/randomDummyImage.jpg';
+import { firstNameOnly } from '../../app/utils';
 
 const PreviousCalls = ({ userId }) => {
   const [calls, setCalls] = useState([]);
@@ -77,7 +78,9 @@ const PreviousCalls = ({ userId }) => {
             <Link to={`single-call/${call.callId}`} style={{ inherit: 'all' }}>
               <PrevCallsWrapper key={call.callId}>
                 <User>
-                  <h3 className='prevHeader'>{call.user2.displayName}</h3>
+                  <h3 className='prevHeader'>
+                    {firstNameOnly(call.user2.displayName)}
+                  </h3>
                   <Img src={img} alt='temp holder' className='user2Img' />
                 </User>
                 <Info>
@@ -160,7 +163,7 @@ const PrevCallsWrapper = styled.div`
 
 const Card = styled.div`
   transition: box-shadow 0.3s;
-  width: 90%;
+  width: 95%;
   ${'' /* height: 120px; */}
   margin: 15px auto;
   margin-top: 20px;
