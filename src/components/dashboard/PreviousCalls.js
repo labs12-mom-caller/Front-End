@@ -57,7 +57,7 @@ const PreviousCalls = ({ userId }) => {
   return (
     <>
       <TableHeader style={{ display: 'flex' }}>
-        <div style={{ marginLeft: '4.5%' }}>Contact</div>
+        <div style={{ marginLeft: '2%' }}>Contact</div>
         <div style={{ marginLeft: '10%' }}>
           Transcripts{' '}
           <span>
@@ -102,6 +102,8 @@ PreviousCalls.propTypes = {
 export default PreviousCalls;
 const TableHeader = styled.div`
   display: flex;
+  align-items: center;
+  height: 28px;
   padding: 5px;
   border: 1px solid #cecece;
   background-color: #cecece;
