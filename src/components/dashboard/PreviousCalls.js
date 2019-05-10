@@ -24,27 +24,19 @@ const PreviousCalls = ({ userId }) => {
           .collection('calls')
           .where('contact_ref', '==', doc.ref)
           .get();
+
         if (!allCalls.empty) {
-          allCalls.forEach(async doc => {
+          const user2 = await doc.data().user2.get();
+          allCalls.forEach(async callDoc => {
             const callData = {
-              callId: doc.id,
-              user2: {},
-              contactId: '',
-              audio: doc.data().audio,
-              call_duration: doc.data().call_duration,
-              call_time: moment(doc.data().call_time, 'X').format(),
+              id: callDoc.id,
+              user2: user2.data(),
+              contactId: doc.id,
+              call_duration: callDoc.data().call_duration,
+              call_time: moment(callDoc.data().call_time, 'X').format(),
+              deepgram: callDoc.data().deepgram,
             };
-            const contactRef = doc.data().contact_ref.path;
-            await db.doc(contactRef).onSnapshot(async doc => {
-              callData.contactId = doc.id;
-              await db.doc(doc.data().user2.path).onSnapshot(doc => {
-                callData.user2 = {
-                  displayName: doc.data().displayName,
-                  email: doc.data().email,
-                };
-                setCalls(c => [...c, callData]);
-              });
-            });
+            setCalls(c => [...c, callData]);
           });
         }
       });
@@ -58,19 +50,27 @@ const PreviousCalls = ({ userId }) => {
     <>
       {calls &&
         calls.map(call => (
-          <Link to={`single-call/${call.callId}`} style={{ inherit: 'all' }}>
-            <PrevCallsWrapper key={call.callId}>
+          <Link
+            to={`/prev-calls/${userId}/${call.id}`}
+            style={{ inherit: 'all' }}
+            key={call.id}
+          >
+            <PrevCallsWrapper>
               <User>
                 <h3 className='prevHeader'>{call.user2.displayName}</h3>
-                <Img src={img} alt='temp holder' className='user2Img' />
+                <Img
+                  src={
+                    call.user2.photoUrl ||
+                    'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
+                  }
+                  alt='temp holder'
+                  className='user2Img'
+                />
               </User>
               <Info>
                 <Date>{moment(call.call_time).format('MMM DD - h:mm A')}</Date>
                 <Transcript>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Asperiores excepturi nulla modi corporis totam itaque non
-                  quasi sapiente, dolor quod, nemo in! Error delectus aliquam
-                  magnam voluptatem maiores dignissimos facilis!
+                  {call.deepgram.results.channels[0].alternatives[0].transcript}
                 </Transcript>
               </Info>
             </PrevCallsWrapper>
