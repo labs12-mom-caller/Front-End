@@ -1,11 +1,10 @@
-/* eslint-disable jsx-a11y/media-has-caption */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment-timezone';
 import { Link } from '@reach/router';
 import { db } from '../../firebase';
-// import { styles } from '../../styles/styledDefaultComponents';
+import { styles } from '../../styles/styledDefaultComponents';
 import img from '../../assets/images/randomDummyImage.jpg';
 import deepgram from '../../assets/images/deepgram-logo.svg';
 
@@ -66,23 +65,25 @@ const PreviousCalls = ({ userId }) => {
       </TableHeader>
       {calls &&
         calls.map(call => (
-          <Link to={`single-call/${call.callId}`} style={{ inherit: 'all' }}>
-            <PrevCallsWrapper key={call.callId}>
-              <User>
-                <h3 className='prevHeader'>{call.user2.displayName}</h3>
-                <Img src={img} alt='temp holder' className='user2Img' />
-              </User>
-              <Info>
-                <Date>{moment(call.call_time).format('MMM DD - h:mm A')}</Date>
-                <Transcript>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Asperiores excepturi nulla modi corporis totam itaque non
-                  quasi sapiente, dolor quod, nemo in! Error delectus aliquam
-                  magnam voluptatem maiores dignissimos facilis!
-                </Transcript>
-              </Info>
-            </PrevCallsWrapper>
-          </Link>
+          <Card>
+            <Link to={`single-call/${call.callId}`} style={{ inherit: 'all' }}>
+              <PrevCallsWrapper key={call.callId}>
+                <User>
+                  <h3 className='prevHeader'>{call.user2.displayName}</h3>
+                  <Img src={img} alt='temp holder' className='user2Img' />
+                </User>
+                <Info>
+                  <Date>
+                    {moment(call.call_time).format('MMM DD - h:mm A')}
+                  </Date>
+                  <Transcript>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Asperiores excepturi nulla modi
+                  </Transcript>
+                </Info>
+              </PrevCallsWrapper>
+            </Link>
+          </Card>
         ))}
     </>
   );
@@ -103,6 +104,7 @@ const TableHeader = styled.div`
   font-family: Roboto;
   font-size: 0.9rem;
   font-weight: 400;
+  margin-bottom: 20px;
   width: 100%;
 `;
 const Info = styled.div`
@@ -148,6 +150,24 @@ const PrevCallsWrapper = styled.div`
   display: flex;
   height: inherit;
 `;
+
+
+const Card = styled.div`
+  transition: box-shadow 0.3s;
+  width: 90%;
+  ${'' /* height: 120px; */}
+  margin: 15px auto;
+  margin-top: 20px;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  transition: box-shadow 0.5s;
+  &:hover {
+    box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+  }
+  &:nth-child(2) {
+    margin-top: 0;
+    margin-bottom: 15px;
 
 const DeepgramLink = styled(Link)`
   display: flex;
