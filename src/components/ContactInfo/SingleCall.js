@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment-timezone';
 import { Link } from '@reach/router';
+import { FaArrowLeft } from 'react-icons/fa';
 import { db } from '../../firebase';
 import { styles } from '../../styles/styledDefaultComponents';
 // import img from '../../assets/images/randomDummyImage.jpg';
-import { FaArrowLeft } from 'react-icons/fa';
 
 const PreviousCalls = ({ userId }) => {
   const [calls, setCalls] = useState([]);
@@ -71,7 +71,7 @@ const PreviousCalls = ({ userId }) => {
               <p className='user2Name'>{call.user2.displayName}</p>
               <p className='email'>{call.user2.email}</p>
               <p className='phone'>{call.user2.phoneNumber}</p>
-              <button className='btn'>
+              <button className='btn' type='button'>
                 <FaArrowLeft className='arrow' /> Back Home
               </button>
             </div>
@@ -104,7 +104,7 @@ const PreviousCalls = ({ userId }) => {
               <div className='slider'>
                 <audio controls className='audioControls'>
                   <source src={call.audio} type='audio/wav' />
-                  <track />
+                  <track kind='captions' />
                   Your browser does not support the audio element
                 </audio>
               </div>

@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import styled from 'styled-components';
-
 import ModalPhoneNumber from './ModalPhoneNumber';
-import ScheduledContacts from './dashboard/ScheduledContacts';
 import PreviousCalls from './dashboard/PreviousCalls';
+import ScheduledContacts from './dashboard/ScheduledContacts';
 
 function formatPhoneNumber(number) {
   const numberCopy = [...number];
@@ -74,6 +73,7 @@ const CardHeader = styled.h2`
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 `;
 const Wrapper = styled.div`
+  width: 90%;
   margin-top: 40px;
   display: flex;
   flex-direction: column;
@@ -90,8 +90,9 @@ const PrevWrapper = styled.div`
   justify-content: center;
 
   @media (max-width: 1025px) {
-    margin: 10px;
+    margin: 10px auto;
     align-items: center;
+    width: 100%;
   }
 `;
 const UpcomingCard = styled.div`
@@ -138,7 +139,7 @@ const PreviousCard = styled.div`
   }
 
   @media (max-width: 1025px) {
-    margin
+    width: 100%;
   }
 `;
 
@@ -194,8 +195,8 @@ const User = styled.div`
   justify-items: center;
   align-items: center;
   padding: 5px;
-  ${'' /* height: 100%; */}
 `;
+
 const Aside = styled.aside`
   grid-row: 2 / -1;
   grid-column: 1;
@@ -219,7 +220,6 @@ const Upcoming = styled.div`
   grid-column: 2;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
 
   @media (max-width: 1025px) {
@@ -234,6 +234,10 @@ const Previous = styled.div`
 
   @media (max-width: 1025px) {
     grid-area: previous;
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    justify-content: center;
   }
 `;
 const Container = styled.div`

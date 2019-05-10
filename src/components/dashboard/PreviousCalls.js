@@ -7,6 +7,7 @@ import { db } from '../../firebase';
 import { styles } from '../../styles/styledDefaultComponents';
 import img from '../../assets/images/randomDummyImage.jpg';
 import { firstNameOnly } from '../../app/utils';
+import deepgram from '../../assets/images/deepgram-logo.svg';
 
 const PreviousCalls = ({ userId }) => {
   const [calls, setCalls] = useState([]);
@@ -23,28 +24,21 @@ const PreviousCalls = ({ userId }) => {
         const allCalls = await db
           .collection('calls')
           .where('contact_ref', '==', doc.ref)
+          .where('fetched', '==', true)
           .get();
+
         if (!allCalls.empty) {
-          allCalls.forEach(async doc => {
+          const user2 = await doc.data().user2.get();
+          allCalls.forEach(async callDoc => {
             const callData = {
-              callId: doc.id,
-              user2: {},
-              contactId: '',
-              audio: doc.data().audio,
-              call_duration: doc.data().call_duration,
-              call_time: moment(doc.data().call_time, 'X').format(),
+              id: callDoc.id,
+              user2: user2.data(),
+              contactId: doc.id,
+              call_duration: callDoc.data().call_duration,
+              call_time: moment(callDoc.data().call_time, 'X').format(),
+              deepgram: callDoc.data().deepgram,
             };
-            const contactRef = doc.data().contact_ref.path;
-            await db.doc(contactRef).onSnapshot(async doc => {
-              callData.contactId = doc.id;
-              await db.doc(doc.data().user2.path).onSnapshot(doc => {
-                callData.user2 = {
-                  displayName: doc.data().displayName,
-                  email: doc.data().email,
-                };
-                setCalls(c => [...c, callData]);
-              });
-            });
+            setCalls(c => [...c, callData]);
           });
         }
       });
@@ -58,38 +52,41 @@ const PreviousCalls = ({ userId }) => {
     <>
       <TableHeader style={{ display: 'flex' }}>
         <div style={{ marginLeft: '2%' }}>Contact</div>
-        <div style={{ marginLeft: '10%' }}>
-          Transcripts{' '}
-          <span>
-            <a
-              style={{ opacity: '0.5', color: '#7d7d7d', cursor: 'alias' }}
-              href='https://www.deepgram.com/'
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              Powered By DeepGram
-            </a>
-          </span>
-        </div>
+        <div>Transcripts </div>
+        <DeepgramLink to='https://www.deepgram.com' style={{ cursor: 'alias' }}>
+          <DeepgramImg src={deepgram} alt='Deepgram logo' />
+        </DeepgramLink>
       </TableHeader>
       {calls &&
         calls.map(call => (
           <Card>
-            <Link to={`single-call/${call.callId}`} style={{ inherit: 'all' }}>
-              <PrevCallsWrapper key={call.callId}>
+            <Link
+              to={`/prev-calls/${userId}/${call.id}`}
+              style={{ inherit: 'all' }}
+              key={call.id}
+            >
+              <PrevCallsWrapper>
                 <User>
-                  <h3 className='prevHeader'>
-                    {firstNameOnly(call.user2.displayName)}
-                  </h3>
-                  <Img src={img} alt='temp holder' className='user2Img' />
+                  <h3 className='prevHeader'>{call.user2.displayName}</h3>
+                  <Img
+                    src={
+                      call.user2.photoUrl ||
+                      'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
+                    }
+                    alt='temp holder'
+                    className='user2Img'
+                  />
                 </User>
                 <Info>
                   <Date>
                     {moment(call.call_time).format('MMM DD - h:mm A')}
                   </Date>
                   <Transcript>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Asperiores excepturi nulla modi
+                    {call.deepgram &&
+                      call.deepgram.results.channels[0].alternatives[0]
+                        .transcript &&
+                      call.deepgram.results.channels[0].alternatives[0]
+                        .transcript}
                   </Transcript>
                 </Info>
               </PrevCallsWrapper>
@@ -106,7 +103,7 @@ PreviousCalls.propTypes = {
 export default PreviousCalls;
 const TableHeader = styled.div`
   display: flex;
-  align-items: center;
+  justify-content: space-between;
   height: 28px;
   padding: 5px;
   border: 1px solid #cecece;
@@ -116,6 +113,7 @@ const TableHeader = styled.div`
   font-size: 0.9rem;
   font-weight: 400;
   margin-bottom: 20px;
+  width: 100%;
 `;
 const Info = styled.div`
   display: flex;
@@ -177,5 +175,20 @@ const Card = styled.div`
   &:nth-child(2) {
     margin-top: 0;
     margin-bottom: 15px;
+  `;
+
+const DeepgramLink = styled(Link)`
+  display: flex;
+
+  @media only screen and (max-width: 1010px) {
+    height: 10px;
+`;
+
+const DeepgramImg = styled.img`
+  height: 12px;
+  align-self: flex-end;
+
+  @media only screen and (max-width: 1010px) {
+    height: 10px;
   }
 `;

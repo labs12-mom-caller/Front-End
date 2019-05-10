@@ -3,6 +3,7 @@ import React from 'react';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 import { Link } from '@reach/router';
 import { FaEllipsisV } from 'react-icons/fa';
 import { db } from '../../firebase';
@@ -50,9 +51,9 @@ const ScheduledContacts = ({ user }) => {
 
   return (
     <>
-      <TableHeader style={{ display: 'flex' }}>
-        <div style={{ marginLeft: '2%' }}>Name</div>
-        <div style={{ marginLeft: '10%' }}>Upcoming Call</div>
+      <TableHeader>
+        <Name>Name</Name>
+        <Upcoming>Upcoming Call</Upcoming>
       </TableHeader>
       {contacts &&
         contacts.map(c => {
@@ -94,6 +95,16 @@ const TableHeader = styled.div`
   font-family: Roboto;
   font-size: 0.9rem;
   font-weight: 400;
+  width: 100%;
+`;
+
+const Name = styled.div`
+  margin-left: 1%;
+  width: 24%;
+`;
+
+const Upcoming = styled.div`
+  width: 76%;
 `;
 
 const CallLink = styled(Link)`
