@@ -4,7 +4,7 @@ import Loader from 'react-loader-spinner';
 const Loading = () => {
   return (
     <>
-      <Loader type='Oval' color='coral' height='150' width='150' />
+      <Loader type='Oval' color='#ff6f61' height='150' width='150' />
     </>
   );
 };
