@@ -1,25 +1,15 @@
-/* eslint-disable jsx-a11y/media-has-caption */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment-timezone';
 import { Link } from '@reach/router';
 import { db } from '../../firebase';
-// import { styles } from '../../styles/styledDefaultComponents';
+import { styles } from '../../styles/styledDefaultComponents';
 import img from '../../assets/images/randomDummyImage.jpg';
-
-function trimPost(post) {
-  const string = post;
-  const length = 95;
-  const trimmedString = `${string.substring(0, length)}...`;
-  return trimmedString;
-}
-const post =
-  'Lorem ipsum dolor sit amet consectetur adipisicing elit Asperiores excepturi nulla modi corporis totam itaque nonquasi sapiente dolor quod nemo i delectus aliquammagnam voluptatem maiores dignissimos facili';
 
 const PreviousCalls = ({ userId }) => {
   const [calls, setCalls] = useState([]);
-  console.log(calls, 'CALLS');
+
   useEffect(() => {
     const fetchData = async () => {
       const user = await db.collection('users').doc(userId);
@@ -27,7 +17,7 @@ const PreviousCalls = ({ userId }) => {
         .collection('contacts')
         .where('user1', '==', user)
         .get();
-      console.log(userContacts, 'userContacts');
+
       await userContacts.forEach(async doc => {
         const allCalls = await db
           .collection('calls')
@@ -60,62 +50,62 @@ const PreviousCalls = ({ userId }) => {
     };
     fetchData();
   }, [userId]);
+
   if (calls.empty) return <p>No Calls Available...</p>;
+
   return (
     <>
       {calls &&
         calls.map(call => (
-          <Link to={`single-call/${call.callId}`}>
-            <Wrapper key={call.callId}>
-              <User>
-                <h3 className='prevHeader'>{call.user2.displayName}</h3>
-                <Img src={img} alt='temp holder' className='user2Img' />
-              </User>
-              <Info>
-                <Date>{moment(call.call_time).format('MMM DD - h:mm A')}</Date>
-                <Transcript>{trimPost(post)}</Transcript>
-              </Info>
-            </Wrapper>
-          </Link>
+          <Card>
+            <Link to={`single-call/${call.callId}`} style={{ inherit: 'all' }}>
+              <PrevCallsWrapper key={call.callId}>
+                <User>
+                  <h3 className='prevHeader'>{call.user2.displayName}</h3>
+                  <Img src={img} alt='temp holder' className='user2Img' />
+                </User>
+                <Info>
+                  <Date>
+                    {moment(call.call_time).format('MMM DD - h:mm A')}
+                  </Date>
+                  <Transcript>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Asperiores excepturi nulla modi
+                  </Transcript>
+                </Info>
+              </PrevCallsWrapper>
+            </Link>
+          </Card>
         ))}
     </>
   );
 };
+
 PreviousCalls.propTypes = {
   userId: PropTypes.string,
 };
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  max-height: 120px;
-  contain: content;
-`;
 export default PreviousCalls;
 const Info = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 20px;
-  width: 81%;
 `;
 const Transcript = styled.p`
   font-family: 'Roboto';
-  margin-top: 12px;
+  margin-top: 8px;
   color: #000000;
   font-weight: 300;
   line-height: 1.5;
   padding: 0px;
-  overflow: hidden;
-  text-overflow: ellipsis;
 `;
 const User = styled.div`
   h3 {
-    margin-top: 10px;
+    margin-top: 5px;
     color: #000000;
   }
   width: 20%;
   display: flex;
   padding: 5px;
-  margin-bottom: 5px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -129,8 +119,31 @@ const Img = styled.img`
 `;
 const Date = styled.h3`
   font-family: 'Roboto';
-  margin-top: 10px;
+  margin-top: 5px;
   color: #000000;
   font-size: 18px;
   font-weight: 380;
+`;
+const PrevCallsWrapper = styled.div`
+  display: flex;
+  height: inherit;
+`;
+
+const Card = styled.div`
+  transition: box-shadow 0.3s;
+  width: 90%;
+  margin: 10px;
+  ${'' /* height: 120px; */}
+  margin: 15px auto;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  transition: box-shadow 0.5s;
+  &:hover {
+    box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+  }
+  &:nth-child(2) {
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
 `;

@@ -43,6 +43,7 @@ const DashMain = ({ user }) => {
           </UserInfo>
         </User>
       </Aside>
+
       <Upcoming>
         <Wrapper>
           <CardHeader>Your Contacts</CardHeader>
@@ -51,6 +52,7 @@ const DashMain = ({ user }) => {
           </UpcomingCard>
         </Wrapper>
       </Upcoming>
+
       <Previous>
         <PrevWrapper>
           <CardHeader>Previous Calls</CardHeader>
@@ -82,7 +84,8 @@ const PrevWrapper = styled.div`
 const UpcomingCard = styled.div`
   transition: box-shadow 0.3s;
   width: 330px;
-  height: 600px;
+  height: 400px;
+  overflow: scroll;
   border-radius: 3px;
   background: #fff;
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
@@ -100,8 +103,9 @@ const PreviousCard = styled.div`
   transition: box-shadow 0.3s;
   width: 80%;
   min-width: 500px;
-  height: 120px;
-  margin: 15px 0;
+  height: 400px;
+  overflow: scroll;
+  margin: 15px auto;
   border-radius: 3px;
   background: #fff;
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
@@ -155,27 +159,37 @@ const Button = styled.button`
     transition: all 0.4s ease;
   }
 `;
+
 const P = styled.p`
   color: #999999;
   font-size: 19px;
 `;
+
 const User = styled.div`
   display: flex;
   flex-direction: column;
   justify-items: center;
   align-items: center;
   padding: 5px;
-  height: 100%;
+  ${'' /* height: 100%; */}
 `;
 const Aside = styled.aside`
   grid-row: 2 / -1;
   grid-column: 1;
+
+  @media (max-width: 1025px) {
+    grid-area: aside;
+  }
 `;
 const Img = styled.img`
   border-radius: 50%;
   height: auto;
   margin-top: 35px;
   width: 80%;
+
+  @media (max-width: 1025px) {
+    max-width: 100px;
+  }
 `;
 const Upcoming = styled.div`
   grid-row: 2 / -1;
@@ -184,16 +198,34 @@ const Upcoming = styled.div`
   flex-direction: column;
   /* justify-content: center; */
   align-items: center;
+
+  @media (max-width: 1025px) {
+    grid-area: upcoming;
+  }
 `;
 const Previous = styled.div`
   grid-row: 2 / -1;
   grid-column: 3;
+
+  @media (max-width: 1025px) {
+    grid-area: previous;
+  }
 `;
 const Container = styled.div`
   display: grid;
-  height: 85vh;
+  ${'' /* height: 100%; */}
   grid-template-columns: 1fr 2fr 3fr;
-  grid-template-rows: 70px 1fr;
+  ${'' /* grid-template-rows: 70px 1fr; */}
+
+  @media (max-width: 1025px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+      'aside'
+      'upcoming'
+      'previous';
+    place-items: center;
+  }
 `;
 DashMain.propTypes = {
   user: PropTypes.shape({

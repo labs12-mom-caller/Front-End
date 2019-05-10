@@ -106,16 +106,17 @@ const ScheduledByContainer = styled.div`
   grid-row: 2 / -1;
   grid-column: 6 / 11;
 
-  @media (max-width: 900px) {
-    grid-row: 2 / -1;
-    grid-column: 2 / 9;
-  }
-
   img {
     width: 60px;
     height: 60px;
   }
+
+  @media (max-width: 900px) {
+    grid-row: 2 / -1;
+    grid-column: 2 / 9;
+  }
 `;
+
 const NextCallContainer = styled.div`
   grid-row: 2 / -1;
   grid-column: 12 / 15;

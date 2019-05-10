@@ -50,6 +50,7 @@ const FooterWrap = styled.footer`
   display: flex;
   justify-content: space-between;
   background-color: #636578;
+  z-index: 10;
   /* height: 15vh; */
   width: 100%;
   /* margin-top: 25px; */
