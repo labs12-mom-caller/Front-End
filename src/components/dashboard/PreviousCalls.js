@@ -54,7 +54,8 @@ const PreviousCalls = ({ userId }) => {
         <div>Transcripts </div>
         <DeepgramLink
           href='https://www.deepgram.com'
-          style={{ cursor: 'alias' }}
+          target='_blank'
+          style={{ cursor: 'alias', opacity: '0.6' }}
         >
           <DeepgramImg src={deepgram} alt='Deepgram logo' />
         </DeepgramLink>
