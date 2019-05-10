@@ -55,6 +55,22 @@ const PreviousCalls = ({ userId }) => {
 
   return (
     <>
+      <TableHeader style={{ display: 'flex' }}>
+        <div style={{ marginLeft: '2%' }}>Contact</div>
+        <div style={{ marginLeft: '10%' }}>
+          Transcripts{' '}
+          <span>
+            <a
+              style={{ opacity: '0.5', color: '#7d7d7d', cursor: 'alias' }}
+              href='https://www.deepgram.com/'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              Powered By DeepGram
+            </a>
+          </span>
+        </div>
+      </TableHeader>
       {calls &&
         calls.map(call => (
           <Card>
@@ -85,6 +101,18 @@ PreviousCalls.propTypes = {
   userId: PropTypes.string,
 };
 export default PreviousCalls;
+const TableHeader = styled.div`
+  display: flex;
+  align-items: center;
+  height: 28px;
+  padding: 5px;
+  border: 1px solid #cecece;
+  background-color: #cecece;
+  color: #7d7d7d;
+  font-family: Roboto;
+  font-size: 0.9rem;
+  font-weight: 400;
+`;
 const Info = styled.div`
   display: flex;
   flex-direction: column;
