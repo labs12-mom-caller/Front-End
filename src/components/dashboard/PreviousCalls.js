@@ -174,6 +174,7 @@ const Card = styled.div`
   &:nth-child(2) {
     margin-top: 0;
     margin-bottom: 15px;
+  }
 `;
 const DeepgramLink = styled.a`
   display: flex;
