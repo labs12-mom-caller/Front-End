@@ -6,6 +6,7 @@ import { Link } from '@reach/router';
 import { db } from '../../firebase';
 import { styles } from '../../styles/styledDefaultComponents';
 import img from '../../assets/images/randomDummyImage.jpg';
+import deepgram from '../../assets/images/deepgram-logo.svg';
 
 const PreviousCalls = ({ userId }) => {
   const [calls, setCalls] = useState([]);
@@ -57,19 +58,10 @@ const PreviousCalls = ({ userId }) => {
     <>
       <TableHeader style={{ display: 'flex' }}>
         <div style={{ marginLeft: '2%' }}>Contact</div>
-        <div style={{ marginLeft: '10%' }}>
-          Transcripts{' '}
-          <span>
-            <a
-              style={{ opacity: '0.5', color: '#7d7d7d', cursor: 'alias' }}
-              href='https://www.deepgram.com/'
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              Powered By DeepGram
-            </a>
-          </span>
-        </div>
+        <div>Transcripts </div>
+        <DeepgramLink to='https://www.deepgram.com' style={{ cursor: 'alias' }}>
+          <DeepgramImg src={deepgram} alt='Deepgram logo' />
+        </DeepgramLink>
       </TableHeader>
       {calls &&
         calls.map(call => (
@@ -103,7 +95,7 @@ PreviousCalls.propTypes = {
 export default PreviousCalls;
 const TableHeader = styled.div`
   display: flex;
-  align-items: center;
+  justify-content: space-between;
   height: 28px;
   padding: 5px;
   border: 1px solid #cecece;
@@ -113,6 +105,7 @@ const TableHeader = styled.div`
   font-size: 0.9rem;
   font-weight: 400;
   margin-bottom: 20px;
+  width: 100%;
 `;
 const Info = styled.div`
   display: flex;
@@ -158,6 +151,7 @@ const PrevCallsWrapper = styled.div`
   height: inherit;
 `;
 
+
 const Card = styled.div`
   transition: box-shadow 0.3s;
   width: 90%;
@@ -174,5 +168,19 @@ const Card = styled.div`
   &:nth-child(2) {
     margin-top: 0;
     margin-bottom: 15px;
+
+const DeepgramLink = styled(Link)`
+  display: flex;
+
+  @media only screen and (max-width: 1010px) {
+    height: 10px;
+`;
+
+const DeepgramImg = styled.img`
+  height: 12px;
+  align-self: flex-end;
+
+  @media only screen and (max-width: 1010px) {
+    height: 10px;
   }
 `;
