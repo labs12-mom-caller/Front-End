@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { db } from '../../firebase';
+import { Card } from '../../styles/styledDefaultComponents/ContactInfo';
 import ScheduledBy from '../ContactInfo/ScheduledBy';
 import NextCall from '../ContactInfo/NextCall';
-import PreviousCalls from '../ContactInfo/PreviousCalls';
+import PreviousCallsWithContact from '../ContactInfo/PreviousCallsWithContact';
 
 const ContactInfo = ({ contactId, user }) => {
   const [contact, setContact] = useState({});
@@ -49,9 +50,9 @@ const ContactInfo = ({ contactId, user }) => {
   console.log(calls);
   return contact.fetched ? (
     <Container>
-      <PreviousCallsContainer>
-        <PreviousCalls calls={calls} contact={contact} user={user} />
-      </PreviousCallsContainer>
+      <PreviousCallsWithContactContainer>
+        <PreviousCallsWithContact calls={calls} contact={contact} user={user} />
+      </PreviousCallsWithContactContainer>
       <ScheduledByContainer>
         <Card>
           <ScheduledBy contact={contact} user={user} />
@@ -68,41 +69,25 @@ const ContactInfo = ({ contactId, user }) => {
   );
 };
 
-const Card = styled.div`
+export default ContactInfo;
 
-  transition: box-shadow .3s;
-  width: 100%;
-  border-radius: 6px;
-   background: #fff;
-  box-shadow: 0 0 11px rgba(33,33,33,.2); 
-  transition: box-shadow 0.5s;
+ContactInfo.propTypes = {
+  contactId: PropTypes.string,
+  user: PropTypes.shape({
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+    photoUrl: PropTypes.string,
+    uid: PropTypes.string,
+    phoneNumber: PropTypes.string,
+  }),
+};
 
-    header {
-      width: 100%
-      background-color: #C4C4C4;
-    }
-
-    main {
-      display: flex;
-      justify-content: space-around;
-    }
-
-  img {
-    max-width: 80px;
-    border-radius: 100px;
-  }
-
-&:hover {
-   box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
-}
-`;
-
-const PreviousCallsContainer = styled.div`
+const PreviousCallsWithContactContainer = styled.div`
   grid-row: 2 / -1;
   grid-column: 2 / 5;
 
   @media (max-width: 900px) {
-  grid-row: 7 / 15;
+  grid-row: 8 / 15;
   grid-column: 2 / 9;
 }
 
@@ -116,20 +101,22 @@ const PreviousCallsContainer = styled.div`
     margin: 10px auto;
   }
 `;
+
 const ScheduledByContainer = styled.div`
   grid-row: 2 / -1;
   grid-column: 6 / 11;
-
-  @media (max-width: 900px) {
-    grid-row: 2 / -1;
-    grid-column: 2 / 9;
-  }
 
   img {
     width: 60px;
     height: 60px;
   }
+
+  @media (max-width: 900px) {
+    grid-row: 2 / -1;
+    grid-column: 2 / 9;
+  }
 `;
+
 const NextCallContainer = styled.div`
   grid-row: 2 / -1;
   grid-column: 12 / 15;
@@ -144,17 +131,5 @@ const Container = styled.div`
   height: 85vh;
   grid-template-columns: repeat(15, 1fr);
   grid-template-rows: repeat(15, 1fr);
+  font-family: helvetica;
 `;
-
-ContactInfo.propTypes = {
-  contactId: PropTypes.string,
-  user: PropTypes.shape({
-    displayName: PropTypes.string,
-    email: PropTypes.string,
-    photoUrl: PropTypes.string,
-    uid: PropTypes.string,
-    phoneNumber: PropTypes.string,
-  }),
-};
-
-export default ContactInfo;

@@ -1,11 +1,10 @@
-/* eslint-disable jsx-a11y/media-has-caption */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment-timezone';
 import { Link } from '@reach/router';
 import { db } from '../../firebase';
-// import { styles } from '../../styles/styledDefaultComponents';
+import { styles } from '../../styles/styledDefaultComponents';
 import img from '../../assets/images/randomDummyImage.jpg';
 
 const PreviousCalls = ({ userId }) => {
@@ -48,6 +47,22 @@ const PreviousCalls = ({ userId }) => {
 
   return (
     <>
+      <TableHeader style={{ display: 'flex' }}>
+        <div style={{ marginLeft: '2%' }}>Contact</div>
+        <div style={{ marginLeft: '10%' }}>
+          Transcripts{' '}
+          <span>
+            <a
+              style={{ opacity: '0.5', color: '#7d7d7d', cursor: 'alias' }}
+              href='https://www.deepgram.com/'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              Powered By DeepGram
+            </a>
+          </span>
+        </div>
+      </TableHeader>
       {calls &&
         calls.map(call => (
           <Link
@@ -84,6 +99,19 @@ PreviousCalls.propTypes = {
   userId: PropTypes.string,
 };
 export default PreviousCalls;
+const TableHeader = styled.div`
+  display: flex;
+  align-items: center;
+  height: 28px;
+  padding: 5px;
+  border: 1px solid #cecece;
+  background-color: #cecece;
+  color: #7d7d7d;
+  font-family: Roboto;
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin-bottom: 20px;
+`;
 const Info = styled.div`
   display: flex;
   flex-direction: column;
@@ -126,4 +154,23 @@ const Date = styled.h3`
 const PrevCallsWrapper = styled.div`
   display: flex;
   height: inherit;
+`;
+
+const Card = styled.div`
+  transition: box-shadow 0.3s;
+  width: 90%;
+  ${'' /* height: 120px; */}
+  margin: 15px auto;
+  margin-top: 20px;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  transition: box-shadow 0.5s;
+  &:hover {
+    box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+  }
+  &:nth-child(2) {
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
 `;

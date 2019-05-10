@@ -32,7 +32,7 @@ const Date = styled.div`
 `;
 
 const Time = styled.div`
-  font-size: 28px;
+  font-size: 24px;
 `;
 
 const Container = styled.div`
@@ -57,10 +57,12 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: center;
     grid-area: main;
+    margin-top: 10px;
 
     div {
-      margin: 2px;
+      margin: 5px;
     }
   }
 `;

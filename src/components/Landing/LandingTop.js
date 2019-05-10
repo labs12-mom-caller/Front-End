@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, navigate } from '@reach/router';
 import { FaChevronRight, FaChevronDown } from 'react-icons/fa';
 
-import { LandingTopPage } from '../../styles/Landing';
+import { LandingTopPage, Header2, Ptag, Button } from '../../styles/Landing';
 
 const LandingTop = () => {
   const [height, setHeight] = useState(window.innerHeight);
@@ -25,14 +25,14 @@ const LandingTop = () => {
         </nav>
       </header>
       <main>
-        <h2>Stay Connected</h2>
-        <p>Never forget to call your loved ones again.</p>
-        <button type='button' onClick={() => navigate('/signup')}>
+        <Header2>Stay Connected</Header2>
+        <Ptag>Never forget to call your loved ones again.</Ptag>
+        <Button type='button' onClick={() => navigate('/signup')}>
           Get Started <FaChevronRight />
-        </button>
-        <p className='learn-more'>
+        </Button>
+        <Ptag className='learn-more'>
           Learn More <FaChevronDown />
-        </p>
+        </Ptag>
       </main>
     </LandingTopPage>
   );

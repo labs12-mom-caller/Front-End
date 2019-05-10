@@ -51,7 +51,7 @@ const ScheduledContacts = ({ user }) => {
   return (
     <>
       <TableHeader style={{ display: 'flex' }}>
-        <div style={{ marginLeft: '4.5%' }}>Name</div>
+        <div style={{ marginLeft: '2%' }}>Name</div>
         <div style={{ marginLeft: '10%' }}>Upcoming Call</div>
       </TableHeader>
       {contacts &&
@@ -65,14 +65,14 @@ const ScheduledContacts = ({ user }) => {
                     .tz(c.time_zone)
                     .format(`MMMM Do`)}
                 </Display>
-                <Display>
+                <Display style={{ marginLeft: '5%' }}>
                   {moment(c.next_call, 'X')
                     .tz(c.time_zone)
                     .format(`h:mm A`)}
                 </Display>
                 <Display>
                   <FaEllipsisV
-                    style={{ marginLeft: '40%', color: '#7D7D7D' }}
+                    style={{ marginLeft: '80%', color: '#7D7D7D' }}
                   />
                 </Display>
               </LinkWrapper>
@@ -86,6 +86,8 @@ const ScheduledContacts = ({ user }) => {
 const TableHeader = styled.div`
   display: flex;
   padding: 5px;
+  align-items: center;
+  height: 28px;
   border: 1px solid #cecece;
   background-color: #cecece;
   color: #7d7d7d;
@@ -102,11 +104,11 @@ const LinkWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
   border-bottom: 1px solid #7d7d7d;
-  padding: 20px;
+  padding: 25px 10px;
 `;
 
 const Display = styled.div`
-  width: 25%;
+  width: 30%;
   /* text-align: center; */
   font-family: Roboto;
 `;

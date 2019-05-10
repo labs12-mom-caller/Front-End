@@ -56,13 +56,12 @@ const ScheduledCall = ({ contact, user }) => {
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
   grid-template-areas:
     'header header header'
-    'stuff stuff stuff'
-    'stuff stuff stuff'
-    'stuff stuff stuff';
+    'main main main'
+    'main main main'
+    'main main main'
+    'main main main';
 
   header {
     grid-area: header;
@@ -70,12 +69,16 @@ const Container = styled.div`
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
     justify-items: center;
+    text-align: center;
+    padding: 10px;
   }
 
   main {
-    grid-area: stuff;
+    grid-area: main;
     justify-content: space-around;
     margin: 5px;
+    padding: 5px;
+    text-align: center;
   }
 
   footer {
