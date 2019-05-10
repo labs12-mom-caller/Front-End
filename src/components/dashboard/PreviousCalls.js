@@ -22,6 +22,7 @@ const PreviousCalls = ({ userId }) => {
         const allCalls = await db
           .collection('calls')
           .where('contact_ref', '==', doc.ref)
+          .where('fetched', '==', true)
           .get();
 
         if (!allCalls.empty) {
@@ -85,7 +86,10 @@ const PreviousCalls = ({ userId }) => {
               <Info>
                 <Date>{moment(call.call_time).format('MMM DD - h:mm A')}</Date>
                 <Transcript>
-                  {call.deepgram.results.channels[0].alternatives[0].transcript}
+                  {call.deepgram.results.channels[0].alternatives[0]
+                    .transcript &&
+                    call.deepgram.results.channels[0].alternatives[0]
+                      .transcript}
                 </Transcript>
               </Info>
             </PrevCallsWrapper>

@@ -31,7 +31,7 @@ exports.handler = async (req, res, firestore) => {
     snapshot.forEach(async doc => {
       const user1 = await doc.data().user1.get();
       const user1phone = user1.data().phoneNumber;
-      const user2 = doc.data().user2.get();
+      const user2 = await doc.data().user2.get();
       const user2phone = user2.data().phoneNumber;
 
       const twilioUrl =
