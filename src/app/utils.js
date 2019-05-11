@@ -1,9 +1,15 @@
 /* eslint-disable import/prefer-default-export */
+import { useEffect } from 'react';
 import { db, auth } from '../firebase';
 
 export function logout() {
   return auth().signOut();
-  // navigate('/');
+}
+
+export default function useLocalStorage(key, value) {
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]);
 }
 
 export async function signup({

@@ -179,7 +179,6 @@ const User = styled.div`
   justify-items: center;
   align-items: center;
   padding: 5px;
-  ${'' /* height: 100%; */}
 `;
 const Aside = styled.aside`
   grid-row: 2 / -1;
@@ -204,7 +203,6 @@ const Upcoming = styled.div`
   grid-column: 2;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
 
   @media (max-width: 1025px) {
