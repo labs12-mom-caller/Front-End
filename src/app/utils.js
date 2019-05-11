@@ -1,15 +1,23 @@
 /* eslint-disable import/prefer-default-export */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { db, auth } from '../firebase';
 
 export function logout() {
   return auth().signOut();
 }
 
-export default function useLocalStorage(key, value) {
+export function useLocalStorage(key, value) {
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);
+}
+export function useLocalStorageState(key, defaultValue) {
+  const stored = localStorage.getItem(key);
+  const [value, setValue] = useState(
+    stored ? JSON.parse(stored) : defaultValue,
+  );
+  useLocalStorage(key, value);
+  return [value, setValue];
 }
 
 export async function signup({
