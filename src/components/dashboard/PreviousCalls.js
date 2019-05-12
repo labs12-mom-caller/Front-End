@@ -34,7 +34,7 @@ const PreviousCalls = ({ userId }) => {
               user2: user2.data(),
               contactId: doc.id,
               call_duration: callDoc.data().call_duration,
-              call_time: moment(callDoc.data().call_time, 'X').format(),
+              call_time: moment(callDoc.data().call_time).format(),
               deepgram: callDoc.data().deepgram,
             };
             setCalls(c => [...c, callData]);
@@ -153,7 +153,6 @@ const PrevCallsWrapper = styled.div`
   height: inherit;
 `;
 
-
 const Card = styled.div`
   transition: box-shadow 0.3s;
   width: 90%;
@@ -170,6 +169,7 @@ const Card = styled.div`
   &:nth-child(2) {
     margin-top: 0;
     margin-bottom: 15px;
+    `;
 
 const DeepgramLink = styled(Link)`
   display: flex;
