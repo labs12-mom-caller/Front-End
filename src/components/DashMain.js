@@ -4,8 +4,8 @@ import { navigate } from '@reach/router';
 import styled from 'styled-components';
 
 import ModalPhoneNumber from './ModalPhoneNumber';
-import ScheduledContacts from './dashboard/ScheduledContacts';
 import PreviousCalls from './dashboard/PreviousCalls';
+import ScheduledContacts from './dashboard/ScheduledContacts';
 
 function formatPhoneNumber(number) {
   const numberCopy = [...number];
