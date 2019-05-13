@@ -101,13 +101,6 @@ const PreviousCalls = ({ userId }) => {
               <p className='callDuration'>
                 Call duration: {call.call_duration} seconds
               </p>
-              <div className='slider'>
-                <audio controls className='audioControls'>
-                  <source src={call.audio} type='audio/wav' />
-                  <track kind='captions' />
-                  Your browser does not support the audio element
-                </audio>
-              </div>
               <p className='moment'>
                 {moment(call.call_time).format('dddd, MMMM Do [at] h:mm A')}
               </p>
@@ -181,50 +174,51 @@ const PrevCallsWrapper = styled.div`
       grid-template-areas: 'user2 transcript callInfo';
  
     }
-@media (min-width: 768px) {
-    .flexIt {
-      display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      padding: 0 10% 0 10%;
-      margin-bottom: 0;
-      /* border: 1px solid blue; */
-      height: 62vh;
-      grid-area: transcript;
-      p {
-        padding: 3%;
-        border: 1px solid grey;
-        box-shadow: 1px 5px 15px 1px;
-      }
-      .transcript {
-        background: grey;
-        width: 100%;
-        text-align: center;
-        opacity: 0.7;
-        margin-top: 5%;
-      }
-    }
-  }
-  }
-  @media (min-width: 992px) {
-    //border: 1px solid red;
-    display: flex;
-    align-items: start;
-    justify-content: space-between;
-    min-height: 68vh;
-    /* padding: 3%; */
-    .flexIt {
-      display: flex;
-      flex-direction: column;
-      //width: 40%;
-      p {
-        padding: 3%;
-        border: 1px solid grey;
-        box-shadow: 1px 5px 15px 1px;
-      }
-    }
-  }
+      align-self: center;
+      .audioControls {
+        margin-bottom: 3%;
+        /* width: 200px; */
+        @media (min-width: 768px) {
+          .flexIt {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 10% 0 10%;
+            margin-bottom: 0;
+            /* border: 1px solid blue; */
+            height: 62vh;
+            grid-area: transcript;
+            p {
+              padding: 3%;
+              border: 1px solid grey;
+              box-shadow: 1px 5px 15px 1px;
+            }
+            .slider {
+              width: 70%;
+              margin: 0 auto;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              align-self: center;
+              .audioControls {
+                margin-bottom: 3%;
+                /* width: 200px; */
+              }
+            }
+            .transcript {
+              background: grey;
+              width: 100%;
+              text-align: center;
+              opacity: 0.7;
+              margin-top: 5%;
+            }
+          }
+        }
+      
+    
+  
   .user2Div {
     display: flex;
     flex-direction: column;
@@ -396,18 +390,6 @@ const PrevCallsWrapper = styled.div`
     /* border: 1px solid purple; */
     /* height: 62vh; */
 
-    .slider {
-      width: 70%;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      align-self: center;
-      .audioControls {
-        margin-bottom: 3%;
-        /* width: 200px; */
-      }
-    }
     .callDuration {
       font-size: 1rem;
       color: ${styles.colors.mainBlue};
@@ -434,18 +416,6 @@ const PrevCallsWrapper = styled.div`
       /* border: 1px solid purple; */
       height: 62vh;
 
-      .slider {
-        width: 70%;
-        margin: 0 auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        align-self: center;
-        .audioControls {
-          margin-bottom: 3%;
-          /* width: 200px; */
-        }
-      }
       .callDuration {
         font-size: 1rem;
         color: ${styles.colors.mainBlue};

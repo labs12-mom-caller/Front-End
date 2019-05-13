@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import moment from 'moment-timezone';
 import { Link } from '@reach/router';
 import { db } from '../../firebase';
-import { styles } from '../../styles/styledDefaultComponents';
-import img from '../../assets/images/randomDummyImage.jpg';
 import { firstNameOnly } from '../../app/utils';
 import deepgram from '../../assets/images/deepgram-logo.svg';
 
@@ -71,7 +69,9 @@ const PreviousCalls = ({ userId }) => {
             >
               <PrevCallsWrapper>
                 <User>
-                  <h3 className='prevHeader'>{call.user2.displayName}</h3>
+                  <h3 className='prevHeader'>
+                    {firstNameOnly(call.user2.displayName)}
+                  </h3>
                   <Img
                     src={
                       call.user2.photoUrl ||
@@ -185,9 +185,9 @@ const Card = styled.div`
   @media (max-width: 1010px) {
   `;
 
-const DeepgramLink = styled(Link)`
+/* const DeepgramLink = styled(Link)`
   }
-`;
+`; */
 const DeepgramLink = styled.a`
   display: flex;
 
@@ -206,6 +206,6 @@ const DeepgramImg = styled.img`
     height: 8px;
   }
 `;
-const DeepgramLink = styled(Link)`
+/* const DeepgramLink = styled(Link)`
   display: flex;
-`;
+`; */
