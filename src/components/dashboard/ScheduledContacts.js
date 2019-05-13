@@ -8,6 +8,7 @@ import { Link } from '@reach/router';
 import { FaEllipsisV } from 'react-icons/fa';
 import { db } from '../../firebase';
 import UpcomingCalls from '../UpcomingCalls';
+import { firstNameOnly } from '../../app/utils';
 
 const ScheduledContacts = ({ user }) => {
   const [contacts, setContacts] = React.useState([]);
@@ -50,33 +51,61 @@ const ScheduledContacts = ({ user }) => {
 
   return (
     <>
-      <TableHeader style={{ display: 'flex' }}>
-        <div style={{ marginLeft: '2%' }}>Name</div>
-        <div style={{ marginLeft: '10%' }}>Upcoming Call</div>
+      <TableHeader>
+        <Name>Name</Name>
+        <Upcoming>Upcoming Call</Upcoming>
       </TableHeader>
       {contacts &&
         contacts.map(c => {
           return (
-            <CallLink to={`/contact/${c.id}`} key={c.id}>
-              <LinkWrapper>
-                <Display>{c.user2.displayName}</Display>
-                <Display>
-                  {moment(c.next_call, 'X')
-                    .tz(c.time_zone)
-                    .format(`MMMM Do`)}
-                </Display>
-                <Display style={{ marginLeft: '5%' }}>
-                  {moment(c.next_call, 'X')
-                    .tz(c.time_zone)
-                    .format(`h:mm A`)}
-                </Display>
-                <Display>
-                  <FaEllipsisV
-                    style={{ marginLeft: '80%', color: '#7D7D7D' }}
-                  />
-                </Display>
-              </LinkWrapper>
-            </CallLink>
+            <div key={c.id}>
+              <CallLink to={`/contact/${c.id}`} key={c.id}>
+                <LinkWrapper>
+                  <Display>{firstNameOnly(c.user2.displayName)}</Display>
+                  <Display>
+                    {moment(c.next_call, 'X')
+                      .tz(c.time_zone)
+                      .format(`MMMM Do`)}
+                  </Display>
+                  <Display style={{ marginLeft: '5%' }}>
+                    {moment(c.next_call, 'X')
+                      .tz(c.time_zone)
+                      .format(`h:mm A`)}
+                  </Display>
+                  <Display>
+                    <FaEllipsisV
+                      style={{ marginLeft: '80%', color: '#7D7D7D' }}
+                    />
+                  </Display>
+                </LinkWrapper>
+              </CallLink>
+              <div style={{ display: 'flex' }}>
+                <CallLink to={`/contact/${c.id}`} key={c.id}>
+                  <LinkWrapper>
+                    <Display>{c.user2.displayName}</Display>
+                    <Display>
+                      {moment(c.next_call, 'X')
+                        .tz(c.time_zone)
+                        .format(`MMMM Do`)}
+                    </Display>
+                    <Display style={{ marginLeft: '5%' }}>
+                      {moment(c.next_call, 'X')
+                        .tz(c.time_zone)
+                        .format(`h:mm A`)}
+                    </Display>
+                    <Display />
+                  </LinkWrapper>
+                </CallLink>
+                <div
+                  style={{
+                    width: '10%',
+                    alignSelf: 'center',
+                  }}
+                >
+                  <Hotdog />
+                </div>
+              </div>
+            </div>
           );
         })}
     </>
@@ -94,23 +123,48 @@ const TableHeader = styled.div`
   font-family: Roboto;
   font-size: 0.9rem;
   font-weight: 400;
+  width: 100%;
+`;
+
+const Name = styled.div`
+  margin-left: 1%;
+  width: 24%;
+`;
+
+const Upcoming = styled.div`
+  width: 76%;
 `;
 
 const CallLink = styled(Link)`
   color: #7d7d7d;
+  width: 90%;
 `;
 
 const LinkWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
   border-bottom: 1px solid #7d7d7d;
-  padding: 25px 10px;
+  padding: 22px 16px;
+  width: 119%;
 `;
 
 const Display = styled.div`
   width: 30%;
   /* text-align: center; */
   font-family: Roboto;
+`;
+
+const Hotdog = styled(FaEllipsisV)`
+  width: 6px;
+  font-family: Roboto;
+  margin-left: 40%;
+  color: #7d7d7d;
+  height: 19px;
+
+  &:hover {
+    color: #ff6f61;
+    cursor: pointer;
+  }
 `;
 
 export default ScheduledContacts;

@@ -6,6 +6,7 @@ import { Link } from '@reach/router';
 import { db } from '../../firebase';
 import { styles } from '../../styles/styledDefaultComponents';
 import img from '../../assets/images/randomDummyImage.jpg';
+import { firstNameOnly } from '../../app/utils';
 import deepgram from '../../assets/images/deepgram-logo.svg';
 
 const PreviousCalls = ({ userId }) => {
@@ -52,40 +53,49 @@ const PreviousCalls = ({ userId }) => {
       <TableHeader style={{ display: 'flex' }}>
         <div style={{ marginLeft: '2%' }}>Contact</div>
         <div>Transcripts </div>
-        <DeepgramLink to='https://www.deepgram.com' style={{ cursor: 'alias' }}>
+        <DeepgramLink
+          href='https://www.deepgram.com'
+          target='_blank'
+          style={{ cursor: 'alias', opacity: '0.6' }}
+        >
           <DeepgramImg src={deepgram} alt='Deepgram logo' />
         </DeepgramLink>
       </TableHeader>
       {calls &&
         calls.map(call => (
-          <Link
-            to={`/prev-calls/${userId}/${call.id}`}
-            style={{ inherit: 'all' }}
-            key={call.id}
-          >
-            <PrevCallsWrapper>
-              <User>
-                <h3 className='prevHeader'>{call.user2.displayName}</h3>
-                <Img
-                  src={
-                    call.user2.photoUrl ||
-                    'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
-                  }
-                  alt='temp holder'
-                  className='user2Img'
-                />
-              </User>
-              <Info>
-                <Date>{moment(call.call_time).format('MMM DD - h:mm A')}</Date>
-                <Transcript>
-                  {call.deepgram.results.channels[0].alternatives[0]
-                    .transcript &&
-                    call.deepgram.results.channels[0].alternatives[0]
-                      .transcript}
-                </Transcript>
-              </Info>
-            </PrevCallsWrapper>
-          </Link>
+          <Card>
+            <Link
+              to={`/prev-calls/${userId}/${call.id}`}
+              style={{ inherit: 'all' }}
+              key={call.id}
+            >
+              <PrevCallsWrapper>
+                <User>
+                  <h3 className='prevHeader'>{call.user2.displayName}</h3>
+                  <Img
+                    src={
+                      call.user2.photoUrl ||
+                      'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
+                    }
+                    alt='temp holder'
+                    className='user2Img'
+                  />
+                </User>
+                <Info>
+                  <Date>
+                    {moment(call.call_time).format('MMM DD - h:mm A')}
+                  </Date>
+                  <Transcript>
+                    {call.deepgram &&
+                      call.deepgram.results.channels[0].alternatives[0]
+                        .transcript &&
+                      call.deepgram.results.channels[0].alternatives[0]
+                        .transcript}
+                  </Transcript>
+                </Info>
+              </PrevCallsWrapper>
+            </Link>
+          </Card>
         ))}
     </>
   );
@@ -151,11 +161,12 @@ const Date = styled.h3`
 const PrevCallsWrapper = styled.div`
   display: flex;
   height: inherit;
+  width: 100%;
 `;
 
 const Card = styled.div`
   transition: box-shadow 0.3s;
-  width: 90%;
+  width: 95%;
   ${'' /* height: 120px; */}
   margin: 15px auto;
   margin-top: 20px;
@@ -169,20 +180,22 @@ const Card = styled.div`
   &:nth-child(2) {
     margin-top: 0;
     margin-bottom: 15px;
-    `;
 
-const DeepgramLink = styled(Link)`
+  `;
+
+const DeepgramLink = styled.a`
   display: flex;
 
   @media only screen and (max-width: 1010px) {
     height: 10px;
+  }
 `;
 
 const DeepgramImg = styled.img`
-  height: 12px;
+  height: 10px;
   align-self: flex-end;
 
   @media only screen and (max-width: 1010px) {
-    height: 10px;
+    height: 8px;
   }
 `;
