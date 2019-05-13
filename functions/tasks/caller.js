@@ -48,6 +48,7 @@ exports.handler = async (req, res, firestore) => {
         .then(call => {
           calls
             .add({
+              call_time: call.date_created,
               contact_ref: contacts.doc(doc.id),
               twilio: call.sid,
               fetched: false,
@@ -55,10 +56,8 @@ exports.handler = async (req, res, firestore) => {
             .then(ref => {
               if (doc.data().call_type === 'paid') {
                 if (doc.data().call_frequency === 'Bi-Weekly') {
-                  const nextCall = moment(doc.data().next_call, 'x')
-                    .tz(doc.data().timezone)
+                  const nextCall = moment(doc.data().next_call, 'X')
                     .add(2, 'w')
-                    .tz('UTC')
                     .toDate();
                   contacts.doc(doc.id).update({
                     next_call: nextCall,
@@ -66,10 +65,8 @@ exports.handler = async (req, res, firestore) => {
                   });
                   console.log('Call information updated!');
                 } else {
-                  const nextCall = moment(doc.data().next_call, 'x')
-                    .tz(doc.data().timezone)
+                  const nextCall = moment(doc.data().next_call, 'X')
                     .add(4, 'w')
-                    .tz('UTC')
                     .toDate();
                   contacts.doc(doc.id).update({
                     next_call: nextCall,
@@ -81,16 +78,9 @@ exports.handler = async (req, res, firestore) => {
                 if (doc.data().call_frequency === 'Bi-Weekly') {
                   const rando = randomTime(doc.data().selected_times);
                   let nextCall = moment(rando)
-                    .tz(doc.data().timezone)
                     .add(2, 'w')
-                    .tz('UTC')
                     .toDate();
-                  if (
-                    nextCall <
-                    moment()
-                      .tz(doc.data().timezone)
-                      .toDate()
-                  ) {
+                  if (nextCall < moment().toDate()) {
                     nextCall = moment(nextCall)
                       .tz(doc.data().timezone)
                       .add(1, 'w')
@@ -108,12 +98,7 @@ exports.handler = async (req, res, firestore) => {
                     .add(4, 'w')
                     .tz('UTC')
                     .toDate();
-                  if (
-                    nextCall <
-                    moment()
-                      .tz(doc.data().timezone)
-                      .toDate()
-                  ) {
+                  if (nextCall < moment().toDate()) {
                     nextCall = moment(nextCall)
                       .tz(doc.data().timezone)
                       .add(1, 'w')

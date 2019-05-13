@@ -34,7 +34,7 @@ const PreviousCalls = ({ userId }) => {
               user2: user2.data(),
               contactId: doc.id,
               call_duration: callDoc.data().call_duration,
-              call_time: moment(callDoc.data().call_time).format(),
+              call_time: moment(callDoc.data().call_time, 'X').format(),
               deepgram: callDoc.data().deepgram,
             };
             setCalls(c => [...c, callData]);
