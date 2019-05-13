@@ -73,7 +73,10 @@ const CallRecord = ({ callId }) => {
           <p className='email'>{contact.email}</p>
           <p className='phone'>{contact.phoneNumber}</p>
           <button className='btn' type='button'>
-            <FaArrowLeft className='arrow' /> Back Home
+            <FaArrowLeft className='arrow' />{' '}
+            <Link to='/' className='link'>
+              Back Home
+            </Link>
           </button>
         </div>
         <div className='flexIt'>
@@ -241,6 +244,11 @@ const PrevCallsWrapper = styled.div`
       font-size: 1rem;
       color: white;
       margin-bottom: 10%;
+      .link {
+        text-decoration: none;
+        color: white;
+        font-size: 1rem;
+      }
     }
   }
   .flexIt {
