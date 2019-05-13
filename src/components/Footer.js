@@ -51,11 +51,8 @@ const FooterWrap = styled.footer`
   justify-content: space-between;
   background-color: #636578;
   z-index: 10;
-  /* height: 15vh; */
   width: 100%;
-  /* margin-top: 25px; */
   @media (max-width: 992px) {
-    /* margin-left: 6%; */
   }
 `;
 const SectionLeft = styled.div`
