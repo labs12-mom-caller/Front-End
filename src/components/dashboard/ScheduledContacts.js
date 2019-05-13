@@ -8,6 +8,7 @@ import { Link } from '@reach/router';
 import { FaEllipsisV } from 'react-icons/fa';
 import { db } from '../../firebase';
 import UpcomingCalls from '../UpcomingCalls';
+import { firstNameOnly } from '../../app/utils';
 
 const ScheduledContacts = ({ user }) => {
   const [contacts, setContacts] = React.useState([]);
@@ -50,13 +51,34 @@ const ScheduledContacts = ({ user }) => {
 
   return (
     <>
-      <TableHeader style={{ display: 'flex' }}>
-        <div style={{ marginLeft: '2%' }}>Name</div>
-        <div style={{ marginLeft: '10%' }}>Upcoming Call</div>
+      <TableHeader>
+        <Name>Name</Name>
+        <Upcoming>Upcoming Call</Upcoming>
       </TableHeader>
       {contacts &&
         contacts.map(c => {
           return (
+            <CallLink to={`/contact/${c.id}`} key={c.id}>
+              <LinkWrapper>
+                <Display>{firstNameOnly(c.user2.displayName)}</Display>
+                <Display>
+                  {moment(c.next_call, 'X')
+                    .tz(c.time_zone)
+                    .format(`MMMM Do`)}
+                </Display>
+                <Display style={{ marginLeft: '5%' }}>
+                  {moment(c.next_call, 'X')
+                    .tz(c.time_zone)
+                    .format(`h:mm A`)}
+                </Display>
+                <Display>
+                  <FaEllipsisV
+                    style={{ marginLeft: '80%', color: '#7D7D7D' }}
+                  />
+                </Display>
+              </LinkWrapper>
+            </CallLink>
+
             <div style={{ display: 'flex' }}>
               <CallLink to={`/contact/${c.id}`} key={c.id}>
                 <LinkWrapper>
@@ -100,6 +122,16 @@ const TableHeader = styled.div`
   font-family: Roboto;
   font-size: 0.9rem;
   font-weight: 400;
+  width: 100%;
+`;
+
+const Name = styled.div`
+  margin-left: 1%;
+  width: 24%;
+`;
+
+const Upcoming = styled.div`
+  width: 76%;
 `;
 
 const CallLink = styled(Link)`
