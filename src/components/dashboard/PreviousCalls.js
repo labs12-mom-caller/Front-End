@@ -9,7 +9,6 @@ import deepgram from '../../assets/images/deepgram-logo.svg';
 
 const PreviousCalls = ({ userId }) => {
   const [calls, setCalls] = useState([]);
-
   useEffect(() => {
     const fetchData = async () => {
       const user = await db.collection('users').doc(userId);
@@ -17,14 +16,12 @@ const PreviousCalls = ({ userId }) => {
         .collection('contacts')
         .where('user1', '==', user)
         .get();
-
       await userContacts.forEach(async doc => {
         const allCalls = await db
           .collection('calls')
           .where('contact_ref', '==', doc.ref)
           .where('fetched', '==', true)
           .get();
-
         if (!allCalls.empty) {
           const user2 = await doc.data().user2.get();
           allCalls.forEach(async callDoc => {
@@ -43,9 +40,7 @@ const PreviousCalls = ({ userId }) => {
     };
     fetchData();
   }, [userId]);
-
   if (calls.empty) return <p>No Calls Available...</p>;
-
   return (
     <>
       <TableHeader style={{ display: 'flex' }}>
@@ -100,7 +95,6 @@ const PreviousCalls = ({ userId }) => {
     </>
   );
 };
-
 PreviousCalls.propTypes = {
   userId: PropTypes.string,
 };
@@ -163,7 +157,6 @@ const PrevCallsWrapper = styled.div`
   height: inherit;
   width: 100%;
 `;
-
 const Card = styled.div`
   transition: box-shadow 0.3s;
   width: 95%;
@@ -181,25 +174,21 @@ const Card = styled.div`
     margin-top: 0;
     margin-bottom: 15px;
   }
-
   @media (max-width: 1010px) {
   }
 `;
 
 const DeepgramLink = styled.a`
   display: flex;
-
   @media only screen and (max-width: 1010px) {
     height: 10px;
   }
 `;
-
 const DeepgramImg = styled.img`
   height: 10px;
   align-self: flex-end;
   @media (max-width: 1010px) {
     height: 10px;
-
   @media only screen and (max-width: 1010px) {
     height: 8px;
   }

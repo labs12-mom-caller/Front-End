@@ -12,8 +12,8 @@ import { firstNameOnly } from '../../app/utils';
 
 const ScheduledContacts = ({ user }) => {
   const [contacts, setContacts] = React.useState([]);
+  console.log(contacts);
   const { uid } = user;
-  console.log(contacts, 'boyy');
   React.useEffect(() => {
     const fetchData = async () => {
       try {
@@ -21,7 +21,6 @@ const ScheduledContacts = ({ user }) => {
           .collection('contacts')
           .where('user1', '==', db.doc(`users/${uid}`))
           .get();
-        console.log(userContacts, 'userContacts');
         userContacts.forEach(async doc => {
           try {
             const user2Snap = await db
@@ -58,31 +57,11 @@ const ScheduledContacts = ({ user }) => {
       {contacts &&
         contacts.map(c => {
           return (
-            <div key={c.id}>
-              <CallLink to={`/contact/${c.id}`} key={c.id}>
-                <LinkWrapper>
-                  <Display>{firstNameOnly(c.user2.displayName)}</Display>
-                  <Display>
-                    {moment(c.next_call, 'X')
-                      .tz(c.time_zone)
-                      .format(`MMMM Do`)}
-                  </Display>
-                  <Display style={{ marginLeft: '5%' }}>
-                    {moment(c.next_call, 'X')
-                      .tz(c.time_zone)
-                      .format(`h:mm A`)}
-                  </Display>
-                  <Display>
-                    <FaEllipsisV
-                      style={{ marginLeft: '80%', color: '#7D7D7D' }}
-                    />
-                  </Display>
-                </LinkWrapper>
-              </CallLink>
+            <>
               <div style={{ display: 'flex' }}>
                 <CallLink to={`/contact/${c.id}`} key={c.id}>
                   <LinkWrapper>
-                    <Display>{c.user2.displayName}</Display>
+                    <Display>{firstNameOnly(c.user2.displayName)}</Display>
                     <Display>
                       {moment(c.next_call, 'X')
                         .tz(c.time_zone)
@@ -105,7 +84,7 @@ const ScheduledContacts = ({ user }) => {
                   <Hotdog />
                 </div>
               </div>
-            </div>
+            </>
           );
         })}
     </>
