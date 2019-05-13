@@ -180,15 +180,14 @@ const Card = styled.div`
   &:nth-child(2) {
     margin-top: 0;
     margin-bottom: 15px;
-<<<<<<< HEAD
-  
-=======
+  }
+
+  @media (max-width: 1010px) {
   `;
 
->>>>>>> db26b36961a343d45fd7c674f440d1c2b8a79864
-const DeepgramLink = styled(Link)`
+/* const DeepgramLink = styled(Link)`
   }
-`;
+`; */
 const DeepgramLink = styled.a`
   display: flex;
 
@@ -200,8 +199,13 @@ const DeepgramLink = styled.a`
 const DeepgramImg = styled.img`
   height: 10px;
   align-self: flex-end;
+  @media (max-width: 1010px) {
+    height: 10px;
 
   @media only screen and (max-width: 1010px) {
     height: 8px;
   }
-`};
+`;
+/* const DeepgramLink = styled(Link)`
+  display: flex;
+`; */
