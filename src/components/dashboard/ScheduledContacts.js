@@ -58,31 +58,10 @@ const ScheduledContacts = ({ user }) => {
       {contacts &&
         contacts.map(c => {
           return (
-            <CallLink to={`/contact/${c.id}`} key={c.id}>
-              <LinkWrapper>
-                <Display>{firstNameOnly(c.user2.displayName)}</Display>
-                <Display>
-                  {moment(c.next_call, 'X')
-                    .tz(c.time_zone)
-                    .format(`MMMM Do`)}
-                </Display>
-                <Display style={{ marginLeft: '5%' }}>
-                  {moment(c.next_call, 'X')
-                    .tz(c.time_zone)
-                    .format(`h:mm A`)}
-                </Display>
-                <Display>
-                  <FaEllipsisV
-                    style={{ marginLeft: '80%', color: '#7D7D7D' }}
-                  />
-                </Display>
-              </LinkWrapper>
-            </CallLink>
-
             <div style={{ display: 'flex' }}>
               <CallLink to={`/contact/${c.id}`} key={c.id}>
                 <LinkWrapper>
-                  <Display>{c.user2.displayName}</Display>
+                  <Display>{firstNameOnly(c.user2.displayName)}</Display>
                   <Display>
                     {moment(c.next_call, 'X')
                       .tz(c.time_zone)
