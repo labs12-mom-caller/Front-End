@@ -53,7 +53,11 @@ const PreviousCalls = ({ userId }) => {
       <TableHeader style={{ display: 'flex' }}>
         <div style={{ marginLeft: '2%' }}>Contact</div>
         <div>Transcripts </div>
-        <DeepgramLink to='https://www.deepgram.com' style={{ cursor: 'alias' }}>
+        <DeepgramLink
+          href='https://www.deepgram.com'
+          target='_blank'
+          style={{ cursor: 'alias', opacity: '0.6' }}
+        >
           <DeepgramImg src={deepgram} alt='Deepgram logo' />
         </DeepgramLink>
       </TableHeader>
@@ -157,6 +161,7 @@ const Date = styled.h3`
 const PrevCallsWrapper = styled.div`
   display: flex;
   height: inherit;
+  width: 100%;
 `;
 
 const Card = styled.div`
@@ -178,17 +183,21 @@ const Card = styled.div`
   `;
 
 const DeepgramLink = styled(Link)`
+  }
+`;
+const DeepgramLink = styled.a`
   display: flex;
 
   @media only screen and (max-width: 1010px) {
     height: 10px;
+  }
 `;
 
 const DeepgramImg = styled.img`
-  height: 12px;
+  height: 10px;
   align-self: flex-end;
 
   @media only screen and (max-width: 1010px) {
-    height: 10px;
+    height: 8px;
   }
 `;
