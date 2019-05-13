@@ -67,7 +67,9 @@ const PreviousCalls = ({ userId }) => {
             >
               <PrevCallsWrapper>
                 <User>
-                  <h3 className='prevHeader'>{call.user2.displayName}</h3>
+                  <h3 className='prevHeader'>
+                    {firstNameOnly(call.user2.displayName)}
+                  </h3>
                   <Img
                     src={
                       call.user2.photoUrl ||
