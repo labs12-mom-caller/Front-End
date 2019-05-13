@@ -57,37 +57,6 @@ const CallRecord = ({ callId }) => {
   if (!contact) return <p>...</p>;
   console.log(call);
   return (
-    // <Card>
-    //   <h2>Review your call with {contact.displayName}</h2>
-    //   <Link to={`/contact/${contact.id}`}>
-    //     <Img
-    //       src={
-    //         contact.photoUrl ||
-    //         'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
-    //       }
-    //       alt={contact.displayName}
-    //     />
-    //   </Link>
-    //   <p>
-    //     {moment(call.call_time.seconds).format('dddd, MMMM Do [at] h:mm A')}
-    //   </p>
-    //   <p>Listen to Call</p>
-    //   <audio controls>
-    //     <source src={call.audio} type='audio/wav' />
-    //     <track kind='captions' />
-    //     Your browser does not support the audio element
-    //   </audio>
-    //   <Link to={`/contact/${callInfo.id}`}>Contact Information</Link>
-    //   <h2>Transcript</h2>
-    //   {call.simplified.map((line, index) => {
-    //     return (
-    //       <div key={index}>
-    //         <h3>{line.user}</h3>
-    //         <p>{line.script}</p>
-    //       </div>
-    //     );
-    //   })}
-    // </Card>
     call && (
       <PrevCallsWrapper key={call.id}>
         <div className='user2Div'>
@@ -111,14 +80,15 @@ const CallRecord = ({ callId }) => {
           {' '}
           <p className='transcript'>Transcript</p>
           <div className='transcriptWrapper'>
-            {call.simplified.map(line => {
-              return (
-                <>
-                  <h3>{line.user}</h3>
-                  <p>{line.script}</p>
-                </>
-              );
-            })}
+            {call.simplified &&
+              call.simplified.map(line => {
+                return (
+                  <>
+                    <h3>{line.user}</h3>
+                    <p>{line.script}</p>
+                  </>
+                );
+              })}
           </div>
         </div>
 
