@@ -73,7 +73,10 @@ const CallRecord = ({ callId }) => {
           <p className='email'>{contact.email}</p>
           <p className='phone'>{contact.phoneNumber}</p>
           <button className='btn' type='button'>
-            <FaArrowLeft className='arrow' /> Back Home
+            <FaArrowLeft className='arrow' />{' '}
+            <Link to='/' className='link'>
+              Back Home
+            </Link>
           </button>
         </div>
         <div className='flexIt'>
@@ -156,7 +159,7 @@ const PrevCallsWrapper = styled.div`
       grid-template-columns: 25% 2fr 25%;
       grid-template-rows: 100%;
       grid-template-areas: 'user2 transcript callInfo';
-      min-height: 90%;
+      /* height: 90%; */
     }
   }
   .user2Div {
@@ -241,6 +244,11 @@ const PrevCallsWrapper = styled.div`
       font-size: 1rem;
       color: white;
       margin-bottom: 10%;
+      .link {
+        text-decoration: none;
+        color: white;
+        font-size: 1rem;
+      }
     }
   }
   .flexIt {
@@ -260,14 +268,15 @@ const PrevCallsWrapper = styled.div`
     }
     @media (min-width: 992px) {
       /* border: 1px solid hotpink; */
-      max-height: 95%;
+      max-height: 35%;
       object-fit: contain;
       overflow: scroll;
     }
     p {
       padding: 3%;
       border: 1px solid grey;
-      box-shadow: 1px 5px 15px 1px;
+      box-shadow: 1px 1px 5px 1px;
+      font-family: roboto;
     }
     .transcript {
       background: #c4c4c4;
@@ -300,6 +309,10 @@ const PrevCallsWrapper = styled.div`
         max-width: auto;
         object-fit: contain;
         overflow: scroll; */
+      }
+      @media (min-width: 1300px) {
+        max-height: 50%;
+        overflow: scroll;
       }
       .transcriptText {
         font-size: 1.8rem;
