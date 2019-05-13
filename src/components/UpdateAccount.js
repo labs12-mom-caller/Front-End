@@ -145,25 +145,25 @@ const UpdateAccount = ({ user }) => {
 };
 const Container = styled.div`
   display: flex;
-  /* height: 88vh; */
-  /* grid-template-columns: 1fr; */
+  height: 90vh;
+  grid-template-columns: 1fr;
   /* grid-template-rows: 70px 1fr; */
 `;
 const Wrapper = styled.div`
-  width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   align-self: flex-start;
   width: 40%;
-  padding: 20px;
+  padding: 15px;
   background: #ffffff;
-  margin: 5px auto;
+  background-color: #f7f8fa;
+  margin: 0 auto;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
   -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
   -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
-  margin: 5% auto;
+  /* margin: 5% auto; */
   @media only screen and (max-width: 750px) {
     width: 70%;
   }
@@ -189,8 +189,8 @@ const UpdateForm = styled.form`
     font-weight: 300;
   }
   .updateBtn {
-    /* margin-left: 37%; */
     margin-bottom: 5%;
+    width: 100%;
   }
   @media only screen and (max-width: 600px) {
     width: auto;
@@ -219,7 +219,7 @@ const InputLabel = styled.label`
 `;
 
 const InputEntry = styled.input`
-  width: 95%;
+  width: 100%;
   border-radius: 4px;
   outline: 0;
   color: #999999;
@@ -299,6 +299,11 @@ const ButtonGroup = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* border: 1px solid blue; */
+  button {
+    width: 100%;
+    font-size: 1.18rem;
+  }
 `;
 
 export default UpdateAccount;

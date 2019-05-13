@@ -7,16 +7,11 @@ import { Link, navigate } from '@reach/router';
 import { logout } from '../app/utils';
 
 const NavbarPage = ({ user }) => {
-  // const [collapseId, setCollapseId] = useState('');
   const [show, setShow] = useState(false);
 
   const toggleNav = () => {
     setShow(!show);
   };
-
-  // const toggleCollapse = newId => () => {
-  //   return newId !== collapseId ? setCollapseId('') : setCollapseId(newId);
-  // };
 
   const logoutHandler = e => {
     e.preventDefault();
@@ -73,9 +68,6 @@ const Name = styled.h1`
 const VL = styled.div`
   border-left: 1px solid #999999;
   height: 25px;
-  /* position: absolute; */
-  /* right: 4.8%; */
-  /* margin-left: -3px; */
   top: 2.4%;
 `;
 
@@ -113,10 +105,8 @@ const Container = styled.div`
       top: -2px;
     }
     .NavbarLink-toggle {
-      /* align-self: flex-end; */
       color: #083d77;
       display: initial;
-      /* align-self: center; */
       font-size: 2.5rem;
       cursor: pointer;
       position: absolute;
@@ -160,10 +150,8 @@ const Nav = styled.nav`
       top: -45px;
     }
     .NavbarLink-toggle {
-      /* align-self: flex-end; */
       color: #083d77;
       display: initial;
-      /* align-self: center; */
       font-size: 2.5rem;
       cursor: pointer;
       position: absolute;

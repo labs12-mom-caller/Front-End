@@ -177,8 +177,11 @@ const Card = styled.div`
   &:nth-child(2) {
     margin-top: 0;
     margin-bottom: 15px;
+  }
 
-  `;
+  @media (max-width: 1010px) {
+  }
+`;
 
 const DeepgramLink = styled.a`
   display: flex;
@@ -191,6 +194,8 @@ const DeepgramLink = styled.a`
 const DeepgramImg = styled.img`
   height: 10px;
   align-self: flex-end;
+  @media (max-width: 1010px) {
+    height: 10px;
 
   @media only screen and (max-width: 1010px) {
     height: 8px;
