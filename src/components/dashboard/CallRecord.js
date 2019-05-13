@@ -127,12 +127,12 @@ const Card = styled.div`
     box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
   }
 `;
-const Img = styled.img`
-  border-radius: 50%;
-  height: 100px;
-  width: 100px;
-  float: right;
-`;
+// const Img = styled.img`
+//   border-radius: 50%;
+//   height: 100px;
+//   width: 100px;
+//   float: right;
+// `;
 const PrevCallsWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -144,38 +144,96 @@ const PrevCallsWrapper = styled.div`
     'user2'
     'transcript'
     'callInfo';
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 100% 100%;
+    place-items: start;
+    grid-template-areas:
+      'user2 transcript'
+      'callInfo callInfo';
+    min-height: 85vh;
+    @media (min-width: 992px) {
+      grid-template-columns: 25% 2fr 25%;
+      grid-template-rows: 100%;
+      grid-template-areas: 'user2 transcript callInfo';
+      min-height: 90%;
+    }
+  }
   .user2Div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    @media (min-width: 768px) {
+      justify-content: space-around;
+      /* border: 1px solid green; */
+      flex-wrap: wrap;
+      /* height: 40%; */
+    }
+    @media (min-width: 992px) {
+      /* border: 1px solid hotpink; */
+      height: 73vh;
+    }
     .prevHeader {
       font-size: 1.5rem;
       margin-top: 5%;
       color: ${styles.colors.mainBlue};
+      @media (min-width: 768px) {
+        font-size: 2rem;
+        /* margin-bottom: 5%; */
+      }
+      @media (min-width: 992px) {
+        font-size: 1.5rem;
+      }
     }
     .user2Img {
       height: 250px;
       width: 300px;
       border-radius: 50%;
       margin: 5% auto;
+      @media (min-width: 768px) {
+        /* margin-bottom: 10%; */
+        width: 250px;
+        height: 250px;
+        object-fit: contain;
+      }
+      @media (min-width: 992px) {
+        max-width: 200px;
+        max-height: 200px;
+      }
     }
     .user2Name {
       font-size: 1.5rem;
       color: ${styles.colors.mainBlue};
       font-weight: 700;
       margin-bottom: 8%;
+      @media (min-width: 768px) {
+        font-size: 2rem;
+      }
+      @media (min-width: 992px) {
+        font-size: 2rem;
+      }
     }
     .email {
       font-size: 1.5rem;
       color: ${styles.colors.mainBlue};
       font-weight: 700;
       margin-bottom: 8%;
+      @media (min-width: 768px) {
+        text-align: justify;
+        font-size: 1.7rem;
+      }
+      @media (min-width: 992px) {
+        font-size: 1rem;
+      }
     }
     .phone {
       font-size: 1.5rem;
       color: ${styles.colors.mainBlue};
       margin-bottom: 8%;
+      @media (min-width: 768px) {
+        font-size: 1.7rem;
+      }
     }
     .btn {
       background: #636578;
@@ -195,6 +253,17 @@ const PrevCallsWrapper = styled.div`
     /* border: 1px solid blue; */
     /* height: 62vh; */
     grid-area: transcript;
+    @media (min-width: 768px) {
+      max-height: 100%;
+      overflow: scroll;
+      margin-top: 4%;
+    }
+    @media (min-width: 992px) {
+      /* border: 1px solid hotpink; */
+      max-height: 95%;
+      object-fit: contain;
+      overflow: scroll;
+    }
     p {
       padding: 3%;
       border: 1px solid grey;
@@ -217,6 +286,21 @@ const PrevCallsWrapper = styled.div`
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
+      /* max-height: 40%;
+      max-width: 100%;
+      object-fit: contain; */
+      overflow: scroll;
+      @media (min-width: 768px) {
+        justify-content: flex-start;
+        max-height: 50%;
+        overflow: scroll;
+      }
+      @media (min-width: 992px) {
+        /* max-height: 40%;
+        max-width: auto;
+        object-fit: contain;
+        overflow: scroll; */
+      }
       .transcriptText {
         font-size: 1.8rem;
         line-height: 2rem;
@@ -228,11 +312,19 @@ const PrevCallsWrapper = styled.div`
         margin-left: 3%;
         font-size: 1.5rem;
         color: ${styles.colors.mainBlue};
+        @media (min-width: 768px) {
+          font-size: 2rem;
+        }
       }
       .text {
         margin-left: 3%;
         margin-right: 3%;
         margin-bottom: 5%;
+        @media (min-width: 768px) {
+          font-size: 1.5rem;
+          letter-spacing: 0.1rem;
+          line-height: 2rem;
+        }
       }
       .slider {
         /* width: 70%; */
@@ -259,6 +351,10 @@ const PrevCallsWrapper = styled.div`
     margin: 5% auto;
     /* border: 1px solid purple; */
     /* height: 62vh; */
+    @media (min-width: 992px) {
+      justify-content: space-evenly;
+      height: 80vh;
+    }
 
     .callDuration {
       font-size: 1.5rem;
@@ -266,13 +362,21 @@ const PrevCallsWrapper = styled.div`
       margin-bottom: 3%;
       /* border: 1px solid red; */
       text-align: center;
+      @media (min-width: 768px) {
+        margin: 5% auto;
+      }
+      @media (min-width: 992px) {
+        font-size: 2rem;
+      }
     }
     .moment {
       text-align: center;
       color: ${styles.colors.mainBlue};
       font-size: 1.5rem;
       font-weight: 1.5rem;
-      //width: 33%;
+      @media (min-width: 992px) {
+        font-size: 2rem;
+      }
     }
   }
 `;
