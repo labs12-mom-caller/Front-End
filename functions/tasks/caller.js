@@ -48,7 +48,7 @@ exports.handler = async (req, res, firestore) => {
         .then(call => {
           calls
             .add({
-              call_time: call.date_created,
+              call_time: moment().toDate(),
               contact_ref: contacts.doc(doc.id),
               twilio: call.sid,
               fetched: false,
@@ -56,7 +56,15 @@ exports.handler = async (req, res, firestore) => {
             .then(ref => {
               if (doc.data().call_type === 'paid') {
                 if (doc.data().call_frequency === 'Bi-Weekly') {
-                  const nextCall = moment(doc.data().next_call, 'X')
+                  const nextCall = moment
+                    .tz(
+                      `${doc.data().scheduled_day} ${
+                        doc.data().scheduled_time
+                      }`,
+                      'dddd h:mm A',
+                      doc.data().timezone,
+                    )
+                    .second(0)
                     .add(2, 'w')
                     .toDate();
                   contacts.doc(doc.id).update({
@@ -65,7 +73,15 @@ exports.handler = async (req, res, firestore) => {
                   });
                   console.log('Call information updated!');
                 } else {
-                  const nextCall = moment(doc.data().next_call, 'X')
+                  const nextCall = moment
+                    .tz(
+                      `${doc.data().scheduled_day} ${
+                        doc.data().scheduled_time
+                      }`,
+                      'dddd h:mm A',
+                      doc.data().timezone,
+                    )
+                    .second(0)
                     .add(4, 'w')
                     .toDate();
                   contacts.doc(doc.id).update({
@@ -76,35 +92,31 @@ exports.handler = async (req, res, firestore) => {
                 }
               } else {
                 if (doc.data().call_frequency === 'Bi-Weekly') {
-                  const rando = randomTime(doc.data().selected_times);
-                  let nextCall = moment(rando)
-                    .add(2, 'w')
-                    .toDate();
-                  if (nextCall < moment().toDate()) {
-                    nextCall = moment(nextCall)
-                      .tz(doc.data().timezone)
-                      .add(1, 'w')
-                      .toDate();
-                  }
+                  const newTimes = doc.data().selected_times.map(time => {
+                    return moment
+                      .tz(time, doc.data().timezone)
+                      .add(2, 'w')
+                      .format();
+                  });
+                  const rando = randomTime(newTimes);
+                  const nextCall = moment(rando).toDate();
                   contacts.doc(doc.id).update({
+                    selected_times: newTimes,
                     next_call: nextCall,
                     updated_at: moment().toDate(),
                   });
                   console.log('Call information updated!');
                 } else {
-                  const rando = randomTime(doc.data().selected_times);
-                  let nextCall = moment(rando)
-                    .tz(doc.data().timezone)
-                    .add(4, 'w')
-                    .tz('UTC')
-                    .toDate();
-                  if (nextCall < moment().toDate()) {
-                    nextCall = moment(nextCall)
-                      .tz(doc.data().timezone)
-                      .add(1, 'w')
-                      .toDate();
-                  }
+                  const newTimes = doc.data().selected_times.map(time => {
+                    return moment
+                      .tz(time, doc.data().timezone)
+                      .add(4, 'w')
+                      .format();
+                  });
+                  const rando = randomTime(newTimes);
+                  const nextCall = moment(rando).toDate();
                   contacts.doc(doc.id).update({
+                    selected_times: newTimes,
                     next_call: nextCall,
                     updated_at: moment().toDate(),
                   });

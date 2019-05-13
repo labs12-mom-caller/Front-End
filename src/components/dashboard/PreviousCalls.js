@@ -4,9 +4,6 @@ import styled from 'styled-components';
 import moment from 'moment-timezone';
 import { Link } from '@reach/router';
 import { db } from '../../firebase';
-import { styles } from '../../styles/styledDefaultComponents';
-import img from '../../assets/images/randomDummyImage.jpg';
-import { firstNameOnly } from '../../app/utils';
 import deepgram from '../../assets/images/deepgram-logo.svg';
 
 const PreviousCalls = ({ userId }) => {
