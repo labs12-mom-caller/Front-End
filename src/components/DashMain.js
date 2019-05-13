@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import styled from 'styled-components';
-
 import ModalPhoneNumber from './ModalPhoneNumber';
-import ScheduledContacts from './dashboard/ScheduledContacts';
 import PreviousCalls from './dashboard/PreviousCalls';
+import ScheduledContacts from './dashboard/ScheduledContacts';
 
 function formatPhoneNumber(number) {
   const numberCopy = [...number];
@@ -61,6 +60,7 @@ const DashMain = ({ user }) => {
           </PreviousCard>
         </PrevWrapper>
       </Previous>
+
       <ModalPhoneNumber user={user} />
     </Container>
   );
@@ -73,17 +73,30 @@ const CardHeader = styled.h2`
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 `;
 const Wrapper = styled.div`
+  width: 90%;
   margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 1025px) {
+    width: 95%;
+    align-items: center;
+  }
 `;
 const PrevWrapper = styled.div`
   margin-top: 40px;
-  /* border: 1px solid #000000; */
   display: flex;
   flex-direction: column;
+  justify-content: center;
+
+  @media (max-width: 1025px) {
+    margin: 10px auto;
+    align-items: center;
+    width: 100%;
+  }
 `;
 const UpcomingCard = styled.div`
   transition: box-shadow 0.3s;
-  width: 330px;
   height: 400px;
   overflow: scroll;
   border-radius: 3px;
@@ -91,25 +104,24 @@ const UpcomingCard = styled.div`
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
   transition: box-shadow 0.5s;
   ::-webkit-scrollbar {
-   width: 0px;  /* Remove scrollbar space */
-   background: transparent;  /* Optional: just make scrollbar invisible */
-}
+    width: 0px; /* Remove scrollbar space */
+    background: transparent; /* Optional: just make scrollbar invisible */
+  }
 
   &:hover {
     box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
   }
-  @media (max-width: 650px) {
-    /
+  @media (max-width: 1025px) {
+    margin: 0 auto;
+    width: 100%;
   }
 `;
 
 const PreviousCard = styled.div`
   transition: box-shadow 0.3s;
-  width: 80%;
-  min-width: 500px;
+  width: 95%;
   height: 400px;
   overflow: scroll;
-  margin: 15px auto;
   border-radius: 3px;
   background: #fff;
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
@@ -124,6 +136,10 @@ const PreviousCard = styled.div`
   &:nth-child(2) {
     margin-top: 0;
     margin-bottom: 15px;
+  }
+
+  @media (max-width: 1025px) {
+    width: 100%;
   }
 `;
 
@@ -180,6 +196,7 @@ const User = styled.div`
   align-items: center;
   padding: 5px;
 `;
+
 const Aside = styled.aside`
   grid-row: 2 / -1;
   grid-column: 1;
@@ -195,7 +212,7 @@ const Img = styled.img`
   width: 80%;
 
   @media (max-width: 1025px) {
-    max-width: 100px;
+    max-width: 300px;
   }
 `;
 const Upcoming = styled.div`
@@ -207,6 +224,8 @@ const Upcoming = styled.div`
 
   @media (max-width: 1025px) {
     grid-area: upcoming;
+    width: 95%;
+    justify-content: center;
   }
 `;
 const Previous = styled.div`
@@ -215,13 +234,15 @@ const Previous = styled.div`
 
   @media (max-width: 1025px) {
     grid-area: previous;
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    justify-content: center;
   }
 `;
 const Container = styled.div`
   display: grid;
-  ${'' /* height: 100%; */}
   grid-template-columns: 1fr 2fr 3fr;
-  ${'' /* grid-template-rows: 70px 1fr; */}
 
   @media (max-width: 1025px) {
     grid-template-columns: 1fr;

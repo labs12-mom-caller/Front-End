@@ -98,3 +98,8 @@ export function fetchUser(uid) {
 export function deleteUser(id) {
   return db.doc(`users/${id}`).delete();
 }
+
+export function firstNameOnly(name) {
+  const splitName = name.split(' ');
+  return splitName[0];
+}
