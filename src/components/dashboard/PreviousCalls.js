@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import moment from 'moment-timezone';
 import { Link } from '@reach/router';
 import { db } from '../../firebase';
+import { firstNameOnly } from '../../app/utils';
 import deepgram from '../../assets/images/deepgram-logo.svg';
 
 const PreviousCalls = ({ userId }) => {
@@ -68,7 +69,9 @@ const PreviousCalls = ({ userId }) => {
             >
               <PrevCallsWrapper>
                 <User>
-                  <h3 className='prevHeader'>{call.user2.displayName}</h3>
+                  <h3 className='prevHeader'>
+                    {firstNameOnly(call.user2.displayName)}
+                  </h3>
                   <Img
                     src={
                       call.user2.photoUrl ||

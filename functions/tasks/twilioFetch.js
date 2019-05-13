@@ -13,8 +13,6 @@ const simplifyTranscript = require('./helpers/simplifyTranscript');
 
 exports.handler = async (req, res, firestore, storage) => {
   const calls = firestore.collection('calls');
-  const contacts = firestore.collection('contacts');
-  const users = firestore.collection('users');
 
   try {
     const snapshot = await calls.where('fetched', '==', false).get();

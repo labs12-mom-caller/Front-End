@@ -78,14 +78,21 @@ const CallRecord = ({ callId }) => {
         </div>
         <div className='flexIt'>
           {' '}
+          <div className='slider'>
+            <audio controls className='audioControls'>
+              <source src={call.audio} type='audio/wav' />
+              <track kind='captions' />
+              Your browser does not support the audio element
+            </audio>
+          </div>
           <p className='transcript'>Transcript</p>
           <div className='transcriptWrapper'>
             {call.simplified &&
               call.simplified.map(line => {
                 return (
                   <>
-                    <h3>{line.user}</h3>
-                    <p>{line.script}</p>
+                    <h3 className='name'>{line.user}</h3>
+                    <p className='text'>{line.script}</p>
                   </>
                 );
               })}
@@ -96,13 +103,6 @@ const CallRecord = ({ callId }) => {
           <p className='callDuration'>
             Call duration: {call.call_duration} seconds
           </p>
-          <div className='slider'>
-            <audio controls className='audioControls'>
-              <source src={call.audio} type='audio/wav' />
-              <track kind='captions' />
-              Your browser does not support the audio element
-            </audio>
-          </div>
           <p className='moment'>
             {moment(call.call_time, 'X').format('dddd, MMMM Do [at] h:mm A')}
           </p>
@@ -127,12 +127,12 @@ const Card = styled.div`
     box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
   }
 `;
-const Img = styled.img`
-  border-radius: 50%;
-  height: 100px;
-  width: 100px;
-  float: right;
-`;
+// const Img = styled.img`
+//   border-radius: 50%;
+//   height: 100px;
+//   width: 100px;
+//   float: right;
+// `;
 const PrevCallsWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -144,6 +144,105 @@ const PrevCallsWrapper = styled.div`
     'user2'
     'transcript'
     'callInfo';
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 100% 100%;
+    place-items: start;
+    grid-template-areas:
+      'user2 transcript'
+      'callInfo callInfo';
+    min-height: 85vh;
+    @media (min-width: 992px) {
+      grid-template-columns: 25% 2fr 25%;
+      grid-template-rows: 100%;
+      grid-template-areas: 'user2 transcript callInfo';
+      min-height: 90%;
+    }
+  }
+  .user2Div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    @media (min-width: 768px) {
+      justify-content: space-around;
+      /* border: 1px solid green; */
+      flex-wrap: wrap;
+      /* height: 40%; */
+    }
+    @media (min-width: 992px) {
+      /* border: 1px solid hotpink; */
+      height: 73vh;
+    }
+    .prevHeader {
+      font-size: 1.5rem;
+      margin-top: 5%;
+      color: ${styles.colors.mainBlue};
+      @media (min-width: 768px) {
+        font-size: 2rem;
+        /* margin-bottom: 5%; */
+      }
+      @media (min-width: 992px) {
+        font-size: 1.5rem;
+      }
+    }
+    .user2Img {
+      height: 250px;
+      width: 300px;
+      border-radius: 50%;
+      margin: 5% auto;
+      @media (min-width: 768px) {
+        /* margin-bottom: 10%; */
+        width: 250px;
+        height: 250px;
+        object-fit: contain;
+      }
+      @media (min-width: 992px) {
+        max-width: 200px;
+        max-height: 200px;
+      }
+    }
+    .user2Name {
+      font-size: 1.5rem;
+      color: ${styles.colors.mainBlue};
+      font-weight: 700;
+      margin-bottom: 8%;
+      @media (min-width: 768px) {
+        font-size: 2rem;
+      }
+      @media (min-width: 992px) {
+        font-size: 2rem;
+      }
+    }
+    .email {
+      font-size: 1.5rem;
+      color: ${styles.colors.mainBlue};
+      font-weight: 700;
+      margin-bottom: 8%;
+      @media (min-width: 768px) {
+        text-align: justify;
+        font-size: 1.7rem;
+      }
+      @media (min-width: 992px) {
+        font-size: 1rem;
+      }
+    }
+    .phone {
+      font-size: 1.5rem;
+      color: ${styles.colors.mainBlue};
+      margin-bottom: 8%;
+      @media (min-width: 768px) {
+        font-size: 1.7rem;
+      }
+    }
+    .btn {
+      background: #636578;
+      border-radius: 10px;
+      font-size: 1rem;
+      color: white;
+      margin-bottom: 10%;
+    }
+  }
   .flexIt {
     display: flex;
     flex-direction: column;
@@ -154,244 +253,93 @@ const PrevCallsWrapper = styled.div`
     /* border: 1px solid blue; */
     /* height: 62vh; */
     grid-area: transcript;
+    @media (min-width: 768px) {
+      max-height: 100%;
+      overflow: scroll;
+      margin-top: 4%;
+    }
+    @media (min-width: 992px) {
+      /* border: 1px solid hotpink; */
+      max-height: 95%;
+      object-fit: contain;
+      overflow: scroll;
+    }
     p {
       padding: 3%;
       border: 1px solid grey;
       box-shadow: 1px 5px 15px 1px;
     }
     .transcript {
-      background: grey;
+      background: #c4c4c4;
       width: 100%;
-      text-align: center;
+      text-align: left;
       opacity: 0.7;
-      margin-top: 5%;
-    }
-  }
-
-  @media (min-width: 768px) {
-    /* display: flex;
-    align-items: start;
-    justify-content: space-between;
-    min-height: 80vh;
-    padding: 3%; */
-    display: grid;
-    grid-template-columns: 1fr 3fr 160px;
-    min-height: 70vh;
-
-    margin-right: 3%;
-    margin-left: 3%;
-    place-items: center;
-    grid-template-areas: 'user2 transcript callInfo';
-  }
-    @media (min-width: 992px) {
-      display: grid;
-      grid-template-columns: 1fr 3fr 200px;
-      grid-template-areas: 'user2 transcript callInfo';
- 
-    }
-@media (min-width: 768px) {
-    .flexIt {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 0 10% 0 10%;
-      margin-bottom: 0;
-      /* border: 1px solid blue; */
-      height: 62vh;
-      grid-area: transcript;
-      p {
-        padding: 3%;
-        border: 1px solid grey;
-        box-shadow: 1px 5px 15px 1px;
-      }
-      .transcript {
-        background: grey;
-        width: 100%;
-        text-align: center;
-        opacity: 0.7;
-        margin-top: 5%;
-      }
-    }
-  }
-  }
-  @media (min-width: 992px) {
-    //border: 1px solid red;
-    display: flex;
-    align-items: start;
-    justify-content: space-between;
-    min-height: 68vh;
-    /* padding: 3%; */
-    .flexIt {
-      display: flex;
-      flex-direction: column;
-      //width: 40%;
-      p {
-        padding: 3%;
-        border: 1px solid grey;
-        box-shadow: 1px 5px 15px 1px;
-      }
-    }
-  }
-  .user2Div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    .prevHeader {
-      font-size: 1.5rem;
-      margin-top: 5%;
-      color: ${styles.colors.mainBlue};
-    }
-    .user2Img {
-      max-height: 200px;
-      max-width: 250px;
-      border-radius: 50%;
       margin: 5% auto;
-    }
-    .user2Name {
       font-size: 1.5rem;
-      color: ${styles.colors.mainBlue};
-      font-weight: 700;
-      margin-bottom: 8%;
+      /* margin-left: 3%; */
     }
-    .email {
-      font-size: 1.5rem;
-      color: ${styles.colors.mainBlue};
-      font-weight: 700;
-      margin-bottom: 8%;
-    }
-    .phone {
-      font-size: 1.5rem;
-      color: ${styles.colors.mainBlue};
-      margin-bottom: 8%;
-    }
-    .btn {
-      background: #636578;
-      border-radius: 10px;
-      font-size: 1rem;
-      color: white;
-    }
-    @media (min-width: 768px) {
-      grid-area: user2;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      align-items: center;
-      margin: 0 auto;
-      /* border: 1px solid red; */
-      height: 80%;
-      /* width: 90%; */
-      /* width: 25%; */
-      /* height: 50vh; */
-      .prevHeader {
-        color: ${styles.colors.mainBlue};
-        font-size: 1.5rem;
-        text-transform: capitalize;
-        font-weight: 700;
-        text-align: center;
-      }
-      .user2Img {
-        border-radius: 50%;
-        max-height: 200px;
-        max-width: 250px;
-        margin: 0 auto;
-      }
-      .user2Name {
-        font-size: 1.5rem;
-        color: ${styles.colors.mainBlue};
-        font-weight: 700;
-        margin-bottom: 8%;
-      }
-      .email {
-        font-size: 1.5rem;
-        color: ${styles.colors.mainBlue};
-        font-weight: 700;
-        margin-bottom: 8%;
-      }
-      .phone {
-        font-size: 1.5rem;
-        color: ${styles.colors.mainBlue};
-        margin-bottom: 8%;
-      }
-      .btn {
-        background: #636578;
-        border-radius: 10px;
-        font-size: 1rem;
-        color: white;
-      }
-    }
-    @media (min-width: 992px) {
-      //border: 1px solid green;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      margin: 0 auto;
-      /* height: 60vh; */
-      .prevHeader {
-        color: ${styles.colors.mainBlue};
-        font-size: 1.5rem;
-        text-transform: capitalize;
-        font-weight: 700;
-        text-align: center;
-      }
-      .user2Img {
-        border-radius: 50%;
-        min-height: 200px;
-        min-width: 250px;
-        margin: 15% auto;
-      }
-      .user2Name {
-        font-size: 1.5rem;
-        color: ${styles.colors.mainBlue};
-        font-weight: 700;
-      }
-    }
-  }
-  .transcriptWrapper {
-    @media (min-width: 768px) {
+    .transcriptWrapper {
       border: 1px solid grey;
       box-shadow: 1px 5px 15px 1px;
       overflow: scroll;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      /* max-height: 40%;
+      max-width: 100%;
+      object-fit: contain; */
+      overflow: scroll;
+      @media (min-width: 768px) {
+        justify-content: flex-start;
+        max-height: 50%;
+        overflow: scroll;
+      }
+      @media (min-width: 992px) {
+        /* max-height: 40%;
+        max-width: auto;
+        object-fit: contain;
+        overflow: scroll; */
+      }
       .transcriptText {
         font-size: 1.8rem;
         line-height: 2rem;
         overflow: scroll;
       }
-      @media (min-width: 992px) {
-        .transcriptText {
+      .name {
+        margin-bottom: 5%;
+        margin-top: 5%;
+        margin-left: 3%;
+        font-size: 1.5rem;
+        color: ${styles.colors.mainBlue};
+        @media (min-width: 768px) {
           font-size: 2rem;
-          line-height: 3rem;
-          padding: 3%;
-          overflow: scroll;
         }
       }
-      /* padding: 3%; */
-      /* display: flex; */
-      /* flex-direction: column; */
-      /* justify-content: center; */
-      /* align-items: center; */
-      /* width: 32%; */
-      /* margin: 5% auto 10% auto; */
-    }
-
-    /* @media (min-width: 992px) {
-      .transcriptWrapper {
-        border: 1px solid grey;
-        box-shadow: 1px 5px 15px 1px;
-        padding: 3%;
+      .text {
+        margin-left: 3%;
+        margin-right: 3%;
+        margin-bottom: 5%;
+        @media (min-width: 768px) {
+          font-size: 1.5rem;
+          letter-spacing: 0.1rem;
+          line-height: 2rem;
+        }
+      }
+      .slider {
+        /* width: 70%; */
+        /* border: 1px solid red; */
+        margin: 3% auto;
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin: 5% auto 10% auto;
-        .transcriptText {
-          line-height: 1.5rem;
-          font-size: 4.2rem;
+        align-self: center;
+        .audioControls {
+          margin-bottom: 3%;
+          /* width: 200px; */
         }
       }
-    } */
+    }
   }
   .momentWrapper {
     grid-area: callInfo;
@@ -403,89 +351,31 @@ const PrevCallsWrapper = styled.div`
     margin: 5% auto;
     /* border: 1px solid purple; */
     /* height: 62vh; */
-
-    .slider {
-      width: 70%;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      align-self: center;
-      .audioControls {
-        margin-bottom: 3%;
-        /* width: 200px; */
-      }
+    @media (min-width: 992px) {
+      justify-content: space-evenly;
+      height: 80vh;
     }
+
     .callDuration {
-      font-size: 1rem;
+      font-size: 1.5rem;
       color: ${styles.colors.mainBlue};
       margin-bottom: 3%;
       /* border: 1px solid red; */
       text-align: center;
+      @media (min-width: 768px) {
+        margin: 5% auto;
+      }
+      @media (min-width: 992px) {
+        font-size: 2rem;
+      }
     }
     .moment {
       text-align: center;
       color: ${styles.colors.mainBlue};
       font-size: 1.5rem;
       font-weight: 1.5rem;
-      //width: 33%;
-    }
-
-    @media (min-width: 768px) {
-      grid-area: callInfo;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
-      width: 100%;
-      margin: 0 auto;
-      /* border: 1px solid purple; */
-      height: 62vh;
-
-      .slider {
-        width: 70%;
-        margin: 0 auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        align-self: center;
-        .audioControls {
-          margin-bottom: 3%;
-          /* width: 200px; */
-        }
-      }
-      .callDuration {
-        font-size: 1rem;
-        color: ${styles.colors.mainBlue};
-        margin-bottom: 3%;
-        /* border: 1px solid red; */
-        text-align: center;
-      }
-      .moment {
-        text-align: center;
-        color: ${styles.colors.mainBlue};
-        font-size: 1.5rem;
-        font-weight: 1.5rem;
-        //width: 33%;
-      }
-    }
-    //border: 1px solid hotpink;
-    @media (min-width: 992px) {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
-      width: 20%;
-      margin: 0 auto;
-      .moment {
-        text-align: center;
-        color: ${styles.colors.mainBlue};
+      @media (min-width: 992px) {
         font-size: 2rem;
-        font-weight: 700;
-        //width: 50%;
-      }
-      .callDuration {
-        font-size: 1.5rem;
       }
     }
   }

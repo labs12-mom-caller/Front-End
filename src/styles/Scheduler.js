@@ -1,12 +1,63 @@
 import styled from 'styled-components';
 
 export const Scheduler = styled.div`
+  width: 95%;
+  padding: 10px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  font-family: Roboto, helvetica;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header {
+    h2 {
+      font-size: 24px;
+      margin: 10px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 20px;
+    }
+
+    p {
+      margin: 0 auto;
+      margin-bottom: 20px;
+      font-size: 18px;
+
+      line-height: 1.3;
+      border: 1px solid #636578;
+      padding: 20px;
+      font-weight: 300;
+      max-width: 600px;
+      background: ;
+    }
+  }
+
+  .timezone-select {
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    max-width: 300px;
+  }
+
   .slot {
     cursor: pointer;
     user-select: none;
     text-align: center;
     font-weight: 600;
     width: 100%;
+    white-space: nowrap;
+
+    font-weight: 400;
+    padding: 5px;
   }
 
   .selected-slot {
@@ -15,8 +66,9 @@ export const Scheduler = styled.div`
 
   .days {
     position: relative;
-    width: 95%;
-    margin: 0 auto;
+    width: 100%;
+    margin: 20px auto;
+    padding: 20px;
 
     @media (max-width: 430px) {
       width: 80%;
@@ -24,7 +76,7 @@ export const Scheduler = styled.div`
   }
 
   .slick-list {
-    width: 95%;
+    width: 100%;
   }
 
   .slick-track::before {
@@ -56,9 +108,16 @@ export const Scheduler = styled.div`
 
   .time-slots-container {
     overflow: hidden;
-    border: 3px solid #ee6352;
+    border: 1px solid grey;
+    padding: 10px;
     border-radius: 10px;
     width: 100%;
     // overscroll-behavior-y: none;
+    transition: box-shadow 0.3s;
+    width: 100%;
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+    transition: box-shadow 0.5s;
   }
 `;
