@@ -57,26 +57,32 @@ const ScheduledContacts = ({ user }) => {
       {contacts &&
         contacts.map(c => {
           return (
-            <CallLink to={`/contact/${c.id}`} key={c.id}>
-              <LinkWrapper>
-                <Display>{c.user2.displayName}</Display>
-                <Display>
-                  {moment(c.next_call, 'X')
-                    .tz(c.time_zone)
-                    .format(`MMMM Do`)}
-                </Display>
-                <Display style={{ marginLeft: '5%' }}>
-                  {moment(c.next_call, 'X')
-                    .tz(c.time_zone)
-                    .format(`h:mm A`)}
-                </Display>
-                <Display>
-                  <FaEllipsisV
-                    style={{ marginLeft: '80%', color: '#7D7D7D' }}
-                  />
-                </Display>
-              </LinkWrapper>
-            </CallLink>
+            <div style={{ display: 'flex' }}>
+              <CallLink to={`/contact/${c.id}`} key={c.id}>
+                <LinkWrapper>
+                  <Display>{c.user2.displayName}</Display>
+                  <Display>
+                    {moment(c.next_call, 'X')
+                      .tz(c.time_zone)
+                      .format(`MMMM Do`)}
+                  </Display>
+                  <Display style={{ marginLeft: '5%' }}>
+                    {moment(c.next_call, 'X')
+                      .tz(c.time_zone)
+                      .format(`h:mm A`)}
+                  </Display>
+                  <Display />
+                </LinkWrapper>
+              </CallLink>
+              <div
+                style={{
+                  width: '10%',
+                  alignSelf: 'center',
+                }}
+              >
+                <Hotdog />
+              </div>
+            </div>
           );
         })}
     </>
@@ -98,19 +104,34 @@ const TableHeader = styled.div`
 
 const CallLink = styled(Link)`
   color: #7d7d7d;
+  width: 90%;
 `;
 
 const LinkWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
   border-bottom: 1px solid #7d7d7d;
-  padding: 25px 10px;
+  padding: 22px 16px;
+  width: 119%;
 `;
 
 const Display = styled.div`
   width: 30%;
   /* text-align: center; */
   font-family: Roboto;
+`;
+
+const Hotdog = styled(FaEllipsisV)`
+  width: 6px;
+  font-family: Roboto;
+  margin-left: 40%;
+  color: #7d7d7d;
+  height: 19px;
+
+  &:hover {
+    color: #ff6f61;
+    cursor: pointer;
+  }
 `;
 
 export default ScheduledContacts;
