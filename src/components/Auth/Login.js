@@ -3,15 +3,14 @@
 import React, { useState } from 'react';
 import { navigate, Link } from '@reach/router';
 import styled from 'styled-components';
+import { useLocalStorageState } from '../../app/utils';
 import { firebase } from '../../firebase';
-
 import logo from '../../assets/images/icons8-google.svg';
-
 import { Wrapper } from '../../styles/Login';
 import { Form } from '../../styles/Form';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useLocalStorageState('email', '');
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState(false);
 
