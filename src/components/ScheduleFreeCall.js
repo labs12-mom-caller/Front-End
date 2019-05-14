@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
+import Select from '@material-ui/core/Select';
+import { withStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
 import moment from 'moment-timezone';
 import Slider from 'react-slick';
+import styled from 'styled-components';
 
 import Day from './scheduler/Day';
 import randomTime from './scheduler/randomTime';
@@ -27,8 +31,10 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
   };
 
   const [time, setTime] = useState(initialState);
+  const [timeZone, setTimeZone] = useState('');
 
   const setTimezone = e => {
+    setTimeZone(e.target.value);
     setTime({
       ...time,
       timezone: e.target.value,
@@ -118,32 +124,40 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
 
   return (
     <Scheduler>
-      <h2>Schedule a free call</h2>
-      <p>
-        Please select the block of hours that you have availability. A call will
-        be randomly scheduled in one of the time blocks selected
-      </p>
+      <div className='header'>
+        <h2>Schedule a free call</h2>
+        <p>
+          Please select the block of hours that you have availability. A call
+          will be randomly scheduled in one of the time blocks selected.
+        </p>
+      </div>
       <form onSubmit={handleSubmit}>
-        <label htmlFor='timezone'>Please select your time zone</label>
-        <select
-          id='timezone'
-          onChange={setTimezone}
-          placeholder='Select a Time Zone'
-        >
-          <option value={time.timezone}>{time.timezone}</option>
-          <option value='US/Alaska'>Alaska</option>
-          <option value='US/Aleutian'>Aleutian</option>
-          <option value='US/Arizona'>Arizona</option>
-          <option value='US/Central'>Central</option>
-          <option value='US/East-Indiana'>East-Indiana</option>
-          <option value='US/Eastern'>Eastern</option>
-          <option value='US/Hawaii'>Hawaii</option>
-          <option value='US/Indiana-Starke'>Indiana-Starke</option>
-          <option value='US/Michigan'>Michigan</option>
-          <option value='US/Mountain'>Mountain</option>
-          <option value='US/Pacific'>Pacific</option>
-          <option value='US/Pacific-New'>Pacific-New</option>
-        </select>
+        <div className='timezone-select'>
+          <label htmlFor='timezone'>Please select your time zone</label>
+          <Select
+            id='timezone'
+            onChange={setTimezone}
+            value={timeZone}
+            placeholder='Select a Time Zone'
+          >
+            <MenuItem value={time.timezone}>
+              <em>{time.timezone}</em>
+            </MenuItem>
+            <MenuItem value='US/Alaska'>Alaska</MenuItem>
+            <MenuItem value='US/Aleutian'>Aleutian</MenuItem>
+            <MenuItem value='US/Arizona'>Arizona</MenuItem>
+            <MenuItem value='US/Central'>Central</MenuItem>
+            <MenuItem value='US/East-Indiana'>East-Indiana</MenuItem>
+            <MenuItem value='US/Eastern'>Eastern</MenuItem>
+            <MenuItem value='US/Hawaii'>Hawaii</MenuItem>
+            <MenuItem value='US/Indiana-Starke'>Indiana-Starke</MenuItem>
+            <MenuItem value='US/Michigan'>Michigan</MenuItem>
+            <MenuItem value='US/Mountain'>Mountain</MenuItem>
+            <MenuItem value='US/Pacific'>Pacific</MenuItem>
+            <MenuItem value='US/Pacific-New'>Pacific-New</MenuItem>
+          </Select>
+        </div>
+
         <div className='days'>
           <Slider {...settings}>
             {time.days.map((day, index) => (
@@ -158,7 +172,7 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
             ))}
           </Slider>
         </div>
-        <button type='submit'>Complete Sign Up</button>
+        <Button type='submit'>Submit</Button>
       </form>
     </Scheduler>
   );
@@ -169,5 +183,23 @@ ScheduleFreeCall.propTypes = {
   userId: PropTypes.string,
   frequency: PropTypes.string,
 };
-
 export default ScheduleFreeCall;
+// export default withStyles(styles)(ScheduleFreeCall);
+
+const Button = styled.button`
+  background-color: #636578;
+  width: 157px;
+  height: 43px;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 16px;
+  transition: all 0.4s ease;
+  outline: 0;
+  &:hover {
+    background-color: #ffffff;
+    color: #636578;
+    border: 1px solid #636578;
+    cursor: pointer;
+    transition: all 0.4s ease;
+  }
+`;
