@@ -13,6 +13,11 @@ export const Scheduler = styled.div`
     align-items: center;
   }
 
+  h2 {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
   .header {
     h2 {
       font-size: 24px;
