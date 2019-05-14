@@ -72,8 +72,8 @@ function App() {
 
   return user ? (
     <>
-      <CSSReset />
       <Global />
+      <CSSReset />
       <NavBar user={user} />
       <Router>
         <DashMain user={user} path='/' exact />
@@ -98,8 +98,8 @@ function App() {
     </>
   ) : (
     <>
-      <CSSReset />
       <Global />
+      <CSSReset />
       <Router>
         <Landing path='/' exact />
         <SignUp path='/signup' />
