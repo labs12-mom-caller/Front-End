@@ -14,12 +14,32 @@ export const CustomStripeBtn = styled(StripeCheckout)`
     }
   }
   @media (min-width: 992px) {
-    min-height: 50px !important;
+    max-height: 40px !important;
     /* width: 50% !important; */
     span {
-      font-size: 3.5rem !important;
+      font-size: 1.5rem !important;
     }
   }
+`;
+
+export const Container = styled.div`
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15%;
+  @media (min-width: 768px) {
+    margin-top: 0;
+  }
+  @media (min-width: 992px) {
+    margin-top: 0;
+  }
+  @media (min-width: 993px) {
+    margin-top: 0;
+  }
+  /* @media (max-width: 993px) {
+    margin-top: 0;
+  } */
 `;
 
 export const Scheduler = styled.div`
@@ -33,13 +53,20 @@ export const Scheduler = styled.div`
   justify-content: center;
   align-items: center;
   border: 1px solid darkgrey;
-  height: 80vh;
+  max-height: 80%;
   box-shadow: 1px 1px 15px;
+  margin-top: 5%;
   @media (min-width: 768px) {
     width: 80%;
   }
   @media (min-width: 992px) {
     width: 70%;
+  }
+  @media (max-width: 993px) {
+    width: 80%;
+    font-size: 1.5rem;
+    margin-top: 3%;
+    min-height: 100%;
   }
   .heading {
     font-size: 3rem;
@@ -47,7 +74,7 @@ export const Scheduler = styled.div`
       font-size: 3.5rem;
     }
     @media (min-width: 992px) {
-      font-size: 4.5rem;
+      font-size: 3.8rem;
     }
   }
   p {
@@ -58,7 +85,7 @@ export const Scheduler = styled.div`
       font-size: 2.5rem;
     }
     @media (min-width: 992px) {
-      font-size: 4.5rem;
+      font-size: 3rem;
     }
   }
   .chooseDayWeek {
@@ -75,7 +102,7 @@ export const Scheduler = styled.div`
     }
     @media (min-width: 992px) {
       width: 95%;
-      font-size: 3.5rem;
+      font-size: 2.5rem;
     }
     label {
       margin-right: 10px;
@@ -86,7 +113,7 @@ export const Scheduler = styled.div`
         font-size: 2rem;
       }
       @media (min-width: 992px) {
-        font-size: 3rem;
+        font-size: 2rem;
       }
     }
   }
@@ -102,7 +129,7 @@ export const Scheduler = styled.div`
       font-size: 2.5rem;
     }
     @media (min-width: 992px) {
-      font-size: 3.5rem;
+      font-size: 2.5rem;
     }
     label {
       margin-right: 10px;
@@ -114,7 +141,7 @@ export const Scheduler = styled.div`
         font-size: 2rem;
       }
       @media (min-width: 992px) {
-        font-size: 3rem;
+        font-size: 2rem;
       }
     }
   }
@@ -132,7 +159,7 @@ export const Scheduler = styled.div`
       font-size: 2.5rem;
     }
     @media (min-width: 992px) {
-      font-size: 3.5rem;
+      font-size: 2.5rem;
       margin-bottom: 3%;
     }
     label {
@@ -144,7 +171,7 @@ export const Scheduler = styled.div`
         font-size: 2rem;
       }
       @media (min-width: 992px) {
-        font-size: 3rem;
+        font-size: 2rem;
         margin-bottom: 2%;
       }
     }
@@ -164,7 +191,7 @@ export const Scheduler = styled.div`
       font-size: 2.5rem;
     }
     @media (min-width: 992px) {
-      font-size: 3.5rem;
+      font-size: 1.5rem;
     }
   }
 
