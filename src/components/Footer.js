@@ -47,6 +47,7 @@ const Footer = ({ user }) => {
 export default Footer;
 
 const FooterWrap = styled.footer`
+  flex-shrink: 0;
   display: flex;
   position: absolute;
   right: 0;
