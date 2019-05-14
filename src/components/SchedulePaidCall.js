@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
-import StripeCheckout from 'react-stripe-checkout';
 import Loader from 'react-loader-spinner';
 
-import { Scheduler } from '../styles/Scheduler';
+import { Scheduler, CustomStripeBtn } from '../styles/Scheduler';
 
 import { db } from '../firebase';
 
@@ -145,11 +144,11 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
 
   return (
     <Scheduler>
-      <h2>Schedule a call</h2>
+      <h2 className='heading'>Schedule a call</h2>
       <p>
         ReCaller will only call you and your loved one at your selected time.
       </p>
-      <div>
+      <div className='chooseDayWeek'>
         <label htmlFor='day'>Choose a day of the week</label>
         <select id='day' value={time.day} onChange={handleChange}>
           <option>Sunday</option>
@@ -161,7 +160,7 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
           <option>Saturday</option>
         </select>
       </div>
-      <div>
+      <div className='chooseTime'>
         <label htmlFor='selected_time'>Time</label>
         <select value={time.hour} id='hour' onChange={handleChange}>
           <option>1</option>
@@ -196,7 +195,7 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
           <option>PM</option>
         </select>
       </div>
-      <div>
+      <div className='chooseTimezone'>
         <label htmlFor='timezone'>Your time zone</label>
         <select id='timezone' value={time.timezone} onChange={handleChange}>
           <option>{time.timezone}</option>
@@ -214,14 +213,19 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
           <option value='US/Pacific-New'>Pacific-New</option>
         </select>
       </div>
-      <StripeCheckout
+      <CustomStripeBtn
         token={res => onToken(res)}
         description='Thank you for becoming a Pro User'
         name='ReCaller'
         image='https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
         stripeKey={process.env.REACT_APP_STRIPEKEY}
       />
-      <button type='button' onClick={handleSubmit} disabled={!paid}>
+      <button
+        type='button'
+        onClick={handleSubmit}
+        disabled={!paid}
+        className='submitBtn'
+      >
         {loading ? <Loader type='ThreeDots' /> : 'Save & Continue'}
       </button>
       <div style={{ visibility: payError ? 'visible' : 'hidden' }}>

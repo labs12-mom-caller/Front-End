@@ -57,33 +57,32 @@ const ScheduledContacts = ({ user }) => {
       {contacts &&
         contacts.map(c => {
           return (
-            <>
-              <div style={{ display: 'flex' }}>
-                <CallLink to={`/contact/${c.id}`} key={c.id}>
-                  <LinkWrapper>
-                    <Display>{firstNameOnly(c.user2.displayName)}</Display>
-                    <Display>
-                      {moment(c.next_call, 'X')
-                        .tz(c.time_zone)
-                        .format(`MMMM Do`)}
-                    </Display>
-                    <Display style={{ marginLeft: '5%' }}>
-                      {moment(c.next_call, 'X')
-                        .tz(c.time_zone)
-                        .format(`h:mm A`)}
-                    </Display>
-                    <Display />
-                  </LinkWrapper>
-                </CallLink>
-                <div
-                  style={{
-                    width: '10%',
-                    alignSelf: 'center',
-                  }}
-                >
-                  <Hotdog />
-                </div>
-            </>
+            <div style={{ display: 'flex' }}>
+              <CallLink to={`/contact/${c.id}`} key={c.id}>
+                <LinkWrapper>
+                  <Display>{firstNameOnly(c.user2.displayName)}</Display>
+                  <Display>
+                    {moment(c.next_call, 'X')
+                      .tz(c.time_zone)
+                      .format(`MMMM Do`)}
+                  </Display>
+                  <Display style={{ marginLeft: '5%' }}>
+                    {moment(c.next_call, 'X')
+                      .tz(c.time_zone)
+                      .format(`h:mm A`)}
+                  </Display>
+                  <Display />
+                </LinkWrapper>
+              </CallLink>
+              <div
+                style={{
+                  width: '10%',
+                  alignSelf: 'center',
+                }}
+              >
+                <Hotdog />
+              </div>
+            </div>
           );
         })}
     </>
@@ -150,6 +149,7 @@ export default ScheduledContacts;
 ScheduledContacts.propTypes = {
   user: PropTypes.shape({
     displayName: PropTypes.string,
+
     email: PropTypes.string,
     photoUrl: PropTypes.string,
     uid: PropTypes.string,
