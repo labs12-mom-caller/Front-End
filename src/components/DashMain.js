@@ -28,7 +28,7 @@ const DashMain = ({ user }) => {
           <Img src={photoUrl} alt={displayName} />
           <UserInfo>
             <H3>{displayName}</H3>
-            <P>{formatPhoneNumber(user.phoneNumber)}</P>
+            <P>{user.phoneNumber && formatPhoneNumber(user.phoneNumber)}</P>
             <P>{user.email}</P>
             <Button
               onClick={e => {

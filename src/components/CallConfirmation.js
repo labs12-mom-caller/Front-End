@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
 
+import styled from 'styled-components';
 import { fetchDoc } from '../app/utils';
 
 const CallConfirmation = ({ contactId, navigate }) => {
@@ -37,7 +38,7 @@ const CallConfirmation = ({ contactId, navigate }) => {
   };
 
   return contact.fetched ? (
-    <>
+    <Wrapper>
       <h2>You&apos;re all set!</h2>
       <p>You&apos;ll receive an email shortly confirming your subscription.</p>
       <div>
@@ -58,7 +59,7 @@ const CallConfirmation = ({ contactId, navigate }) => {
       <button type='button' onClick={goToDashboard}>
         Continue to Dashboard
       </button>
-    </>
+    </Wrapper>
   ) : (
     <h2>Loading...</h2>
   );
@@ -70,3 +71,11 @@ CallConfirmation.propTypes = {
 };
 
 export default CallConfirmation;
+
+const Wrapper = styled.div`
+  width: 95%;
+  padding: 10px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  font-family: Roboto, helvetica;
+`;
