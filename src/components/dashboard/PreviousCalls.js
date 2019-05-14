@@ -174,8 +174,7 @@ const Card = styled.div`
     margin-top: 0;
     margin-bottom: 15px;
   }
-  @media (max-width: 1010px) {
-  `;
+`;
 const DeepgramLink = styled.a`
   display: flex;
   @media only screen and (max-width: 1010px) {

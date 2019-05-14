@@ -7,21 +7,15 @@ sgMail.setApiKey(functions.config().sendgrid.key);
 exports.handler = async function contactEmail(snapshot, context, firestore) {
   const data = snapshot.data();
 
-  const user1get = await firestore
-    .collection('users')
-    .doc(data.user1.id)
-    .get();
+  const user1get = await data.user1.get();
   const user1 = user1get.data();
 
-  const user2get = await firestore
-    .collection('users')
-    .doc(data.user2.id)
-    .get();
+  const user2get = await data.user2.get();
   const user2 = user2get.data();
 
-  const day = moment(data.next_call).format('dddd');
-  const date = moment(data.next_call).format('MMMM Do');
-  const time = moment(data.next_call)
+  const day = moment(data.next_call, 'X').format('dddd');
+  const date = moment(data.next_call, 'X').format('MMMM Do');
+  const time = moment(data.next_call, 'X')
     .tz(data.timezone)
     .format('h:mm A z');
 

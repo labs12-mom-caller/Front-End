@@ -1,5 +1,6 @@
 import React from 'react';
 import { Router } from '@reach/router';
+import styled from 'styled-components';
 
 import { firebase, db } from './firebase';
 
@@ -25,7 +26,6 @@ import { fetchUser } from './app/utils';
 import SingleCall from './components/ContactInfo/SingleCall';
 
 import Global from './styles/Global';
-import CSSReset from './styles/CSSReset';
 
 function useAuth() {
   const [user, setUser] = React.useState(
@@ -73,33 +73,33 @@ function App() {
   return user ? (
     <>
       <Global />
-      <CSSReset />
-      <NavBar user={user} />
-      <Router>
-        <DashMain user={user} path='/' exact />
-        <ChooseYourContact user={user} path='/choose/:userId' />
-        <ChooseCallPlan path='/choose/:userId/:contactId/call-plan' />
-        <ScheduleFreeCall path='/choose/:userId/:contactId/:frequency/schedule-free' />
-        <SchedulePaidCall
-          user={user}
-          path='/choose/:userId/:contactId/:frequency/schedule'
-        />
-        <CallConfirmation path='/confirmation/:contactId' />
-        <PreviousCalls userId={user.uid} path='/prev-calls/:userId' />
-        <CallRecord path='/prev-calls/:userId/:callId' />
-        <AboutUs path='/about-us' />
-        <UpdateAccount user={user} path='/account/:userId' />
-        <ContactInfo user={user} path='/contact/:contactId/' />
-        <SingleCall userId={user.uid} path='/single-call/:callId' />
-        <Billing user={user} path='/billing/:userId' />
-        <UpdateContact user={user} path='/contact/:contactId/update' />
-      </Router>
+      <Wrapper>
+        <NavBar user={user} />
+        <Router className='content'>
+          <DashMain user={user} path='/' exact />
+          <ChooseYourContact user={user} path='/choose/:userId' />
+          <ChooseCallPlan path='/choose/:userId/:contactId/call-plan' />
+          <ScheduleFreeCall path='/choose/:userId/:contactId/:frequency/schedule-free' />
+          <SchedulePaidCall
+            user={user}
+            path='/choose/:userId/:contactId/:frequency/schedule'
+          />
+          <CallConfirmation path='/confirmation/:contactId' />
+          <PreviousCalls userId={user.uid} path='/prev-calls/:userId' />
+          <CallRecord path='/prev-calls/:userId/:callId' />
+          <AboutUs path='/about-us' />
+          <UpdateAccount user={user} path='/account/:userId' />
+          <ContactInfo user={user} path='/contact/:contactId/' />
+          <SingleCall userId={user.uid} path='/single-call/:callId' />
+          <Billing user={user} path='/billing/:userId' />
+          <UpdateContact user={user} path='/contact/:contactId/update' />
+        </Router>
+      </Wrapper>
       <Footer user={user} />
     </>
   ) : (
     <>
       <Global />
-      <CSSReset />
       <Router>
         <Landing path='/' exact />
         <SignUp path='/signup' />
@@ -110,3 +110,7 @@ function App() {
 }
 
 export default App;
+
+const Wrapper = styled.div`
+  flex: 1 0 auto;
+`;
