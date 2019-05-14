@@ -83,7 +83,6 @@ const ScheduledContacts = ({ user }) => {
                 >
                   <Hotdog />
                 </div>
-              </div>
             </>
           );
         })}

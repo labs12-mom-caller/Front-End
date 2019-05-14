@@ -49,6 +49,10 @@ export default Footer;
 const FooterWrap = styled.footer`
   flex-shrink: 0;
   display: flex;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
   justify-content: space-between;
   background-color: #636578;
   z-index: 10;
