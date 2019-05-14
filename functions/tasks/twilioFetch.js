@@ -69,8 +69,6 @@ exports.handler = async (req, res, firestore, storage) => {
           },
         });
 
-        console.log(deepgram);
-
         await client.recordings(RecordingSid).remove();
 
         const contact = await call.data().contact_ref.get();
