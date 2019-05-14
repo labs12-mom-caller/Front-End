@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
+import axios from 'axios';
 import StripeCheckout from 'react-stripe-checkout';
 import Loader from 'react-loader-spinner';
 
@@ -26,54 +27,39 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
   const [time, setTime] = useState(initialState);
 
   const onToken = async token => {
-    setLoading(true);
-    let stripeId = user.stripe_id || '';
-    if (!user.stripe_id) {
-      const response = await fetch(
-        'https://us-central1-recaller-14a1f.cloudfunctions.net/stripe/newcustomer',
-        {
-          method: 'POST',
-          body: {
+    try {
+      setLoading(true);
+      let stripeId = user.stripe_id || '';
+      if (!user.stripe_id) {
+        const response = await axios.post(
+          'https://us-central1-recaller-14a1f.cloudfunctions.net/stripe/newcustomer',
+          {
             email: user.email,
             displayName: user.displayName,
           },
-        },
-      );
+        );
 
-      await db.doc(`/users/${userId}`).update({
-        stripe_id: response.data.stripe_id,
-      });
+        await db.doc(`/users/${userId}`).update({
+          stripe_id: response.data.stripe_id,
+        });
 
-      stripeId = response.data.stripe_id;
-    }
-    try {
-      await fetch(
-        `https://api.stripe.com/v1/customers/${stripeId}?source=${token.id}`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Authorization: `Bearer ${process.env.REACT_APP_STRIPESECRET}`,
-          },
-        },
-      );
+        stripeId = response.data.stripe_id;
+      }
       const planId =
         frequency === 'Bi-Weekly'
           ? 'plan_F20stdpdPhbPlz'
           : 'plan_F20svaxc8pnQWp';
-      const response = await fetch(
-        `https://api.stripe.com/v1/subscriptions?customer=${stripeId}&items[0][plan]=${planId}`,
+
+      const resp = await axios.post(
+        `https://us-central1-recaller-14a1f.cloudfunctions.net/stripe/newsubscription`,
         {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Authorization: `Bearer ${process.env.REACT_APP_STRIPESECRET}`,
-          },
+          stripeId,
+          planId,
+          tokenId: token.id,
         },
       );
-      const data = await response.json();
-      if (data.status === 'active') {
-        setSubId(data.id);
+      if (resp.data && resp.data.status === 'active') {
+        setSubId(resp.data.id);
         setLoading(false);
         setPaid(true);
       } else {
@@ -123,17 +109,12 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
         created_at: moment().toDate(),
         updated_at: moment().toDate(),
         canceled: false,
+        stripe_sub: subId,
       });
-      await fetch(
-        `https://api.stripe.com/v1/subscriptions/${subId}?metadata[contact_id]=${
-          docRef.id
-        }`,
+      await axios.put(
+        `https://us-central1-recaller-14a1f.cloudfunctions.net/stripe/newsubscription/${subId}`,
         {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Authorization: `Bearer ${process.env.REACT_APP_STRIPESECRET}`,
-          },
+          contactId: docRef.id,
         },
       );
       navigate(`/confirmation/${docRef.id}`);
