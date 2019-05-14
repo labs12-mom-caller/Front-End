@@ -6,6 +6,8 @@ const caller = require('./tasks/caller.js');
 const fetch = require('./tasks/twilioFetch.js');
 const contactEmail = require('./tasks/contactEmail.js');
 const userTwo = require('./tasks/userTwo.js');
+const stripe = require('./tasks/stripe.js');
+
 const serviceAccount = require('./serviceAccountKey.json');
 
 sgMail.setApiKey(functions.config().sendgrid.key);
@@ -41,3 +43,5 @@ exports.twilio = functions.https.onRequest((req, res) => {
   fetch.handler(req, res, firestore, bucket);
   res.status(201).end();
 });
+
+exports.stripe = functions.https.onRequest(stripe.handler);

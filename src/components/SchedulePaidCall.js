@@ -29,23 +29,22 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
     setLoading(true);
     let stripeId = user.stripe_id || '';
     if (!user.stripe_id) {
-      const formData = new URLSearchParams({
-        email: user.email,
-        name: user.displayName,
-      });
-      const response = await fetch('https://api.stripe.com/v1/customers', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `Bearer ${process.env.REACT_APP_STRIPESECRET}`,
+      const response = await fetch(
+        'https://us-central1-recaller-14a1f.cloudfunctions.net/stripe/newcustomer',
+        {
+          method: 'POST',
+          body: {
+            email: user.email,
+            displayName: user.displayName,
+          },
         },
-        body: formData,
-      });
-      const { id } = await response.json();
+      );
+
       await db.doc(`/users/${userId}`).update({
-        stripe_id: id,
+        stripe_id: response.data.stripe_id,
       });
-      stripeId = id;
+
+      stripeId = response.data.stripe_id;
     }
     try {
       await fetch(
