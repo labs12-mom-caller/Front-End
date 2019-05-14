@@ -1,12 +1,10 @@
 import React from 'react';
+import LandingPageMain from './LandingPageMain';
 
-import LandingTop from './LandingTop';
-
-const Landing = props => {
+const Landing = () => {
   return (
     <>
-      <LandingTop />
-      <h2>Learning More</h2>
+      <LandingPageMain />
     </>
   );
 };
