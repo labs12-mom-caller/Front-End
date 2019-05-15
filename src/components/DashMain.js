@@ -6,6 +6,8 @@ import ModalPhoneNumber from './ModalPhoneNumber';
 import PreviousCalls from './dashboard/PreviousCalls';
 import ScheduledContacts from './dashboard/ScheduledContacts';
 
+import { Aside, Button, H3, Img, P, User, UserInfo } from '../styles/UserCard';
+
 function formatPhoneNumber(number) {
   const numberCopy = [...number];
   const digitsOnly = numberCopy.slice(2);
@@ -143,79 +145,6 @@ const PreviousCard = styled.div`
   }
 `;
 
-const UserInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 10px 0;
-  margin-top: 15px;
-  width: 80%;
-  padding: 2px;
-  justify-content: center;
-  align-items: center;
-  h3 {
-    margin-bottom: 17px;
-  }
-  p {
-    margin-bottom: 17px;
-  }
-  button {
-    margin-top: 15px;
-  }
-`;
-const H3 = styled.h3`
-  color: #999999;
-  font-size: 19px;
-`;
-
-const Button = styled.button`
-  background-color: #636578;
-  width: 157px;
-  height: 43px;
-  border-radius: 5px;
-  color: #ffffff;
-  font-size: 20px;
-  transition: all 0.4s ease;
-  outline: 0;
-  &:hover {
-    background-color: #ffffff;
-    color: #636578;
-    border: 1px solid #636578;
-    cursor: pointer;
-    transition: all 0.4s ease;
-  }
-`;
-
-const P = styled.p`
-  color: #999999;
-  font-size: 19px;
-`;
-
-const User = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-items: center;
-  align-items: center;
-  padding: 5px;
-`;
-
-const Aside = styled.aside`
-  grid-row: 2 / -1;
-  grid-column: 1;
-
-  @media (max-width: 1025px) {
-    grid-area: aside;
-  }
-`;
-const Img = styled.img`
-  border-radius: 50%;
-  height: auto;
-  margin-top: 35px;
-  width: 80%;
-
-  @media (max-width: 1025px) {
-    max-width: 300px;
-  }
-`;
 const Upcoming = styled.div`
   grid-row: 2 / -1;
   grid-column: 2;
@@ -244,6 +173,7 @@ const Previous = styled.div`
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr 3fr;
+  font-size: 1.5rem;
 
   @media (max-width: 1025px) {
     grid-template-columns: 1fr;

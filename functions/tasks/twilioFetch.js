@@ -1,5 +1,6 @@
 const functions = require('firebase-functions');
 const axios = require('axios');
+const moment = require('moment');
 const sgMail = require('@sendgrid/mail');
 
 const accountSid = functions.config().twilio.sid;
@@ -85,7 +86,7 @@ exports.handler = async (req, res, firestore, storage) => {
           audio: url,
           fetched: true,
           call_duration: RecordingDuration,
-          call_time: RecordingStartTime,
+          call_time: moment(RecordingStartTime).toDate(),
           deepgram: deepgram.data,
           simplified,
         });

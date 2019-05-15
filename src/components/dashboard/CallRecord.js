@@ -4,10 +4,19 @@ import React from 'react';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Link } from '@reach/router';
+import { navigate } from '@reach/router';
 import { FaArrowLeft } from 'react-icons/fa';
 
-import { styles } from '../../styles/styledDefaultComponents';
+import {
+  Aside,
+  Button,
+  H3,
+  Img,
+  P,
+  User,
+  UserInfo,
+} from '../../styles/UserCard';
+
 import { db } from '../../firebase';
 
 const CallRecord = ({ callId }) => {
@@ -59,57 +68,56 @@ const CallRecord = ({ callId }) => {
   return (
     call && (
       <PrevCallsWrapper key={call.id}>
-        <div className='user2Div'>
-          <h3 className='prevHeader'>Previous Call with</h3>
-          <img
-            src={
-              contact.photoUrl ||
-              'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
-            }
-            alt='temp holder'
-            className='user2Img'
-          />
-          <p className='user2Name'>{contact.displayName}</p>
-          <p className='email'>{contact.email}</p>
-          <p className='phone'>{contact.phoneNumber}</p>
-          <button className='btn' type='button'>
-            <FaArrowLeft className='arrow' />{' '}
-            <Link to='/' className='link'>
-              Back Home
-            </Link>
-          </button>
-        </div>
-        <div className='flexIt'>
-          {' '}
-          <div className='slider'>
-            <audio controls className='audioControls'>
+        <Aside>
+          <User>
+            <H3>Previous Call with</H3>
+            <Img
+              src={
+                contact.photoUrl ||
+                'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
+              }
+              alt={contact.displayName}
+            />
+            <UserInfo>
+              <H3>{contact.displayName}</H3>
+              <P>{contact.email}</P>
+              <P>{contact.phoneNumber}</P>
+              <Button type='button' onClick={() => navigate('/')}>
+                <FaArrowLeft className='arrow' /> Back Home
+              </Button>
+            </UserInfo>
+          </User>
+        </Aside>
+        <CallRecordBox>
+          <CardHeader>Call Record</CardHeader>
+          <CallRecordCard>
+            <Audio controls>
               <source src={call.audio} type='audio/wav' />
               <track kind='captions' />
               Your browser does not support the audio element
-            </audio>
-          </div>
-          <p className='transcript'>Transcript</p>
-          <div className='transcriptWrapper'>
-            {call.simplified &&
-              call.simplified.map(line => {
-                return (
-                  <>
-                    <h3 className='name'>{line.user}</h3>
-                    <p className='text'>{line.script}</p>
-                  </>
-                );
-              })}
-          </div>
-        </div>
-
-        <div className='momentWrapper'>
-          <p className='callDuration'>
-            Call duration: {call.call_duration} seconds
-          </p>
-          <p className='moment'>
-            {moment(call.call_time, 'X').format('dddd, MMMM Do [at] h:mm A')}
-          </p>
-        </div>
+            </Audio>
+            <div>
+              <span>Call duration: {call.call_duration} seconds</span>
+              <span>
+                {moment(call.call_time, 'X').format(
+                  'dddd, MMMM Do [at] h:mm A',
+                )}
+              </span>
+            </div>
+            <p>Transcript</p>
+            <div>
+              {call.simplified &&
+                call.simplified.map(line => {
+                  return (
+                    <>
+                      <h3>{line.user}</h3>
+                      <p>{line.script}</p>
+                    </>
+                  );
+                })}
+            </div>
+          </CallRecordCard>
+        </CallRecordBox>
       </PrevCallsWrapper>
     )
   );
@@ -119,277 +127,134 @@ export default CallRecord;
 CallRecord.propTypes = {
   callId: PropTypes.string,
 };
-const Card = styled.div`
-  transition: box-shadow 0.3s;
-  margin: 25px 0;
-  padding: 20px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  background: #fff;
-  &:hover {
-    box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+
+const PrevCallsWrapper = styled.section`
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr;
+
+  @media (max-width: 1025px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+      'aside'
+      'upcoming'
+      'previous';
+    place-items: center;
   }
 `;
-// const Img = styled.img`
-//   border-radius: 50%;
-//   height: 100px;
-//   width: 100px;
-//   float: right;
-// `;
-const PrevCallsWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-  margin-right: 3%;
-  margin-left: 3%;
-  place-items: center;
-  grid-template-areas:
-    'user2'
-    'transcript'
-    'callInfo';
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr 3fr;
-    grid-template-rows: 100% 100%;
-    place-items: start;
-    grid-template-areas:
-      'user2 transcript'
-      'callInfo callInfo';
-    min-height: 85vh;
-    @media (min-width: 992px) {
-      grid-template-columns: 25% 2fr 25%;
-      grid-template-rows: 100%;
-      grid-template-areas: 'user2 transcript callInfo';
-      /* height: 90%; */
-    }
-  }
-  .user2Div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    @media (min-width: 768px) {
-      justify-content: space-around;
-      /* border: 1px solid green; */
-      flex-wrap: wrap;
-      /* height: 40%; */
-    }
-    @media (min-width: 992px) {
-      /* border: 1px solid hotpink; */
-      height: 73vh;
-    }
-    .prevHeader {
-      font-size: 1.5rem;
-      margin-top: 5%;
-      color: ${styles.colors.mainBlue};
-      @media (min-width: 768px) {
-        font-size: 2rem;
-        /* margin-bottom: 5%; */
-      }
-      @media (min-width: 992px) {
-        font-size: 1.5rem;
-      }
-    }
-    .user2Img {
-      height: 250px;
-      width: 300px;
-      border-radius: 50%;
-      margin: 5% auto;
-      @media (min-width: 768px) {
-        /* margin-bottom: 10%; */
-        width: 250px;
-        height: 250px;
-        object-fit: contain;
-      }
-      @media (min-width: 992px) {
-        max-width: 200px;
-        max-height: 200px;
-      }
-    }
-    .user2Name {
-      font-size: 1.5rem;
-      color: ${styles.colors.mainBlue};
-      font-weight: 700;
-      margin-bottom: 8%;
-      @media (min-width: 768px) {
-        font-size: 2rem;
-      }
-      @media (min-width: 992px) {
-        font-size: 2rem;
-      }
-    }
-    .email {
-      font-size: 1.5rem;
-      color: ${styles.colors.mainBlue};
-      font-weight: 700;
-      margin-bottom: 8%;
-      @media (min-width: 768px) {
-        text-align: justify;
-        font-size: 1.7rem;
-      }
-      @media (min-width: 992px) {
-        font-size: 1rem;
-      }
-    }
-    .phone {
-      font-size: 1.5rem;
-      color: ${styles.colors.mainBlue};
-      margin-bottom: 8%;
-      @media (min-width: 768px) {
-        font-size: 1.7rem;
-      }
-    }
-    .btn {
-      background: #636578;
-      border-radius: 10px;
-      font-size: 1rem;
-      color: white;
-      margin-bottom: 10%;
-      .link {
-        text-decoration: none;
-        color: white;
-        font-size: 1rem;
-      }
-    }
-  }
-  .flexIt {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0 10% 0 10%;
-    margin-bottom: 5%;
-    /* border: 1px solid blue; */
-    /* height: 62vh; */
-    grid-area: transcript;
-    @media (min-width: 768px) {
-      max-height: 100%;
-      overflow: scroll;
-      margin-top: 4%;
-    }
-    @media (min-width: 992px) {
-      /* border: 1px solid hotpink; */
-      max-height: 35%;
-      object-fit: contain;
-      overflow: scroll;
-    }
-    p {
-      padding: 3%;
-      border: 1px solid grey;
-      box-shadow: 1px 1px 5px 1px;
-      font-family: roboto;
-    }
-    .transcript {
-      background: #c4c4c4;
-      width: 100%;
-      text-align: left;
-      opacity: 0.7;
-      margin: 5% auto;
-      font-size: 1.5rem;
-      /* margin-left: 3%; */
-    }
-    .transcriptWrapper {
-      border: 1px solid grey;
-      box-shadow: 1px 5px 15px 1px;
-      overflow: scroll;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      /* max-height: 40%;
-      max-width: 100%;
-      object-fit: contain; */
-      overflow: scroll;
-      @media (min-width: 768px) {
-        justify-content: flex-start;
-        max-height: 50%;
-        overflow: scroll;
-      }
-      @media (min-width: 992px) {
-        /* max-height: 40%;
-        max-width: auto;
-        object-fit: contain;
-        overflow: scroll; */
-      }
-      @media (min-width: 1300px) {
-        max-height: 50%;
-        overflow: scroll;
-      }
-      .transcriptText {
-        font-size: 1.8rem;
-        line-height: 2rem;
-        overflow: scroll;
-      }
-      .name {
-        margin-bottom: 5%;
-        margin-top: 5%;
-        margin-left: 3%;
-        font-size: 1.5rem;
-        color: ${styles.colors.mainBlue};
-        @media (min-width: 768px) {
-          font-size: 2rem;
-        }
-      }
-      .text {
-        margin-left: 3%;
-        margin-right: 3%;
-        margin-bottom: 5%;
-        @media (min-width: 768px) {
-          font-size: 1.5rem;
-          letter-spacing: 0.1rem;
-          line-height: 2rem;
-        }
-      }
-      .slider {
-        /* width: 70%; */
-        /* border: 1px solid red; */
-        margin: 3% auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        align-self: center;
-        .audioControls {
-          margin-bottom: 3%;
-          /* width: 200px; */
-        }
-      }
-    }
-  }
-  .momentWrapper {
-    grid-area: callInfo;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    margin: 5% auto;
-    /* border: 1px solid purple; */
-    /* height: 62vh; */
-    @media (min-width: 992px) {
-      justify-content: space-evenly;
-      height: 80vh;
-    }
 
-    .callDuration {
-      font-size: 1.5rem;
-      color: ${styles.colors.mainBlue};
-      margin-bottom: 3%;
-      /* border: 1px solid red; */
-      text-align: center;
-      @media (min-width: 768px) {
-        margin: 5% auto;
-      }
-      @media (min-width: 992px) {
-        font-size: 2rem;
-      }
-    }
-    .moment {
-      text-align: center;
-      color: ${styles.colors.mainBlue};
-      font-size: 1.5rem;
-      font-weight: 1.5rem;
-      @media (min-width: 992px) {
-        font-size: 2rem;
-      }
-    }
+const CallRecordBox = styled.div`
+  grid-row: 2 / -1;
+  grid-column: 2 / 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (max-width: 1025px) {
+    grid-area: previous;
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    justify-content: center;
+  }
+`;
+
+const CardHeader = styled.h2`
+  color: #999999;
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+`;
+const CallRecordCard = styled.div`
+  transition: box-shadow 0.3s;
+  height: 400px;
+  overflow: scroll;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  transition: box-shadow 0.5s;
+  ::-webkit-scrollbar {
+    width: 0px; /* Remove scrollbar space */
+    background: transparent; /* Optional: just make scrollbar invisible */
+  }
+
+  &:hover {
+    box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+  }
+  @media (max-width: 1025px) {
+    margin: 0 auto;
+    width: 100%;
+  }
+`;
+
+const Audio = styled.audio`
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  width: 100%;
+  background: #636578;
+  height: 60px;
+
+  &::-webkit-media-controls-panel {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #636578;
+    border: 5px solid #636578;
+    border-radius: none;
+    box-shadow: 0 0 20px #636578;
+    color: #fff;
+  }
+
+  &::-webkit-media-controls-mute-button {
+  }
+
+  &::-webkit-media-controls-play-button {
+    appearnce: none;
+    border: 1px solid red;
+    color: #fff;
+  }
+
+  &::-webkit-media-controls-timeline-container {
+  }
+
+  &::-webkit-media-controls-current-time-display {
+  }
+
+  &::-webkit-media-controls-time-remaining-display {
+  }
+
+  &::-webkit-media-controls-timeline {
+  }
+
+  &::-webkit-media-controls-volume-slider-container {
+  }
+
+  &::-webkit-media-controls-volume-slider {
+  }
+
+  &::-webkit-media-controls-seek-back-button {
+  }
+
+  &::-webkit-media-controls-seek-forward-button {
+  }
+
+  &::-webkit-media-controls-fullscreen-button {
+  }
+
+  &::-webkit-media-controls-rewind-button {
+  }
+
+  &::-webkit-media-controls-return-to-realtime-button {
+  }
+
+  &::-webkit-media-controls-toggle-closed-captions-button {
   }
 `;

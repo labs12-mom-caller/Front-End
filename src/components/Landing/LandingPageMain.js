@@ -8,6 +8,9 @@ import guyOnPhone from '../../assets/svg/undrawGuyCallingPhone.svg';
 
 const LandingPageMain = () => {
   const rootNode = useRef(null);
+  const header = useRef(null);
+  const headerButtons = useRef(null);
+  const h1 = useRef(null);
 
   useEffect(() => {
     const scroll = () => {
@@ -15,11 +18,13 @@ const LandingPageMain = () => {
         document.body.scrollTop > 300 ||
         document.documentElement.scrollTop > 300
       ) {
-        document.querySelector('h1').classList.add('headerReveal');
-        document.querySelector('#header').classList.add('headerBgReveal');
+        h1.current.classList.add('headerReveal');
+        header.current.classList.add('headerBgReveal');
+        headerButtons.current.classList.add('headerReveal');
       } else {
-        document.querySelector('h1').classList.remove('headerReveal');
-        document.querySelector('#header').classList.remove('headerBgReveal');
+        h1.current.classList.remove('headerReveal');
+        headerButtons.current.classList.remove('headerReveal');
+        header.current.classList.remove('headerBgReveal');
       }
     };
     document.addEventListener('scroll', scroll);
@@ -37,13 +42,26 @@ const LandingPageMain = () => {
     <LandingPageWrapper ref={rootNode}>
       <div className='pageWrapper'>
         {/* Header */}
-        <header id='header' className='header'>
-          <h1>
-            <div onClick={scrollBack} role='button'>
+        <header ref={header} id='header' className='header'>
+          <h1 ref={h1}>
+            <div
+              onClick={scrollBack}
+              onKeyDown={scrollBack}
+              role='button'
+              tabIndex={0}
+            >
               {' '}
               ReCaller{' '}
             </div>
           </h1>
+          <div ref={headerButtons} className='headerButtons'>
+            <button type='button' onClick={() => navigate(`/login`)}>
+              Login
+            </button>
+            <button type='button' onClick={() => navigate(`/signup`)}>
+              Signup
+            </button>
+          </div>
         </header>
 
         {/* Banner Section */}
@@ -63,7 +81,13 @@ const LandingPageMain = () => {
             </button>
           </div>
           <div className='spacer'>
-            <div onClick={scrollNext} className='more' role='button'>
+            <div
+              onClick={scrollNext}
+              onKeyDown={scrollNext}
+              className='more'
+              role='button'
+              tabIndex={0}
+            >
               Learn More
             </div>
           </div>
@@ -107,6 +131,7 @@ const LandingPageMain = () => {
               <p>Unlimited contacts</p>
               <p>Transcripts of all your conversations</p>
               <p>Recordings of all phone calls</p>
+              <p>Automatic recurring phone calls monthly/bi-weekly</p>
             </header>
             <ul className='sectionImg'>
               <img src={phoneRecording} alt='phoneRecording' />
@@ -143,7 +168,7 @@ const LandingPageMain = () => {
         </section>
 
         <footer>
-          <p> © 2019 ReCaller </p>
+          <p> © {new Date().getFullYear()} ReCaller </p>
         </footer>
       </div>
     </LandingPageWrapper>

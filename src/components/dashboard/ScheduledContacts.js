@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { Link } from '@reach/router';
 import { FaEllipsisV } from 'react-icons/fa';
 import { db } from '../../firebase';
-import UpcomingCalls from '../UpcomingCalls';
+
 import { firstNameOnly } from '../../app/utils';
 
 const ScheduledContacts = ({ user }) => {

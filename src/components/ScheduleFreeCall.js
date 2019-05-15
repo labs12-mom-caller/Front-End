@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import Select from '@material-ui/core/Select';
-import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import moment from 'moment-timezone';
 import Slider from 'react-slick';
@@ -31,10 +30,8 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
   };
 
   const [time, setTime] = useState(initialState);
-  const [timeZone, setTimeZone] = useState('');
 
   const setTimezone = e => {
-    setTimeZone(e.target.value);
     setTime({
       ...time,
       timezone: e.target.value,
@@ -137,11 +134,11 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
           <Select
             id='timezone'
             onChange={setTimezone}
-            value={timeZone}
+            value={time.timezone}
             placeholder='Select a Time Zone'
           >
-            <MenuItem value={time.timezone}>
-              <em>{time.timezone}</em>
+            <MenuItem value={time.timezone} defaultValue>
+              {time.timezone}
             </MenuItem>
             <MenuItem value='US/Alaska'>Alaska</MenuItem>
             <MenuItem value='US/Aleutian'>Aleutian</MenuItem>
