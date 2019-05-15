@@ -1,14 +1,13 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const stripe = require('stripe')(functions.config().stripe.token);
-const express = require('express');
-const cors = require('cors')({ origin: true });
 const sgMail = require('@sendgrid/mail');
+
 const caller = require('./tasks/caller.js');
 const fetch = require('./tasks/twilioFetch.js');
 const contactEmail = require('./tasks/contactEmail.js');
+const userTwo = require('./tasks/userTwo.js');
+const stripe = require('./tasks/stripe.js');
 
-const app = express();
 const serviceAccount = require('./serviceAccountKey.json');
 
 sgMail.setApiKey(functions.config().sendgrid.key);
@@ -28,111 +27,10 @@ exports.callService = functions.pubsub
     return caller.handler(req, res, firestore);
   });
 
-exports.twilioFetch = functions.pubsub
-  .topic('twilioFetch')
-  .onPublish((req, res) => {
-    return fetch.handler(req, res, firestore, bucket);
-  });
-function send(res, code, body) {
-  res.send({
-    statusCode: code,
-    headers: { 'Access-Control-Allow-Origin': '*' },
-    body: JSON.stringify(body),
-  });
-}
-function charge(req, res) {
-  const body = JSON.parse(req.body);
-  const token = body.token.id;
-  const { amount } = body.charge;
-  const { currency } = body.charge;
-
-  // Charge card
-  stripe.charges
-    .create({
-      amount,
-      currency,
-      description: 'Firebase Example',
-      source: token,
-    })
-    .then(charge => {
-      send(res, 200, {
-        message: 'Success',
-        charge,
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      send(res, 500, {
-        error: err.message,
-      });
-    });
-}
-
-app.use(cors);
-app.post('/', (req, res) => {
-  // Catch any unexpected errors to prevent crashing
-  try {
-    charge(req, res);
-  } catch (e) {
-    console.log(e);
-    send(res, 500, {
-      error: `The server received an unexpected error. Please try again and contact the site admin if the error persists.`,
-    });
-  }
-});
-
-exports.charge = functions.https.onRequest(app);
-
 exports.signupUserTwo = functions.firestore
   .document(`/users/{useruid}`)
-  .onCreate(async (snapshot, context) => {
-    const data = snapshot.data();
-    try {
-      await admin.auth().createUser({
-        email: data.email,
-        emailVerified: false,
-        password: Math.random()
-          .toString(36)
-          .slice(-8),
-        displayName: data.displayName,
-        photoURL: data.photoURL,
-        disabled: false,
-        uid: snapshot.id,
-      });
-
-      const passwordLink = await admin
-        .auth()
-        .generatePasswordResetLink(data.email);
-      console.log(passwordLink);
-      const msg = {
-        personalizations: [
-          {
-            to: [
-              {
-                email: data.email,
-                name: data.displayName,
-              },
-            ],
-            dynamic_template_data: {
-              url: passwordLink,
-            },
-            subject: 'A friend or loved one has signed you up for ReCaller!',
-          },
-        ],
-        from: {
-          email: 'labsrecaller@gmail.com',
-          name: 'ReCaller Team',
-        },
-        reply_to: {
-          email: 'labsrecaller@gmail.com',
-          name: 'ReCaller',
-        },
-        template_id: 'd-6077c121962b439f983a559b6f3a57f8',
-      };
-      sgMail.send(msg);
-    } catch (e) {
-      throw e;
-    }
+  .onCreate(snapshot => {
+    return userTwo.handler(admin, snapshot, sgMail);
   });
 
 exports.contactEmail = functions.firestore
@@ -140,3 +38,10 @@ exports.contactEmail = functions.firestore
   .onCreate((snapshot, context) => {
     return contactEmail.handler(snapshot, context, firestore);
   });
+
+exports.twilio = functions.https.onRequest((req, res) => {
+  fetch.handler(req, res, firestore, bucket);
+  res.status(201).end();
+});
+
+exports.stripe = functions.https.onRequest(stripe.handler);

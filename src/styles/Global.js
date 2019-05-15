@@ -143,7 +143,7 @@ table {
         height: 100%;
       }
 
-    #root {
+    body, #root {
         display: flex;
         flex-direction: column;
     }

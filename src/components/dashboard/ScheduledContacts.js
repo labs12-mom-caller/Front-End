@@ -149,6 +149,7 @@ export default ScheduledContacts;
 ScheduledContacts.propTypes = {
   user: PropTypes.shape({
     displayName: PropTypes.string,
+
     email: PropTypes.string,
     photoUrl: PropTypes.string,
     uid: PropTypes.string,

@@ -183,6 +183,7 @@ export const BillingCard = styled.div`
   width: 90%;
   height: 250px;
   border-radius: 3px;
+  /* overflow: auto; */
   padding: 12px;
   margin-bottom: 20px;
   background: #fff;
