@@ -17,6 +17,8 @@ import {
   UserInfo,
 } from '../../styles/UserCard';
 
+import { formatPhoneNumber } from '../../app/utils';
+
 import { db } from '../../firebase';
 
 const CallRecord = ({ callId }) => {
@@ -90,7 +92,7 @@ const CallRecord = ({ callId }) => {
             <UserInfo>
               <H3>{contact.displayName}</H3>
               <P>{contact.email}</P>
-              <P>{contact.phoneNumber}</P>
+              <P>{formatPhoneNumber(contact.phoneNumber)}</P>
               <Button type='button' onClick={() => navigate('/')}>
                 <FaArrowLeft className='arrow' /> Back Home
               </Button>
@@ -136,13 +138,8 @@ const PrevCallsWrapper = styled.section`
   grid-template-columns: 1fr 2fr 3fr;
 
   @media (max-width: 1025px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas:
-      'aside'
-      'upcoming'
-      'previous';
-    place-items: center;
+    display: flex;
+    flex-direction: column;
   }
 `;
 
@@ -152,9 +149,11 @@ const CallRecordBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 50px;
 
   @media (max-width: 1025px) {
-    grid-area: previous;
+    grid-row: 2;
+    grid-area: record;
     display: flex;
     flex-direction: column;
     width: 95%;
@@ -253,7 +252,6 @@ const TranscriptBox = styled.div`
 
   ::-webkit-scrollbar {
     appearance: none;
-    overflow: hidden;
   }
 
   ::-webkit-scrollbar-thumb {
