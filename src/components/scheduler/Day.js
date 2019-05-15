@@ -5,8 +5,6 @@ import Slot from './Slot';
 import { generateTimeSlots } from './generateTimeSlots';
 
 const Day = ({ day, timezone, selectTime, current }) => {
-  //   const [scroll, setScroll] = useState(0);
-
   const timeSlots = generateTimeSlots(60, '06:00', '23:00');
 
   return (

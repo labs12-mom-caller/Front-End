@@ -3,7 +3,6 @@ import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import axios from 'axios';
-import StripeCheckout from 'react-stripe-checkout';
 
 import Loader from 'react-loader-spinner';
 
