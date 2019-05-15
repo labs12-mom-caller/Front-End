@@ -70,7 +70,6 @@ const CallRecord = ({ callId }) => {
       <PrevCallsWrapper key={call.id}>
         <Aside>
           <User>
-            <H3>Previous Call with</H3>
             <Img
               src={
                 contact.photoUrl ||
@@ -78,6 +77,16 @@ const CallRecord = ({ callId }) => {
               }
               alt={contact.displayName}
             />
+            <UserInfo>
+              <H3>Previous Call</H3>
+              <P>on</P>
+              <Date>
+                {moment(call.call_time, 'X').format(
+                  'dddd, MMMM Do [at] h:mm A',
+                )}
+              </Date>
+              <P>with</P>
+            </UserInfo>
             <UserInfo>
               <H3>{contact.displayName}</H3>
               <P>{contact.email}</P>
@@ -89,34 +98,28 @@ const CallRecord = ({ callId }) => {
           </User>
         </Aside>
         <CallRecordBox>
-          <CardHeader>Call Record</CardHeader>
-          <CallRecordCard>
-            <Audio controls>
-              <source src={call.audio} type='audio/wav' />
-              <track kind='captions' />
-              Your browser does not support the audio element
-            </Audio>
-            <div>
-              <span>Call duration: {call.call_duration} seconds</span>
-              <span>
-                {moment(call.call_time, 'X').format(
-                  'dddd, MMMM Do [at] h:mm A',
-                )}
-              </span>
-            </div>
-            <p>Transcript</p>
-            <div>
-              {call.simplified &&
-                call.simplified.map(line => {
-                  return (
-                    <>
-                      <h3>{line.user}</h3>
-                      <p>{line.script}</p>
-                    </>
-                  );
-                })}
-            </div>
-          </CallRecordCard>
+          <Wrapper>
+            <CardHeader>Call Record</CardHeader>
+            <CallRecordCard>
+              <Audio controls>
+                <source src={call.audio} type='audio/wav' />
+                <track kind='captions' />
+                Your browser does not support the audio element
+              </Audio>
+              <TranscriptTitle>Transcript</TranscriptTitle>
+              <TranscriptBox>
+                {call.simplified &&
+                  call.simplified.map(line => {
+                    return (
+                      <>
+                        <Speaker>{line.user}</Speaker>
+                        <Script>{line.script}</Script>
+                      </>
+                    );
+                  })}
+              </TranscriptBox>
+            </CallRecordCard>
+          </Wrapper>
         </CallRecordBox>
       </PrevCallsWrapper>
     )
@@ -162,14 +165,15 @@ const CallRecordBox = styled.div`
 const CardHeader = styled.h2`
   color: #999999;
   margin-bottom: 20px;
-  font-size: 26px;
+  font-size: 2.6rem;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  text-align: left;
+  align-self: stretch;
 `;
 const CallRecordCard = styled.div`
   transition: box-shadow 0.3s;
-  height: 400px;
-  overflow: scroll;
+  height: 600px;
   border-radius: 3px;
   background: #fff;
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
@@ -189,72 +193,71 @@ const CallRecordCard = styled.div`
 `;
 
 const Audio = styled.audio`
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
   width: 100%;
   background: #636578;
   height: 60px;
+  z-index: 0;
 
-  &::-webkit-media-controls-panel {
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    border-radius: 0;
-    -webkit-appearance: none;
-    -moz-appearance: none;
+  ::-webkit-media-controls-panel {
+    width: 98%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    background: #9c9a87;
+    z-index: 1;
+    filter: invert(100%);
+  }
+`;
+
+const Wrapper = styled.div`
+  width: 90%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 1025px) {
+    width: 95%;
+    align-items: center;
+  }
+`;
+
+const Date = styled.h3`
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 10px 0;
+  color: #999999;
+`;
+
+const TranscriptTitle = styled.h3`
+  font-size: 2.5rem;
+  color: #999999;
+  margin: 10px 15px;
+`;
+
+const Speaker = styled.h4`
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+`;
+
+const Script = styled.p`
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+`;
+
+const TranscriptBox = styled.div`
+  height: 82.5%;
+  overflow-x: auto;
+  overflow-y: scroll;
+  padding: 0 15px;
+
+  ::-webkit-scrollbar {
     appearance: none;
-    background: #636578;
-    border: 5px solid #636578;
-    border-radius: none;
-    box-shadow: 0 0 20px #636578;
-    color: #fff;
+    overflow: hidden;
   }
 
-  &::-webkit-media-controls-mute-button {
-  }
-
-  &::-webkit-media-controls-play-button {
-    appearnce: none;
-    border: 1px solid red;
-    color: #fff;
-  }
-
-  &::-webkit-media-controls-timeline-container {
-  }
-
-  &::-webkit-media-controls-current-time-display {
-  }
-
-  &::-webkit-media-controls-time-remaining-display {
-  }
-
-  &::-webkit-media-controls-timeline {
-  }
-
-  &::-webkit-media-controls-volume-slider-container {
-  }
-
-  &::-webkit-media-controls-volume-slider {
-  }
-
-  &::-webkit-media-controls-seek-back-button {
-  }
-
-  &::-webkit-media-controls-seek-forward-button {
-  }
-
-  &::-webkit-media-controls-fullscreen-button {
-  }
-
-  &::-webkit-media-controls-rewind-button {
-  }
-
-  &::-webkit-media-controls-return-to-realtime-button {
-  }
-
-  &::-webkit-media-controls-toggle-closed-captions-button {
+  ::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 10px;
   }
 `;
