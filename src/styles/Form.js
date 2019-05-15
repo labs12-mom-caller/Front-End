@@ -22,11 +22,12 @@ export const Form = styled.form`
     -webkit-appearance: none;
     height: 40px;
     width: 75%;
+    box-shadow: 0.5px 1px 10px;
     font-size: 1.5rem;
     margin-bottom: 10px;
     border: 1px solid #999999;
     border-bottom: 3px solid #cecece;
-    padding: 5px;
+    padding: 25px;
   }
 
   input:focus {

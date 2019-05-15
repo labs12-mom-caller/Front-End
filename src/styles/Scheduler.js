@@ -44,7 +44,7 @@ export const Container = styled.div`
 
 export const Scheduler = styled.div`
   width: 95%;
-  padding: 10px;
+  /* padding: 10px; */
   margin: 0 auto;
   margin-bottom: 20px;
   font-family: Roboto, helvetica;
