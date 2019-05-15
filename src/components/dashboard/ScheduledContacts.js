@@ -106,10 +106,14 @@ const TableHeader = styled.div`
 const Name = styled.div`
   margin-left: 1%;
   width: 24%;
+  font-size: 1.6rem;
+  padding: 2px;
 `;
 
 const Upcoming = styled.div`
   width: 76%;
+  font-size: 1.6rem;
+  padding: 2px;
 `;
 
 const CallLink = styled(Link)`
@@ -127,6 +131,7 @@ const LinkWrapper = styled.div`
 
 const Display = styled.div`
   width: 30%;
+  font-size: 1.3rem;
   /* text-align: center; */
   font-family: Roboto;
 `;

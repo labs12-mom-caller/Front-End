@@ -72,6 +72,7 @@ const VL = styled.div`
 `;
 
 const BrandLink = styled(Link)`
+  font-size: 1.7rem;
   &:hover {
     color: #ff6f61;
   }
