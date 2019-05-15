@@ -55,8 +55,12 @@ const LandingPageMain = () => {
             </div>
           </h1>
           <div ref={headerButtons} className='headerButtons'>
-            <button type='button'>Login</button>
-            <button type='button'>Signup</button>
+            <button type='button' onClick={() => navigate(`/login`)}>
+              Login
+            </button>
+            <button type='button' onClick={() => navigate(`/signup`)}>
+              Signup
+            </button>
           </div>
         </header>
 
