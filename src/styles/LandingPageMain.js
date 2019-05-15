@@ -196,6 +196,7 @@ footer {
   margin-top: 4rem;
   margin-bottom: 5rem;
   padding-top: 3rem;
+  padding-bottom: 7rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -258,8 +259,6 @@ footer {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5rem;
-  padding-bottom: 4rem;
 }
 
 .style1 h2 {
@@ -430,6 +429,8 @@ footer {
 .wrapper {
   padding-top: 10rem;
   z-index: 0;
+  text-align: center;
+  margin-bottom: 4rem;
 }
 .wrapper .major {
   display: flex;
@@ -440,6 +441,7 @@ footer {
 .wrapper h2 {
   font-size: 3rem;
   padding-bottom: 5rem;
+  width: 100%;
 }
 .wrapper p {
   line-height: 1.5;
