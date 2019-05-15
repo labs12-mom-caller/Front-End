@@ -39,7 +39,12 @@ const LandingPageMain = () => {
         {/* Header */}
         <header id='header' className='header'>
           <h1>
-            <div onClick={scrollBack} role='button'>
+            <div
+              onClick={scrollBack}
+              onKeyDown={scrollBack}
+              role='button'
+              tabIndex={0}
+            >
               {' '}
               ReCaller{' '}
             </div>
@@ -63,7 +68,13 @@ const LandingPageMain = () => {
             </button>
           </div>
           <div className='spacer'>
-            <div onClick={scrollNext} className='more' role='button'>
+            <div
+              onClick={scrollNext}
+              onKeyDown={scrollNext}
+              className='more'
+              role='button'
+              tabIndex={0}
+            >
               Learn More
             </div>
           </div>
@@ -107,6 +118,7 @@ const LandingPageMain = () => {
               <p>Unlimited contacts</p>
               <p>Transcripts of all your conversations</p>
               <p>Recordings of all phone calls</p>
+              <p>Automatic recurring phone calls monthly/bi-weekly</p>
             </header>
             <ul className='sectionImg'>
               <img src={phoneRecording} alt='phoneRecording' />
@@ -143,7 +155,7 @@ const LandingPageMain = () => {
         </section>
 
         <footer>
-          <p> © 2019 ReCaller </p>
+          <p> © {new Date().getFullYear()} ReCaller </p>
         </footer>
       </div>
     </LandingPageWrapper>
