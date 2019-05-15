@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { firebase, db } from './firebase';
 
 import Login from './components/Auth/Login';
-import Landing from './components/Landing';
+import LandingPageMain from './components/Landing';
 import SignUp from './components/Auth/SignUp';
 import NavBar from './components/NavBar';
 import DashMain from './components/DashMain';
@@ -62,13 +62,11 @@ function useAuth() {
       }
     });
   }, []);
-  // console.log(user);
   return user;
 }
 
 function App() {
   const user = useAuth();
-  // console.log(user, 'USERRRRR');
 
   return user ? (
     <>
@@ -101,7 +99,7 @@ function App() {
     <>
       <Global />
       <Router>
-        <Landing path='/' exact />
+        <LandingPageMain path='/' exact />
         <SignUp path='/signup' />
         <Login path='/login' />
       </Router>
