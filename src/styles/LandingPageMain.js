@@ -82,7 +82,10 @@ footer {
   align-items: center;
   flex-direction: row;
   z-index: 10;
-}
+
+  @media (max-width: 465px) {
+    justify-content: space-evenly;
+  }
 }
 
 #header h1 {
@@ -104,6 +107,10 @@ footer {
   font-size: 2rem;
   background: none;
 
+  @media (max-width: 465px) {
+    padding: 1.5rem 0;
+  }
+
   &:hover {
     color: #FF6F61;
     transition: all 0.4s ease;
@@ -114,11 +121,22 @@ footer {
   display: none;
   justify-content: space-around;
   opacity: 0;
-  width: 300px;
+  margin: 1rem;
+  width: 30%;
+
+  @media (max-width: 465px) {
+    width: 200px;
+    justify-content: space-evenly;
+  }
 
   button {
     background: none;
     border: none;
+    padding: 1rem;
+
+    @media (max-width: 465px) {
+      padding: 5px;
+  }
   }
 }
 
