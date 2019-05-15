@@ -119,23 +119,7 @@ export default CallRecord;
 CallRecord.propTypes = {
   callId: PropTypes.string,
 };
-const Card = styled.div`
-  transition: box-shadow 0.3s;
-  margin: 25px 0;
-  padding: 20px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  background: #fff;
-  &:hover {
-    box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
-  }
-`;
-// const Img = styled.img`
-//   border-radius: 50%;
-//   height: 100px;
-//   width: 100px;
-//   float: right;
-// `;
+
 const PrevCallsWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr;

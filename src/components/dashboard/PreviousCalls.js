@@ -160,7 +160,6 @@ const PrevCallsWrapper = styled.div`
 const Card = styled.div`
   transition: box-shadow 0.3s;
   width: 95%;
-  ${'' /* height: 120px; */}
   margin: 15px auto;
   margin-top: 20px;
   border-radius: 3px;
