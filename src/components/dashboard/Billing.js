@@ -5,7 +5,6 @@ import moment from 'moment-timezone';
 import styled from 'styled-components';
 import axios from 'axios';
 import Loading from '../Loading';
-import { db } from '../../firebase';
 
 const Billing = ({ user }) => {
   const [subs, setSubs] = useState([]);
@@ -18,8 +17,7 @@ const Billing = ({ user }) => {
             user.stripe_id
           }`,
         );
-        console.log(response.data);
-        // setSubs(s => results);
+        setSubs(subs => response.data);
         setIsLoading(false);
       } catch (err) {
         console.log(err);
@@ -56,33 +54,36 @@ const Billing = ({ user }) => {
 
                 <Table>
                   <TableHead>Previous Charges</TableHead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Amount</th>
-                    <th>Receipt</th>
-                  </tr>
-                  {sub.invoices.map(invoice => {
-                    return (
-                      <tr key={invoice.id}>
-                        <td>
-                          {moment(
-                            invoice.status_transitions.paid_at,
-                            'X',
-                          ).format('MM/DD/YY')}
-                        </td>
-                        <td>${(invoice.amount_paid / 100).toFixed(2)}</td>
-                        <td>
-                          <a
-                            href={invoice.hosted_invoice_url}
-                            target='_blank'
-                            rel='noopener noreferrer'
-                          >
-                            Receipt
-                          </a>
-                        </td>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Receipt</th>
                       </tr>
-                    );
-                  })}
+                    </thead>
+                    <tbody>
+                      {sub.invoices.map(invoice => {
+                        return (
+                          <tr key={invoice.id}>
+                            <td>
+                              {moment(invoice.paid_at, 'X').format('MM/DD/YY')}
+                            </td>
+                            <td>${(invoice.amount_paid / 100).toFixed(2)}</td>
+                            <td>
+                              <a
+                                href={invoice.hosted_invoice_url}
+                                target='_blank'
+                                rel='noopener noreferrer'
+                              >
+                                Receipt
+                              </a>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
                 </Table>
                 <P>
                   Next Charge:{' '}

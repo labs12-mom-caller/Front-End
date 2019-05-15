@@ -155,40 +155,25 @@ app.get('/billing/:stripeId', async (req, res) => {
           .doc(`contacts/${sub.metadata.contact_id}`)
           .get();
         const user2 = await contact.data().user2.get();
-        let result = {
+        const invoices = await stripe.invoices.list({
+          subscription: sub.id,
+        });
+        const invoiceData = invoices.data.map(invoice => {
+          return {
+            id: invoice.id,
+            paid_at: invoice.status_transitions.paid_at,
+            amount_paid: invoice.amount_paid,
+            hosted_invoice_url: invoice.hosted_invoice_url,
+          };
+        });
+        const result = {
           contact_id: contact.id,
           user2: user2.data(),
           contact: contact.data(),
           next_charge_date: sub.current_period_end,
           amount: sub.plan.amount,
-          invoices: [],
+          invoices: invoiceData,
         };
-        stripe.invoices.list(
-          {
-            subscription: sub.id,
-          },
-          (err, invoices) => {
-            if (err) {
-              console.log(err);
-              res.status(500).json({
-                message: `Error retrieving invoices for subscription ${sub.id}`,
-              });
-            } else {
-              const invoiceData = invoices.data.map(invoice => {
-                return {
-                  id: invoice.id,
-                  paid_at: invoice.status_transitions.paid_at,
-                  amount_paid: invoice.amount_paid,
-                  hosted_invoice_url: invoice.hosted_invoice_url,
-                };
-              });
-              result = {
-                ...result,
-                invoices: invoiceData,
-              };
-            }
-          },
-        );
         return result;
       });
 
