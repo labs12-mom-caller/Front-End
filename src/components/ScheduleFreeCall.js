@@ -125,8 +125,8 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
   return (
     <Scheduler>
       <div className='header'>
-        <h2>Schedule a free call</h2>
-        <p>
+        <h2 style={{ fontWeight: '300' }}>Schedule a free call</h2>
+        <p style={{ fontWeight: '300', textAlign: 'left' }}>
           Please select the block of hours that you have availability. A call
           will be randomly scheduled in one of the time blocks selected.
         </p>
