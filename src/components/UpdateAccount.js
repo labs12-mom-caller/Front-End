@@ -93,16 +93,6 @@ const UpdateAccount = ({ user }) => {
                 />
               </InputLabel>
 
-              <InputLabel htmlFor='password'>
-                Password
-                <InputEntry
-                  type='password'
-                  id='password'
-                  {...newPassword}
-                  placeholder='enter your password'
-                />
-              </InputLabel>
-
               <InputLabel htmlFor='email'>
                 Email
                 <InputEntry
@@ -122,18 +112,31 @@ const UpdateAccount = ({ user }) => {
                   placeholder='enter your phone number'
                 />
               </InputLabel>
-              <ButtonGroup>
-                <FormButton onClick={passwordUpdate} type='button'>
-                  {' '}
-                  Update Password{' '}
-                </FormButton>
 
+              <ButtonGroup>
                 <FormButton
                   className='updateBtn'
                   type='submit'
                   onClick={e => update(e)}
                 >
                   Update Profile
+                </FormButton>
+              </ButtonGroup>
+
+              <InputLabel htmlFor='password'>
+                Password
+                <InputEntry
+                  type='password'
+                  id='password'
+                  {...newPassword}
+                  placeholder='enter your password'
+                />
+              </InputLabel>
+
+              <ButtonGroup>
+                <FormButton onClick={passwordUpdate} type='button'>
+                  {' '}
+                  Update Password{' '}
                 </FormButton>
               </ButtonGroup>
             </div>
@@ -143,11 +146,11 @@ const UpdateAccount = ({ user }) => {
     </Container>
   );
 };
+
 const Container = styled.div`
   display: flex;
-  height: 90vh;
   grid-template-columns: 1fr;
-  /* grid-template-rows: 70px 1fr; */
+  margin-bottom: 2rem;
 `;
 const Wrapper = styled.div`
   display: flex;
@@ -163,7 +166,7 @@ const Wrapper = styled.div`
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
   -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
   -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
-  /* margin: 5% auto; */
+
   @media only screen and (max-width: 750px) {
     width: 70%;
   }
