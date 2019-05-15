@@ -4,6 +4,10 @@ import arrow from '../assets/svg/arrow.svg';
 
 export const LandingPageWrapper = styled.div`
 
+*:focus {
+    outline: none;
+}
+
 button {
   background-color: #FF6F61;
   border: none;
@@ -78,19 +82,22 @@ footer {
   align-items: center;
   flex-direction: row;
   z-index: 10;
-}
+
+  @media (max-width: 465px) {
+    justify-content: space-evenly;
+  }
 }
 
 #header h1 {
   opacity: 0;
   margin: 2rem;
   align-self: flex-start;
+  border: none;
 }
 
 #header h1 div {
   border: none;
   color: #ffffff;
-  cursor: pointer;
   padding: 1.5rem 4rem;
   font-size: 1.4rem;
   font-weight: 300;
@@ -99,6 +106,38 @@ footer {
   font-family: Roboto, Arial, Helvetica;
   font-size: 2rem;
   background: none;
+
+  @media (max-width: 465px) {
+    padding: 1.5rem 0;
+  }
+
+  &:hover {
+    color: #FF6F61;
+    transition: all 0.4s ease;
+  }
+}
+
+#header .headerButtons {
+  display: none;
+  justify-content: space-around;
+  opacity: 0;
+  margin: 1rem;
+  width: 30%;
+
+  @media (max-width: 465px) {
+    width: 200px;
+    justify-content: space-evenly;
+  }
+
+  button {
+    background: none;
+    border: none;
+    padding: 1rem;
+
+    @media (max-width: 465px) {
+      padding: 5px;
+  }
+  }
 }
 
 #header nav {
@@ -114,6 +153,8 @@ footer {
   animation-name: opacityReveal;
   animation-duration: 1s;
   animation-fill-mode: forwards;
+  display: flex;
+  cursor: pointer;
 }
 
 .headerBgReveal {

@@ -173,6 +173,7 @@ const Previous = styled.div`
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr 3fr;
+  font-size: 1.5rem;
 
   @media (max-width: 1025px) {
     grid-template-columns: 1fr;
