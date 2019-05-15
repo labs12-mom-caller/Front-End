@@ -8,6 +8,9 @@ import guyOnPhone from '../../assets/svg/undrawGuyCallingPhone.svg';
 
 const LandingPageMain = () => {
   const rootNode = useRef(null);
+  const header = useRef(null);
+  const headerButtons = useRef(null);
+  const h1 = useRef(null);
 
   useEffect(() => {
     const scroll = () => {
@@ -15,11 +18,13 @@ const LandingPageMain = () => {
         document.body.scrollTop > 300 ||
         document.documentElement.scrollTop > 300
       ) {
-        document.querySelector('h1').classList.add('headerReveal');
-        document.querySelector('#header').classList.add('headerBgReveal');
+        h1.current.classList.add('headerReveal');
+        header.current.classList.add('headerBgReveal');
+        headerButtons.current.classList.add('headerReveal');
       } else {
-        document.querySelector('h1').classList.remove('headerReveal');
-        document.querySelector('#header').classList.remove('headerBgReveal');
+        h1.current.classList.remove('headerReveal');
+        headerButtons.current.classList.remove('headerReveal');
+        header.current.classList.remove('headerBgReveal');
       }
     };
     document.addEventListener('scroll', scroll);
@@ -37,8 +42,8 @@ const LandingPageMain = () => {
     <LandingPageWrapper ref={rootNode}>
       <div className='pageWrapper'>
         {/* Header */}
-        <header id='header' className='header'>
-          <h1>
+        <header ref={header} id='header' className='header'>
+          <h1 ref={h1}>
             <div
               onClick={scrollBack}
               onKeyDown={scrollBack}
@@ -49,6 +54,10 @@ const LandingPageMain = () => {
               ReCaller{' '}
             </div>
           </h1>
+          <div ref={headerButtons} className='headerButtons'>
+            <button type='button'>Login</button>
+            <button type='button'>Signup</button>
+          </div>
         </header>
 
         {/* Banner Section */}
