@@ -121,9 +121,36 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
 
   return (
     <Scheduler>
-      <div className='header'>
-        <h2>Schedule a free call</h2>
-        <p>
+      <div
+        className='header'
+        style={{
+          minWidth: '100%',
+          marginTop: '0',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+        }}
+      >
+        <div
+          style={{
+            minWidth: '100%',
+            background: '#636578',
+            marginBottom: '5%',
+          }}
+        >
+          <h2 style={{ fontWeight: '300', color: 'white' }}>
+            Schedule a free call
+          </h2>
+        </div>
+        <p
+          style={{
+            fontWeight: '300',
+            textAlign: 'left',
+            boxShadow: '1px 2px 12px',
+            border: '1px solid lightgrey',
+          }}
+        >
           Please select the block of hours that you have availability. A call
           will be randomly scheduled in one of the time blocks selected.
         </p>
