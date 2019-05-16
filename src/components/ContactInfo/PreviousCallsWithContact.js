@@ -19,7 +19,9 @@ const PreviousCallsWithContact = ({ calls, contact, user }) => {
                   .tz(contact.timezone)
                   .format('MMMM Do, YY [at] h:mm A')}
               </h2>
-              <div>Call duration: {call.call_duration} seconds</div>
+              <div>
+                Call duration: <br /> {call.call_duration} seconds
+              </div>
               <Link to={`/prev-calls/${user.uid}/${call.id}`}>Review Call</Link>
             </Card>
           );
@@ -48,12 +50,17 @@ PreviousCallsWithContact.propTypes = {
 };
 
 const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   transition: box-shadow 0.3s;
   width: 100%;
   border-radius: 6px;
   background: #fff;
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
   transition: box-shadow 0.5s;
+  padding: 2rem;
   &:hover {
     box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
   }

@@ -50,19 +50,21 @@ const ContactInfo = ({ contactId, user }) => {
   console.log(calls);
   return contact.fetched ? (
     <Container>
-      <PreviousCallsWithContactContainer>
-        <PreviousCallsWithContact calls={calls} contact={contact} user={user} />
-      </PreviousCallsWithContactContainer>
       <ScheduledByContainer>
         <Card>
           <ScheduledBy contact={contact} user={user} />
         </Card>
       </ScheduledByContainer>
+
       <NextCallContainer>
         <Card>
           <NextCall contact={contact} />
         </Card>
       </NextCallContainer>
+
+      <PreviousCallsWithContactContainer>
+        <PreviousCallsWithContact calls={calls} contact={contact} user={user} />
+      </PreviousCallsWithContactContainer>
     </Container>
   ) : (
     <p>Loading...</p>
@@ -82,14 +84,56 @@ ContactInfo.propTypes = {
   }),
 };
 
-const PreviousCallsWithContactContainer = styled.div`
-  grid-row: 2 / -1;
-  grid-column: 2 / 5;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+  margin: 2rem auto;
+  font-family: Roboto, helvetica;
+`;
 
-  @media (max-width: 900px) {
-  grid-row: 9 / 15;
-  grid-column: 2 / 9;
-}
+const ScheduledByContainer = styled.div`
+  font-size: 1.5rem;
+  width: 50%;
+  margin: 2rem auto;
+  min-width: 400px;
+
+  @media (max-width: 415px) {
+    min-width: auto;
+    width: 100%;
+  }
+
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+`;
+
+const NextCallContainer = styled.div`
+  font-size: 1.5rem;
+  width: 50%;
+  margin: 2rem auto;
+  min-width: 400px;
+
+  @media (max-width: 415px) {
+    min-width: auto;
+    width: 100%;
+  }
+`;
+
+const PreviousCallsWithContactContainer = styled.div`
+font-size: 1.5rem;
+width: 50%;
+margin: 2rem auto;
+min-width: 400px;
+
+
+@media (max-width: 415px) {
+  min-width: auto;
+  width: 100%;
+  }
 
   header {
       width: 100%
@@ -100,36 +144,4 @@ const PreviousCallsWithContactContainer = styled.div`
   div {
     margin: 10px auto;
   }
-`;
-
-const ScheduledByContainer = styled.div`
-  grid-row: 2 / -1;
-  grid-column: 6 / 11;
-
-  img {
-    width: 60px;
-    height: 60px;
-  }
-
-  @media (max-width: 900px) {
-    grid-row: 2 / -1;
-    grid-column: 2 / 9;
-  }
-`;
-
-const NextCallContainer = styled.div`
-  grid-row: 2 / -1;
-  grid-column: 12 / 15;
-
-  @media (max-width: 900px) {
-    grid-row: 2 / -1;
-    grid-column: 10 / 15;
-  }
-`;
-const Container = styled.div`
-  display: grid;
-  height: 85vh;
-  grid-template-columns: repeat(15, 1fr);
-  grid-template-rows: repeat(15, 1fr);
-  font-family: helvetica;
 `;
