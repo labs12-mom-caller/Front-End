@@ -21,7 +21,7 @@ export const Form = styled.form`
   input {
     -webkit-appearance: none;
     height: 40px;
-    width: 75%;
+    width: 82%;
     box-shadow: 0.5px 1px 10px;
     font-size: 1.5rem;
     margin-bottom: 10px;
