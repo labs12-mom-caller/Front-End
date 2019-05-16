@@ -26,7 +26,7 @@ export const Form = styled.form`
     margin-bottom: 10px;
     border: 1px solid #999999;
     border-bottom: 3px solid #cecece;
-    padding: 5px;
+    padding: 9px;
   }
 
   input:focus {
