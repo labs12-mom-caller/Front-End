@@ -33,7 +33,7 @@ const NavbarPage = ({ user }) => {
         }
       >
         <li>
-          <BrandLink to={`/account/${user.uid}`}>Account</BrandLink>
+          <BrandLink to={`/account/${user.uid}`}>Update Account</BrandLink>
         </li>
         <li>
           <VL />

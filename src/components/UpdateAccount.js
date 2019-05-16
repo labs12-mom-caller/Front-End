@@ -254,6 +254,7 @@ const FormButton = styled.button`
   transition: all 0.4s ease;
   outline: 0;
   margin-top: 15px;
+  border: 1px solid #ff6f61;
   &:hover {
     background-color: #ffffff;
     color: #ff6f61;
@@ -281,6 +282,7 @@ const PictureFile = styled.input`
     color: white;
     border-radius: 2px;
     font-size: 13px;
+    border: 1px solid #ff6f61;
     transition: all 0.4s ease;
     outline: 0;
     margin-top: 15px;
