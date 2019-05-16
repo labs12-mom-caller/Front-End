@@ -36,21 +36,14 @@ const Time = styled.div`
 `;
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  grid-template-areas:
-    'header'
-    'main'
-    'main'
-    '.';
+  display: flex;
+  flex-direction: column;
 
   header {
-    grid-area: header;
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    justify-items: center;
+    padding: 1rem;
   }
 
   main {
@@ -58,8 +51,7 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    grid-area: main;
-    margin-top: 10px;
+    margin: 10px auto;
 
     div {
       margin: 5px;
