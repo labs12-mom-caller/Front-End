@@ -56,7 +56,7 @@ const PreviousCalls = ({ userId }) => {
       </TableHeader>
       {calls &&
         calls.map(call => (
-          <Card>
+          <Card key={call.id}>
             <Link
               to={`/prev-calls/${userId}/${call.id}`}
               style={{ inherit: 'all' }}
