@@ -103,3 +103,15 @@ export function firstNameOnly(name) {
   const splitName = name.split(' ');
   return splitName[0];
 }
+export function formatPhoneNumber(number) {
+  const numberCopy = [...number];
+  const digitsOnly = numberCopy.slice(2);
+  const withDashes = `${digitsOnly.slice(0, 3)}-${digitsOnly.slice(
+    3,
+    6,
+  )}-${digitsOnly.slice(6)}`;
+  const formatted = [...withDashes];
+  const phoneNumber = formatted.filter(n => n !== ',');
+  phoneNumber.join('');
+  return phoneNumber;
+}

@@ -499,7 +499,6 @@ footer {
 .wrapper {
   padding-top: 10rem;
   z-index: 0;
-  text-align: flex-start;
   margin-bottom: 4rem;
 }
 .wrapper .major {

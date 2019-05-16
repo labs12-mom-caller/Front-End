@@ -111,7 +111,7 @@ const LandingPageMain = () => {
                 care about.
               </p>
               <p>
-                Call recordings and transcripts enables you to always remember
+                Call recordings and transcripts enable you to always remember
                 important details.
               </p>
               <p>
