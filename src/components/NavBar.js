@@ -60,7 +60,7 @@ const Name = styled.h1`
   margin-left: 13px;
   padding: 5px;
   a {
-    color: #083d77;
+    color: #636578;
     font-family: 'Pacifico';
     font-size: 42px;
   }

@@ -222,7 +222,7 @@ const Header = styled.div`
   width: 68%;
   p {
     font-size: 1.2rem;
-    text-align: center;
+    text-align: left;
   }
 `;
 export default SignUp;
