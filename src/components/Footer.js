@@ -1,45 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from '@reach/router';
 import { FaFacebook, FaTwitter, FaLinkedin } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 
 const Footer = ({ user }) => {
   return (
     <FooterWrap>
-      <SectionLeft className='sectionLeft' style={{}}>
-        <p style={{ color: 'white' }}>ReCaller</p>
+      <SectionLeft>
+        <h2>
+          <FooterLink to='/'>ReCaller</FooterLink>
+        </h2>
         <IconsWrapper>
           <FaFacebook className='icon facebook' />
           <FaLinkedin className='icon linkedin' />
           <FaTwitter className='icon twitter' />
         </IconsWrapper>
-        <span style={{ color: 'white' }}>
-          &copy; {new Date().getFullYear()}
-          <a href='/' style={{ color: 'white' }}>
-            {' '}
-            ReCaller{' '}
-          </a>
-        </span>{' '}
+        <span>&copy; {new Date().getFullYear()}</span>
       </SectionLeft>
-      <SectionRight>
-        <ul>
-          <li className='list'>
-            <a href='/'>Dashboard</a>
-          </li>
-          <li className='list'>
-            <a href={`/choose/${user.uid}`}>Add New Call</a>
-          </li>
-          <li className='list'>
-            <a href='#!'>Review Calls</a>
-          </li>
-          <li className='list'>
-            <a href={`/prev-calls/${user.uid}`}>Previous Calls</a>
-          </li>
-          <li className='list'>
-            <a href='/about-us'>Our Team</a>
-          </li>
-        </ul>
-      </SectionRight>
+      <FooterNav>
+        <FooterLink to='/'>Dashboard</FooterLink>
+        <FooterLink to={`/choose/${user.uid}`}>Add New Call</FooterLink>
+        <FooterLink to={`/billing/${user.uid}`}>Billing Information</FooterLink>
+        <FooterLink to='/about-us'>Our Team</FooterLink>
+      </FooterNav>
     </FooterWrap>
   );
 };
@@ -49,101 +33,59 @@ export default Footer;
 const FooterWrap = styled.footer`
   flex-shrink: 0;
   display: flex;
-  /* position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0; */
   justify-content: space-between;
   background-color: #636578;
   z-index: 10;
   width: 100%;
-  @media (max-width: 992px) {
-  }
+  height: 150px;
+  padding: 10px 5%;
+  font-size: 1.6rem;
+  color: white;
 `;
+
 const SectionLeft = styled.div`
-  width: 20%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: flex-start;
-  margin-left: 3%;
-  /* width: 48%; */
-  @media (min-width: 992px) {
-    margin-left: 5%;
-  }
 
-
-  }
-  p {
-    font-size: 1rem;
-    margin-top: 5%;
-    @media (min-width: 992px) {
-      font-size: 1rem;
-      margin-top: 1%;
-    }
-  }
-  span {
-    margin-bottom: 5%;
-    @media (min-width: 992px) {
-      font-size: 1rem;
-      margin-bottom: 1%;
-    }
+  h2 {
+    font-size: 3rem;
+    font-family: 'Pacifico', cursive;
   }
 `;
 
 const IconsWrapper = styled.div`
   display: flex;
-  justify-content: inherit;
+  justify-content: space-between;
   width: 120px;
-  height: 30px;
 
   .icon {
-    font-size: 1.5rem;
-    transition: all 1s ease-in-out;
+    font-size: 2rem;
+    transition: all 0.3s ease-in-out;
   }
-  .facebook {
-    &:hover {
-      color: #3b5998;
-    }
+  .facebook:hover {
+    color: #3b5998;
   }
-  .twitter {
-    &:hover {
-      color: #1da1f2;
-    }
+  .twitter:hover {
+    color: #1da1f2;
   }
-  .linkedin {
-    &:hover {
-      color: #0077b5;
-    }
+  .linkedin:hover {
+    color: #0077b5;
   }
 `;
 
-const SectionRight = styled.div`
+const FooterNav = styled.nav`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-evenly;
+  align-items: flex-end;
+`;
 
-  margin-right: 5%;
-  font-weight: 400;
-  line-height: 1.5;
-  @media (min-width: 992px) {
-    margin-right: 7%;
-  }
-  ul {
-    li {
-      list-style: none;
-      color: white;
-      @media (min-width: 992px) {
-        font-size: 1rem;
-      }
-    }
-  }
-  a {
-    color: white;
-    &:hover {
-      color: #ff6f61;
-    }
+const FooterLink = styled(Link)`
+  color: white;
+  &:hover {
+    color: #ff6f61;
   }
 `;
 
