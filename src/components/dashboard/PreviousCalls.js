@@ -44,8 +44,8 @@ const PreviousCalls = ({ userId }) => {
   return (
     <>
       <TableHeader style={{ display: 'flex' }}>
-        <div style={{ marginLeft: '2%' }}>Contact</div>
-        <div>Transcripts </div>
+        <div style={{ marginLeft: '2%', fontSize: '1.5rem' }}>Contact</div>
+        <div style={{ fontSize: '1.5rem' }}>Transcripts </div>
         <DeepgramLink
           href='https://www.deepgram.com'
           target='_blank'
