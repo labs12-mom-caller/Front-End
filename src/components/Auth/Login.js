@@ -177,7 +177,7 @@ const Header = styled.div`
   align-items: center;
   width: 75%;
   p {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     text-align: center;
   }
 `;
