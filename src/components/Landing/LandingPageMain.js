@@ -58,8 +58,12 @@ const LandingPageMain = () => {
             <button type='button' onClick={() => navigate(`/login`)}>
               Login
             </button>
-            <button type='button' onClick={() => navigate(`/signup`)}>
-              Signup
+            <button
+              type='button'
+              className='headerSignup'
+              onClick={() => navigate(`/signup`)}
+            >
+              Sign up
             </button>
           </div>
         </header>
@@ -72,12 +76,12 @@ const LandingPageMain = () => {
               <p>
                 Stay Connected
                 <br />
-                To your loved ones
+                With your loved ones
                 <br />
               </p>
             </div>
-            <button type='button' onClick={() => navigate(`/login`)}>
-              Get Started
+            <button type='button' onClick={() => navigate(`/signup`)}>
+              Sign up
             </button>
           </div>
           <div className='spacer'>
@@ -98,21 +102,21 @@ const LandingPageMain = () => {
           <div className='inner'>
             <header className='major'>
               <h2>
-                An easier way for you
+                An Easier Way For You
                 <br />
-                to stay connected
+                to Stay Connected
               </h2>
               <p>
                 ReCaller allows you to schedule phone calls with the people you
-                care about
+                care about.
               </p>
               <p>
-                Call recordings and transcripts allow you to never forget
-                important details
+                Call recordings and transcripts enables you to always remember
+                important details.
               </p>
               <p>
                 Create an account, tell us who you want to call, let us know
-                when, stay connected
+                when, stay connected.
               </p>
             </header>
             <div className='sectionImg'>
@@ -126,8 +130,8 @@ const LandingPageMain = () => {
         <section id='two' className='wrapper style2'>
           <div className='inner'>
             <header className='major'>
-              <h2>App Features</h2>
-              <p>create a personal account for secure login</p>
+              <h2>ReCaller Features</h2>
+              <p>Create a personal account for secure login</p>
               <p>Unlimited contacts</p>
               <p>Transcripts of all your conversations</p>
               <p>Recordings of all phone calls</p>
@@ -146,11 +150,11 @@ const LandingPageMain = () => {
               <h2>Stop Wasting Time</h2>
               <p>
                 Spend less time worrying about making phone calls And more time
-                connecting
+                connecting.
               </p>
               <p>
-                Start calling the people you care about Reconnect with the ones
-                you love
+                Start calling the people you care about and reconnect with the
+                ones you love.
               </p>
               <button
                 type='button'
