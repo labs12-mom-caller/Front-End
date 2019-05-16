@@ -1,4 +1,3 @@
-/* eslint-disable no-inner-declarations */
 import React from 'react';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
@@ -12,7 +11,6 @@ import { firstNameOnly } from '../../app/utils';
 
 const ScheduledContacts = ({ user }) => {
   const [contacts, setContacts] = React.useState([]);
-  console.log(contacts);
   const { uid } = user;
   React.useEffect(() => {
     const fetchData = async () => {
