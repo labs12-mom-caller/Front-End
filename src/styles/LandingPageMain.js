@@ -122,20 +122,51 @@ footer {
   justify-content: space-around;
   opacity: 0;
   margin: 1rem;
-  width: 30%;
+  width: 25%;
 
   @media (max-width: 465px) {
-    width: 200px;
     justify-content: space-evenly;
   }
+  
+  @media (max-width: 737px) {
+    width: 46%;
+  }
+
+
 
   button {
     background: none;
     border: none;
     padding: 1rem;
 
-    @media (max-width: 465px) {
+    ${'' /* @media (max-width: 465px) {
       padding: 5px;
+    } */}
+  }
+
+  .headerSignup {
+    background-color: #FF6F61;
+    border: none;
+    height: 43px;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 20px;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    padding: 1.5rem 2rem;
+    font-size: 1.4rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: Roboto, Arial, Helvetica;
+  &:hover {
+    background-color: #ffffff;
+    color: #FF6F61;
+    transition: all 0.4s ease;
+  }
+
+  @media (max-width: 670px) {
+    padding: 0.3rem 1rem;
   }
   }
 }
@@ -289,6 +320,7 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
   flex-wrap: wrap;
 }
 
@@ -313,9 +345,8 @@ footer {
   margin-bottom: 3rem;
   font-size: 2.4rem;
   font-weight: 600;
-  text-align: center;
+  text-align: left;
   border-bottom: 1px solid #083D77;
-  max-width: 50rem;
   margin: 0 auto;
 }
 .style1 p {
@@ -323,15 +354,13 @@ footer {
   font-size: 3rem;
   font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 800;
-  letter-spacing: 3.6px;
-  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  ${'' /* text-transform: uppercase; */}
   padding: 2rem 3rem;
-  margin-bottom: 3rem;
   font-size: 1.6rem;
   font-weight: normal;
-  text-align: center;
+  text-align: left;
   max-width: 60rem;
-  margin: 0 auto;
 }
 .style1 .sectionImg {
   width: 45%;
@@ -353,7 +382,9 @@ footer {
 .style2 {
   width: 100%;
   background-color: white;
+  color: #083D77;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
@@ -368,24 +399,23 @@ footer {
   margin-bottom: 3rem;
   font-size: 2.4rem;
   font-weight: 600;
-  text-align: center;
+  text-align: left;
   border-bottom: 1px solid #2e3842;
-  max-width: 50rem;
   margin: 0 auto;
+
+
 }
 .style2 p {
   color: #627D89;
   font-size: 3rem;
   font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 800;
-  letter-spacing: 3.6px;
-  text-transform: uppercase;
+  letter-spacing: 1.5px;
   padding: 2rem 3rem;
-  margin-bottom: 3rem;
   font-size: 1.6rem;
   font-weight: normal;
+  text-align: left;
   max-width: 60rem;
-  margin: 0 auto;
 }
 .style2 .sectionImg {
   width: 45%;
@@ -419,7 +449,7 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   margin-bottom: 10rem;
 }
 .style3 h2 {
@@ -433,26 +463,25 @@ footer {
   margin-bottom: 3rem;
   font-size: 2.4rem;
   font-weight: 600;
-  text-align: center;
+  text-align: left;
   border-bottom: 1px solid #FDCEC6;
-  max-width: 50rem;
   margin: 0 auto;
   padding-bottom: 4rem;
+
+
 }
 .style3 p {
   color: #627D89;
   font-size: 3rem;
   font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 800;
-  letter-spacing: 3.6px;
-  text-transform: uppercase;
+  letter-spacing: 1.5px;
   padding: 2rem 3rem;
   margin-bottom: 3rem;
   font-size: 1.6rem;
   font-weight: normal;
-  text-align: center;
+  text-align: left;
   max-width: 60rem;
-  margin: 0 auto;
 }
 .style3 .button {
   margin-top: 2rem;
@@ -464,20 +493,23 @@ footer {
 .style3 img {
   width: 100%;
   text-align: center;
-  margin: 2rem auto;
+  margin: 4rem auto;
 }
 
 .wrapper {
   padding-top: 10rem;
   z-index: 0;
-  text-align: center;
+  text-align: flex-start;
   margin-bottom: 4rem;
 }
 .wrapper .major {
   display: flex;
   justify-content: center;
-  align-items: center;
   flex-direction: column;
+
+  button {
+    align-self: center;
+  }
 }
 .wrapper h2 {
   font-size: 3rem;
