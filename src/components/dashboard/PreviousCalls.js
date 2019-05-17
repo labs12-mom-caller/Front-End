@@ -43,37 +43,26 @@ const PreviousCalls = ({ userId }) => {
   if (calls.empty) return <p>No Calls Available...</p>;
   return (
     <>
-      <TableHeader style={{ display: 'flex' }}>
-        <div style={{ marginLeft: '2%', fontSize: '1.5rem' }}>Contact</div>
-        <div style={{ fontSize: '1.5rem' }}>Transcripts </div>
-        <DeepgramLink
-          href='https://www.deepgram.com'
-          target='_blank'
-          style={{ cursor: 'alias', opacity: '0.6' }}
-        >
+      <TableHeader>
+        <div>Contact</div>
+        <div>Transcripts </div>
+        <DeepgramLink href='https://www.deepgram.com' target='_blank'>
           <DeepgramImg src={deepgram} alt='Deepgram logo' />
         </DeepgramLink>
       </TableHeader>
       {calls &&
         calls.map(call => (
-          <Card>
-            <Link
-              to={`/prev-calls/${userId}/${call.id}`}
-              style={{ inherit: 'all' }}
-              key={call.id}
-            >
+          <Card key={call.id}>
+            <Link to={`/prev-calls/${userId}/${call.id}`} key={call.id}>
               <PrevCallsWrapper>
                 <User>
-                  <h3 className='prevHeader'>
-                    {firstNameOnly(call.user2.displayName)}
-                  </h3>
+                  <h3>{firstNameOnly(call.user2.displayName)}</h3>
                   <Img
                     src={
                       call.user2.photoUrl ||
                       'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
                     }
-                    alt='temp holder'
-                    className='user2Img'
+                    alt={call.user2.displayName}
                   />
                 </User>
                 <Info>
@@ -108,10 +97,12 @@ const TableHeader = styled.div`
   background-color: #cecece;
   color: #7d7d7d;
   font-family: Roboto;
-  font-size: 0.9rem;
+  font-size: 1.5rem;
   font-weight: 400;
   margin-bottom: 20px;
   width: 100%;
+  padding: 0 2%;
+  align-items: center;
 `;
 const Info = styled.div`
   display: flex;
@@ -182,7 +173,7 @@ const DeepgramLink = styled.a`
 `;
 const DeepgramImg = styled.img`
   height: 10px;
-  align-self: flex-end;
+  opacity: 0.6;
   @media (max-width: 1010px) {
     height: 10px;
   @media only screen and (max-width: 1010px) {
