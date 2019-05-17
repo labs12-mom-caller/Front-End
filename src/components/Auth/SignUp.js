@@ -32,12 +32,14 @@ const SignUp = () => {
     <Wrapper>
       <Header>
         <h1>ReCaller</h1>
-        <p>
-          Never forget to call your loved ones by creating a new ReCall, which
-          will automatically call both you and a person of your choosing, and
-          record the call for future review.
-        </p>
-        <p>Get started by letting us know your information below</p>
+        <div className='headerPs'>
+          <p>
+            Never forget to call your loved ones by creating a new ReCall, which
+            will automatically call both you and a person of your choosing, and
+            record the call for future review.
+          </p>
+          <p>Get started by letting us know your information below</p>
+        </div>
       </Header>
       <Formik
         initialValues={{
@@ -220,8 +222,15 @@ const Header = styled.div`
   justify-content: center;
   align-items: center;
   width: 68%;
+
+  .headerPs {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   p {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     text-align: left;
   }
 `;

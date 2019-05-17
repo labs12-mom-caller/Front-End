@@ -35,18 +35,15 @@ export const CustomStripeBtn = styled(StripeCheckout)`
 
 export const Container = styled.div`
   display: flex;
-  height: 80vh;
   flex-direction: row;
   align-items: center;
   margin: 0% auto;
 
   @media (max-width: 993px) {
-    height: 75vh;
     min-height: 60%;
     flex-direction: row;
   }
   @media (max-width: 600px) {
-    height: 60vh;
     min-height: 60%;
   }
 `;
@@ -65,7 +62,7 @@ export const Scheduler = styled.div`
   align-items: center;
   border: 1px solid darkgrey;
   max-height: 80%;
-  box-shadow: 1px 1px 15px;
+  box-shadow: 0px 0px 12px #00000061;
   margin: 2% auto;
 
   .heading {
@@ -83,6 +80,7 @@ export const Scheduler = styled.div`
   .info {
     font-size: 2rem;
     font-weight: 300;
+    text-align: left;
   }
   p {
     margin: 5% auto;
@@ -183,11 +181,14 @@ export const Scheduler = styled.div`
 
       label {
         margin-bottom: 4%;
+        font-size: 2rem;
       }
     }
+
     label {
       margin-right: 10px;
     }
+
     select {
       font-size: 1.5rem;
 
@@ -202,6 +203,7 @@ export const Scheduler = styled.div`
     }
   }
   .submitBtn {
+    cursor: pointer;
     background-color: #ff6f61;
     color: white;
     border-radius: 5px;
@@ -210,10 +212,10 @@ export const Scheduler = styled.div`
     height: 30px;
     font-weight: bold;
     text-decoration: none;
-    border: none;
+    border: 1px solid #ff6f61;
     &:hover {
       background: white;
-      color: ${styles.colors.mainBlue};
+      color: #ff6f61;
     }
     @media (max-width: 768px) {
       font-size: 1.3rem;
@@ -233,6 +235,7 @@ export const Scheduler = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 90%;
   }
 
   h2 {
@@ -261,8 +264,22 @@ export const Scheduler = styled.div`
       padding: 20px;
       font-weight: 300;
       max-width: 600px;
-      /* background: ; */
     }
+  }
+
+  .updateForm {
+    width: 40%;
+
+    select {
+      margin: 1rem auto;
+    }
+  }
+
+  .updateSelects {
+    padding: 20px;
+  }
+
+  .updateChooseTime {
   }
 
   .timezone-select {
