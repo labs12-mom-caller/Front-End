@@ -3,11 +3,8 @@ import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import axios from 'axios';
-
 import Loader from 'react-loader-spinner';
-
 import { Scheduler, CustomStripeBtn, Container } from '../styles/Scheduler';
-
 import { db } from '../firebase';
 
 const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {

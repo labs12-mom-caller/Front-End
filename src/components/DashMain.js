@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { navigate } from '@reach/router';
+import { navigate, Link } from '@reach/router';
 import styled from 'styled-components';
 import ModalPhoneNumber from './ModalPhoneNumber';
 import PreviousCalls from './dashboard/PreviousCalls';
@@ -14,7 +14,9 @@ const DashMain = ({ user }) => {
     <Container>
       <Aside>
         <User>
-          <Img src={photoUrl} alt={displayName} />
+          <Link to={`/account/${user.uid}`}>
+            <Img src={photoUrl} alt={displayName} />
+          </Link>
           <UserInfo>
             <H3>{displayName}</H3>
             <P>{user.phoneNumber && formatPhoneNumber(user.phoneNumber)}</P>

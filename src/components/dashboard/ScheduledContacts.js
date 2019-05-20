@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { Link } from '@reach/router';
-import { FaEllipsisV } from 'react-icons/fa';
+import { FaUserLock, FaUserEdit } from 'react-icons/fa';
 import { db } from '../../firebase';
 
 import { firstNameOnly } from '../../app/utils';
@@ -19,12 +19,11 @@ const ScheduledContacts = ({ user }) => {
           .collection('contacts')
           .where('user1', '==', db.doc(`users/${uid}`))
           .get();
-        userContacts.forEach(async doc => {
+
+        const user1Results = await userContacts.docs.map(async doc => {
           try {
-            const user2Snap = await db
-              .doc(`users/${doc.data().user2.id}`)
-              .get();
-            const contact = {
+            const user2Snap = await doc.data().user2.get();
+            return {
               user2: {
                 ...user2Snap.data(),
                 id: user2Snap.id,
@@ -34,11 +33,47 @@ const ScheduledContacts = ({ user }) => {
               time_zone: doc.data().timezone,
               id: doc.id,
             };
-            setContacts(contacts => [...contacts, contact]);
           } catch (err) {
             console.log(err);
           }
         });
+
+        const user2Contacts = await db
+          .collection('contacts')
+          .where('user2', '==', db.doc(`users/${uid}`))
+          .get();
+
+        const user2Results = await user2Contacts.docs.map(async doc => {
+          try {
+            const user1Snap = await doc.data().user1.get();
+            return {
+              user1: {
+                ...user1Snap.data(),
+                id: user1Snap.id,
+              },
+              call_frequency: doc.data().call_frequency,
+              next_call: doc.data().next_call,
+              time_zone: doc.data().timezone,
+              id: doc.id,
+            };
+          } catch (err) {
+            console.log(err);
+          }
+        });
+
+        const mergedResults = [...user1Results, ...user2Results];
+
+        const results = await Promise.all(mergedResults);
+
+        console.log(results);
+
+        results.sort((a, b) => {
+          return (
+            moment(a.next_call, 'x').utc() - moment(b.next_call, 'x').utc()
+          );
+        });
+
+        setContacts(contacts => results);
       } catch (err) {
         console.log(err);
       }
@@ -58,7 +93,11 @@ const ScheduledContacts = ({ user }) => {
             <Contact key={c.id}>
               <ContactLink to={`/contact/${c.id}`} key={c.id}>
                 <LinkWrapper>
-                  <Display>{firstNameOnly(c.user2.displayName)}</Display>
+                  <Display>
+                    {c.user1
+                      ? firstNameOnly(c.user1.displayName)
+                      : firstNameOnly(c.user2.displayName)}
+                  </Display>
                   <Display>
                     {moment(c.next_call, 'X')
                       .tz(c.time_zone)
@@ -70,10 +109,8 @@ const ScheduledContacts = ({ user }) => {
                       .format(`h:mm A`)}
                   </Display>
                 </LinkWrapper>
+                {c.user1 ? <UserLock /> : <UserEdit />}
               </ContactLink>
-              <HotdogWrapper>
-                <Hotdog />
-              </HotdogWrapper>
             </Contact>
           );
         })}
@@ -129,11 +166,23 @@ const Display = styled.div`
   font-family: Roboto;
 `;
 
-const Hotdog = styled(FaEllipsisV)`
-  width: 6px;
+const UserLock = styled(FaUserLock)`
+  width: 25px;
   font-family: Roboto;
   color: #7d7d7d;
-  height: 19px;
+  height: 25px;
+
+  &:hover {
+    color: #ff6f61;
+    cursor: pointer;
+  }
+`;
+
+const UserEdit = styled(FaUserEdit)`
+  width: 25px;
+  font-family: Roboto;
+  color: #7d7d7d;
+  height: 25px;
 
   &:hover {
     color: #ff6f61;
