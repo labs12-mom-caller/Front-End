@@ -76,7 +76,7 @@ const UpdatePaidCall = ({ contact }) => {
         <form className='updateForm' onSubmit={handleSubmit}>
           <div className='updateSelects'>
             <div className='chooseDayWeek'>
-              <label htmlFor='day'>Choose a day of the week</label>
+              <label htmlFor='day'>Day of the week</label>
               <select id='day' value={time.day} onChange={handleChange}>
                 <option>Sunday</option>
                 <option>Monday</option>
@@ -159,15 +159,3 @@ UpdatePaidCall.propTypes = {
 };
 
 export default UpdatePaidCall;
-
-const UpdateCall = styled.div`
-  border: 2px solid red;
-
-  .updateForm {
-    border: 2px solid purple;
-    display: flex;
-    flex-direction: column;
-    align-items: baseline;
-    justify-content: space-around;
-  }
-`;

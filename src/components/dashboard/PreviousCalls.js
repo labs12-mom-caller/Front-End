@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import moment from 'moment-timezone';
 import { Link } from '@reach/router';
 import { db } from '../../firebase';
-import { firstNameOnly } from '../../app/utils';
+import { firstNameOnly, limitChars } from '../../app/utils';
 import deepgram from '../../assets/images/deepgram-logo.svg';
 
 const PreviousCalls = ({ userId }) => {
@@ -71,11 +71,16 @@ const PreviousCalls = ({ userId }) => {
                   </Date>
                   <Transcript>
                     {call.deepgram &&
-                      call.deepgram.results.channels[0].alternatives[0]
-                        .transcript &&
-                      call.deepgram.results.channels[0].alternatives[0]
-                        .transcript}
+                      limitChars(
+                        call.deepgram.results.channels[0].alternatives[0]
+                          .transcript,
+                      ) &&
+                      limitChars(
+                        call.deepgram.results.channels[0].alternatives[0]
+                          .transcript,
+                      )}
                   </Transcript>
+                  <p className='read-more'>Click to read more</p>
                 </Info>
               </PrevCallsWrapper>
             </Link>
@@ -107,6 +112,7 @@ const TableHeader = styled.div`
 const Info = styled.div`
   display: flex;
   flex-direction: column;
+  margin: 1rem;
   margin-left: 20px;
 `;
 const Transcript = styled.p`
@@ -131,10 +137,15 @@ const User = styled.div`
 `;
 const Img = styled.img`
   border-radius: 50%;
-  width: 90px;
+  width: 9rem;
+  height: 9rem;
   padding: 5px;
   margin-top: 5px;
-  height: 90px;
+
+  @media (max-width: 445px) {
+    width: 6rem;
+    height: 6rem;
+  }
 `;
 const Date = styled.h3`
   font-family: 'Roboto';
@@ -163,6 +174,10 @@ const Card = styled.div`
   &:nth-child(2) {
     margin-top: 0;
     margin-bottom: 15px;
+  }
+
+  .read-more {
+    margin-top: 1rem;
   }
 `;
 const DeepgramLink = styled.a`

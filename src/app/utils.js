@@ -115,3 +115,10 @@ export function formatPhoneNumber(number) {
   phoneNumber.join('');
   return phoneNumber;
 }
+
+export function limitChars(string) {
+  if (string.length > 120) {
+    return `${string.substring(0, 120)}...`;
+  }
+  return string;
+}

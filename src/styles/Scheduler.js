@@ -114,7 +114,7 @@ export const Scheduler = styled.div`
     @media (max-width: 600px) {
       display: flex;
       flex-direction: column;
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       font-weight: 300;
 
       label {
@@ -145,7 +145,7 @@ export const Scheduler = styled.div`
     @media (max-width: 600px) {
       display: flex;
       flex-direction: row;
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       font-weight: 300;
     }
     label {
@@ -165,6 +165,7 @@ export const Scheduler = styled.div`
     margin-bottom: 5%;
     font-size: 1.6rem;
     text-transform: capitalize;
+
     @media (max-width: 992px) {
       width: 95%;
       font-size: 2rem;
@@ -268,7 +269,7 @@ export const Scheduler = styled.div`
   }
 
   .updateForm {
-    width: 40%;
+    width: 60%;
 
     select {
       margin: 1rem auto;
@@ -276,10 +277,10 @@ export const Scheduler = styled.div`
   }
 
   .updateSelects {
-    padding: 20px;
-  }
-
-  .updateChooseTime {
+    display: flex;
+    width: 59%;
+    flex-direction: column;
+    align-items: center;
   }
 
   .timezone-select {
