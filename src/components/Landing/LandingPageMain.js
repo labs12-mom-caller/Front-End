@@ -151,7 +151,7 @@ const LandingPageMain = () => {
               <h2>Free or Paid</h2>
               <p>
                 Use ReCaller for free and talk up to 10 minutes on randomly
-                schduled phone calls.
+                scheduled phone calls.
               </p>
               <p>
                 For a $2.50/month talk up to 30 minutes on a date and time
