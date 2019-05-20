@@ -122,7 +122,7 @@ exports.handler = async (req, res, firestore) => {
                   });
                   console.log('Call information updated!');
                 }
-                console.log('Updated!');
+                console.log('Call completed');
               }
               console.log(`Added call document with ID: ${ref.id}`);
             })
