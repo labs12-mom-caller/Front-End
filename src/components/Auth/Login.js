@@ -67,8 +67,9 @@ const Login = () => {
         </label>
         <input
           style={{ width: '82%' }}
-          type='text'
+          type='email'
           id='email'
+          data-testid='email'
           onChange={e => setEmail(e.target.value)}
           value={email}
           placeholder='Email Address'
@@ -79,6 +80,7 @@ const Login = () => {
         <input
           style={{ width: '82%' }}
           type='password'
+          id='password'
           onChange={e => setPassword(e.target.value)}
           value={password}
           placeholder='Password'
@@ -86,7 +88,11 @@ const Login = () => {
         <SignupButton type='button' onClick={handleSignIn}>
           Sign In
         </SignupButton>
-        <GoogleButton type='button' onClick={handleGoogleSignIn}>
+        <GoogleButton
+          type='button'
+          data-testid='button'
+          onClick={handleGoogleSignIn}
+        >
           <img src={logo} alt='Google Logo' />
           Sign In with Google
         </GoogleButton>
