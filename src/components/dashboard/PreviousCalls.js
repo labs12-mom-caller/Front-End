@@ -137,10 +137,15 @@ const User = styled.div`
 `;
 const Img = styled.img`
   border-radius: 50%;
-  width: 90px;
+  width: 9rem;
+  height: 9rem;
   padding: 5px;
   margin-top: 5px;
-  height: 90px;
+
+  @media (max-width: 445px) {
+    width: 6rem;
+    height: 6rem;
+  }
 `;
 const Date = styled.h3`
   font-family: 'Roboto';
