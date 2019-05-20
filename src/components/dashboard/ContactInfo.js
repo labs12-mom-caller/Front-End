@@ -6,6 +6,7 @@ import { Card } from '../../styles/styledDefaultComponents/ContactInfo';
 import ScheduledBy from '../ContactInfo/ScheduledBy';
 import NextCall from '../ContactInfo/NextCall';
 import PreviousCallsWithContact from '../ContactInfo/PreviousCallsWithContact';
+import Loading from '../Loading';
 
 const ContactInfo = ({ contactId, user }) => {
   const [contact, setContact] = useState({});
@@ -47,7 +48,6 @@ const ContactInfo = ({ contactId, user }) => {
     fetchData();
   }, [contactId]);
 
-  console.log(calls);
   return contact.fetched ? (
     <Container>
       <ScheduledByContainer>
@@ -67,7 +67,7 @@ const ContactInfo = ({ contactId, user }) => {
       </PreviousCallsWithContactContainer>
     </Container>
   ) : (
-    <p>Loading...</p>
+    <Loading />
   );
 };
 
