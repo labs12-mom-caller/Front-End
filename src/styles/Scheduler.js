@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import StripeCheckout from 'react-stripe-checkout';
-import { styles } from './styledDefaultComponents';
 
 export const CustomStripeBtn = styled(StripeCheckout)`
   background: linear-gradient(rgb(40, 160, 229), rgb(1, 94, 148));
