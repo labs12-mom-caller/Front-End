@@ -2,11 +2,8 @@ import React from 'react';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
 import { Link } from '@reach/router';
-import { FaEllipsisV } from 'react-icons/fa';
 import { db } from '../../firebase';
-
 import { firstNameOnly } from '../../app/utils';
 
 const ScheduledContacts = ({ user }) => {
@@ -71,9 +68,6 @@ const ScheduledContacts = ({ user }) => {
                   </Display>
                 </LinkWrapper>
               </ContactLink>
-              <HotdogWrapper>
-                <Hotdog />
-              </HotdogWrapper>
             </Contact>
           );
         })}
@@ -99,6 +93,12 @@ const Name = styled.div`
   width: 24%;
   font-size: 1.6rem;
   padding: 2px;
+  margin-left: 1rem;
+  margin-right: 5.5rem;
+
+  @media (max-width: 1025px) {
+    margin-right: 8rem;
+  }
 `;
 
 const Upcoming = styled.div`
@@ -114,7 +114,7 @@ const Contact = styled.div`
 
 const ContactLink = styled(Link)`
   color: #7d7d7d;
-  width: 90%;
+  width: 100%;
 `;
 
 const LinkWrapper = styled.div`
@@ -127,24 +127,6 @@ const Display = styled.div`
   width: 30%;
   font-size: 1.3rem;
   font-family: Roboto;
-`;
-
-const Hotdog = styled(FaEllipsisV)`
-  width: 6px;
-  font-family: Roboto;
-  color: #7d7d7d;
-  height: 19px;
-
-  &:hover {
-    color: #ff6f61;
-    cursor: pointer;
-  }
-`;
-
-const HotdogWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 export default ScheduledContacts;

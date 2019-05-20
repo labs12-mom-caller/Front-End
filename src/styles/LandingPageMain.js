@@ -428,7 +428,7 @@ footer {
 
 #three .inner {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   justify-content: space-around;
   flex-wrap: wrap;
   margin-bottom: 3rem;
