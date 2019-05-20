@@ -159,15 +159,3 @@ UpdatePaidCall.propTypes = {
 };
 
 export default UpdatePaidCall;
-
-const UpdateCall = styled.div`
-  border: 2px solid red;
-
-  .updateForm {
-    border: 2px solid purple;
-    display: flex;
-    flex-direction: column;
-    align-items: baseline;
-    justify-content: space-around;
-  }
-`;

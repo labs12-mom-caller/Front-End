@@ -418,14 +418,12 @@ footer {
   max-width: 60rem;
 }
 .style2 .sectionImg {
-  width: 45%;
+  width: 54.5%;
   margin: 0 auto;
 }
 .style2 img {
   width: 100%;
-  text-align: center;
   margin: 0 auto;
-  border-radius: 10px;
 }
 
 #three .inner {

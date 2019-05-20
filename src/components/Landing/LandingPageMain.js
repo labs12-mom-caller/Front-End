@@ -5,6 +5,7 @@ import { LandingPageWrapper } from '../../styles/LandingPageMain';
 import girlOnPhone from '../../assets/svg/undrawGirlOnPhone.svg';
 import phoneRecording from '../../assets/svg/undrawRecording.svg';
 import guyOnPhone from '../../assets/svg/undrawGuyCallingPhone.svg';
+import wallet from '../../assets/svg/undrawWallet.svg';
 
 const LandingPageMain = () => {
   const rootNode = useRef(null);
@@ -138,8 +139,28 @@ const LandingPageMain = () => {
               <p>Automatic recurring phone calls monthly/bi-weekly</p>
             </header>
             <ul className='sectionImg'>
-              <img src={phoneRecording} alt='phoneRecording' />
+              <img src={phoneRecording} alt='phone recording' />
             </ul>
+          </div>
+        </section>
+
+        {/* Free vs Paid */}
+        <section id='one' className='wrapper style1'>
+          <div className='inner'>
+            <header className='major'>
+              <h2>Free or Paid</h2>
+              <p>
+                Use ReCaller for free and talk up to 10 minutes on randomly
+                schduled phone calls.
+              </p>
+              <p>
+                For a $2.50/month talk up to 30 minutes on a date and time
+                specified by you.
+              </p>
+            </header>
+            <div className='sectionImg'>
+              <img src={wallet} alt='wallet' />
+            </div>
           </div>
         </section>
 
@@ -166,7 +187,7 @@ const LandingPageMain = () => {
             </header>
 
             <ul className='sectionImg'>
-              <img src={guyOnPhone} alt='' />
+              <img src={guyOnPhone} alt='guy on phone' />
             </ul>
           </div>
         </section>

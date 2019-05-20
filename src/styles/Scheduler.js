@@ -283,9 +283,6 @@ export const Scheduler = styled.div`
     align-items: center;
   }
 
-  .updateChooseTime {
-  }
-
   .timezone-select {
     font-size: 18px;
     display: flex;
