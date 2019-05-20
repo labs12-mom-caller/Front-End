@@ -127,7 +127,7 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
     <Container>
       <Scheduler>
         <h2 className='heading'>Schedule a call</h2>
-        <p>
+        <p className='info'>
           ReCaller will only call you and your loved one at your selected time.
         </p>
         <div className='chooseDayWeek'>

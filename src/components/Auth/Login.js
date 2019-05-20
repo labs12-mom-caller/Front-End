@@ -68,6 +68,7 @@ const Login = () => {
         <input
           style={{ width: '82%' }}
           type='email'
+          type='text'
           id='email'
           data-testid='email'
           onChange={e => setEmail(e.target.value)}
@@ -78,7 +79,6 @@ const Login = () => {
           Your Password
         </label>
         <input
-          style={{ width: '82%' }}
           type='password'
           id='password'
           onChange={e => setPassword(e.target.value)}
@@ -146,6 +146,7 @@ const GoogleButton = styled.button`
   transition-property: background-color, box-shadow;
   transition-duration: 150ms;
   transition-timing-function: ease-in-out;
+  border: 1px solid #636578;
 `;
 const SignupButton = styled.button`
   height: 40px;
@@ -183,7 +184,7 @@ const Header = styled.div`
   align-items: center;
   width: 75%;
   p {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     text-align: center;
   }
 `;

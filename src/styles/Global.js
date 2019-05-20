@@ -147,6 +147,17 @@ table {
         display: flex;
         flex-direction: column;
     }
+
+    ::-webkit-media-controls {
+        width: inherit;
+        height: inherit;
+        position: relative;
+        display: flex !important;
+        align-items: flex-start;
+        justify-content: flex-end;
+        flex-direction: column;
+        border-radius: 0 !important;
+    }
 `;
 
 export default Global;

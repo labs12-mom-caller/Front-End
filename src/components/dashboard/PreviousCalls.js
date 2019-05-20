@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import moment from 'moment-timezone';
 import { Link } from '@reach/router';
 import { db } from '../../firebase';
-import { firstNameOnly } from '../../app/utils';
+import { firstNameOnly, limitChars } from '../../app/utils';
 import deepgram from '../../assets/images/deepgram-logo.svg';
 
 const PreviousCalls = ({ userId }) => {
@@ -43,37 +43,26 @@ const PreviousCalls = ({ userId }) => {
   if (calls.empty) return <p>No Calls Available...</p>;
   return (
     <>
-      <TableHeader style={{ display: 'flex' }}>
-        <div style={{ marginLeft: '2%', fontSize: '1.5rem' }}>Contact</div>
-        <div style={{ fontSize: '1.5rem' }}>Transcripts </div>
-        <DeepgramLink
-          href='https://www.deepgram.com'
-          target='_blank'
-          style={{ cursor: 'alias', opacity: '0.6' }}
-        >
+      <TableHeader>
+        <div>Contact</div>
+        <div>Transcripts </div>
+        <DeepgramLink href='https://www.deepgram.com' target='_blank'>
           <DeepgramImg src={deepgram} alt='Deepgram logo' />
         </DeepgramLink>
       </TableHeader>
       {calls &&
         calls.map(call => (
-          <Card>
-            <Link
-              to={`/prev-calls/${userId}/${call.id}`}
-              style={{ inherit: 'all' }}
-              key={call.id}
-            >
+          <Card key={call.id}>
+            <Link to={`/prev-calls/${userId}/${call.id}`} key={call.id}>
               <PrevCallsWrapper>
                 <User>
-                  <h3 className='prevHeader'>
-                    {firstNameOnly(call.user2.displayName)}
-                  </h3>
+                  <h3>{firstNameOnly(call.user2.displayName)}</h3>
                   <Img
                     src={
                       call.user2.photoUrl ||
                       'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
                     }
-                    alt='temp holder'
-                    className='user2Img'
+                    alt={call.user2.displayName}
                   />
                 </User>
                 <Info>
@@ -82,11 +71,16 @@ const PreviousCalls = ({ userId }) => {
                   </Date>
                   <Transcript>
                     {call.deepgram &&
-                      call.deepgram.results.channels[0].alternatives[0]
-                        .transcript &&
-                      call.deepgram.results.channels[0].alternatives[0]
-                        .transcript}
+                      limitChars(
+                        call.deepgram.results.channels[0].alternatives[0]
+                          .transcript,
+                      ) &&
+                      limitChars(
+                        call.deepgram.results.channels[0].alternatives[0]
+                          .transcript,
+                      )}
                   </Transcript>
+                  <p className='read-more'>Click to read more</p>
                 </Info>
               </PrevCallsWrapper>
             </Link>
@@ -108,14 +102,17 @@ const TableHeader = styled.div`
   background-color: #cecece;
   color: #7d7d7d;
   font-family: Roboto;
-  font-size: 0.9rem;
+  font-size: 1.5rem;
   font-weight: 400;
   margin-bottom: 20px;
   width: 100%;
+  padding: 0 2%;
+  align-items: center;
 `;
 const Info = styled.div`
   display: flex;
   flex-direction: column;
+  margin: 1rem;
   margin-left: 20px;
 `;
 const Transcript = styled.p`
@@ -140,10 +137,15 @@ const User = styled.div`
 `;
 const Img = styled.img`
   border-radius: 50%;
-  width: 90px;
+  width: 9rem;
+  height: 9rem;
   padding: 5px;
   margin-top: 5px;
-  height: 90px;
+
+  @media (max-width: 445px) {
+    width: 6rem;
+    height: 6rem;
+  }
 `;
 const Date = styled.h3`
   font-family: 'Roboto';
@@ -173,6 +175,10 @@ const Card = styled.div`
     margin-top: 0;
     margin-bottom: 15px;
   }
+
+  .read-more {
+    margin-top: 1rem;
+  }
 `;
 const DeepgramLink = styled.a`
   display: flex;
@@ -182,7 +188,7 @@ const DeepgramLink = styled.a`
 `;
 const DeepgramImg = styled.img`
   height: 10px;
-  align-self: flex-end;
+  opacity: 0.6;
   @media (max-width: 1010px) {
     height: 10px;
   @media only screen and (max-width: 1010px) {

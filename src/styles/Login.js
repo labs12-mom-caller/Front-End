@@ -19,7 +19,7 @@ export const Wrapper = styled.section`
 
   p {
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 300;
     line-height: 1.3;
     margin-top: 20px;

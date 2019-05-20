@@ -33,7 +33,7 @@ const NavbarPage = ({ user }) => {
         }
       >
         <li>
-          <BrandLink to={`/account/${user.uid}`}>Account</BrandLink>
+          <BrandLink to={`/account/${user.uid}`}>Update Account</BrandLink>
         </li>
         <li>
           <VL />
@@ -60,7 +60,7 @@ const Name = styled.h1`
   margin-left: 13px;
   padding: 5px;
   a {
-    color: #083d77;
+    color: #636578;
     font-family: 'Pacifico';
     font-size: 42px;
   }

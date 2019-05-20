@@ -4,7 +4,7 @@ import { styles } from './styledDefaultComponents';
 
 export const CustomStripeBtn = styled(StripeCheckout)`
   background: linear-gradient(rgb(40, 160, 229), rgb(1, 94, 148));
-  @media (min-width: 768px) {
+  @media (max-width: 993px) {
     height: 50px !important;
 
     span {
@@ -13,38 +13,46 @@ export const CustomStripeBtn = styled(StripeCheckout)`
       box-shadow: none !important;
     }
   }
-  @media (min-width: 992px) {
-    max-height: 40px !important;
-    /* width: 50% !important; */
+  @media (max-width: 992px) {
+    max-height: 30px !important;
+    font-size: 1.5rem;
+    width: 127px;
+
     span {
-      font-size: 1.5rem !important;
+      font-size: 1.3rem !important;
+    }
+  }
+  @media (max-width: 400px) {
+    max-height: 30px !important;
+    width: 95px;
+    font-size: 1.1rem;
+
+    span {
+      font-size: 1rem !important;
     }
   }
 `;
 
 export const Container = styled.div`
   display: flex;
-  height: 100%;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  margin-top: 15%;
-  @media (min-width: 768px) {
-    margin-top: 0;
+  margin: 0% auto;
+
+  @media (max-width: 993px) {
+    min-height: 60%;
+    flex-direction: row;
   }
-  @media (min-width: 992px) {
-    margin-top: 0;
+  @media (max-width: 600px) {
+    min-height: 60%;
   }
-  @media (min-width: 993px) {
-    margin-top: 0;
-  }
-  /* @media (max-width: 993px) {
-    margin-top: 0;
-  } */
 `;
 
 export const Scheduler = styled.div`
+  width: 70%;
+  padding: 2%;
   width: 95%;
-  padding: 10px;
+  /* padding: 10px; */
   margin: 0 auto;
   margin-bottom: 20px;
   font-family: Roboto, helvetica;
@@ -54,28 +62,25 @@ export const Scheduler = styled.div`
   align-items: center;
   border: 1px solid darkgrey;
   max-height: 80%;
-  box-shadow: 1px 1px 15px;
-  margin-top: 5%;
-  @media (min-width: 768px) {
-    width: 80%;
-  }
-  @media (min-width: 992px) {
-    width: 70%;
-  }
-  @media (max-width: 993px) {
-    width: 80%;
-    font-size: 1.5rem;
-    margin-top: 3%;
-    min-height: 100%;
-  }
+  box-shadow: 0px 0px 12px #00000061;
+  margin: 2% auto;
+
   .heading {
-    font-size: 3rem;
-    @media (min-width: 768px) {
-      font-size: 3.5rem;
+    font-size: 2rem;
+    font-weight: 300;
+
+    @media (max-width: 992px) {
+      width: 95%;
+      font-size: 2rem;
+      padding: 5%;
+      font-size: 1.8rem;
+      font-weight: 400;
     }
-    @media (min-width: 992px) {
-      font-size: 3.8rem;
-    }
+  }
+  .info {
+    font-size: 2rem;
+    font-weight: 300;
+    text-align: left;
   }
   p {
     margin: 5% auto;
@@ -93,105 +98,137 @@ export const Scheduler = styled.div`
     align-items: center;
     justify-content: center;
     font-size: 1.7rem;
-    /* border: 1px solid red; */
     width: 80%;
-    margin-bottom: 5%;
-    margin-top: 10%;
-    @media (min-width: 768px) {
-      font-size: 2.5rem;
-    }
-    @media (min-width: 992px) {
+    margin-bottom: 2%;
+    margin-top: 2%;
+
+    @media (max-width: 992px) {
+      flex-direction: column;
       width: 95%;
-      font-size: 2.5rem;
+      font-size: 2rem;
+
+      label {
+        margin-bottom: 3%;
+      }
+    }
+    @media (max-width: 600px) {
+      display: flex;
+      flex-direction: column;
+      font-size: 1.5rem;
+      font-weight: 300;
+
+      label {
+        margin-bottom: 4%;
+      }
     }
     label {
       margin-right: 10px;
     }
     select {
       font-size: 1.5rem;
-      @media (min-width: 768px) {
-        font-size: 2rem;
-      }
-      @media (min-width: 992px) {
-        font-size: 2rem;
-      }
     }
   }
   .chooseTime {
-    /* border: 1px solid purple; */
     display: flex;
     align-items: center;
     justify-content: center;
     width: 80%;
-    margin-bottom: 5%;
+    margin-bottom: 2%;
     font-size: 1.6rem;
-    @media (min-width: 768px) {
-      font-size: 2.5rem;
+
+    @media (max-width: 992px) {
+      display: flex;
+      flex-direction: row;
+      width: 95%;
+      font-size: 2rem;
     }
-    @media (min-width: 992px) {
-      font-size: 2.5rem;
+    @media (max-width: 600px) {
+      display: flex;
+      flex-direction: row;
+      font-size: 1.5rem;
+      font-weight: 300;
     }
     label {
       margin-right: 10px;
     }
     select {
-      margin-right: 10px;
       font-size: 1.5rem;
-      @media (min-width: 768px) {
-        font-size: 2rem;
-      }
-      @media (min-width: 992px) {
-        font-size: 2rem;
-      }
+      margin-right: 5px;
     }
   }
 
   .chooseTimezone {
-    /* border: 1px solid blue; */
     display: flex;
     align-items: center;
     justify-content: center;
     width: 80%;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
     font-size: 1.6rem;
     text-transform: capitalize;
-    @media (min-width: 768px) {
-      font-size: 2.5rem;
+
+    @media (max-width: 992px) {
+      width: 95%;
+      font-size: 2rem;
+      flex-direction: column;
+      label {
+        margin-bottom: 3%;
+      }
     }
-    @media (min-width: 992px) {
-      font-size: 2.5rem;
-      margin-bottom: 3%;
+    @media (max-width: 600px) {
+      display: flex;
+      flex-direction: column;
+      font-size: 1.3rem;
+      font-weight: 300;
+
+      label {
+        margin-bottom: 4%;
+        font-size: 2rem;
+      }
     }
+
     label {
       margin-right: 10px;
     }
+
     select {
       font-size: 1.5rem;
-      @media (min-width: 768px) {
+
+      @media (max-width: 992px) {
+        width: 95%;
         font-size: 2rem;
-      }
-      @media (min-width: 992px) {
-        font-size: 2rem;
-        margin-bottom: 2%;
+
+        select {
+          font-size: 2rem;
+        }
       }
     }
   }
   .submitBtn {
-    padding: 1.5%;
-    background-color: #3b78c6;
+    cursor: pointer;
+    background-color: #ff6f61;
     color: white;
     border-radius: 5px;
     margin-top: 2%;
     font-size: 1.4rem;
+    height: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    border: 1px solid #ff6f61;
     &:hover {
       background: white;
-      color: ${styles.colors.mainBlue};
+      color: #ff6f61;
     }
-    @media (min-width: 768px) {
-      font-size: 2.5rem;
+    @media (max-width: 768px) {
+      font-size: 1.3rem;
+      width: 90px;
     }
-    @media (min-width: 992px) {
-      font-size: 1.5rem;
+    @media (max-width: 992px) {
+      width: 128px;
+      font-size: 1.3rem;
+    }
+    @media (max-width: 400px) {
+      width: 95px;
+      font-size: 1.1rem;
     }
   }
 
@@ -199,6 +236,7 @@ export const Scheduler = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 90%;
   }
 
   h2 {
@@ -227,8 +265,22 @@ export const Scheduler = styled.div`
       padding: 20px;
       font-weight: 300;
       max-width: 600px;
-      /* background: ; */
     }
+  }
+
+  .updateForm {
+    width: 60%;
+
+    select {
+      margin: 1rem auto;
+    }
+  }
+
+  .updateSelects {
+    display: flex;
+    width: 59%;
+    flex-direction: column;
+    align-items: center;
   }
 
   .timezone-select {

@@ -15,10 +15,11 @@ function Choose({ user, userId }) {
       <Header>
         <p>
           Remembering to keep in touch with loved ones has never been easier!
-          Please enter contact&apos;s information below to schedule a call.
+          Please enter your loved one&apos;s information below to schedule a
+          call.
         </p>
         <p>
-          Your contact will receive an email letting them know an account has
+          Your loved one will receive an email letting them know an account has
           been created for them.
         </p>
       </Header>
@@ -134,7 +135,11 @@ function Choose({ user, userId }) {
               >
                 &nbsp;{errors.phoneNumber}&nbsp;
               </div>
-              <SignupButton type='submit' disabled={isSubmitting}>
+              <SignupButton
+                type='submit'
+                disabled={isSubmitting}
+                style={{ padding: '10px' }}
+              >
                 Choose a Plan
               </SignupButton>
             </Form>
@@ -211,7 +216,8 @@ const Header = styled.div`
   align-items: center;
   width: 68%;
   p {
-    font-size: 1.2rem;
-    text-align: center;
+    font-size: 2rem;
+    text-align: left;
+    line-height: 2.2rem;
   }
 `;

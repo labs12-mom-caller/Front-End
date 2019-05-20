@@ -5,6 +5,7 @@ import { LandingPageWrapper } from '../../styles/LandingPageMain';
 import girlOnPhone from '../../assets/svg/undrawGirlOnPhone.svg';
 import phoneRecording from '../../assets/svg/undrawRecording.svg';
 import guyOnPhone from '../../assets/svg/undrawGuyCallingPhone.svg';
+import wallet from '../../assets/svg/undrawWallet.svg';
 
 const LandingPageMain = () => {
   const rootNode = useRef(null);
@@ -58,8 +59,12 @@ const LandingPageMain = () => {
             <button type='button' onClick={() => navigate(`/login`)}>
               Login
             </button>
-            <button type='button' onClick={() => navigate(`/signup`)}>
-              Signup
+            <button
+              type='button'
+              className='headerSignup'
+              onClick={() => navigate(`/signup`)}
+            >
+              Sign up
             </button>
           </div>
         </header>
@@ -72,12 +77,12 @@ const LandingPageMain = () => {
               <p>
                 Stay Connected
                 <br />
-                To your loved ones
+                With your loved ones
                 <br />
               </p>
             </div>
-            <button type='button' onClick={() => navigate(`/login`)}>
-              Get Started
+            <button type='button' onClick={() => navigate(`/signup`)}>
+              Sign up
             </button>
           </div>
           <div className='spacer'>
@@ -98,21 +103,21 @@ const LandingPageMain = () => {
           <div className='inner'>
             <header className='major'>
               <h2>
-                An easier way for you
+                An Easier Way For You
                 <br />
-                to stay connected
+                to Stay Connected
               </h2>
               <p>
                 ReCaller allows you to schedule phone calls with the people you
-                care about
+                care about.
               </p>
               <p>
-                Call recordings and transcripts allow you to never forget
-                important details
+                Call recordings and transcripts enable you to always remember
+                important details.
               </p>
               <p>
                 Create an account, tell us who you want to call, let us know
-                when, stay connected
+                when, stay connected.
               </p>
             </header>
             <div className='sectionImg'>
@@ -126,16 +131,36 @@ const LandingPageMain = () => {
         <section id='two' className='wrapper style2'>
           <div className='inner'>
             <header className='major'>
-              <h2>App Features</h2>
-              <p>create a personal account for secure login</p>
+              <h2>ReCaller Features</h2>
+              <p>Create a personal account for secure login</p>
               <p>Unlimited contacts</p>
               <p>Transcripts of all your conversations</p>
               <p>Recordings of all phone calls</p>
               <p>Automatic recurring phone calls monthly/bi-weekly</p>
             </header>
             <ul className='sectionImg'>
-              <img src={phoneRecording} alt='phoneRecording' />
+              <img src={phoneRecording} alt='phone recording' />
             </ul>
+          </div>
+        </section>
+
+        {/* Free vs Paid */}
+        <section id='one' className='wrapper style1'>
+          <div className='inner'>
+            <header className='major'>
+              <h2>Free or Paid</h2>
+              <p>
+                Use ReCaller for free and talk up to 10 minutes on randomly
+                scheduled phone calls.
+              </p>
+              <p>
+                For a $2.50/month talk up to 30 minutes on a date and time
+                specified by you.
+              </p>
+            </header>
+            <div className='sectionImg'>
+              <img src={wallet} alt='wallet' />
+            </div>
           </div>
         </section>
 
@@ -146,11 +171,11 @@ const LandingPageMain = () => {
               <h2>Stop Wasting Time</h2>
               <p>
                 Spend less time worrying about making phone calls And more time
-                connecting
+                connecting.
               </p>
               <p>
-                Start calling the people you care about Reconnect with the ones
-                you love
+                Start calling the people you care about and reconnect with the
+                ones you love.
               </p>
               <button
                 type='button'
@@ -162,7 +187,7 @@ const LandingPageMain = () => {
             </header>
 
             <ul className='sectionImg'>
-              <img src={guyOnPhone} alt='' />
+              <img src={guyOnPhone} alt='guy on phone' />
             </ul>
           </div>
         </section>
