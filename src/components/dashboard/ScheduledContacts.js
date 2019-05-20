@@ -34,7 +34,7 @@ const ScheduledContacts = ({ user }) => {
               id: doc.id,
             };
           } catch (err) {
-            console.log(err);
+            return console.log(err);
           }
         });
 
@@ -57,7 +57,7 @@ const ScheduledContacts = ({ user }) => {
               id: doc.id,
             };
           } catch (err) {
-            console.log(err);
+            return console.log(err);
           }
         });
 
@@ -87,40 +87,42 @@ const ScheduledContacts = ({ user }) => {
         <Name>Name</Name>
         <Upcoming>Upcoming Call</Upcoming>
       </TableHeader>
-      {contacts &&
-        contacts.map(c => {
-          return (
-            <Contact key={c.id}>
-              <ContactLink to={`/contact/${c.id}`} key={c.id}>
-                <LinkWrapper>
-                  <Display>
-                    {c.user1
-                      ? firstNameOnly(c.user1.displayName)
-                      : firstNameOnly(c.user2.displayName)}
-                  </Display>
-                  <Display>
-                    {moment(c.next_call, 'X')
-                      .tz(c.time_zone)
-                      .format(`MMMM Do`)}
-                  </Display>
-                  <Display>
-                    {moment(c.next_call, 'X')
-                      .tz(c.time_zone)
-                      .format(`h:mm A`)}
-                  </Display>
-                </LinkWrapper>
-                {c.user1 ? <UserLock /> : <UserEdit />}
-              </ContactLink>
-            </Contact>
-          );
-        })}
+      <ContactsWrapper>
+        {contacts &&
+          contacts.map(c => {
+            return (
+              <Contact key={c.id}>
+                <ContactLink to={`/contact/${c.id}`} key={c.id}>
+                  <LinkWrapper>
+                    <Display>
+                      {c.user1
+                        ? firstNameOnly(c.user1.displayName)
+                        : firstNameOnly(c.user2.displayName)}
+                    </Display>
+                    <Display>
+                      {moment(c.next_call, 'X')
+                        .tz(c.time_zone)
+                        .format(`MMMM Do`)}
+                    </Display>
+                    <Display>
+                      {moment(c.next_call, 'X')
+                        .tz(c.time_zone)
+                        .format(`h:mm A`)}
+                    </Display>
+                    {c.user1 ? <UserLock /> : <UserEdit />}
+                  </LinkWrapper>
+                </ContactLink>
+              </Contact>
+            );
+          })}
+      </ContactsWrapper>
     </>
   );
 };
 
 const TableHeader = styled.div`
   display: flex;
-  padding: 5px;
+  padding: 5px 20px;
   align-items: center;
   height: 28px;
   border: 1px solid #cecece;
@@ -141,7 +143,7 @@ const Name = styled.div`
 const Upcoming = styled.div`
   width: 76%;
   font-size: 1.6rem;
-  padding: 2px;
+  padding: 2px 20px;
 `;
 
 const Contact = styled.div`
@@ -151,49 +153,62 @@ const Contact = styled.div`
 
 const ContactLink = styled(Link)`
   color: #7d7d7d;
-  width: 90%;
+  width: 100%;
+  transition: all .3s ease
+  &:hover {
+    color: #ff6f61;
+    &,
+    svg {
+      color: #ff6f61;
+    }
+  }
 `;
 
 const LinkWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
-  padding: 22px 16px;
+  align-items: center;
+  height: 60px;
+  padding: 0 20px;
 `;
 
 const Display = styled.div`
   width: 30%;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
+  font-weight: 600;
   font-family: Roboto;
 `;
 
 const UserLock = styled(FaUserLock)`
   width: 25px;
-  font-family: Roboto;
   color: #7d7d7d;
   height: 25px;
-
-  &:hover {
-    color: #ff6f61;
-    cursor: pointer;
-  }
+  transition: all 0.3s ease;
 `;
 
 const UserEdit = styled(FaUserEdit)`
   width: 25px;
-  font-family: Roboto;
   color: #7d7d7d;
   height: 25px;
-
-  &:hover {
-    color: #ff6f61;
-    cursor: pointer;
-  }
+  transition: all 0.3s ease;
 `;
 
-const HotdogWrapper = styled.div`
+const ContactsWrapper = styled.div`
+  overflow-x: auto;
+  overflow-y: scroll;
+  width: 100%;
+  height: 372px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+
+  ::-webkit-scrollbar {
+    appearance: none;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 10px;
+  }
 `;
 
 export default ScheduledContacts;
