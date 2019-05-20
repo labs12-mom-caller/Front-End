@@ -7,12 +7,6 @@ import { Link, navigate } from '@reach/router';
 import { logout } from '../app/utils';
 
 const NavbarPage = ({ user }) => {
-  const [show, setShow] = useState(false);
-
-  const toggleNav = () => {
-    setShow(!show);
-  };
-
   const logoutHandler = e => {
     e.preventDefault();
     window.localStorage.clear();
@@ -21,17 +15,11 @@ const NavbarPage = ({ user }) => {
   };
 
   return (
-    <Container className={show ? 'NavbarShow' : null}>
+    <Container>
       <Name>
         <BrandLink to='/'>ReCaller</BrandLink>
       </Name>
-      <Nav
-        className={
-          show
-            ? 'Navbar__Items Navbar__ToggleShow'
-            : 'Navbar__Items Navbar__Items--right'
-        }
-      >
+      <Nav>
         <li>
           <BrandLink to={`/account/${user.uid}`}>Update Account</BrandLink>
         </li>
@@ -44,12 +32,6 @@ const NavbarPage = ({ user }) => {
           </BrandLink>
         </li>
       </Nav>
-      <Hamburger
-        onClick={() => toggleNav()}
-        className='NavbarLink NavbarLink-toggle'
-      >
-        <i className='fas fa-bars' />
-      </Hamburger>
     </Container>
   );
 };
@@ -62,7 +44,7 @@ const Name = styled.h1`
   a {
     color: #636578;
     font-family: 'Pacifico';
-    font-size: 42px;
+    font-size: 4rem;
   }
 `;
 const VL = styled.div`
@@ -76,46 +58,26 @@ const BrandLink = styled(Link)`
   &:hover {
     color: #ff6f61;
   }
-`;
-const Hamburger = styled.div`
-  i {
-    &:hover {
-      color: #ff6f61;
-    }
+  @media (max-width: 460px) {
+    font-size: 1.4rem;
   }
 `;
 
 const Container = styled.div`
   border-bottom: 0.5px solid #000000;
-  display: grid;
-  grid-column: 1 / -1;
+  display: flex;
   margin-bottom: 2%;
 
-  .NavbarLink-toggle {
-    display: none;
-  }
-
-  @media only screen and (max-width: 600px) {
-    border-bottom: none;
-    .Navbar__ToggleShow {
-      display: flex;
-      height: 158px;
-      flex-direction: row;
-      position: absolute;
-      right: 4px;
-      top: -2px;
-    }
-    .NavbarLink-toggle {
-      color: #083d77;
-      display: initial;
-      font-size: 2.5rem;
-      cursor: pointer;
-      position: absolute;
-      right: 4%;
-      top: 1.5%;
-    }
+  @media (max-width: 460px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 1rem;
+    border: none;
   }
 `;
+
 const Nav = styled.nav`
   display: flex;
   width: 100%;
@@ -131,34 +93,10 @@ const Nav = styled.nav`
     margin: 0 5px;
     padding: 3px;
   }
-  @media only screen and (max-width: 850px) {
-    position: absolute;
-    right: 3%;
-    top: 3%;
-  }
-  @media only screen and (max-width: 600px) {
-    display: none;
-    a {
-      font-size: 0.8rem;
-    }
-    .Navbar__ToggleShow {
-      display: flex;
-      height: 158px;
-      font-size: 1rem;
-      flex-direction: row;
-      position: absolute;
-      right: 69px;
-      top: -45px;
-    }
-    .NavbarLink-toggle {
-      color: #083d77;
-      display: initial;
-      font-size: 2.5rem;
-      cursor: pointer;
-      position: absolute;
-      right: 4%;
-      top: 1.5%;
-    }
+  @media (max-width: 460px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 
