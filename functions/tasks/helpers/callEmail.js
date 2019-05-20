@@ -9,7 +9,7 @@ module.exports = function callEmail(
   let html = ``;
 
   transcript.forEach(line => {
-    html += `<h3>${line.user}</h3>\n<p>${line.script}</p>\n`;
+    html += `<h3>${line.user}</h3><p>${line.script}</p>`;
   });
 
   return {
@@ -30,13 +30,16 @@ module.exports = function callEmail(
         type: 'text/html',
         value: `<h1>Thank you for using ReCaller!</h1>
       <h2>Your call with ${user2} is available for review below.</h2>
+
       <p><a href="http://lambda-recaller.com/prev-calls/${
         user1.uid
-      }/${id}>A record of this call can be accessed and shared here.</a></p>
-      <p>You can update or review the schedule for this call from the <a href="http://lambda-recaller.com/contact/${contactId}>Contact Information Page</a>
-      <audio controls><source src={audio} type='audio/wav' />The audio for this call can be reviewed from the <a href="http://lambda-recaller.com/prev-calls/${
-        user1.uid
-      }/${id}>Call Information Page</a></audio>
+      }/${id}">A record of this call can be accessed and shared here.</a></p>
+
+      <p>You can update or review the schedule for this call from the <a href="http://lambda-recaller.com/contact/${contactId}">Contact Information Page</a></p>
+
+      <audio controls><source src=${audio} type='audio/wav' /><p>The audio for this call can be reviewed from the <a href="http://lambda-recaller.com/prev-calls/${
+          user1.uid
+        }/${id}">Call Information Page</a></p></audio>
       <h2>Transcript of Call</h2>
       ${html}`,
       },
