@@ -52,41 +52,45 @@ const PreviousCalls = ({ userId }) => {
       </TableHeader>
       <CallsWrapper>
         {calls &&
-          calls.map(call => (
-            <Card key={call.id}>
-              <Link to={`/prev-calls/${userId}/${call.id}`} key={call.id}>
-                <PrevCallsWrapper>
-                  <User>
-                    <h3>{firstNameOnly(call.user2.displayName)}</h3>
-                    <Img
-                      src={
-                        call.user2.photoUrl ||
-                        'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
-                      }
-                      alt={call.user2.displayName}
-                    />
-                  </User>
-                  <Info>
-                    <Date>
-                      {moment(call.call_time).format('MMM DD - h:mm A')}
-                    </Date>
-                    <Transcript>
-                      {call.deepgram &&
-                        limitChars(
-                          call.deepgram.results.channels[0].alternatives[0]
-                            .transcript,
-                        ) &&
-                        limitChars(
-                          call.deepgram.results.channels[0].alternatives[0]
-                            .transcript,
-                        )}
-                    </Transcript>
-                    <p className='read-more'>Click to read more</p>
-                  </Info>
-                </PrevCallsWrapper>
-              </Link>
-            </Card>
-          ))}
+          calls
+            .sort((a, b) => {
+              return moment(b.call_time).utc() - moment(a.call_time).utc();
+            })
+            .map(call => (
+              <Card key={call.id}>
+                <Link to={`/prev-calls/${userId}/${call.id}`} key={call.id}>
+                  <PrevCallsWrapper>
+                    <User>
+                      <h3>{firstNameOnly(call.user2.displayName)}</h3>
+                      <Img
+                        src={
+                          call.user2.photoUrl ||
+                          'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
+                        }
+                        alt={call.user2.displayName}
+                      />
+                    </User>
+                    <Info>
+                      <Date>
+                        {moment(call.call_time).format('MMM DD - h:mm A')}
+                      </Date>
+                      <Transcript>
+                        {call.deepgram &&
+                          limitChars(
+                            call.deepgram.results.channels[0].alternatives[0]
+                              .transcript,
+                          ) &&
+                          limitChars(
+                            call.deepgram.results.channels[0].alternatives[0]
+                              .transcript,
+                          )}
+                      </Transcript>
+                      <p className='read-more'>Click to read more</p>
+                    </Info>
+                  </PrevCallsWrapper>
+                </Link>
+              </Card>
+            ))}
       </CallsWrapper>
     </>
   );
