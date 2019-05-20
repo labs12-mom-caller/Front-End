@@ -50,42 +50,44 @@ const PreviousCalls = ({ userId }) => {
           <DeepgramImg src={deepgram} alt='Deepgram logo' />
         </DeepgramLink>
       </TableHeader>
-      {calls &&
-        calls.map(call => (
-          <Card key={call.id}>
-            <Link to={`/prev-calls/${userId}/${call.id}`} key={call.id}>
-              <PrevCallsWrapper>
-                <User>
-                  <h3>{firstNameOnly(call.user2.displayName)}</h3>
-                  <Img
-                    src={
-                      call.user2.photoUrl ||
-                      'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
-                    }
-                    alt={call.user2.displayName}
-                  />
-                </User>
-                <Info>
-                  <Date>
-                    {moment(call.call_time).format('MMM DD - h:mm A')}
-                  </Date>
-                  <Transcript>
-                    {call.deepgram &&
-                      limitChars(
-                        call.deepgram.results.channels[0].alternatives[0]
-                          .transcript,
-                      ) &&
-                      limitChars(
-                        call.deepgram.results.channels[0].alternatives[0]
-                          .transcript,
-                      )}
-                  </Transcript>
-                  <p className='read-more'>Click to read more</p>
-                </Info>
-              </PrevCallsWrapper>
-            </Link>
-          </Card>
-        ))}
+      <CallsWrapper>
+        {calls &&
+          calls.map(call => (
+            <Card key={call.id}>
+              <Link to={`/prev-calls/${userId}/${call.id}`} key={call.id}>
+                <PrevCallsWrapper>
+                  <User>
+                    <h3>{firstNameOnly(call.user2.displayName)}</h3>
+                    <Img
+                      src={
+                        call.user2.photoUrl ||
+                        'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
+                      }
+                      alt={call.user2.displayName}
+                    />
+                  </User>
+                  <Info>
+                    <Date>
+                      {moment(call.call_time).format('MMM DD - h:mm A')}
+                    </Date>
+                    <Transcript>
+                      {call.deepgram &&
+                        limitChars(
+                          call.deepgram.results.channels[0].alternatives[0]
+                            .transcript,
+                        ) &&
+                        limitChars(
+                          call.deepgram.results.channels[0].alternatives[0]
+                            .transcript,
+                        )}
+                    </Transcript>
+                    <p className='read-more'>Click to read more</p>
+                  </Info>
+                </PrevCallsWrapper>
+              </Link>
+            </Card>
+          ))}
+      </CallsWrapper>
     </>
   );
 };
@@ -104,7 +106,6 @@ const TableHeader = styled.div`
   font-family: Roboto;
   font-size: 1.5rem;
   font-weight: 400;
-  margin-bottom: 20px;
   width: 100%;
   padding: 0 2%;
   align-items: center;
@@ -162,20 +163,14 @@ const PrevCallsWrapper = styled.div`
 const Card = styled.div`
   transition: box-shadow 0.3s;
   width: 95%;
-  margin: 15px auto;
-  margin-top: 20px;
   border-radius: 3px;
   background: #fff;
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
   transition: box-shadow 0.5s;
+  margin-bottom: 15px;
   &:hover {
     box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
   }
-  &:nth-child(2) {
-    margin-top: 0;
-    margin-bottom: 15px;
-  }
-
   .read-more {
     margin-top: 1rem;
   }
@@ -193,5 +188,24 @@ const DeepgramImg = styled.img`
     height: 10px;
   @media only screen and (max-width: 1010px) {
     height: 8px;
+  }
+`;
+
+const CallsWrapper = styled.div`
+  height: 372px;
+  overflow-x: auto;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0 0;
+
+  ::-webkit-scrollbar {
+    appearance: none;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 10px;
   }
 `;

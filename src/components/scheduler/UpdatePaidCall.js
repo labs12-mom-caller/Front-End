@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
 import { navigate } from '@reach/router';
-import styled from 'styled-components';
+
 import { Scheduler, Container } from '../../styles/Scheduler';
 
 import { db } from '../../firebase';
