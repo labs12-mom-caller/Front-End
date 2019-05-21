@@ -19,8 +19,8 @@ function Choose({ user, userId }) {
           call.
         </p>
         <p>
-          Your loved one will receive an email letting them know an account has
-          been created for them.
+          They will receive an email letting them know an account has been
+          created for them.
         </p>
       </Header>
       <Formik
@@ -78,7 +78,7 @@ function Choose({ user, userId }) {
               </label>
               <input
                 id='displayName'
-                placeholder="Enter Your Contact's Name"
+                placeholder="Contact's Name"
                 type='text'
                 value={values.displayName}
                 onChange={handleChange}
@@ -99,7 +99,7 @@ function Choose({ user, userId }) {
               </label>
               <input
                 id='email'
-                placeholder="Your Contact's Email Address"
+                placeholder="Contact's Email"
                 type='email'
                 value={values.email}
                 onChange={handleChange}
@@ -119,7 +119,7 @@ function Choose({ user, userId }) {
               </label>
               <input
                 id='phoneNumber'
-                placeholder="Your Contact's Phone Number"
+                placeholder="Contact's Phone Number"
                 type='tel'
                 value={values.phoneNumber}
                 onChange={handleChange}

@@ -25,20 +25,24 @@ export const Wrapper = styled.section`
     margin-top: 20px;
   }
   input {
-    width: 60%;
+  width: 60%;
   border-radius: 4px;
   outline: 0;
   color: #999999;
   margin: 5px 0;
-  padding-left: 12px;
+  padding-left: 10px;
   padding: 9px
   font-size: 16px;
   background-color: rgba(0, 0, 0, 0.0001);
   border: 1px solid #999999;
   &::placeholder {
     color: #999999;
-    /* padding-left: 12px; */
     font-size: 18px;
+
+    @media (max-width: 400px) {
+      font-size: 1.4rem;
+    }
   }
   }
+
 `;

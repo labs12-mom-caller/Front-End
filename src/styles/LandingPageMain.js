@@ -341,7 +341,7 @@ footer {
   font-weight: 800;
   letter-spacing: 3.6px;
   text-transform: uppercase;
-  padding: 2rem 3rem;
+  padding: 0 3rem;
   margin-bottom: 3rem;
   font-size: 2.4rem;
   font-weight: 600;
@@ -424,6 +424,10 @@ footer {
 .style2 img {
   width: 100%;
   margin: 0 auto;
+}
+
+.paidInfo div {
+  margin: 1rem auto;
 }
 
 #three .inner {
@@ -510,7 +514,7 @@ footer {
 }
 .wrapper h2 {
   font-size: 3rem;
-  padding-bottom: 5rem;
+  padding-bottom: 3rem;
   width: 100%;
 }
 .wrapper p {
