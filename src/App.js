@@ -98,6 +98,7 @@ function App() {
       <Global />
       <Router>
         <LandingPageMain path='/' exact />
+        <AboutUs path='/about-us' />
         <SignUp path='/signup' />
         <Login path='/login' />
       </Router>
