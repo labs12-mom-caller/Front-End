@@ -1,10 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from '@reach/router';
+import { Link, navigate } from '@reach/router';
 import moment from 'moment-timezone';
 import styled from 'styled-components';
 import axios from 'axios';
+import { FaArrowLeft } from 'react-icons/fa';
+
 import Loading from '../Loading';
+
+import {
+  Aside,
+  User,
+  Img,
+  UserInfo,
+  H3,
+  Button,
+  P,
+} from '../../styles/UserCard';
+
+import { formatPhoneNumber } from '../../app/utils';
 
 const Billing = ({ user }) => {
   const [subs, setSubs] = useState([]);
@@ -26,115 +40,123 @@ const Billing = ({ user }) => {
     fetchData();
   }, [user]);
 
-  return isLoading ? (
+  return (
     <Container>
-      <Loading />
-    </Container>
-  ) : (
-    <>
-      <Header>Billing information</Header>
-      <Container>
-        {subs ? (
-          subs.map(sub => {
-            return (
-              <BillingCard key={sub.contact_id}>
-                <H2>
-                  {' '}
-                  <Link to={`/contact/${sub.contact_id}`}>
-                    {sub.user2.displayName}
-                  </Link>{' '}
-                  | {sub.contact.call_frequency}
-                </H2>
-                <Contact>
-                  <p>
-                    {sub.contact.scheduled_day}s at {sub.contact.scheduled_time}
-                  </p>
-                </Contact>
-                {/* <Link to={`/contact/${sub.contact_id}`}>Contact Details</Link> */}
-
-                <Table>
-                  <TableHead>Previous Charges</TableHead>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Date</th>
-                        <th>Amount</th>
-                        <th>Receipt</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {sub.invoices.map(invoice => {
-                        return (
-                          <tr key={invoice.id}>
-                            <td>
-                              {moment(invoice.paid_at, 'X').format('MM/DD/YY')}
-                            </td>
-                            <td>${(invoice.amount_paid / 100).toFixed(2)}</td>
-                            <td>
-                              <a
-                                href={invoice.hosted_invoice_url}
-                                target='_blank'
-                                rel='noopener noreferrer'
-                              >
-                                Receipt
-                              </a>
-                            </td>
+      <Aside>
+        <User>
+          <Link to='/'>
+            <Img src={user.photoUrl} alt={user.displayName} />
+          </Link>
+          <UserInfo>
+            <H3>{user.displayName}</H3>
+            <P>{formatPhoneNumber(user.phoneNumber)}</P>
+            <P>{user.email}</P>
+            <Button type='button' onClick={() => navigate('/')}>
+              <FaArrowLeft className='arrow' /> Back Home
+            </Button>
+          </UserInfo>
+        </User>
+      </Aside>
+      <BillingInformationBox>
+        <Wrapper>
+          <Header>Billing information</Header>
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <BillingContainer>
+              {subs ? (
+                subs.map(sub => {
+                  return (
+                    <BillingCard key={sub.contact_id}>
+                      <H2>
+                        {' '}
+                        <Link to={`/contact/${sub.contact_id}`}>
+                          {sub.user2.displayName}
+                        </Link>{' '}
+                        | {sub.contact.call_frequency}
+                      </H2>
+                      <Contact>
+                        <p>
+                          {sub.contact.scheduled_day}s at{' '}
+                          {sub.contact.scheduled_time}
+                        </p>
+                      </Contact>
+                      <Table>
+                        <TableHead>Previous Charges</TableHead>
+                        <thead>
+                          <tr>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Receipt</th>
                           </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </Table>
-                <P>
-                  Next Charge:{' '}
-                  {sub.contact.call_frequency === 'Monthly'
-                    ? '$2.50 '
-                    : '$5.00 '}
-                  on {moment(sub.next_charge_date, 'X').format('M/D/YY')}
-                </P>
-              </BillingCard>
-            );
-          })
-        ) : (
-          <h3>You have no previous premium calls scheduled</h3>
-        )}
-      </Container>
-    </>
+                        </thead>
+                        <tbody>
+                          {sub.invoices.map(invoice => {
+                            return (
+                              <tr key={invoice.id}>
+                                <td>
+                                  {moment(invoice.paid_at, 'X').format(
+                                    'MM/DD/YY',
+                                  )}
+                                </td>
+                                <td>
+                                  ${(invoice.amount_paid / 100).toFixed(2)}
+                                </td>
+                                <td>
+                                  <a
+                                    href={invoice.hosted_invoice_url}
+                                    target='_blank'
+                                    rel='noopener noreferrer'
+                                  >
+                                    Receipt
+                                  </a>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </Table>
+                      <P>
+                        Next Charge:{' '}
+                        {sub.contact.call_frequency === 'Monthly'
+                          ? '$2.50 '
+                          : '$5.00 '}
+                        on {moment(sub.next_charge_date, 'X').format('M/D/YY')}
+                      </P>
+                    </BillingCard>
+                  );
+                })
+              ) : (
+                <h3>You have no previous premium calls scheduled</h3>
+              )}
+            </BillingContainer>
+          )}
+        </Wrapper>
+      </BillingInformationBox>
+    </Container>
   );
 };
-const P = styled.p`
-  font-weight: 300;
-  font-family: 'Roboto';
-  font-size: 1rem;
-`;
+
 const Header = styled.h1`
-  font-size: 2rem;
-  font-family: 'Roboto';
-  text-align: center;
-  margin-bottom: 15px;
-  font-weight: 350;
+  color: #999999;
+  margin-bottom: 20px;
+  font-size: 2.6rem;
+  text-align: left;
+  align-self: stretch;
 `;
 
-const Container = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  justify-items: center;
-  grid-gap: 10px;
-  margin: 0 auto;
-  @media (max-width: 500px) {
-    grid-template-columns: 1fr;
-  }
+const BillingContainer = styled.div`
+  // width: 100%;
 `;
-const Table = styled.div`
+const Table = styled.table`
   border-collapse: collapse;
-
+  width: 40%;
   th,
   td {
     border: 1px solid #ddd;
     padding: 8px;
     width: 33%;
-  }
-  tbody {
+    font-size: 1.5rem;
   }
 `;
 const H2 = styled.h2`
@@ -191,10 +213,55 @@ const Contact = styled.div`
   font-family: 'Roboto';
   font-weight: 300;
 `;
-const TableHead = styled.h2`
+const TableHead = styled.caption`
   width: 50%;
   margin-bottom: 10px;
-  font-family: 'Roboto';
-  font-weight: 300;
-  font-size: 1.2rem;
+  font-weight: 500;
+  font-size: 1.5rem;
+  text-align: left;
+`;
+
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr;
+  font-size: 1.5rem;
+
+  @media (max-width: 1025px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+      'aside'
+      'upcoming'
+      'previous';
+    place-items: center;
+  }
+`;
+
+const BillingInformationBox = styled.main`
+  grid-row: 2 / -1;
+  grid-column: 2 / 4;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  @media (max-width: 1025px) {
+    grid-row: 2;
+    grid-area: record;
+    width: 95%;
+    justify-content: center;
+  }
+`;
+
+const Wrapper = styled.div`
+  width: 90%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 1025px) {
+    width: 95%;
+    align-items: center;
+  }
 `;

@@ -4,7 +4,7 @@ import React from 'react';
 import moment from 'moment-timezone';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { navigate } from '@reach/router';
+import { Link, navigate } from '@reach/router';
 import { FaArrowLeft } from 'react-icons/fa';
 
 import {
@@ -71,25 +71,33 @@ const CallRecord = ({ callId }) => {
     <PrevCallsWrapper key={call.id}>
       <Aside>
         <User>
-          <Img
-            src={
-              contact.photoUrl ||
-              'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
-            }
-            alt={contact.displayName}
-          />
-          <UserInfo>
+          <Link to={`/contact/${callInfo.id}`}>
+            <Img
+              src={
+                contact.photoUrl ||
+                'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
+              }
+              alt={contact.displayName}
+            />
+          </Link>
+          <CallInfo>
             <H3>Previous Call</H3>
             <P>on</P>
             <Date>
               {moment(call.call_time, 'X').format('dddd, MMMM Do [at] h:mm A')}
             </Date>
             <P>with</P>
-          </UserInfo>
+          </CallInfo>
           <UserInfo>
             <H3>{contact.displayName}</H3>
             <P>{contact.email}</P>
             <P>{formatPhoneNumber(contact.phoneNumber)}</P>
+            <Button
+              type='button'
+              onClick={() => navigate(`/contact/${callInfo.id}`)}
+            >
+              Contact Info
+            </Button>
             <Button type='button' onClick={() => navigate('/')}>
               <FaArrowLeft className='arrow' /> Back Home
             </Button>
@@ -217,7 +225,7 @@ const Wrapper = styled.div`
 `;
 
 const Date = styled.h3`
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   text-align: center;
   margin: 10px 0;
   color: #999999;
@@ -254,4 +262,11 @@ const TranscriptBox = styled.div`
     background: #999;
     border-radius: 10px;
   }
+`;
+
+const CallInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0 0;
 `;
