@@ -1,213 +1,268 @@
-/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import styled from 'styled-components';
-import { MDBIcon } from 'mdbreact';
+import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 const AboutUs = () => {
   return (
-    <div style={{ width: '100%' }}>
-      <Jumbo>
-        <Title>ReCaller's Developers</Title>
-      </Jumbo>
-
+    <>
+      <H2>Our Team</H2>
       <CardContainer>
         {/* Michael */}
         <DevCard>
-          <Banner>
-            <DevImage
-              src='https://avatars0.githubusercontent.com/u/40702969?s=460&v=4'
-              alt='Profile'
-            />
-            <DevInfo>
-              <DevInfoTitle>Michael Checo</DevInfoTitle>
-              <DevInfoDesc>
-                Project Manager & Student at LambdaSchool
-              </DevInfoDesc>
-            </DevInfo>
-            <DevGitBtn
-              color='black'
-              social='g'
+          <DevImage
+            src='https://avatars0.githubusercontent.com/u/40702969?s=460&v=4'
+            alt='Profile'
+          />
+          <DevInfo>
+            <DevInfoTitle>Michael Checo</DevInfoTitle>
+            <DevInfoDesc>
+              Project Manager &amp; Student at LambdaSchool
+            </DevInfoDesc>
+          </DevInfo>
+          <SocialButtons>
+            <SocialButton
               type='button'
               onClick={() =>
-                (window.location.href = 'https://github.com/MichaelCheco')
+                window.open('https://github.com/MichaelCheco', '_blank')
               }
             >
-              <MDBIcon fab icon='github' className='pr-1' /> GitHub
-            </DevGitBtn>
-          </Banner>
+              <FaGithub />
+              &nbsp;GitHub
+            </SocialButton>
+            <SocialButton
+              type='button'
+              onClick={() =>
+                window.open(
+                  'https://www.linkedin.com/in/michael-checo/',
+                  '_blank',
+                )
+              }
+            >
+              <FaLinkedin />
+              &nbsp;LinkedIn
+            </SocialButton>
+            <SocialButton
+              type='button'
+              onClick={() =>
+                window.open('https://twitter.com/MichaelCheco1', '_blank')
+              }
+            >
+              <FaTwitter />
+              &nbsp;Twitter
+            </SocialButton>
+          </SocialButtons>
         </DevCard>
 
         {/* shawn */}
         <DevCard>
-          <Banner>
-            <DevImage
-              src='https://avatars1.githubusercontent.com/u/42783252?s=460&v=4'
-              alt='Profile'
-            />
-            <DevInfo>
-              <DevInfoTitle>Shawn Antonucci</DevInfoTitle>
-              <DevInfoDesc>
-                Teacher Assistant & Student at LambdaSchool
-              </DevInfoDesc>
-            </DevInfo>
-            <DevGitBtn
-              color='black'
-              social='g'
+          <DevImage
+            src='https://avatars1.githubusercontent.com/u/42783252?s=460&v=4'
+            alt='Profile'
+          />
+          <DevInfo>
+            <DevInfoTitle>Shawn Antonucci</DevInfoTitle>
+            <DevInfoDesc>
+              Teacher Assistant &amp; Student at LambdaSchool
+            </DevInfoDesc>
+          </DevInfo>
+          <SocialButtons>
+            <SocialButton
               type='button'
               onClick={() =>
-                (window.location.href = 'https://github.com/shawnantonucci')
+                window.open('https://github.com/shawnantonucci', '_blank')
               }
             >
-              <MDBIcon fab icon='github' className='pr-1' /> GitHub
-            </DevGitBtn>
-          </Banner>
+              <FaGithub />
+              &nbsp;GitHub
+            </SocialButton>
+            <SocialButton
+              type='button'
+              onClick={() =>
+                window.open(
+                  'https://www.linkedin.com/in/shawn-antonucci',
+                  '_blank',
+                )
+              }
+            >
+              <FaLinkedin />
+              &nbsp;LinkedIn
+            </SocialButton>
+            <SocialButton
+              type='button'
+              onClick={() =>
+                window.open('https://twitter.com/Shawn_Antonucci', '_blank')
+              }
+            >
+              <FaTwitter />
+              &nbsp;Twitter
+            </SocialButton>
+          </SocialButtons>
         </DevCard>
 
         {/* Kevin */}
         <DevCard>
-          <Banner>
-            <DevImage
-              src='https://avatars1.githubusercontent.com/u/34979828?s=460&v=4'
-              alt='Profile'
-            />
-            <DevInfo>
-              <DevInfoTitle>Kevin Smith</DevInfoTitle>
-              <DevInfoDesc>Full Stack Web Student At LambdaSchool</DevInfoDesc>
-            </DevInfo>
-            <DevGitBtn
-              color='black'
-              social='g'
+          <DevImage
+            src='https://avatars1.githubusercontent.com/u/34979828?s=460&v=4'
+            alt='Profile'
+          />
+          <DevInfo>
+            <DevInfoTitle>Kevin Smith</DevInfoTitle>
+            <DevInfoDesc>Full Stack JavaScript Software Engineer</DevInfoDesc>
+          </DevInfo>
+          <SocialButtons>
+            <SocialButton
               type='button'
               onClick={() =>
-                (window.location.href = 'https://github.com/keveightysev')
+                window.open('https://github.com/keveightysev', '_blank')
               }
             >
-              <MDBIcon fab icon='github' className='pr-1' /> GitHub
-            </DevGitBtn>
-          </Banner>
+              <FaGithub />
+              &nbsp;GitHub
+            </SocialButton>
+            <SocialButton
+              type='button'
+              onClick={() =>
+                window.open(
+                  'https://www.linkedin.com/in/keveightysev',
+                  '_blank',
+                )
+              }
+            >
+              <FaLinkedin />
+              &nbsp;LinkedIn
+            </SocialButton>
+            <SocialButton
+              type='button'
+              onClick={() =>
+                window.open('https://twitter.com/keveightysev', '_blank')
+              }
+            >
+              <FaTwitter />
+              &nbsp;Twitter
+            </SocialButton>
+          </SocialButtons>
         </DevCard>
 
         {/* Dylan Disler */}
         <DevCard>
-          <Banner>
-            <DevImage
-              src='https://avatars0.githubusercontent.com/u/43049713?s=460&v=4'
-              alt='Profile'
-            />
-            <DevInfo>
-              <DevInfoTitle>Dylan Disler</DevInfoTitle>
-              <DevInfoDesc>Full Stack Web Student At LambdaSchool</DevInfoDesc>
-            </DevInfo>
-            <DevGitBtn
-              color='black'
-              social='g'
+          <DevImage
+            src='https://avatars0.githubusercontent.com/u/43049713?s=460&v=4'
+            alt='Profile'
+          />
+          <DevInfo>
+            <DevInfoTitle>Dylan Disler</DevInfoTitle>
+            <DevInfoDesc>Full Stack Web Student At LambdaSchool</DevInfoDesc>
+          </DevInfo>
+          <SocialButtons>
+            <SocialButton
               type='button'
               onClick={() =>
-                (window.location.href = 'https://github.com/dislersd')
+                window.open('https://github.com/dislersd', '_blank')
               }
             >
-              <MDBIcon fab icon='github' className='pr-1' /> GitHub
-            </DevGitBtn>
-          </Banner>
+              <FaGithub />
+              &nbsp;GitHub
+            </SocialButton>
+            <SocialButton
+              type='button'
+              onClick={() =>
+                window.open('https://www.linkedin.com/in/dislersd/', '_blank')
+              }
+            >
+              <FaLinkedin />
+              &nbsp;LinkedIn
+            </SocialButton>
+            <SocialButton
+              type='button'
+              onClick={() =>
+                window.open('https://twitter.com/dislersd', '_blank')
+              }
+            >
+              <FaTwitter />
+              &nbsp;Twitter
+            </SocialButton>
+          </SocialButtons>
         </DevCard>
 
         {/* Jon */}
         <DevCard>
-          <Banner>
-            <DevImage
-              src='https://avatars0.githubusercontent.com/u/41089389?s=460&v=4'
-              alt='Profile'
-            />
-            <DevInfo>
-              <DevInfoTitle>Jonathan Palacio</DevInfoTitle>
-              <DevInfoDesc>
-                Full Stack Developer currently attending Lambda School
-              </DevInfoDesc>
-            </DevInfo>
-            <DevGitBtn
-              color='black'
-              social='g'
+          <DevImage
+            src='https://avatars0.githubusercontent.com/u/41089389?s=460&v=4'
+            alt='Profile'
+          />
+          <DevInfo>
+            <DevInfoTitle>Jonathan Palacio</DevInfoTitle>
+            <DevInfoDesc>
+              Full Stack Developer student at Lambda School
+            </DevInfoDesc>
+          </DevInfo>
+          <SocialButtons>
+            <SocialButton
               type='button'
               onClick={() =>
-                (window.location.href = 'https://github.com/bangarangler')
+                window.open('https://github.com/bangarangler', '_blank')
               }
             >
-              <MDBIcon fab icon='github' className='pr-1' /> GitHub
-            </DevGitBtn>
-          </Banner>
+              <FaGithub />
+              &nbsp;GitHub
+            </SocialButton>
+            <SocialButton
+              type='button'
+              onClick={() =>
+                window.open(
+                  'https://www.linkedin.com/in/jonathan-palacio-401945a3',
+                  '_blank',
+                )
+              }
+            >
+              <FaLinkedin />
+              &nbsp;LinkedIn
+            </SocialButton>
+            <SocialButton
+              type='button'
+              onClick={() =>
+                window.open('https://twitter.com/bangarangler', '_blank')
+              }
+            >
+              <FaTwitter />
+              &nbsp;Twitter
+            </SocialButton>
+          </SocialButtons>
         </DevCard>
       </CardContainer>
-    </div>
+    </>
   );
 };
 
 export default AboutUs;
-
-const Jumbo = styled.div`
-  background-color: #083d77;
-  display: flex;
-  height: 100px;
-  justify-content: center;
-  position: absolute;
-  top: 60px;
-  right: 0;
-  left: 0;
-`;
 
 const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   width: 90%;
-  margin-top: 10%;
-`;
-
-const Title = styled.div`
-  text-align: center;
-  color: white;
-  font-family: pacifico;
-  align-self: center;
-  font-size: 1.6rem;
+  margin: 0 auto 50px;
 `;
 
 const DevCard = styled.div`
   display: flex;
-  flex-direction: column;
-  height: 20%;
-  margin-top: 20px;
   padding: 25px;
-  align-items: center;
-  background-color: white;
-`;
-
-const Banner = styled.div`
-  display: flex;
   flex-direction: column;
   align-items: center;
   transition: box-shadow 0.3s;
   width: 300px;
-  height: 350px;
   border-radius: 3px;
-  background: #fff;
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
-  transition: box-shadow 0.5s;
-  justify-content: center;
-  ::-webkit-scrollbar {
-   width: 0px;  /* Remove scrollbar space */
-   background: transparent;  /* Optional: just make scrollbar invisible */
-}
-
+  margin: 20px;
   &:hover {
     box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
-  }
-  @media (max-width: 650px) {
-    /
   }
 `;
 
 const DevImage = styled.img`
-  width: 170px;
+  width: 75%;
   height: auto;
+  border-radius: 50%;
 `;
 
 const DevInfo = styled.div`
@@ -218,20 +273,50 @@ const DevInfo = styled.div`
 
 const DevInfoTitle = styled.h2`
   text-align: center;
-  font-weight: bold;
-  font-size: 1.1rem;
+  font-weight: 600;
+  font-size: 2rem;
+  color: #636578;
 `;
 
 const DevInfoDesc = styled.h2`
   text-align: center;
   margin-top: 10px;
+  font-size: 1.6rem;
+  font-weight: 300;
 `;
 
-const DevGitBtn = styled.button`
-  text-transform: capitalize;
-  margin-top: 20px;
-  background-color: black;
-  color: white;
-  height: 28px;
-  width: 25%;
+const SocialButtons = styled.div`
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin: 20px 0 0;
+`;
+
+const SocialButton = styled.button`
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 30px;
+  width: 100px;
+  color: #fff;
+  background: #636578;
+  border: 1px solid #636578;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: #636578;
+    background: #fff;
+  }
+`;
+
+const H2 = styled.h2`
+  text-align: center;
+  font-size: 3rem;
+  color: #636578;
+  margin: 20px 0;
 `;

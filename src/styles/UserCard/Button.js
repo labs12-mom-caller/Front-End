@@ -10,6 +10,9 @@ const Button = styled.button`
   border: 1px solid #636578;
   transition: all 0.4s ease;
   outline: 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
   &:hover {
     background-color: #ffffff;
     color: #636578;
