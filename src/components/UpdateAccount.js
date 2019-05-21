@@ -6,6 +6,7 @@ import { db, storage, auth } from '../firebase';
 
 const useInputValue = initialValue => {
   const [value, setValue] = React.useState(initialValue);
+
   return {
     value,
     onChange: e => {
@@ -19,6 +20,7 @@ const UpdateAccount = ({ user }) => {
   const email = useInputValue(user.email);
   const newPassword = useInputValue('');
   const [imageInput, setImageInput] = useState(null);
+  const [uploaded, setUploaded] = React.useState(false);
 
   function fileUpload(e) {
     e.preventDefault();
@@ -41,7 +43,8 @@ const UpdateAccount = ({ user }) => {
     e.preventDefault();
     const { files } = e.target;
     setImageInput(files[0]);
-    console.log(imageInput);
+
+    setUploaded(true);
   };
 
   const update = e => {
@@ -81,6 +84,14 @@ const UpdateAccount = ({ user }) => {
               Profile Picture
               <PictureFile onChange={uploadFile} type='file' />
             </InputLabel>
+            {uploaded ? (
+              <div className='img-uploaded-info'>
+                <i className='fas fa-check' />
+                <p>
+                  Click "Update Profile" button to finish updating profile image
+                </p>
+              </div>
+            ) : null}
             <div>
               <InputLabel htmlFor='displayName' style={{ marginTop: '25px' }}>
                 <br />
@@ -172,6 +183,21 @@ const Wrapper = styled.div`
   }
   @media only screen and (max-width: 450px) {
     width: 90%;
+  }
+
+  .img-uploaded-info {
+    margin-top: 2rem;
+
+    i {
+      margin-left: 12rem;
+      margin-bottom: 1rem;
+      color: green;
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
   }
 `;
 
