@@ -23,9 +23,28 @@ export const CallPlanView = styled.section`
     justify-content: space-evenly;
     margin: 50px 0;
 
+    @media (max-width: 460px) {
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+    }
+
     .card {
       width: 35%;
       padding: 20px;
+
+      @media (max-width: 740px) {
+        width: 40%;
+      }
+
+      @media (max-width: 640px) {
+        width: 45%;
+      }
+
+      @media (max-width: 460px) {
+        width: 80%;
+        margin: 2rem auto;
+      }
 
       p:first-child {
         font-weight: 600;
@@ -78,6 +97,7 @@ export const CallPlanView = styled.section`
     .frequency-wrap {
       width: 100%;
       margin: 10px 0;
+      display: flex;
 
       .frequency {
         cursor: pointer;
