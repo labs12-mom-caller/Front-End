@@ -10,10 +10,9 @@ const randomTime = require('./helpers/randomTime.js');
 
 exports.handler = async (req, res, firestore) => {
   const contacts = firestore.collection('contacts');
-  const users = firestore.collection('users');
   const calls = firestore.collection('calls');
   const min = moment()
-    .subtract(1, 'm')
+    .subtract(3, 'm')
     .toDate();
   const max = moment()
     .add(3, 'm')

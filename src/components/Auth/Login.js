@@ -68,7 +68,6 @@ const Login = () => {
         <input
           style={{ width: '82%' }}
           type='email'
-          type='text'
           id='email'
           data-testid='email'
           onChange={e => setEmail(e.target.value)}
