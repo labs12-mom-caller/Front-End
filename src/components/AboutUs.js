@@ -75,20 +75,27 @@ const AboutUs = () => {
               <FaGithub />
               &nbsp;GitHub
             </SocialButton>
-            {/* <SocialButton
+            <SocialButton
               type='button'
-              onClick={() => window.open('#', '_blank')}
+              onClick={() =>
+                window.open(
+                  'https://www.linkedin.com/in/shawn-antonucci',
+                  '_blank',
+                )
+              }
             >
               <FaLinkedin />
               &nbsp;LinkedIn
             </SocialButton>
             <SocialButton
               type='button'
-              onClick={() => window.open('#', '_blank')}
+              onClick={() =>
+                window.open('https://twitter.com/Shawn_Antonucci', '_blank')
+              }
             >
               <FaTwitter />
               &nbsp;Twitter
-            </SocialButton> */}
+            </SocialButton>
           </SocialButtons>
         </DevCard>
 
@@ -199,20 +206,27 @@ const AboutUs = () => {
               <FaGithub />
               &nbsp;GitHub
             </SocialButton>
-            {/* <SocialButton
+            <SocialButton
               type='button'
-              onClick={() => window.open('#', '_blank')}
+              onClick={() =>
+                window.open(
+                  'https://www.linkedin.com/in/jonathan-palacio-401945a3',
+                  '_blank',
+                )
+              }
             >
               <FaLinkedin />
               &nbsp;LinkedIn
             </SocialButton>
             <SocialButton
               type='button'
-              onClick={() => window.open('#', '_blank')}
+              onClick={() =>
+                window.open('https://twitter.com/bangarangler', '_blank')
+              }
             >
               <FaTwitter />
               &nbsp;Twitter
-            </SocialButton> */}
+            </SocialButton>
           </SocialButtons>
         </DevCard>
       </CardContainer>
