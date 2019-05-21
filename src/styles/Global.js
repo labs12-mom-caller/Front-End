@@ -158,6 +158,11 @@ table {
         flex-direction: column;
         border-radius: 0 !important;
     }
+
+    a {
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
 `;
 
 export default Global;

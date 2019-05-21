@@ -13,7 +13,6 @@
     "eslint-plugin-react": "^7.11.0",
     "firebase": "^5.10.0",
     "formik": "^1.5.2",
-    "mdbreact": "^4.13.0",
     "moment-timezone": "^0.5.25",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
