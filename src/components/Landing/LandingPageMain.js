@@ -37,8 +37,6 @@ const LandingPageMain = () => {
     '.style1',
   );
 
-  console.log(position, length);
-
   return (
     <LandingPageWrapper ref={rootNode}>
       <div className='pageWrapper'>
@@ -75,9 +73,9 @@ const LandingPageMain = () => {
             <div className='innerWords'>
               <h2>ReCaller</h2>
               <p>
-                Stay Connected
+                Connecting you
                 <br />
-                With your loved ones
+                With the ones you love most
                 <br />
               </p>
             </div>
@@ -99,6 +97,7 @@ const LandingPageMain = () => {
         </section>
 
         {/* One - What is the app section */}
+
         <section id='one' className='wrapper style1'>
           <div className='inner'>
             <header className='major'>
@@ -116,8 +115,8 @@ const LandingPageMain = () => {
                 important details.
               </p>
               <p>
-                Create an account, tell us who you want to call, let us know
-                when, stay connected.
+                Let us know who you want to call, tell us when, and stay
+                connected.
               </p>
             </header>
             <div className='sectionImg'>
@@ -136,7 +135,7 @@ const LandingPageMain = () => {
               <p>Unlimited contacts</p>
               <p>Transcripts of all your conversations</p>
               <p>Recordings of all phone calls</p>
-              <p>Automatic recurring phone calls monthly/bi-weekly</p>
+              <p>Recurring phone calls monthly/bi-weekly</p>
             </header>
             <ul className='sectionImg'>
               <img src={phoneRecording} alt='phone recording' />
@@ -147,16 +146,21 @@ const LandingPageMain = () => {
         {/* Free vs Paid */}
         <section id='one' className='wrapper style1'>
           <div className='inner'>
-            <header className='major'>
-              <h2>Free or Paid</h2>
-              <p>
-                Use ReCaller for free and talk up to 10 minutes on randomly
-                scheduled phone calls.
-              </p>
-              <p>
-                For a $2.50/month talk up to 30 minutes on a date and time
-                specified by you.
-              </p>
+            <header className='major paidInfo'>
+              <div>
+                <h2>Free</h2>
+                <p>
+                  Calls last up to 10 minutes and are scheduled randomly within
+                  blocks of time that you choose.
+                </p>
+              </div>
+              <div>
+                <h2>$2.50/month</h2>
+                <p>
+                  Calls last up to 30 minutes and you get to choose a specific
+                  day and time for phone calls to occur.
+                </p>
+              </div>
             </header>
             <div className='sectionImg'>
               <img src={wallet} alt='wallet' />
@@ -170,7 +174,7 @@ const LandingPageMain = () => {
             <header className='major'>
               <h2>Stop Wasting Time</h2>
               <p>
-                Spend less time worrying about making phone calls And more time
+                Spend less time worrying about making phone calls and more time
                 connecting.
               </p>
               <p>
