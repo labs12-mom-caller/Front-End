@@ -21,6 +21,8 @@ import { formatPhoneNumber } from '../../app/utils';
 
 import { db } from '../../firebase';
 
+import Loading from '../Loading';
+
 const CallRecord = ({ callId }) => {
   const [call, setCall] = React.useState(null);
   const [contact, setContact] = React.useState(null);
@@ -63,68 +65,62 @@ const CallRecord = ({ callId }) => {
       fetchContact();
     }
   }, [callInfo]);
-  if (!call) return <p>Loading..</p>;
-  if (!callInfo) return <p>...</p>;
-  if (!contact) return <p>...</p>;
-  console.log(call);
-  return (
-    call && (
-      <PrevCallsWrapper key={call.id}>
-        <Aside>
-          <User>
-            <Img
-              src={
-                contact.photoUrl ||
-                'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
-              }
-              alt={contact.displayName}
-            />
-            <UserInfo>
-              <H3>Previous Call</H3>
-              <P>on</P>
-              <Date>
-                {moment(call.call_time, 'X').format(
-                  'dddd, MMMM Do [at] h:mm A',
-                )}
-              </Date>
-              <P>with</P>
-            </UserInfo>
-            <UserInfo>
-              <H3>{contact.displayName}</H3>
-              <P>{contact.email}</P>
-              <P>{formatPhoneNumber(contact.phoneNumber)}</P>
-              <Button type='button' onClick={() => navigate('/')}>
-                <FaArrowLeft className='arrow' /> Back Home
-              </Button>
-            </UserInfo>
-          </User>
-        </Aside>
-        <CallRecordBox>
-          <Wrapper>
-            <CardHeader>Call Record</CardHeader>
-            <CallRecordCard>
-              <Audio controls>
-                <source src={call.audio} type='audio/wav' />
-                <track kind='captions' />
-                Your browser does not support the audio element
-              </Audio>
-              <TranscriptTitle>Transcript</TranscriptTitle>
-              <TranscriptBox>
-                {call.simplified &&
-                  call.simplified.map(line => {
-                    return (
-                      <>
-                        <Speaker>{line.user}</Speaker>
-                        <Script>{line.script}</Script>
-                      </>
-                    );
-                  })}
-              </TranscriptBox>
-            </CallRecordCard>
-          </Wrapper>
-        </CallRecordBox>
-      </PrevCallsWrapper>
-    )
+  return !contact ? (
+    <Loading />
+  ) : (
+    <PrevCallsWrapper key={call.id}>
+      <Aside>
+        <User>
+          <Img
+            src={
+              contact.photoUrl ||
+              'https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
+            }
+            alt={contact.displayName}
+          />
+          <UserInfo>
+            <H3>Previous Call</H3>
+            <P>on</P>
+            <Date>
+              {moment(call.call_time, 'X').format('dddd, MMMM Do [at] h:mm A')}
+            </Date>
+            <P>with</P>
+          </UserInfo>
+          <UserInfo>
+            <H3>{contact.displayName}</H3>
+            <P>{contact.email}</P>
+            <P>{formatPhoneNumber(contact.phoneNumber)}</P>
+            <Button type='button' onClick={() => navigate('/')}>
+              <FaArrowLeft className='arrow' /> Back Home
+            </Button>
+          </UserInfo>
+        </User>
+      </Aside>
+      <CallRecordBox>
+        <Wrapper>
+          <CardHeader>Call Record</CardHeader>
+          <CallRecordCard>
+            <Audio controls>
+              <source src={call.audio} type='audio/wav' />
+              <track kind='captions' />
+              Your browser does not support the audio element
+            </Audio>
+            <TranscriptTitle>Transcript</TranscriptTitle>
+            <TranscriptBox>
+              {call.simplified &&
+                call.simplified.map(line => {
+                  return (
+                    <>
+                      <Speaker>{line.user}</Speaker>
+                      <Script>{line.script}</Script>
+                    </>
+                  );
+                })}
+            </TranscriptBox>
+          </CallRecordCard>
+        </Wrapper>
+      </CallRecordBox>
+    </PrevCallsWrapper>
   );
 };
 
