@@ -4,8 +4,19 @@ import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import axios from 'axios';
 import Loader from 'react-loader-spinner';
-import { Scheduler, CustomStripeBtn, Container } from '../styles/Scheduler';
+
+import {
+  Container,
+  Section,
+  Img,
+  H2,
+  Info,
+  Line,
+} from '../styles/Scheduler/index.js';
+import { Button, Label, Select, Stripe } from '../styles/Form/index';
 import { db } from '../firebase';
+
+import scheduleSvg from '../assets/svg/undraw_schedule_pnbk.svg';
 
 const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
   const [paid, setPaid] = useState(false);
@@ -17,7 +28,7 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
     timezone: moment.tz.guess(),
     hour: '1',
     minute: '00',
-    period: 'AM',
+    period: 'PM',
     day: 'Sunday',
   };
 
@@ -121,62 +132,68 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
   };
 
   return (
-    <Container>
-      <Scheduler>
-        <h2 className='heading'>Schedule a call</h2>
-        <p className='info'>
-          ReCaller will only call you and your loved one at your selected time.
-        </p>
-        <div className='chooseDayWeek'>
-          <label htmlFor='day'>Choose a day of the week</label>
-          <select id='day' value={time.day} onChange={handleChange}>
-            <option>Sunday</option>
-            <option>Monday</option>
-            <option>Tuesday</option>
-            <option>Wednesday</option>
-            <option>Thursday</option>
-            <option>Friday</option>
-            <option>Saturday</option>
-          </select>
-        </div>
-        <div className='chooseTime'>
-          <label htmlFor='selected_time'>Time</label>
-          <select value={time.hour} id='hour' onChange={handleChange}>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
-            <option>11</option>
-            <option>12</option>
-          </select>
-          <select value={time.minute} id='minute' onChange={handleChange}>
-            <option>00</option>
-            <option>05</option>
-            <option>10</option>
-            <option>15</option>
-            <option>20</option>
-            <option>25</option>
-            <option>30</option>
-            <option>35</option>
-            <option>40</option>
-            <option>45</option>
-            <option>50</option>
-            <option>55</option>
-          </select>
-          <select value={time.period} id='period' onChange={handleChange}>
-            <option>AM</option>
-            <option>PM</option>
-          </select>
-        </div>
-        <div className='chooseTimezone'>
-          <label htmlFor='timezone'>Your time zone</label>
-          <select id='timezone' value={time.timezone} onChange={handleChange}>
+    <>
+      <Container>
+        <Section>
+          <Img src={scheduleSvg} alt='Woman looking at schedule' />
+        </Section>
+        <Section>
+          <H2>Schedule a call</H2>
+          <Info>
+            ReCaller will only call you and your loved one at your selected
+            time.
+          </Info>
+          <Label htmlFor='day'>Choose a day of the week</Label>
+          <Select id='day' value={time.day} onChange={handleChange}>
+            <option value='Sunday' defaultValue>
+              Sunday
+            </option>
+            <option value='Monday'>Monday</option>
+            <option value='Tuesday'>Tuesday</option>
+            <option value='Wednesday'>Wednesday</option>
+            <option value='Thursday'>Thursday</option>
+            <option value='Friday'>Friday</option>
+            <option value='Saturday'>Saturday</option>
+          </Select>
+          <Label htmlFor='selected_time'>
+            Select the time you'd like the call
+          </Label>
+          <Line>
+            <Select value={time.hour} id='hour' onChange={handleChange}>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+            </Select>
+            <Select value={time.minute} id='minute' onChange={handleChange}>
+              <option>00</option>
+              <option>05</option>
+              <option>10</option>
+              <option>15</option>
+              <option>20</option>
+              <option>25</option>
+              <option>30</option>
+              <option>35</option>
+              <option>40</option>
+              <option>45</option>
+              <option>50</option>
+              <option>55</option>
+            </Select>
+            <Select value={time.period} id='period' onChange={handleChange}>
+              <option>AM</option>
+              <option>PM</option>
+            </Select>
+          </Line>
+          <Label htmlFor='timezone'>What's your time zone?</Label>
+          <Select id='timezone' value={time.timezone} onChange={handleChange}>
             <option>{time.timezone}</option>
             <option value='US/Alaska'>Alaska</option>
             <option value='US/Aleutian'>Aleutian</option>
@@ -190,28 +207,28 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
             <option value='US/Mountain'>Mountain</option>
             <option value='US/Pacific'>Pacific</option>
             <option value='US/Pacific-New'>Pacific-New</option>
-          </select>
-        </div>
-        <CustomStripeBtn
-          token={res => onToken(res)}
-          description='Thank you for becoming a Pro User'
-          name='ReCaller'
-          image='https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
-          stripeKey={process.env.REACT_APP_STRIPEKEY}
-        />
-        <button
-          type='button'
-          onClick={handleSubmit}
-          disabled={!paid}
-          className='submitBtn'
-        >
-          {loading ? <Loader type='ThreeDots' /> : 'Save & Continue'}
-        </button>
-        <div style={{ visibility: payError ? 'visible' : 'hidden' }}>
-          Issue with payment. Please try again
-        </div>
-      </Scheduler>
-    </Container>
+          </Select>
+          <Stripe
+            token={res => onToken(res)}
+            description='Thank you for becoming a Pro User'
+            name='ReCaller'
+            image='https://raw.githubusercontent.com/labs12-mom-caller/Front-End/master/public/favicon.ico'
+            stripeKey={process.env.REACT_APP_STRIPEKEY}
+          />
+          <Button
+            type='button'
+            onClick={handleSubmit}
+            disabled={!paid}
+            className='submitBtn'
+          >
+            {loading ? <Loader type='ThreeDots' /> : 'Save & Continue'}
+          </Button>
+          <div style={{ visibility: payError ? 'visible' : 'hidden' }}>
+            Issue with payment. Please try again
+          </div>
+        </Section>
+      </Container>
+    </>
   );
 };
 
