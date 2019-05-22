@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
 
+import { SlotStyle } from '../../styles/Scheduler/TimePicker';
+
 const Slot = ({ slot, timezone, day, selectTime, current }) => {
   const [click, setClick] = useState(false);
 
@@ -56,7 +58,7 @@ const Slot = ({ slot, timezone, day, selectTime, current }) => {
 
   return (
     <>
-      <div
+      <SlotStyle
         onMouseDown={e => handleClick(e)}
         onMouseOver={e => {
           if (e.buttons === 1) {
@@ -67,10 +69,11 @@ const Slot = ({ slot, timezone, day, selectTime, current }) => {
         role='option'
         aria-selected={click}
         tabIndex='0'
-        className={!click ? 'slot' : 'slot selected-slot'}
+        selected={click}
+        // className={!click ? 'slot' : 'slot selected-slot'}
       >
         {slot}
-      </div>
+      </SlotStyle>
     </>
   );
 };

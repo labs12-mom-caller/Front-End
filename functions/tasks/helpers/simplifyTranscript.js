@@ -29,5 +29,7 @@ module.exports = function simplifyTranscript(deepgram, user1, user2) {
     }
   }
 
-  return simplified;
+  return !simplified.length
+    ? [{ user: 'System', script: 'This call could not be transcribed.' }]
+    : simplified;
 };

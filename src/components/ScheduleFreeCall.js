@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import moment from 'moment-timezone';
-import Slider from 'react-slick';
-import styled from 'styled-components';
 
 import Day from './scheduler/Day';
 import randomTime from './scheduler/randomTime';
 
-import { Scheduler } from '../styles/Scheduler';
+import { Container, H2, Info, SingleSection } from '../styles/Scheduler/index';
+import { Button, Label, Select } from '../styles/Form/index';
+import { CustomSlider, Days } from '../styles/Scheduler/TimePicker';
 
 import { db } from '../firebase';
 
@@ -120,70 +118,34 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
   };
 
   return (
-    <Scheduler>
-      <div
-        className='header'
-        style={{
-          minWidth: '100%',
-          marginTop: '0',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
-        }}
-      >
-        <div
-          style={{
-            minWidth: '100%',
-            background: '#636578',
-            marginBottom: '5%',
-          }}
-        >
-          <h2 style={{ fontWeight: '300', color: 'white' }}>
-            Schedule a free call
-          </h2>
-        </div>
-        <p
-          style={{
-            fontWeight: '300',
-            textAlign: 'left',
-            boxShadow: '1px 2px 12px',
-            border: '1px solid lightgrey',
-          }}
-        >
+    <Container>
+      <SingleSection>
+        <H2>Schedule a free call</H2>
+        <Info>
           Please select the block of hours that you have availability. A call
           will be randomly scheduled in one of the time blocks selected.
-        </p>
-      </div>
-      <form onSubmit={handleSubmit}>
-        <div className='timezone-select'>
-          <label htmlFor='timezone'>Please select your time zone</label>
-          <Select
-            id='timezone'
-            onChange={setTimezone}
-            value={time.timezone}
-            placeholder='Select a Time Zone'
-          >
-            <MenuItem value={time.timezone} defaultValue>
-              {time.timezone}
-            </MenuItem>
-            <MenuItem value='US/Alaska'>Alaska</MenuItem>
-            <MenuItem value='US/Aleutian'>Aleutian</MenuItem>
-            <MenuItem value='US/Arizona'>Arizona</MenuItem>
-            <MenuItem value='US/Central'>Central</MenuItem>
-            <MenuItem value='US/East-Indiana'>East-Indiana</MenuItem>
-            <MenuItem value='US/Eastern'>Eastern</MenuItem>
-            <MenuItem value='US/Hawaii'>Hawaii</MenuItem>
-            <MenuItem value='US/Indiana-Starke'>Indiana-Starke</MenuItem>
-            <MenuItem value='US/Michigan'>Michigan</MenuItem>
-            <MenuItem value='US/Mountain'>Mountain</MenuItem>
-            <MenuItem value='US/Pacific'>Pacific</MenuItem>
-            <MenuItem value='US/Pacific-New'>Pacific-New</MenuItem>
-          </Select>
-        </div>
+        </Info>
+        <Label htmlFor='timezone'>Please select your time zone</Label>
+        <Select id='timezone' onChange={setTimezone} value={time.timezone}>
+          <option value={time.timezone} defaultValue>
+            {time.timezone}
+          </option>
+          <option value='US/Alaska'>Alaska</option>
+          <option value='US/Aleutian'>Aleutian</option>
+          <option value='US/Arizona'>Arizona</option>
+          <option value='US/Central'>Central</option>
+          <option value='US/East-Indiana'>East-Indiana</option>
+          <option value='US/Eastern'>Eastern</option>
+          <option value='US/Hawaii'>Hawaii</option>
+          <option value='US/Indiana-Starke'>Indiana-Starke</option>
+          <option value='US/Michigan'>Michigan</option>
+          <option value='US/Mountain'>Mountain</option>
+          <option value='US/Pacific'>Pacific</option>
+          <option value='US/Pacific-New'>Pacific-New</option>
+        </Select>
 
-        <div className='days'>
-          <Slider {...settings}>
+        <Days>
+          <CustomSlider {...settings}>
             {time.days.map((day, index) => (
               <Day
                 day={day}
@@ -194,11 +156,13 @@ const ScheduleFreeCall = ({ contactId, userId, frequency }) => {
                 current={[]}
               />
             ))}
-          </Slider>
-        </div>
-        <Button type='submit'>Submit</Button>
-      </form>
-    </Scheduler>
+          </CustomSlider>
+        </Days>
+        <Button type='button' onClick={handleSubmit}>
+          Submit
+        </Button>
+      </SingleSection>
+    </Container>
   );
 };
 
@@ -208,22 +172,3 @@ ScheduleFreeCall.propTypes = {
   frequency: PropTypes.string,
 };
 export default ScheduleFreeCall;
-// export default withStyles(styles)(ScheduleFreeCall);
-
-const Button = styled.button`
-  background-color: #636578;
-  width: 157px;
-  height: 43px;
-  border-radius: 5px;
-  color: #ffffff;
-  font-size: 16px;
-  transition: all 0.4s ease;
-  outline: 0;
-  &:hover {
-    background-color: #ffffff;
-    color: #636578;
-    border: 1px solid #636578;
-    cursor: pointer;
-    transition: all 0.4s ease;
-  }
-`;
