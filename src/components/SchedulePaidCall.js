@@ -12,7 +12,7 @@ import {
   H2,
   Info,
   Line,
-} from '../styles/Scheduler/index.js';
+} from '../styles/Scheduler/index';
 import { Button, Label, Select, Stripe } from '../styles/Form/index';
 import { db } from '../firebase';
 
@@ -156,7 +156,7 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
             <option value='Saturday'>Saturday</option>
           </Select>
           <Label htmlFor='selected_time'>
-            Select the time you'd like the call
+            Select the time you&apos;d like the call
           </Label>
           <Line>
             <Select value={time.hour} id='hour' onChange={handleChange}>
@@ -192,7 +192,7 @@ const SchedulePaidCall = ({ userId, contactId, frequency, user }) => {
               <option>PM</option>
             </Select>
           </Line>
-          <Label htmlFor='timezone'>What's your time zone?</Label>
+          <Label htmlFor='timezone'>What&apos;s your time zone?</Label>
           <Select id='timezone' value={time.timezone} onChange={handleChange}>
             <option>{time.timezone}</option>
             <option value='US/Alaska'>Alaska</option>

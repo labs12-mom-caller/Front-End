@@ -296,7 +296,6 @@ export const Scheduler = styled.div`
     font-weight: 600;
     width: 100%;
     white-space: nowrap;
-
     font-weight: 400;
     padding: 5px;
   }
@@ -353,7 +352,6 @@ export const Scheduler = styled.div`
     padding: 10px;
     border-radius: 10px;
     width: 100%;
-    // overscroll-behavior-y: none;
     transition: box-shadow 0.3s;
     width: 100%;
     border-radius: 6px;
