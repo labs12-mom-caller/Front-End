@@ -3,6 +3,7 @@ import bg from '../assets/images/womanOnPhone2.jpg';
 import arrow from '../assets/svg/arrow.svg';
 
 export const LandingPageWrapper = styled.div`
+width: 100%;
 
 *:focus {
     outline: none;
@@ -86,6 +87,12 @@ footer {
   @media (max-width: 465px) {
     justify-content: space-evenly;
   }
+  
+  @media (max-width: 440px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 #header h1 {
@@ -93,6 +100,10 @@ footer {
   margin: 2rem;
   align-self: flex-start;
   border: none;
+
+  @media (max-width: 440px) {
+    display: none;
+  }
 }
 
 #header h1 div {
@@ -107,8 +118,12 @@ footer {
   font-size: 2rem;
   background: none;
 
-  @media (max-width: 465px) {
+  @media (max-width: 525px) {
     padding: 1.5rem 0;
+  }
+
+  @media (max-width: 440px) {
+    display: none;
   }
 
   &:hover {
@@ -122,26 +137,22 @@ footer {
   justify-content: space-around;
   opacity: 0;
   margin: 1rem;
-  width: 25%;
+  width: 40rem;
+  font-size: 1.5rem;
 
-  @media (max-width: 465px) {
-    justify-content: space-evenly;
+  @media (max-width: 440px) {
+    margin-top: -2rem;
   }
   
-  @media (max-width: 737px) {
-    width: 46%;
+  @media (max-width: 525px) {
+    justify-content: space-evenly;
+    width: 100%;
   }
-
-
 
   button {
     background: none;
     border: none;
     padding: 1rem;
-
-    ${'' /* @media (max-width: 465px) {
-      padding: 5px;
-    } */}
   }
 
   .headerSignup {
@@ -220,6 +231,9 @@ footer {
 
 #banner .innerWords {
   margin-bottom: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #banner .inner {
@@ -317,11 +331,7 @@ footer {
 }
 
 #one .inner {
-  display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
 }
 
 .style1 {
@@ -355,7 +365,6 @@ footer {
   font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 800;
   letter-spacing: 1.5px;
-  ${'' /* text-transform: uppercase; */}
   padding: 2rem 3rem;
   font-size: 1.6rem;
   font-weight: normal;
@@ -370,13 +379,23 @@ footer {
   width: 100%;
   text-align: center;
   margin: 0 auto;
+  max-width: 50rem;
 }
 
 #two .inner {
-  display: flex;
   flex-direction: row-reverse;
-  justify-content: space-around;
-  flex-wrap: wrap;
+}
+
+#two .major {
+  margin-left: 7.3rem;
+
+  @media (max-width: 1090px) {
+    margin-left: 0;
+  }
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 }
 
 .style2 {
@@ -424,6 +443,7 @@ footer {
 .style2 img {
   width: 100%;
   margin: 0 auto;
+  max-width: 50rem;
 }
 
 .paidInfo div {
@@ -431,11 +451,9 @@ footer {
 }
 
 #three .inner {
-  display: flex;
   flex-direction: row-reverse;
-  justify-content: space-around;
-  flex-wrap: wrap;
   margin-bottom: 3rem;
+  
 
   button {
     &:hover {
@@ -496,6 +514,7 @@ footer {
   width: 100%;
   text-align: center;
   margin: 4rem auto;
+  max-width: 50rem;
 }
 
 .wrapper {
@@ -503,15 +522,18 @@ footer {
   z-index: 0;
   margin-bottom: 4rem;
 }
+
 .wrapper .major {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  max-width: 50rem;
 
   button {
     align-self: center;
   }
 }
+
 .wrapper h2 {
   font-size: 3rem;
   padding-bottom: 3rem;
@@ -519,5 +541,21 @@ footer {
 }
 .wrapper p {
   line-height: 1.5;
+}
+
+.inner {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.sectionImg {
+  text-align: center;
+}
+
+.main-section-wrapper {
+  max-width: 160rem;
+  margin: 0 auto;
 }
 `;

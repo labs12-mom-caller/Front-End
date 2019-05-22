@@ -54,6 +54,9 @@ const LandingPageMain = () => {
             </div>
           </h1>
           <div ref={headerButtons} className='headerButtons'>
+            <button type='button' onClick={() => navigate(`/about-us`)}>
+              About Us
+            </button>
             <button type='button' onClick={() => navigate(`/login`)}>
               Login
             </button>
@@ -97,104 +100,105 @@ const LandingPageMain = () => {
         </section>
 
         {/* One - What is the app section */}
-
-        <section id='one' className='wrapper style1'>
-          <div className='inner'>
-            <header className='major'>
-              <h2>
-                An Easier Way For You
-                <br />
-                to Stay Connected
-              </h2>
-              <p>
-                ReCaller allows you to schedule phone calls with the people you
-                care about.
-              </p>
-              <p>
-                Call recordings and transcripts enable you to always remember
-                important details.
-              </p>
-              <p>
-                Let us know who you want to call, tell us when, and stay
-                connected.
-              </p>
-            </header>
-            <div className='sectionImg'>
-              <img src={girlOnPhone} alt='phonecall' />
-            </div>
-          </div>
-        </section>
-
-        {/* Two - App features section */}
-
-        <section id='two' className='wrapper style2'>
-          <div className='inner'>
-            <header className='major'>
-              <h2>ReCaller Features</h2>
-              <p>Create a personal account for secure login</p>
-              <p>Unlimited contacts</p>
-              <p>Transcripts of all your conversations</p>
-              <p>Recordings of all phone calls</p>
-              <p>Recurring phone calls monthly/bi-weekly</p>
-            </header>
-            <ul className='sectionImg'>
-              <img src={phoneRecording} alt='phone recording' />
-            </ul>
-          </div>
-        </section>
-
-        {/* Free vs Paid */}
-        <section id='one' className='wrapper style1'>
-          <div className='inner'>
-            <header className='major paidInfo'>
-              <div>
-                <h2>Free</h2>
+        <div className='main-section-wrapper'>
+          <section id='one' className='wrapper style1'>
+            <div className='inner'>
+              <header className='major'>
+                <h2>
+                  An Easier Way For You
+                  <br />
+                  to Stay Connected
+                </h2>
                 <p>
-                  Calls last up to 10 minutes and are scheduled randomly within
-                  blocks of time that you choose.
+                  ReCaller allows you to schedule phone calls with the people
+                  you care about.
                 </p>
-              </div>
-              <div>
-                <h2>$2.50/month</h2>
                 <p>
-                  Calls last up to 30 minutes and you get to choose a specific
-                  day and time for phone calls to occur.
+                  Call recordings and transcripts enable you to always remember
+                  important details.
                 </p>
+                <p>
+                  Let us know who you want to call, tell us when, and stay
+                  connected.
+                </p>
+              </header>
+              <div className='sectionImg'>
+                <img src={girlOnPhone} alt='phonecall' />
               </div>
-            </header>
-            <div className='sectionImg'>
-              <img src={wallet} alt='wallet' />
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Three - Why you should use the app section */}
-        <section id='three' className='wrapper style3'>
-          <div className='inner'>
-            <header className='major'>
-              <h2>Stop Wasting Time</h2>
-              <p>
-                Spend less time worrying about making phone calls and more time
-                connecting.
-              </p>
-              <p>
-                Start calling the people you care about and reconnect with the
-                ones you love.
-              </p>
-              <button
-                type='button'
-                onClick={() => navigate(`/signup`)}
-                className='button primary'
-              >
-                Sign Up
-              </button>
-            </header>
+          {/* Two - App features section */}
 
-            <ul className='sectionImg'>
-              <img src={guyOnPhone} alt='guy on phone' />
-            </ul>
-          </div>
-        </section>
+          <section id='two' className='wrapper style2'>
+            <div className='inner'>
+              <header className='major'>
+                <h2>ReCaller Features</h2>
+                <p>Create a personal account for secure login</p>
+                <p>Unlimited contacts</p>
+                <p>Transcripts of all your conversations</p>
+                <p>Recordings of all phone calls</p>
+                <p>Recurring phone calls monthly/bi-weekly</p>
+              </header>
+              <ul className='sectionImg'>
+                <img src={phoneRecording} alt='phone recording' />
+              </ul>
+            </div>
+          </section>
+
+          {/* Free vs Paid */}
+          <section id='one' className='wrapper style1'>
+            <div className='inner'>
+              <header className='major paidInfo'>
+                <div>
+                  <h2>Free</h2>
+                  <p>
+                    Calls last up to 10 minutes and are scheduled randomly
+                    within blocks of time that you choose.
+                  </p>
+                </div>
+                <div>
+                  <h2>$2.50/month</h2>
+                  <p>
+                    Calls last up to 30 minutes and you get to choose a specific
+                    day and time for phone calls to occur.
+                  </p>
+                </div>
+              </header>
+              <div className='sectionImg'>
+                <img src={wallet} alt='wallet' />
+              </div>
+            </div>
+          </section>
+
+          {/* Three - Why you should use the app section */}
+          <section id='three' className='wrapper style3'>
+            <div className='inner'>
+              <header className='major'>
+                <h2>Stop Wasting Time</h2>
+                <p>
+                  Spend less time worrying about making phone calls and more
+                  time connecting.
+                </p>
+                <p>
+                  Start calling the people you care about and reconnect with the
+                  ones you love.
+                </p>
+                <button
+                  type='button'
+                  onClick={() => navigate(`/signup`)}
+                  className='button primary'
+                >
+                  Sign Up
+                </button>
+              </header>
+
+              <ul className='sectionImg'>
+                <img src={guyOnPhone} alt='guy on phone' />
+              </ul>
+            </div>
+          </section>
+        </div>
 
         <footer>
           <p> © {new Date().getFullYear()} ReCaller </p>

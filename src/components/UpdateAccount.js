@@ -6,6 +6,7 @@ import { db, storage, auth } from '../firebase';
 
 const useInputValue = initialValue => {
   const [value, setValue] = React.useState(initialValue);
+
   return {
     value,
     onChange: e => {
@@ -19,6 +20,9 @@ const UpdateAccount = ({ user }) => {
   const email = useInputValue(user.email);
   const newPassword = useInputValue('');
   const [imageInput, setImageInput] = useState(null);
+  const [uploaded, setUploaded] = useState(false);
+  const [updated, setUpdated] = useState(false);
+  const [error, setError] = useState(false);
 
   function fileUpload(e) {
     e.preventDefault();
@@ -37,15 +41,15 @@ const UpdateAccount = ({ user }) => {
       );
   }
 
+  // window.localStorage.setItem('photoUrl', JSON.stringify(photoURL));
+
   const uploadFile = e => {
-    e.preventDefault();
     const { files } = e.target;
     setImageInput(files[0]);
-    console.log(imageInput);
+    setUploaded(true);
   };
 
   const update = e => {
-    e.preventDefault();
     if (imageInput) {
       fileUpload(e);
     }
@@ -56,9 +60,7 @@ const UpdateAccount = ({ user }) => {
         phoneNumber: phoneNumber.value,
         email: email.value,
       })
-      .then(user => {
-        navigate(`/`);
-      });
+      .then(user => navigate('/'));
   };
 
   const passwordUpdate = async () => {
@@ -66,8 +68,10 @@ const UpdateAccount = ({ user }) => {
     try {
       await userOne.updatePassword(newPassword.value);
       console.log('successfully updated password');
+      setUpdated(true);
     } catch (error) {
       console.log('error updating password', error);
+      setError(true);
     }
   };
 
@@ -81,6 +85,14 @@ const UpdateAccount = ({ user }) => {
               Profile Picture
               <PictureFile onChange={uploadFile} type='file' />
             </InputLabel>
+            {uploaded ? (
+              <div className='uploaded-info'>
+                <i className='fas fa-check' />
+                <p>
+                  Click "Update Profile" button to finish updating profile image
+                </p>
+              </div>
+            ) : null}
             <div>
               <InputLabel htmlFor='displayName' style={{ marginTop: '25px' }}>
                 <br />
@@ -132,7 +144,21 @@ const UpdateAccount = ({ user }) => {
                   placeholder='enter your password'
                 />
               </InputLabel>
-
+              {updated ? (
+                <div className='uploaded-info'>
+                  <i className='fas fa-check' />
+                  <p>Updated successfully!</p>
+                </div>
+              ) : null}
+              {error ? (
+                <div className='uploaded-info'>
+                  <i className='fas fa-times' />
+                  <p>
+                    Error try again! If you signed in with google you cannont
+                    update password here.
+                  </p>
+                </div>
+              ) : null}
               <ButtonGroup>
                 <FormButton onClick={passwordUpdate} type='button'>
                   {' '}
@@ -172,6 +198,26 @@ const Wrapper = styled.div`
   }
   @media only screen and (max-width: 450px) {
     width: 90%;
+  }
+
+  .uploaded-info {
+    margin-top: 2rem;
+
+    .fa-times {
+      color: red;
+    }
+
+    i {
+      margin-left: 12rem;
+      margin-bottom: 1rem;
+      color: green;
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      text-align: center;
+    }
   }
 `;
 
