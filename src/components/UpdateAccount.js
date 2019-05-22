@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { db, storage, auth } from '../firebase';
 
+import { fetchUser } from '../app/utils';
+
 const useInputValue = initialValue => {
   const [value, setValue] = React.useState(initialValue);
 
@@ -24,24 +26,23 @@ const UpdateAccount = ({ user }) => {
   const [updated, setUpdated] = useState(false);
   const [error, setError] = useState(false);
 
-  function fileUpload(e) {
-    e.preventDefault();
-    storage
-      .ref()
-      .child('user-profiles')
-      .child(user.uid)
-      .child(imageInput.name)
-      .put(imageInput)
-      .then(response => response.ref.getDownloadURL())
-      .then(photoURL =>
-        db.doc(`users/${user.uid}`).set({
-          ...user,
-          photoUrl: photoURL,
-        }),
-      );
+  async function fileUpload(e) {
+    try {
+      e.preventDefault();
+      const response = await storage
+        .ref()
+        .child('user-profiles')
+        .child(user.uid)
+        .child(imageInput.name)
+        .put(imageInput);
+      const photoURL = await response.ref.getDownloadURL();
+      await db.doc(`users/${user.uid}`).update({
+        photoUrl: photoURL,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
-
-  // window.localStorage.setItem('photoUrl', JSON.stringify(photoURL));
 
   const uploadFile = e => {
     const { files } = e.target;
@@ -49,18 +50,18 @@ const UpdateAccount = ({ user }) => {
     setUploaded(true);
   };
 
-  const update = e => {
+  const update = async e => {
     if (imageInput) {
-      fileUpload(e);
+      await fileUpload(e);
     }
-    db.doc(`users/${user.uid}`)
-      .set({
-        ...user,
-        displayName: displayName.value,
-        phoneNumber: phoneNumber.value,
-        email: email.value,
-      })
-      .then(user => navigate('/'));
+    await db.doc(`users/${user.uid}`).update({
+      displayName: displayName.value,
+      phoneNumber: phoneNumber.value,
+      email: email.value,
+    });
+    const updatedUser = await fetchUser(user.uid);
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+    window.open('/', '_self');
   };
 
   const passwordUpdate = async () => {
@@ -89,7 +90,8 @@ const UpdateAccount = ({ user }) => {
               <div className='uploaded-info'>
                 <i className='fas fa-check' />
                 <p>
-                  Click "Update Profile" button to finish updating profile image
+                  Click &quot;Update Profile&quot; button to finish updating
+                  profile image
                 </p>
               </div>
             ) : null}
