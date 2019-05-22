@@ -21,6 +21,7 @@ import CallRecord from './components/dashboard/CallRecord';
 import ContactInfo from './components/dashboard/ContactInfo';
 import Billing from './components/dashboard/Billing';
 import UpdateContact from './components/scheduler/UpdateContact';
+import LandingFooter from './components/Landing/LandingFooter';
 import { fetchUser } from './app/utils';
 import Global from './styles/Global';
 
@@ -94,12 +95,15 @@ function App() {
   ) : (
     <>
       <Global />
-      <Router>
-        <LandingPageMain path='/' exact />
-        <AboutUs path='/about-us' />
-        <SignUp path='/signup' />
-        <Login path='/login' />
-      </Router>
+      <Wrapper>
+        <Router>
+          <LandingPageMain path='/' exact />
+          <AboutUs path='/about-us' />
+          <SignUp path='/signup' />
+          <Login path='/login' />
+        </Router>
+      </Wrapper>
+      <LandingFooter />
     </>
   );
 }
