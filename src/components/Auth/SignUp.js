@@ -7,13 +7,7 @@ import { signup } from '../../app/utils';
 import undrawAuthentication from '../../assets/svg/undrawAuthentication.svg';
 import { Form } from '../../styles/Form';
 import { Wrapper } from '../../styles/Login';
-import {
-  Container,
-  Section,
-  Img,
-  H2,
-  Info,
-} from '../../styles/Scheduler/index';
+import { Container, Section, Img, H2 } from '../../styles/Scheduler/index';
 import { firebase } from '../../firebase';
 import logo from '../../assets/images/icons8-google.svg';
 

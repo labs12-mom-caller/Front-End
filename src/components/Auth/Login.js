@@ -8,13 +8,7 @@ import { firebase } from '../../firebase';
 import logo from '../../assets/images/icons8-google.svg';
 import { Wrapper } from '../../styles/Login';
 import { Form } from '../../styles/Form';
-import {
-  Container,
-  Section,
-  Img,
-  H2,
-  Info,
-} from '../../styles/Scheduler/index';
+import { Container, Section, Img, H2 } from '../../styles/Scheduler/index';
 import loginSvg from '../../assets/svg/undrawLogin.svg';
 
 const Login = () => {
