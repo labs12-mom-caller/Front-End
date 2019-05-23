@@ -16,11 +16,6 @@ const Container = styled.main`
   &:hover {
     box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
   }
-  @media (max-width: 992px) {
-    &::first-child {
-      display: none;
-    }
-  }
 `;
 
 export default Container;
