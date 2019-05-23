@@ -48,13 +48,10 @@ export const Container = styled.div`
 `;
 
 export const Scheduler = styled.div`
-  width: 70%;
   padding: 2%;
   width: 95%;
-  /* padding: 10px; */
   margin: 0 auto;
   margin-bottom: 20px;
-  font-family: Roboto, helvetica;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -299,7 +296,6 @@ export const Scheduler = styled.div`
     font-weight: 600;
     width: 100%;
     white-space: nowrap;
-
     font-weight: 400;
     padding: 5px;
   }
@@ -356,7 +352,6 @@ export const Scheduler = styled.div`
     padding: 10px;
     border-radius: 10px;
     width: 100%;
-    // overscroll-behavior-y: none;
     transition: box-shadow 0.3s;
     width: 100%;
     border-radius: 6px;
