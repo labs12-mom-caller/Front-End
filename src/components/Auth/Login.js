@@ -55,7 +55,6 @@ const Login = () => {
   return (
     <Wrapper>
       <Header>
-        <h1>ReCaller</h1>
         <p>
           Sign in to review your previous calls or schedule calls with more
           people!

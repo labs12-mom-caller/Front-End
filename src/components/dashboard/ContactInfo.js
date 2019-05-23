@@ -1,14 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { navigate, Link } from '@reach/router';
+import { FaArrowLeft } from 'react-icons/fa';
 import { db } from '../../firebase';
 import { Card } from '../../styles/styledDefaultComponents/ContactInfo';
 import ScheduledBy from '../ContactInfo/ScheduledBy';
 import NextCall from '../ContactInfo/NextCall';
 import PreviousCallsWithContact from '../ContactInfo/PreviousCallsWithContact';
+import {
+  Aside,
+  Button,
+  H3,
+  Img,
+  P,
+  User,
+  UserInfo,
+} from '../../styles/UserCard';
 import Loading from '../Loading';
+import { formatPhoneNumber } from '../../app/utils';
 
 const ContactInfo = ({ contactId, user }) => {
+  const { displayName, photoUrl, uid } = user;
   const [contact, setContact] = useState({});
   const [calls, setCalls] = useState([]);
 
@@ -49,23 +62,54 @@ const ContactInfo = ({ contactId, user }) => {
   }, [contactId]);
 
   return contact.fetched ? (
-    <Container>
-      <ScheduledByContainer>
-        <Card>
-          <ScheduledBy contact={contact} user={user} />
-        </Card>
-      </ScheduledByContainer>
+    <GridContainer>
+      <Aside className='contact-info-user-card'>
+        <User>
+          <Link to={`/account/${user.uid}`}>
+            <Img src={photoUrl} alt={displayName} />
+          </Link>
+          <UserInfo>
+            <H3>{displayName}</H3>
+            <P>{user.phoneNumber && formatPhoneNumber(user.phoneNumber)}</P>
+            <P>{user.email}</P>
+            <Button
+              onClick={e => {
+                e.preventDefault();
+                navigate(`/choose/${uid}`);
+              }}
+            >
+              Add Call
+            </Button>
+            <Button onClick={() => navigate(`/billing/${uid}`)}>Billing</Button>
+            <Button type='button' onClick={() => navigate('/')}>
+              <FaArrowLeft className='arrow' /> Back Home
+            </Button>
+          </UserInfo>
+        </User>
+      </Aside>
 
-      <NextCallContainer>
-        <Card>
-          <NextCall contact={contact} />
-        </Card>
-      </NextCallContainer>
+      <Container>
+        <ScheduledByContainer>
+          <Card>
+            <ScheduledBy contact={contact} user={user} />
+          </Card>
+        </ScheduledByContainer>
 
-      <PreviousCallsWithContactContainer>
-        <PreviousCallsWithContact calls={calls} contact={contact} user={user} />
-      </PreviousCallsWithContactContainer>
-    </Container>
+        <NextCallContainer>
+          <Card>
+            <NextCall contact={contact} />
+          </Card>
+        </NextCallContainer>
+
+        <PreviousCallsWithContactContainer>
+          <PreviousCallsWithContact
+            calls={calls}
+            contact={contact}
+            user={user}
+          />
+        </PreviousCallsWithContactContainer>
+      </Container>
+    </GridContainer>
   ) : (
     <Loading />
   );
@@ -84,13 +128,37 @@ ContactInfo.propTypes = {
   }),
 };
 
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr;
+
+  @media (max-width: 1025px) {
+    grid-template-columns: 0fr;
+    grid-template-rows: 1fr 1fr;
+    width: 100%;
+    justify-items: center;
+  }
+
+  .contact-info-user-card {
+    @media (max-width: 1025px) {
+      grid-row: 1;
+      grid-column: 1 / 4;
+    }
+  }
+`;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   width: 100%;
   margin: 2rem auto;
-  font-family: Roboto, helvetica;
+  grid-row: 2 / -1;
+  grid-column: 2 / 4;
+
+  @media (max-width: 1025px) {
+    grid-row: 2;
+  }
 `;
 
 const ScheduledByContainer = styled.div`

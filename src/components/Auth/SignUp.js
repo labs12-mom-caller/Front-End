@@ -31,7 +31,6 @@ const SignUp = () => {
   return (
     <Wrapper>
       <Header>
-        <h1>ReCaller</h1>
         <div className='headerPs'>
           <p>
             Never forget to call your loved ones by creating a new ReCall, which
