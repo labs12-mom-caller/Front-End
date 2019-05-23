@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { navigate } from '@reach/router';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { FaCheck, FaTimes } from 'react-icons/fa';
 import { db, storage, auth } from '../firebase';
 
 import { fetchUser } from '../app/utils';
@@ -88,7 +88,7 @@ const UpdateAccount = ({ user }) => {
             </InputLabel>
             {uploaded ? (
               <div className='uploaded-info'>
-                <i className='fas fa-check' />
+                <FaCheck className='success' />
                 <p>
                   Click &quot;Update Profile&quot; button to finish updating
                   profile image
@@ -148,13 +148,13 @@ const UpdateAccount = ({ user }) => {
               </InputLabel>
               {updated ? (
                 <div className='uploaded-info'>
-                  <i className='fas fa-check' />
+                  <FaCheck className='success' />
                   <p>Updated successfully!</p>
                 </div>
               ) : null}
               {error ? (
                 <div className='uploaded-info'>
-                  <i className='fas fa-times' />
+                  <FaTimes className='error' />
                   <p>
                     Error try again! If you signed in with google you cannont
                     update password here.
@@ -205,11 +205,11 @@ const Wrapper = styled.div`
   .uploaded-info {
     margin-top: 2rem;
 
-    .fa-times {
+    .error {
       color: red;
     }
 
-    i {
+    .success {
       margin-left: 12rem;
       margin-bottom: 1rem;
       color: green;

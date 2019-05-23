@@ -32,10 +32,7 @@ const LandingPageMain = () => {
     return () => document.removeEventListener('scroll', scroll);
   }, []);
 
-  const { scrollNext, scrollBack, position, length } = useAutoScroll(
-    rootNode.current,
-    '.style1',
-  );
+  const { scrollNext, scrollBack } = useAutoScroll(rootNode.current, '.style1');
 
   return (
     <LandingPageWrapper ref={rootNode}>
