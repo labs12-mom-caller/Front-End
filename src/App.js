@@ -1,11 +1,9 @@
 import React from 'react';
 import { Router } from '@reach/router';
 import styled from 'styled-components';
-// import '@fortawesome/fontawesome-free/css/all.min.css';
+
 import { firebase, db } from './firebase';
-import Login from './components/Auth/Login';
 import LandingPageMain from './components/Landing';
-import SignUp from './components/Auth/SignUp';
 import NavBar from './components/NavBar';
 import DashMain from './components/DashMain';
 import Footer from './components/Footer';
@@ -22,7 +20,10 @@ import ContactInfo from './components/dashboard/ContactInfo';
 import Billing from './components/dashboard/Billing';
 import UpdateContact from './components/scheduler/UpdateContact';
 import LandingFooter from './components/Landing/LandingFooter';
+import Pre from './components/Landing/Pre';
+
 import { fetchUser } from './app/utils';
+
 import Global from './styles/Global';
 
 function useAuth() {
@@ -98,9 +99,7 @@ function App() {
       <Wrapper>
         <Router>
           <LandingPageMain path='/' exact />
-          <AboutUs path='/about-us' />
-          <SignUp path='/signup' />
-          <Login path='/login' />
+          <Pre path='/*' />
         </Router>
       </Wrapper>
       <LandingFooter />
