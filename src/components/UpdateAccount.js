@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { navigate } from '@reach/router';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { FaCheck, FaTimes } from 'react-icons/fa';
 import { db, storage, auth } from '../firebase';
 
 const useInputValue = initialValue => {
@@ -26,6 +27,7 @@ const UpdateAccount = ({ user }) => {
 
   function fileUpload(e) {
     e.preventDefault();
+    const currentUser = auth().currentUser;
     storage
       .ref()
       .child('user-profiles')
@@ -33,15 +35,22 @@ const UpdateAccount = ({ user }) => {
       .child(imageInput.name)
       .put(imageInput)
       .then(response => response.ref.getDownloadURL())
-      .then(photoURL =>
-        db.doc(`users/${user.uid}`).set({
-          ...user,
-          photoUrl: photoURL,
-        }),
-      );
+      .then(photoURL => {
+        currentUser
+          .updateProfile({
+            photoUrl: photoURL,
+          })
+          .then(res => console.log(res))
+          .catch(error => console.log(error));
+        db.doc(`users/${user.uid}`)
+          .update({
+            photoUrl: photoURL,
+          })
+          .then(updated => {
+            console.log(updated);
+          });
+      });
   }
-
-  // window.localStorage.setItem('photoUrl', JSON.stringify(photoURL));
 
   const uploadFile = e => {
     const { files } = e.target;
@@ -87,7 +96,7 @@ const UpdateAccount = ({ user }) => {
             </InputLabel>
             {uploaded ? (
               <div className='uploaded-info'>
-                <i className='fas fa-check' />
+                <FaCheck className='success' />
                 <p>
                   Click "Update Profile" button to finish updating profile image
                 </p>
@@ -146,13 +155,13 @@ const UpdateAccount = ({ user }) => {
               </InputLabel>
               {updated ? (
                 <div className='uploaded-info'>
-                  <i className='fas fa-check' />
+                  <FaCheck className='success' />
                   <p>Updated successfully!</p>
                 </div>
               ) : null}
               {error ? (
                 <div className='uploaded-info'>
-                  <i className='fas fa-times' />
+                  <FaTimes className='error' />
                   <p>
                     Error try again! If you signed in with google you cannont
                     update password here.
@@ -203,11 +212,11 @@ const Wrapper = styled.div`
   .uploaded-info {
     margin-top: 2rem;
 
-    .fa-times {
+    .error {
       color: red;
     }
 
-    i {
+    .success {
       margin-left: 12rem;
       margin-bottom: 1rem;
       color: green;

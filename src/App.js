@@ -1,7 +1,6 @@
 import React from 'react';
 import { Router } from '@reach/router';
 import styled from 'styled-components';
-import '@fortawesome/fontawesome-free/css/all.min.css';
 import { firebase, db } from './firebase';
 import Login from './components/Auth/Login';
 import LandingPageMain from './components/Landing';
