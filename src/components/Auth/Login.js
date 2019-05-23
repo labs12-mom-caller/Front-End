@@ -8,6 +8,14 @@ import { firebase } from '../../firebase';
 import logo from '../../assets/images/icons8-google.svg';
 import { Wrapper } from '../../styles/Login';
 import { Form } from '../../styles/Form';
+import {
+  Container,
+  Section,
+  Img,
+  H2,
+  Info,
+} from '../../styles/Scheduler/index';
+import loginSvg from '../../assets/svg/undrawLogin.svg';
 
 const Login = () => {
   const [email, setEmail] = useLocalStorageState('email', '');
@@ -53,64 +61,66 @@ const Login = () => {
   };
 
   return (
-    <Wrapper>
-      <Header>
-        <p>
-          Sign in to review your previous calls or schedule calls with more
-          people!
-        </p>
-      </Header>
-      <Form>
-        <label htmlFor='email' className='sr'>
-          Your E-mail Address
-        </label>
-        <input
-          style={{ width: '82%' }}
-          type='email'
-          id='email'
-          data-testid='email'
-          onChange={e => setEmail(e.target.value)}
-          value={email}
-          placeholder='Email Address'
-        />
-        <label htmlFor='password' className='sr'>
-          Your Password
-        </label>
-        <input
-          type='password'
-          id='password'
-          onChange={e => setPassword(e.target.value)}
-          value={password}
-          placeholder='Password'
-        />
-        <SignupButton type='button' onClick={handleSignIn}>
-          Sign In
-        </SignupButton>
-        <GoogleButton
-          type='button'
-          data-testid='button'
-          onClick={handleGoogleSignIn}
-        >
-          <img src={logo} alt='Google Logo' />
-          Sign In with Google
-        </GoogleButton>
-        <p>
-          Don&apos;t have an account?{' '}
-          <Link to='/signup' className='signInSpan'>
-            Sign Up
-          </Link>
-        </p>
-      </Form>
-      {authError && (
-        <div>
-          <p>Sorry, there was a problem</p>
+    <Container>
+      <Section className='signup-img'>
+        <Img src={loginSvg} alt='Woman looking at schedule' />
+      </Section>
+      <Wrapper>
+        <Header>
+          <H2>Login</H2>
+        </Header>
+        <Form>
+          <label htmlFor='email' className='sr'>
+            Your E-mail Address
+          </label>
+          <input
+            style={{ width: '82%' }}
+            type='email'
+            id='email'
+            data-testid='email'
+            onChange={e => setEmail(e.target.value)}
+            value={email}
+            placeholder='Email Address'
+          />
+          <label htmlFor='password' className='sr'>
+            Your Password
+          </label>
+          <input
+            type='password'
+            id='password'
+            onChange={e => setPassword(e.target.value)}
+            value={password}
+            placeholder='Password'
+          />
+          <SignupButton type='button' onClick={handleSignIn}>
+            Sign In
+          </SignupButton>
+          <GoogleButton
+            type='button'
+            data-testid='button'
+            onClick={handleGoogleSignIn}
+          >
+            <img src={logo} alt='Google Logo' />
+            Sign In with Google
+          </GoogleButton>
           <p>
-            <i>{authError.message}</i>
+            Don&apos;t have an account?{' '}
+            <Link to='/signup' className='signInSpan'>
+              Sign Up
+            </Link>
           </p>
-          <p>Please try again</p>
-        </div>
-      )}
-    </Wrapper>
+        </Form>
+        {authError && (
+          <div>
+            <p>Sorry, there was a problem</p>
+            <p>
+              <i>{authError.message}</i>
+            </p>
+            <p>Please try again</p>
+          </div>
+        )}
+      </Wrapper>
+    </Container>
   );
 };
 const GoogleButton = styled.button`

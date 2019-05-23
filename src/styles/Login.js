@@ -5,10 +5,14 @@ export const Wrapper = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 90%;
+  width: 60%;
   max-width: 800px;
   margin: 0 auto;
   font-family: 'Roboto', sans-serif;
+
+  @media (max-width: 410px) {
+    width: 100%;
+  }
 
   h1 {
     font-family: 'Pacifico', cursive;

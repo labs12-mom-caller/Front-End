@@ -45,6 +45,9 @@ export const Container = styled.div`
   @media (max-width: 600px) {
     min-height: 60%;
   }
+  .signup-img {
+    width: 90%;
+  }
 `;
 
 export const Scheduler = styled.div`

@@ -30,7 +30,11 @@ const ScheduledCall = ({ contact, user }) => {
                 : { visibility: 'hidden' }
             }
           >
-            <Link to={`/contact/${contact.id}/update`} state={{ contact }}>
+            <Link
+              className='update-call-link'
+              to={`/contact/${contact.id}/update`}
+              state={{ contact }}
+            >
               Update Call
             </Link>
           </div>
@@ -101,6 +105,16 @@ const Container = styled.div`
 
     .userTwoImage {
       margin-bottom: 3rem;
+    }
+  }
+
+  .update-call-link {
+    color: #083d77;
+    opacity: 0.75;
+
+    &:hover {
+      color: #ff6f61;
+      opacity: 1;
     }
   }
 `;
