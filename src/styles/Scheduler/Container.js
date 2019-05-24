@@ -16,6 +16,10 @@ const Container = styled.main`
   &:hover {
     box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
   }
+
+  .contact-header {
+    white-space: nowrap;
+  }
 `;
 
 export default Container;

@@ -7,7 +7,14 @@ import { signup } from '../../app/utils';
 import undrawAuthentication from '../../assets/svg/undrawAuthentication.svg';
 import { Form } from '../../styles/Form';
 import { Wrapper } from '../../styles/Login';
-import { Container, Section, Img, H2 } from '../../styles/Scheduler/index';
+import {
+  Container,
+  Section,
+  Img,
+  H2,
+  Info,
+  SectionLeft,
+} from '../../styles/Scheduler/index';
 import { firebase } from '../../firebase';
 import logo from '../../assets/images/icons8-google.svg';
 
@@ -31,8 +38,16 @@ const SignUp = () => {
 
   return (
     <Container>
-      <Section className='signup-img'>
-        <Img src={undrawAuthentication} alt='Woman looking at schedule' />
+      <Section>
+        <SectionLeft>
+          <Info>
+            Never forget to call your loved ones by creating a new ReCall, which
+            will automatically call both you and a person of your choosing, and
+            record the call for future review.
+          </Info>
+          <Info>Get started by letting us know your information.</Info>
+        </SectionLeft>
+        <Img src={undrawAuthentication} alt='woman signing in securely' />
       </Section>
       <Wrapper>
         <Header>

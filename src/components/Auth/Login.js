@@ -56,8 +56,8 @@ const Login = () => {
 
   return (
     <Container>
-      <Section className='signup-img'>
-        <Img src={loginSvg} alt='Woman looking at schedule' />
+      <Section>
+        <Img src={loginSvg} alt='Woman looking at phone' />
       </Section>
       <Wrapper>
         <Header>
