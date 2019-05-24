@@ -177,6 +177,7 @@ const Card = styled.div`
   }
   .read-more {
     margin-top: 1rem;
+    color: #ff6f61;
   }
 `;
 const DeepgramLink = styled.a`
