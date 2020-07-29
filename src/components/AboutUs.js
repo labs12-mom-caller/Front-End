@@ -143,14 +143,14 @@ const AboutUs = () => {
           </SocialButtons>
         </DevCard>
 
-        {/* Dylan Disler */}
+        {/* Dylan Dislers */}
         <DevCard>
           <DevImage
             src='https://avatars0.githubusercontent.com/u/43049713?s=460&v=4'
             alt='Profile'
           />
           <DevInfo>
-            <DevInfoTitle>Dylan Disler</DevInfoTitle>
+            <DevInfoTitle>Dylan Dislers</DevInfoTitle>
             <DevInfoDesc>Full Stack Web Student At LambdaSchool</DevInfoDesc>
           </DevInfo>
           <SocialButtons>
