@@ -232,7 +232,7 @@ Finally, an email is sent to both users on the call using the SendGrid API. This
 - [React Icons](https://react-icons.netlify.com/#/) - Icon Library
 - [React Loader Spinner](https://github.com/mhnpd/react-loader-spinner) - Loading animations
 - [React Slick](https://react-slick.neostack.com/) - Carousel for mobile view of free scheduler
-- [React Stripe Checkout](https://github.com/azmenak/react-stripe-checkout) - Process Stripe payments -[useAutoScroll](https://github.com/kamry-bowman/useAutoScroll) - Custom React Hook for scrolling on the Landing Page
+- [React Stripe Checkout](https://github.com/azmenak/react-stripe-checkout) - Process Stripe payments - [useAutoScroll](https://github.com/kamry-bowman/useAutoScroll) - Custom React Hook for scrolling on the Landing Page
 
 ## Testing
 
